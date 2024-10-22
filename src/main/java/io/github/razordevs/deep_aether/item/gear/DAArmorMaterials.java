@@ -26,7 +26,7 @@ public class DAArmorMaterials {
                 map.put(ArmorItem.Type.CHESTPLATE, 8);
                 map.put(ArmorItem.Type.HELMET, 3);
             }), 15, DASounds.ITEM_ARMOR_EQUIP_STRATUS, ()->Ingredient.of(DATags.Items.STRATUS_REPAIRING),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "stratus")), new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "stratus"), "_overlay", false)),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "stratus"))),
             1.5F, 0.15F
     ));
 
@@ -37,7 +37,7 @@ public class DAArmorMaterials {
                 map.put(ArmorItem.Type.CHESTPLATE, 8);
                 map.put(ArmorItem.Type.HELMET, 3);
             }), 10, DASounds.ITEM_ARMOR_EQUIP_STRATUS, ()->Ingredient.of(DATags.Items.STRATUS_REPAIRING),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "stormforged")), new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "stormforged"), "_overlay", false)),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "stormforged"))),
             1.5F, 0.15F
     ));
 
@@ -48,7 +48,7 @@ public class DAArmorMaterials {
                 map.put(ArmorItem.Type.CHESTPLATE, 8);
                 map.put(ArmorItem.Type.HELMET, 3);
             }), 10, DASounds.ITEM_ARMOR_EQUIP_SKYJADE, ()->Ingredient.of(DATags.Items.SKYJADE_REPAIRING),
-            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "skyjade")), new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "skyjade"), "_overlay", false)),
+            List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "skyjade"))),
             0.0F, 0.0F
     ));
 }

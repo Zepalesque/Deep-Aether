@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,7 +35,7 @@ public abstract class HumanoidArmorLayerMixin <T extends LivingEntity, M extends
             DAPlayerAttachment attachment = pLivingEntity.getData(DAAttachments.PLAYER.get());
             if (attachment.hasSkyjadeSet() && attachment.isSkyjadeAbilityActivated()) {
                 VertexConsumer vertexconsumer = buffer.getBuffer(RenderType.entityTranslucent(armorResource));
-                model.renderToBuffer(pose, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY);
+                model.renderToBuffer(pose, vertexconsumer, packedLight, OverlayTexture.NO_OVERLAY, FastColor.ARGB32.color(60, color));
             }
             else original.call(instance, pose, buffer, packedLight, model, color, armorResource);
         }

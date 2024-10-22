@@ -7,7 +7,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import io.github.razordevs.deep_aether.networking.attachment.DAAttachments;
 import io.github.razordevs.deep_aether.networking.attachment.DAPlayerAttachment;
-import io.github.razordevs.deep_aether.util.RendererUtil;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -15,6 +14,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.LivingEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,7 +33,7 @@ public abstract class LivingEntityRendererMixin <T extends LivingEntity, M exten
             DAPlayerAttachment attachment = pEntity.getData(DAAttachments.PLAYER.get());
             if (attachment.hasSkyjadeSet() && attachment.isSkyjadeAbilityActivated()) {
                 instance.renderToBuffer(poseStack, pBuffer.getBuffer(RenderType.entityTranslucent(this.getTextureLocation(pEntity))),
-                        pPackedLight, pPackedOverlay, RendererUtil.AddAlpha(color, 10));
+                        pPackedLight, pPackedOverlay, FastColor.ARGB32.color(60, color));
             }
             else original.call(instance, poseStack, vertexConsumer, pPackedLight, pPackedOverlay, color);
         }
