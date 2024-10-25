@@ -21,10 +21,10 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-//minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
-
 neoForge {
     version = project.neo_version
+
+    //accessTransformers = project.files('src/main/templates/accesstransformer.cfg')
 
     runs {
         configureEach {
@@ -61,6 +61,9 @@ neoForge {
     }
 }
 
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
 
 sourceSets.main.resources {
     srcDir 'src/generated/resources'
@@ -158,15 +161,24 @@ publishing {
     }
 }
 
+
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
     var replaceProperties = [
             mod_id                 : mod_id,
             mod_name               : mod_name,
             mod_version            : mod_version,
-            mc_version              : mc_version,
-            minecraft_version_range: minecraft_version_range,
+            mod_license            : mod_license,
+            mod_url                : mod_url,
+            mod_update             : mod_update,
+            mod_tracker            : mod_tracker,
+            mod_credits            : mod_credits,
+            mod_authors            : mod_authors,
+            mod_description        : mod_description,
+            mc_version             : mc_version,
+            mc_version_range       : mc_version_range,
             neo_version            : neo_version,
-            neo_version_range      : neo_version_range
+            neo_version_range      : neo_version_range,
+            loader_version_range   : loader_version_range
     ]
     inputs.properties replaceProperties
     expand replaceProperties
