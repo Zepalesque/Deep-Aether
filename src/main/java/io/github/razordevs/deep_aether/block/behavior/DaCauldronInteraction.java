@@ -3,6 +3,7 @@ package io.github.razordevs.deep_aether.block.behavior;
 import com.aetherteam.aether.item.AetherItems;
 import io.github.razordevs.deep_aether.init.DABlocks;
 import io.github.razordevs.deep_aether.init.DAItems;
+import it.unimi.dsi.fastutil.objects.Object2ObjectArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.cauldron.CauldronInteraction;
@@ -20,8 +21,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 
+import java.util.Map;
+
 public interface DaCauldronInteraction {
-    //Map<String, CauldronInteraction.InteractionMap> INTERACTIONS = new Object2ObjectArrayMap<>();
+    Map<String, CauldronInteraction.InteractionMap> INTERACTIONS = new Object2ObjectArrayMap<>();
     private static ItemInteractionResult emptySkyrootBucket(Level level, BlockPos pos, Player player, InteractionHand hand, ItemStack stack, BlockState state) {
         if (!level.isClientSide()) {
             Item item = stack.getItem();
@@ -44,7 +47,7 @@ public interface DaCauldronInteraction {
         Object2ObjectOpenHashMap<Item, CauldronInteraction> object2objectopenhashmap = new Object2ObjectOpenHashMap<>();
         object2objectopenhashmap.defaultReturnValue((p_175739_, p_175740_, p_175741_, p_175742_, p_175743_, p_175744_) -> ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION);
         CauldronInteraction.InteractionMap cauldroninteraction$interactionmap = new CauldronInteraction.InteractionMap(pName, object2objectopenhashmap);
-        //INTERACTIONS.put(pName, cauldroninteraction$interactionmap);
+        INTERACTIONS.put(pName, cauldroninteraction$interactionmap);
         return cauldroninteraction$interactionmap;
     }
     static void bootStrap() {

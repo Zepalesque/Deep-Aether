@@ -13,26 +13,22 @@ import io.wispforest.accessories.api.client.AccessoryRenderer;
 import io.wispforest.accessories.api.slot.SlotReference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.armortrim.ArmorTrim;
-import net.minecraft.world.item.component.DyedItemColor;
 
 public class SkyjadeGlovesRenderer extends GlovesRenderer {
     private final GlovesModel glovesModel;
@@ -70,8 +66,8 @@ public class SkyjadeGlovesRenderer extends GlovesRenderer {
             trimModel = playerModelAccessor.aether$getSlim() ? this.glovesTrimModelSlim : this.glovesTrimModel;
         }
 
-        this.align(stack, reference, model, poseStack);
-        this.align(stack, reference, trimModel, poseStack);
+        AccessoryRenderer.followBodyRotations(reference.entity(), model);
+        AccessoryRenderer.followBodyRotations(reference.entity(), trimModel);
 
         //Added code
         /*if(livingEntity.hasData(DAAttachments.PLAYER)) {
@@ -90,9 +86,9 @@ public class SkyjadeGlovesRenderer extends GlovesRenderer {
                 return;
             }
         }*/
-        
+
         VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.armorCutoutNoCull(texture));
-        model.renderToBuffer(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY);
+        model.renderToBuffer(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, -1);
 
         GlovesModel finalTrimModel = trimModel;
 
@@ -109,22 +105,22 @@ public class SkyjadeGlovesRenderer extends GlovesRenderer {
     }
 
     @Override
-    public <M extends LivingEntity> void align(ItemStack stack, SlotReference reference, EntityModel<M> model, PoseStack poseStack) {
-        if (model instanceof HumanoidModel<? extends LivingEntity> humanoidModel) {
-            AccessoryRenderer.followBodyRotations(reference.entity(), (HumanoidModel<LivingEntity>) humanoidModel);
+    public <M extends LivingEntity> void renderOnFirstPerson(HumanoidArm arm, ItemStack stack, SlotReference reference, PoseStack matrices, EntityModel<M> model, MultiBufferSource multiBufferSource, int light) {
+        LivingEntity livingEntity = reference.entity();
+        if (livingEntity instanceof AbstractClientPlayer player) {
+            this.renderFirstPerson(stack, matrices, multiBufferSource, light, player, arm);
         }
     }
+
     /**
      * Modified version of {@link GlovesRenderer#renderFirstPerson(ItemStack, PoseStack, MultiBufferSource, int, AbstractClientPlayer, HumanoidArm)}
      */
-    @Override
     public void renderFirstPerson(ItemStack stack, PoseStack poseStack, MultiBufferSource buffer, int packedLight, AbstractClientPlayer player, HumanoidArm arm) {
         GlovesModel model = this.glovesFirstPerson;
         GlovesModel trimModel = this.glovesTrimFirstPerson;
 
         GlovesItem glovesItem = (GlovesItem) stack.getItem();
-
-        int color = -1;
+        VertexConsumer consumer = buffer.getBuffer(RenderType.armorCutoutNoCull(glovesItem.getGlovesTexture()));
 
         model.setAllVisible(false);
         model.attackTime = 0.0F;
@@ -135,15 +131,26 @@ public class SkyjadeGlovesRenderer extends GlovesRenderer {
         ModelPart gloveArm = arm == HumanoidArm.RIGHT ? model.rightArm : model.leftArm;
         gloveArm.visible = true;
         gloveArm.xRot = 0.0F;
+
+        boolean isSlim = player.getSkin().model() == PlayerSkin.Model.SLIM;
+        boolean flag = arm != HumanoidArm.LEFT;
+        float f = flag ? 1.0F : -1.0F;
+        float offset = 0.0375F;
+        if (isSlim) {
+            offset = 0.0425F;
+        }
+        poseStack.translate((f * offset) - 0.0025, 0.0025, -0.0025);
+
         //Added code
-        /*if(player.hasData(DAAttachments.PLAYER)) {
+        if(player.hasData(DAAttachments.PLAYER)) {
             DAPlayerAttachment attachment = player.getData(DAAttachments.PLAYER);
-            VertexConsumer consumer = buffer.getBuffer(RenderType.entityTranslucent(glovesItem.getGlovesTexture(), true));
+            consumer = buffer.getBuffer(RenderType.entityTranslucent(glovesItem.getGlovesTexture(), true));
             if (attachment.isSkyjadeAbilityActivated() && attachment.hasSkyjadeSet()) {
                 poseStack.translate(0.0F,0.0F,-0.0001F); //Needed in order to avoid pixel collision
                 gloveArm.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
 
-                ArmorTrim.getTrim(player.level().registryAccess(), stack, true).ifPresent((trim) -> {
+                ArmorTrim trim = stack.get(DataComponents.TRIM);
+                if (trim != null) {
                     trimModel.setAllVisible(false);
                     trimModel.attackTime = 0.0F;
                     trimModel.crouching = false;
@@ -157,13 +164,12 @@ public class SkyjadeGlovesRenderer extends GlovesRenderer {
                     TextureAtlasSprite textureAtlasSprite = this.armorTrimAtlas.getSprite(trim.outerTexture(glovesItem.getMaterial()));
                     VertexConsumer trimConsumer = textureAtlasSprite.wrap(buffer.getBuffer(Sheets.armorTrimsSheet(trim.pattern().value().decal())));
                     gloveTrimArm.render(poseStack, trimConsumer, packedLight, OverlayTexture.NO_OVERLAY);
-                });
+                }
                 return;
             }
-        }*/
+        }
 
-        VertexConsumer consumer = buffer.getBuffer(RenderType.armorCutoutNoCull(glovesItem.getGlovesTexture()));
-        gloveArm.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY, color);
+        gloveArm.render(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY, -1);
 
         ArmorTrim trim = stack.get(DataComponents.TRIM);
         if (trim != null) {

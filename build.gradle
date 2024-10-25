@@ -1,11 +1,10 @@
-import net.neoforged.gradle.common.tasks.JarJar
 
 plugins {
     id 'java-library'
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle.userdev' version "${neogradle_version}"
+    id 'net.neoforged.moddev' version "${moddevgradle_version}"
     id 'io.github.0ffz.github-packages' version '[1,2)'
 }
 
@@ -22,30 +21,43 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
-minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
+//minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
 
-runs {
-    configureEach {
-        systemProperty 'forge.logging.markers', 'REGISTRIES'
-        systemProperty 'forge.logging.console.level', 'info'
+neoForge {
+    version = project.neo_version
 
-        modSource project.sourceSets.main
+    runs {
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.INFO
+        }
+
+        client {
+            client()
+            systemProperty 'forge.enabledGameTestNamespaces', mod_id
+        }
+
+        server {
+            server()
+            systemProperty 'forge.enabledGameTestNamespaces', mod_id
+            programArgument '--nogui'
+        }
+
+        gameTestServer {
+            type = "gameTestServer"
+            systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
+        }
+
+        data {
+            data()
+            programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing', file('src/generated/resources/').getAbsolutePath(), '--existing-mod', 'nitrogen_internals', '--existing-mod', 'cumulus_menus'
+        }
     }
 
-    client {
-        systemProperty 'forge.enabledGameTestNamespaces', mod_id
-    }
-
-    server {
-        systemProperty 'forge.enabledGameTestNamespaces', mod_id
-        programArgument '--nogui'
-    }
-
-    gameTestServer {
-        systemProperty 'neoforge.enabledGameTestNamespaces', mod_id
-    }
-    data {
-        programArguments.addAll '--mod', mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing-mod', 'aether'
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
     }
 }
 
@@ -89,8 +101,6 @@ repositories {
 }
 
 dependencies {
-    implementation "net.neoforged:neoforge:${neo_version}"
-
     //Dependencies
     //implementation("com.aetherteam.aether:aether:${project.aether_version}")
     implementation("local:aether:${project.aether_version}")
@@ -102,20 +112,30 @@ dependencies {
 
     implementation("local:aeroblender:${project.aeroblender_version}")
     jarJar("local:aeroblender:${project.aeroblender_version}") {
-        jarJar.ranged(it, "[1.21-1.0.0-neoforge,)")
+        version {
+            strictly "[${project.aeroblender_version},)"
+            prefer "${project.aeroblender_version}"
+        }
     }
     jarJar("com.github.glitchfiend:TerraBlender-neoforge:${project.terrablender_version}") {
-        jarJar.ranged(it, "[${project.terrablender_version},)")
+        version {
+            strictly "[${project.terrablender_version},)"
+            prefer "${project.terrablender_version}"
+        }
     }
 
     jarJar("com.aetherteam.nitrogen:nitrogen_internals:${project.nitrogen_version}") {
-        jarJar.ranged(it, "[${project.nitrogen_version},)")
-        jarJar.pin(it, "${project.nitrogen_version}")
+        version {
+            strictly "[${project.nitrogen_version},)"
+            prefer "${project.nitrogen_version}"
+        }
     }
 
     jarJar("io.wispforest:accessories-neoforge:${project.accessories_version}+${project.mc_version}") {
-        jarJar.ranged(it, "[${project.accessories_version}+${project.mc_version},)")
-        jarJar.pin(it, "${project.accessories_version}+${project.mc_version}")
+        version {
+            strictly "[${project.accessories_version}+${project.mc_version},)"
+            prefer "${project.accessories_version}+${project.mc_version}"
+        }
     }
 
     compileOnly "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
@@ -138,17 +158,27 @@ publishing {
     }
 }
 
+var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
+    var replaceProperties = [
+            mod_id                 : mod_id,
+            mod_name               : mod_name,
+            mod_version            : mod_version,
+            mc_version              : mc_version,
+            minecraft_version_range: minecraft_version_range,
+            neo_version            : neo_version,
+            neo_version_range      : neo_version_range
+    ]
+    inputs.properties replaceProperties
+    expand replaceProperties
+    from "src/main/templates"
+    into "build/generated/sources/modMetadata"
+}
+sourceSets.main.resources.srcDir generateModMetadata
+neoForge.ideSyncTask generateModMetadata
+
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
     options.compilerArgs << "-Xmaxerrs" << "9000"
-}
-
-tasks.named('jar', Jar).configure {
-    archiveClassifier = 'no-embeds'
-}
-
-tasks.named('jarJar', JarJar).configure {
-    archiveClassifier = ''
 }
 
 tasks.register('sourceJar', Jar) {
