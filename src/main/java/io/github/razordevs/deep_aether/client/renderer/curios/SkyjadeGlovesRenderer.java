@@ -68,8 +68,8 @@ public class SkyjadeGlovesRenderer extends GlovesRenderer {
             trimModel = playerModelAccessor.aether$getSlim() ? this.glovesTrimModelSlim : this.glovesTrimModel;
         }
 
-        this.align(stack, reference, model, poseStack);
-        this.align(stack, reference, trimModel, poseStack);
+        AccessoryRenderer.followBodyRotations(reference.entity(), model);
+        AccessoryRenderer.followBodyRotations(reference.entity(), trimModel);
 
         VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.armorCutoutNoCull(texture));
         int color = -1;
@@ -98,12 +98,6 @@ public class SkyjadeGlovesRenderer extends GlovesRenderer {
         }
     }
 
-    @Override
-    public <M extends LivingEntity> void align(ItemStack stack, SlotReference reference, EntityModel<M> model, PoseStack poseStack) {
-        if (model instanceof HumanoidModel<? extends LivingEntity> humanoidModel) {
-            AccessoryRenderer.followBodyRotations(reference.entity(), (HumanoidModel<LivingEntity>) humanoidModel);
-        }
-    }
     /**
      * Modified version of {@link GlovesRenderer#renderFirstPerson(ItemStack, PoseStack, MultiBufferSource, int, AbstractClientPlayer, HumanoidArm)}
      */

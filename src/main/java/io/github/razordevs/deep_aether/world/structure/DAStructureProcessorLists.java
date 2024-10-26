@@ -1,5 +1,7 @@
 package io.github.razordevs.deep_aether.world.structure;
 
+import com.aetherteam.aether.world.processor.BossRoomProcessor;
+import com.aetherteam.aether.world.processor.DoubleDropsProcessor;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.world.structure.brass.BrassDungeonPiece;
 import net.minecraft.core.registries.Registries;

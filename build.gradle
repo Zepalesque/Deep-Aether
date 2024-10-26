@@ -24,8 +24,6 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 neoForge {
     version = project.neo_version
 
-    //accessTransformers = project.files('src/main/templates/accesstransformer.cfg')
-
     runs {
         configureEach {
             systemProperty 'forge.logging.markers', 'REGISTRIES'

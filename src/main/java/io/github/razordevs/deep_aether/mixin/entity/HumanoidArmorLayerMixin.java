@@ -29,7 +29,7 @@ public abstract class HumanoidArmorLayerMixin <T extends LivingEntity, M extends
         super(pRenderer);
     }
 
-    @WrapOperation(method = "renderArmorPiece", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;renderModel(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/model/Model;ILnet/minecraft/resources/ResourceLocation;)V"))
+    @WrapOperation(method = "renderArmorPiece(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/LivingEntity;Lnet/minecraft/world/entity/EquipmentSlot;ILnet/minecraft/client/model/HumanoidModel;FFFFFF)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;renderModel(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/client/model/Model;ILnet/minecraft/resources/ResourceLocation;)V"))
     private void renderModel(HumanoidArmorLayer<T, M, A> instance, PoseStack pose, MultiBufferSource buffer, int packedLight, Model model, int color, ResourceLocation armorResource, Operation<Void> original, @Local(argsOnly = true) T pLivingEntity) {
         if(!pLivingEntity.isInvisible() && pLivingEntity.hasData(DAAttachments.PLAYER)) {
             DAPlayerAttachment attachment = pLivingEntity.getData(DAAttachments.PLAYER.get());
