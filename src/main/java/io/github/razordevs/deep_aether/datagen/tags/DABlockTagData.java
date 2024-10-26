@@ -275,6 +275,12 @@ public class DABlockTagData extends BlockTagsProvider {
                 DABlocks.RAIN_AERCLOUD.get()
         );
 
+        tag(DATags.Blocks.TOTEMS).add(
+                DABlocks.MOA_TOTEM.get(),
+                DABlocks.ZEPHYR_TOTEM.get(),
+                DABlocks.AERWHALE_TOTEM.get()
+        );
+
         tag(BlockTags.NEEDS_STONE_TOOL).add(
                 DABlocks.NIMBUS_STONE.get(),
                 DABlocks.LIGHT_NIMBUS_STONE.get(),

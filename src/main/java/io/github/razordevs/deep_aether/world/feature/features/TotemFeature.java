@@ -2,6 +2,7 @@ package io.github.razordevs.deep_aether.world.feature.features;
 
 import com.aetherteam.aether.block.AetherBlocks;
 import com.mojang.serialization.Codec;
+import io.github.razordevs.deep_aether.datagen.tags.DATags;
 import io.github.razordevs.deep_aether.init.DABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -30,7 +31,7 @@ public class TotemFeature extends Feature<NoneFeatureConfiguration> {
         RandomSource rand = context.random();
         BlockPos pos = context.origin();
 
-        //Length of the fallen log
+        //Height of the totem
         int height = rand.nextInt(2, 4);
 
         //Chooses a random direction
@@ -44,7 +45,8 @@ public class TotemFeature extends Feature<NoneFeatureConfiguration> {
         for (int i = 0; i < height; i++) {
             if(canPlace(reader, pos)) {
                 //Places the blocks
-                this.setBlock(reader, pos, getRandomBlock(rand, false).defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
+                System.out.println(pos.getX() + " " + pos.getY() + " " + pos.getZ());
+                this.setBlock(reader, pos, getRandomTotem(rand, false).defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
                 pos = pos.above();
             }
         }
@@ -55,10 +57,10 @@ public class TotemFeature extends Feature<NoneFeatureConfiguration> {
     public boolean canPlace(LevelReader reader, BlockPos pos) {
         BlockState state = reader.getBlockState(pos);
         BlockState below = reader.getBlockState(pos.below());
-        return (reader.isEmptyBlock(pos) || state.is(BlockTags.LEAVES) || state.canBeReplaced() || !state.isCollisionShapeFullBlock(reader, pos)) && below.is(AetherBlocks.AETHER_GRASS_BLOCK);
+        return (reader.isEmptyBlock(pos) || state.is(BlockTags.LEAVES) || state.canBeReplaced() || !state.isCollisionShapeFullBlock(reader, pos)) && (below.is(AetherBlocks.AETHER_GRASS_BLOCK) || below.is(DATags.Blocks.TOTEMS));
     }
 
-    public Block getRandomBlock(RandomSource random, boolean log){
+    public Block getRandomTotem(RandomSource random, boolean log){
         return switch(randomNonRepeatedInteger(random, 4)){
             case 0 -> DABlocks.MOA_TOTEM.get();
             case 1 -> DABlocks.ZEPHYR_TOTEM.get();

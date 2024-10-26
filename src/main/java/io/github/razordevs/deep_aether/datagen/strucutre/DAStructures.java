@@ -1,7 +1,6 @@
 package io.github.razordevs.deep_aether.datagen.strucutre;
 
 import com.aetherteam.aether.data.resources.builders.AetherStructureBuilders;
-import com.aetherteam.aether.data.resources.registries.AetherStructureProcessorLists;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.datagen.tags.DATags;
 import io.github.razordevs.deep_aether.world.structure.DAStructureProcessorLists;
@@ -19,6 +18,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSpawnOverride;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
+import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
 import java.util.Arrays;
@@ -26,9 +26,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class DAStructures {
-    //TODO: fix Sacred Lands Structures spawning at bottom Y
-
     public static final ResourceKey<Structure> BRASS_DUNGEON = createKey("brass_dungeon");
+    public static final ResourceKey<Structure> ALTAR_CAMP = createKey("altar_camp");
+    public static final ResourceKey<Structure> CAMPFIRE = createKey("campfire");
+    public static final ResourceKey<Structure> COMBINER_CORRIDOR = createKey("combiner_corridor");
 
     private static ResourceKey<Structure> createKey(String name) {
         return ResourceKey.create(Registries.STRUCTURE, ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, name));
@@ -42,6 +43,7 @@ public class DAStructures {
                 .collect(Collectors.toMap((category) -> category, (category) -> new StructureSpawnOverride(StructureSpawnOverride.BoundingBoxType.PIECE, WeightedRandomList.create())));
 
         HolderGetter<StructureProcessorList> processors = context.lookup(Registries.PROCESSOR_LIST);
+        HolderGetter<StructureTemplatePool> templatePools = context.lookup(Registries.TEMPLATE_POOL);
 
         HolderGetter<Biome> biomes = context.lookup(Registries.BIOME);
         context.register(BRASS_DUNGEON, new BrassDungeonStructure(AetherStructureBuilders.structure(
@@ -50,5 +52,18 @@ public class DAStructures {
                 GenerationStep.Decoration.SURFACE_STRUCTURES,
                 TerrainAdjustment.NONE),
                  184, 5, new BrassProcessorSettings(processors.getOrThrow(DAStructureProcessorLists.BRASS_BOSS_ROOM), processors.getOrThrow(DAStructureProcessorLists.BRASS_ROOM))));
+
+        /*
+        context.register(ALTAR_CAMP, new DAJigsawStructure(AetherStructureBuilders.structure(
+                biomes.getOrThrow(DATags.Biomes.CAN_QUAIL_SPAWN),
+                GenerationStep.Decoration.SURFACE_STRUCTURES,
+                TerrainAdjustment.BEARD_THIN),
+                templatePools.getOrThrow(AltarCampPool.OUTPOST),
+                Optional.empty(), 10, ConstantHeight.of(VerticalAnchor.absolute(0)),
+                Optional.of(Heightmap.Types.WORLD_SURFACE_WG), 32, 128, 256, List.of(),
+                DimensionPadding.ZERO, LiquidSettings.IGNORE_WATERLOGGING));
+        )))
+
+         */
     }
 }

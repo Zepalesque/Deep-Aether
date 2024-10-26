@@ -36,6 +36,8 @@
     "absolute": 0
   },
 
+  "liquid_settings": "ignore_waterlogging",
+
   // Makes our house snap to top land to spawn at. WORLD_SURFACE_WG will stop at first non-air block.
   // To get top land at even the bottom of oceans, use OCEAN_FLOOR_WG.
   // If no projection desired, remove this field entirely.

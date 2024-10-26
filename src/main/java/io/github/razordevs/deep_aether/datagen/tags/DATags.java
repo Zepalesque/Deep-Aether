@@ -46,6 +46,7 @@ public class DATags {
         public static final TagKey<Block> CAN_GOLDEN_VINES_SURVIVE_ON = tag("can_golden_vines_survive_on");
         public static final TagKey<Block> NIMBUS_BLOCKS = tag("nimbus_blocks");
         public static final TagKey<Block> STERLING_AERCLOUD_REPLACEABLE = tag("sterling_aercloud_replaceable");
+        public static final TagKey<Block> TOTEMS = tag("totems");
 
         private static TagKey<Block> tag(String name) {
             return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, name));

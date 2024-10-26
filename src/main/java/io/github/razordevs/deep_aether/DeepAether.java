@@ -13,7 +13,6 @@ import io.github.razordevs.deep_aether.datagen.loot.DALootTableData;
 import io.github.razordevs.deep_aether.datagen.loot.modifiers.DAGlobalLootModifiers;
 import io.github.razordevs.deep_aether.datagen.loot.modifiers.DALootDataProvider;
 import io.github.razordevs.deep_aether.datagen.tags.*;
-import io.github.razordevs.deep_aether.datagen.DARegistryDataGenerator;
 import io.github.razordevs.deep_aether.event.DAGeneralEvents;
 import io.github.razordevs.deep_aether.fluids.DAFluidTypes;
 import io.github.razordevs.deep_aether.init.*;
@@ -84,8 +83,6 @@ public class DeepAether {
 	//TODO: add it_lang translation
 	//TODO: add se_lang translation
 	//TODO: clean up code
-	//TODO: Custom plants are solid
-	//TODO: Some grass have rendering issues
 	//TODO: Continue Sacred Lands Testing
 
 	public static final Logger LOGGER = LogUtils.getLogger();
@@ -214,7 +211,7 @@ public class DeepAether {
 		this.getFlawlessBossDrop(AetherEntityTypes.SUN_SPIRIT.get(), DeepAetherConfig.COMMON.sun_spirit_flawless_boss_drop.get(), DAItems.SUN_CORE.get());
 		this.getFlawlessBossDrop(DAEntities.EOTS_CONTROLLER.get(), DeepAetherConfig.COMMON.eots_flawless_boss_drop.get(), DAItems.FLOATY_SCARF.get());
 
-		if(ModList.get().isLoaded(DeepAether.LOST_AETHER_CONTENT)){}
+		//if(ModList.get().isLoaded(DeepAether.LOST_AETHER_CONTENT)){}
 			//this.getFlawlessBossDrop(LCEntityTypes.AERWHALE_KING, DeepAetherConfig.COMMON.aerwhale_king_flawless_boss_drop.get(), DAItems.AERWHALE_SADDLE.get());
 	}
 

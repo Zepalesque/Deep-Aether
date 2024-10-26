@@ -87,7 +87,7 @@ public abstract class AbstractBrassRoom extends BrassDungeonPiece {
             switch (name) {
                 case "Brass Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_LOOT);
                 case "Library Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_LOOT); //Fix later
-                case "Combinder Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_LOOT); //Fix later
+                case "Combiner Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_LOOT); //Fix later
                 case "Infested Chest Up" -> {
                     BlockPos chest = pos.above();
                     BlockEntity entity = level.getBlockEntity(chest);
