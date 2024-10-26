@@ -13,7 +13,8 @@
     "entity/MoaMixin",
     "block/PowderedSnowMixin",
     "TriviaGeneratorMixin",
-    "block/LavaFluidMixin"
+    "block/LavaFluidMixin",
+    "SurfaceRuleProcessorMixin"
   ],
   "client": [
     "entity/AerwhaleModelMixin",
