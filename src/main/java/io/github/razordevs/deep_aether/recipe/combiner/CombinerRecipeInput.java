@@ -5,7 +5,7 @@ import net.minecraft.world.item.crafting.RecipeInput;
 
 import java.util.List;
 
-public record CombinderRecipeInput(List<ItemStack> items) implements RecipeInput {
+public record CombinerRecipeInput(List<ItemStack> items) implements RecipeInput {
 
     @Override
     public List<ItemStack> items() {

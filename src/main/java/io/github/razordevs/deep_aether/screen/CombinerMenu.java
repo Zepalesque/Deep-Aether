@@ -3,8 +3,8 @@ package io.github.razordevs.deep_aether.screen;
 import io.github.razordevs.deep_aether.init.DAMenuTypes;
 import io.github.razordevs.deep_aether.init.DARecipeBookTypes;
 import io.github.razordevs.deep_aether.recipe.DARecipeTypes;
-import io.github.razordevs.deep_aether.recipe.combiner.CombinderRecipeInput;
 import io.github.razordevs.deep_aether.recipe.combiner.CombinerRecipe;
+import io.github.razordevs.deep_aether.recipe.combiner.CombinerRecipeInput;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
@@ -17,7 +17,7 @@ import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
-public class CombinerMenu extends RecipeBookMenu<CombinderRecipeInput, CombinerRecipe> {
+public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRecipe> {
     private final Level level;
     private final ContainerData data;
     private final Container container;
@@ -149,7 +149,7 @@ public class CombinerMenu extends RecipeBookMenu<CombinderRecipeInput, CombinerR
         for (int i = 0; i < 3; i++) {
             stacks.add(container.getItem(i));
         }
-        return recipeHolder.value().matches(new CombinderRecipeInput(stacks), this.level);
+        return recipeHolder.value().matches(new CombinerRecipeInput(stacks), this.level);
     }
 
     @Override

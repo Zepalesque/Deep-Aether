@@ -12,13 +12,16 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Recipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CombinerRecipe implements Recipe<CombinderRecipeInput> {
+public class CombinerRecipe implements Recipe<CombinerRecipeInput> {
 
     private final String group;
     private final DABookCategory category;
@@ -33,7 +36,7 @@ public class CombinerRecipe implements Recipe<CombinderRecipeInput> {
     }
 
     @Override
-    public boolean matches(CombinderRecipeInput input, Level pLevel) {
+    public boolean matches(CombinerRecipeInput input, Level pLevel) {
         return inputItems.get(0).test(input.items().getFirst())
                 && inputItems.get(1).test(input.items().get(1))
                 && inputItems.get(2).test(input.items().get(2));
@@ -59,7 +62,7 @@ public class CombinerRecipe implements Recipe<CombinderRecipeInput> {
     }
 
     @Override
-    public ItemStack assemble(CombinderRecipeInput input, HolderLookup.Provider registries) {
+    public ItemStack assemble(CombinerRecipeInput input, HolderLookup.Provider registries) {
         return output.copy();
     }
 
