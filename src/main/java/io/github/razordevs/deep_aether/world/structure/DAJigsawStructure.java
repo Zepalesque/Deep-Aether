@@ -12,10 +12,13 @@ import net.minecraft.world.level.levelgen.WorldGenerationContext;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.pools.DimensionPadding;
 import net.minecraft.world.level.levelgen.structure.pools.JigsawPlacement;
 import net.minecraft.world.level.levelgen.structure.pools.StructureTemplatePool;
 import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasBinding;
 import net.minecraft.world.level.levelgen.structure.pools.alias.PoolAliasLookup;
+import net.minecraft.world.level.levelgen.structure.structures.JigsawStructure;
+import net.minecraft.world.level.levelgen.structure.templatesystem.LiquidSettings;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +35,12 @@ public class DAJigsawStructure extends Structure {
                     Codec.intRange(1, 128).fieldOf("max_distance_from_center").forGetter(structure -> structure.maxDistanceFromCenter),
                     Codec.intRange(-4096, 4096).fieldOf("discard_below_y").forGetter(structure -> structure.discardBelowY),
                     Codec.intRange(-4096, 4096).fieldOf("discard_above_y").forGetter(structure -> structure.discardAboveY),
-                    Codec.list(PoolAliasBinding.CODEC).optionalFieldOf("pool_aliases", List.of()).forGetter(structure -> structure.poolAliases)
+                    Codec.list(PoolAliasBinding.CODEC).optionalFieldOf("pool_aliases", List.of()).forGetter(structure -> structure.poolAliases),
+                    DimensionPadding.CODEC
+                            .optionalFieldOf("dimension_padding", JigsawStructure.DEFAULT_DIMENSION_PADDING)
+                            .forGetter(p_348455_ -> p_348455_.dimensionPadding),
+                    LiquidSettings.CODEC.optionalFieldOf("liquid_settings", JigsawStructure.DEFAULT_LIQUID_SETTINGS).forGetter(p_352036_ -> p_352036_.liquidSettings)
+
             ).apply(instance, DAJigsawStructure::new));
 
     private final Holder<StructureTemplatePool> startPool;
@@ -44,10 +52,14 @@ public class DAJigsawStructure extends Structure {
     private final int discardBelowY;
     private final int discardAboveY;
     private final List<PoolAliasBinding> poolAliases;
+    private final DimensionPadding dimensionPadding;
+    private final LiquidSettings liquidSettings;
 
     protected DAJigsawStructure(StructureSettings config, Holder<StructureTemplatePool> startPool, Optional<ResourceLocation> startJigsawName,
                                 int size, HeightProvider startHeight, Optional<Heightmap.Types> projectStartToHeightmap,
-                                int maxDistanceFromCenter, int discardBelowY, int discardAboveY, List<PoolAliasBinding> poolAliases) {
+                                int maxDistanceFromCenter, int discardBelowY, int discardAboveY, List<PoolAliasBinding> poolAliases,
+                                DimensionPadding dimensionPadding,
+                                LiquidSettings liquidSettings) {
         super(config);
         this.startPool = startPool;
         this.startJigsawName = startJigsawName;
@@ -58,6 +70,8 @@ public class DAJigsawStructure extends Structure {
         this.discardBelowY = discardBelowY;
         this.discardAboveY = discardAboveY;
         this.poolAliases = poolAliases;
+        this.dimensionPadding = dimensionPadding;
+        this.liquidSettings = liquidSettings;
     }
 
     @Override
@@ -68,8 +82,7 @@ public class DAJigsawStructure extends Structure {
         int startY = startHeight.sample(context.random(), new WorldGenerationContext(context.chunkGenerator(), context.heightAccessor()));
         ChunkPos chunkPos = context.chunkPos();
         BlockPos pos = new BlockPos(chunkPos.getMiddleBlockX(), startY, chunkPos.getMiddleBlockZ());
-        //TODO: FIX THIS
-        return null;/* JigsawPlacement.addPieces(
+        return JigsawPlacement.addPieces(
                 context,
                 startPool,
                 startJigsawName,
@@ -78,8 +91,10 @@ public class DAJigsawStructure extends Structure {
                 false,
                 projectStartToHeightmap,
                 maxDistanceFromCenter,
-                PoolAliasLookup.create(poolAliases, pos, context.seed())
-        );*/
+                PoolAliasLookup.create(poolAliases, pos, context.seed()),
+                dimensionPadding,
+                liquidSettings
+        );
     }
 
     @Override

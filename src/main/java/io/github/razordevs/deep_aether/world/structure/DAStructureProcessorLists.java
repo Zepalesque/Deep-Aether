@@ -1,17 +1,11 @@
 package io.github.razordevs.deep_aether.world.structure;
 
-import com.aetherteam.aether.world.processor.*;
-import com.aetherteam.aether.world.structurepiece.bronzedungeon.BronzeDungeonPiece;
-import com.aetherteam.aether.world.structurepiece.golddungeon.GoldDungeonPiece;
-import com.aetherteam.aether.world.structurepiece.silverdungeon.SilverDungeonPiece;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.world.structure.brass.BrassDungeonPiece;
-import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.structure.templatesystem.AxisAlignedLinearPosTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
