@@ -1,26 +1,26 @@
 package io.github.razordevs.deep_aether.event;
 
-import com.aetherteam.aether.Aether;
 import com.aetherteam.aether.client.renderer.accessory.GlovesRenderer;
 import com.aetherteam.aether.client.renderer.accessory.PendantRenderer;
 import com.aetherteam.aether.inventory.menu.LoreBookMenu;
+import com.mojang.blaze3d.shaders.FogShape;
+import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.client.renderer.curios.SkyjadeGlovesRenderer;
 import io.github.razordevs.deep_aether.custom.EOTSExplosionParticle;
 import io.github.razordevs.deep_aether.custom.EOTSPreFightParticle;
 import io.github.razordevs.deep_aether.custom.MysticalParticle;
 import io.github.razordevs.deep_aether.custom.PoisonBubbles;
+import io.github.razordevs.deep_aether.fluids.DAFluidTypes;
 import io.github.razordevs.deep_aether.init.*;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
 import io.github.razordevs.deep_aether.item.component.DungeonTracker;
 import io.github.razordevs.deep_aether.screen.CombinerScreen;
 import io.wispforest.accessories.api.client.AccessoriesRendererRegistry;
+import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.CherryParticle;
-import net.minecraft.client.renderer.BiomeColors;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.item.ClampedItemPropertyFunction;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.renderer.item.ItemPropertyFunction;
@@ -47,7 +47,10 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 import org.jetbrains.annotations.NotNull;
+import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 
@@ -95,6 +98,46 @@ public class DAClientModBusEvents {
         });
     }
 
+    @SubscribeEvent
+    public static void fluidInitializeClient(RegisterClientExtensionsEvent event){
+        event.registerFluidType(new IClientFluidTypeExtensions() {
+            public ResourceLocation getStillTexture() {
+                return DAFluidTypes.POISON_STILL_RL;
+            }
+
+            @Override
+            public ResourceLocation getFlowingTexture() {
+                return DAFluidTypes.POISON_FLOWING_RL;
+            }
+
+            @Override
+            public @org.jetbrains.annotations.Nullable ResourceLocation getOverlayTexture() {
+                return DAFluidTypes.POISON_OVERLAY_RL;
+            }
+
+            @Override
+            public int getTintColor() {
+                return 0xffAB5AFD;
+            }
+
+            @Override
+            public @NotNull Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level,
+                                                    int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
+                return new Vector3f(224f / 255f, 56f / 255f, 208f / 255f);
+            }
+
+            @Override
+            public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick,
+                                        float nearDistance, float farDistance, FogShape shape) {
+                RenderSystem.setShaderFogStart(1f);
+                RenderSystem.setShaderFogEnd(6f); // distance when the fog starts
+            }
+        }, DAFluidTypes.POISON_FLUID_TYPE);
+    }
+
+    /**
+     * Method responsible for the Sun Clock's rotation
+     */
     public static void registerItemModelPredicates() {
         ItemProperties.register(DAItems.SUN_CLOCK.get(), ResourceLocation.withDefaultNamespace("time"), new ClampedItemPropertyFunction() {
             private double rotation;
