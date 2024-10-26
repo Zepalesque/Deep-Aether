@@ -13,6 +13,17 @@
           "type": "minecraft:item",
           "name": "deep_aether:aercloud_necklace",
           "weight": 3
+        },
+        {
+          "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:enchant_randomly",
+              "options": "deep_aether:gloves_reach"
+            }
+          ],
+          "name": "minecraft:book",
+          "weight": 3
         }
       ],
       "rolls": {

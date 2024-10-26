@@ -62,6 +62,7 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
@@ -171,8 +172,10 @@ public class DeepAether {
 		generator.addProvider(event.includeClient(), new DAItemModelData(packOutput, fileHelper));
 
 		// Server Data
-		generator.addProvider(event.includeServer(), new DARegistryDataGenerator(packOutput, event.getLookupProvider()));
-		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
+
+		DatapackBuiltinEntriesProvider datapackProvider = new DARegistryDataGenerator(packOutput, event.getLookupProvider());
+		CompletableFuture<HolderLookup.Provider> lookupProvider = datapackProvider.getRegistryProvider();
+		generator.addProvider(event.includeServer(), datapackProvider);
 		generator.addProvider(event.includeServer(), new DARecipeData(packOutput, lookupProvider));
 		DABlockTagData blockTags = new DABlockTagData(packOutput, lookupProvider, fileHelper);
 		generator.addProvider(event.includeServer(), blockTags);
@@ -181,8 +184,8 @@ public class DeepAether {
 		generator.addProvider(event.includeServer(), new DAFluidTagData(packOutput, lookupProvider, fileHelper));
 		generator.addProvider(event.includeServer(), new DAEntityTagData(packOutput, lookupProvider, fileHelper));
 		generator.addProvider(event.includeServer(), new DALootDataProvider(packOutput, lookupProvider));
-		generator.addProvider(event.includeClient(), new DADataMapData(packOutput, lookupProvider));
-		generator.addProvider(event.includeServer(), DALootTableData.create(packOutput, lookupProvider));
+		generator.addProvider(event.includeServer(), new DADataMapData(packOutput, lookupProvider));
+		generator.addProvider(event.includeServer(), new DALootTableData(packOutput, lookupProvider));
 	}
 
 	public void commonSetup(FMLCommonSetupEvent event) {
