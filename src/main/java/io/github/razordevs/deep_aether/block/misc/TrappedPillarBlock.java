@@ -4,7 +4,6 @@ import com.aetherteam.aether.client.AetherSoundEvents;
 import com.aetherteam.aether.event.AetherEventDispatch;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -52,7 +51,7 @@ public class TrappedPillarBlock extends RotatedPillarBlock {
                     }
 
                     ((EntityType)this.spawnableEntityTypeSupplier.get()).spawn(serverLevel, spawnPos, MobSpawnType.TRIGGERED);
-                    serverLevel.playSound((Player)null, pos, (SoundEvent) AetherSoundEvents.BLOCK_DUNGEON_TRAP_TRIGGER.get(), SoundSource.BLOCKS, 0.5F, level.getRandom().nextFloat() * 0.1F + 0.9F);
+                    serverLevel.playSound(null, pos, AetherSoundEvents.BLOCK_DUNGEON_TRAP_TRIGGER.get(), SoundSource.BLOCKS, 0.5F, level.getRandom().nextFloat() * 0.1F + 0.9F);
                 }
             }
         }
