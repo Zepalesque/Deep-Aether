@@ -15,5 +15,7 @@
   "output": {
     "count": 2,
     "result": "deep_aether:fire_res_fodder"
-  }
+  },
+  "experience": 1.0,
+  "processing_time": 200
 }

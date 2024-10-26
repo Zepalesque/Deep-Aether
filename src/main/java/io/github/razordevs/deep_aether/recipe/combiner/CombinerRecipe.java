@@ -8,6 +8,7 @@ import io.github.razordevs.deep_aether.recipe.DABookCategory;
 import io.github.razordevs.deep_aether.recipe.DARecipeSerializers;
 import io.github.razordevs.deep_aether.recipe.DARecipeTypes;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.Container;
@@ -25,14 +26,18 @@ public class CombinerRecipe implements Recipe<CombinerRecipeInput> {
 
     private final String group;
     private final DABookCategory category;
-    public final List<Ingredient> inputItems;
+    public final NonNullList<Ingredient> inputItems = NonNullList.create();
     public final ItemStack output;
+    protected final float experience;
+    protected final int processingTime;
 
-    public CombinerRecipe(String group, DABookCategory category, List<Ingredient> inputItems, ItemStack output) {
+    public CombinerRecipe(String group, DABookCategory category, List<Ingredient> inputItems, ItemStack output, float experience, int processingTime) {
         this.group = group;
-        this.inputItems = inputItems;
+        this.inputItems.addAll(inputItems);
         this.output = output;
         this.category = category;
+        this.experience = experience;
+        this.processingTime = processingTime;
     }
 
     @Override
@@ -42,43 +47,50 @@ public class CombinerRecipe implements Recipe<CombinerRecipeInput> {
                 && inputItems.get(2).test(input.items().get(2));
     }
 
-    public DABookCategory daCategory() {
-        return this.category;
+    @Override
+    public ItemStack assemble(CombinerRecipeInput input, HolderLookup.Provider provider) {
+        return this.output.copy();
+    }
+
+    @Override
+    public boolean canCraftInDimensions(int width, int height) {
+        return true;
+    }
+
+    @Override
+    public NonNullList<Ingredient> getIngredients() {
+        return inputItems;
+    }
+
+    @Override
+    public ItemStack getResultItem(HolderLookup.Provider provider) {
+        return this.output;
     }
 
     public ItemStack getResult(){
         return output;
     }
 
-    /**
-     * Method that checks if the passed ingredient is present in only one of the 3
-     * slots using the XOR operator. This enables "shapeless" recipes in the combiner.
-     */
+    @Override
+    public String getGroup() {
+        return this.group;
+    }
 
-    private boolean testEachSlot(Container pContainer, Ingredient ingredient){
-        return ingredient.test(pContainer.getItem(0))
-                ^ ingredient.test(pContainer.getItem(1))
-                ^ ingredient.test(pContainer.getItem(2));
+    public float getExperience() {
+        return this.experience;
+    }
+
+    public int getProcessingTime() {
+        return this.processingTime;
+    }
+
+    public DABookCategory daCategory() {
+        return this.category;
     }
 
     @Override
-    public ItemStack assemble(CombinerRecipeInput input, HolderLookup.Provider registries) {
-        return output.copy();
-    }
-
-    @Override
-    public boolean canCraftInDimensions(int pWidth, int pHeight) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider registries) {
-        return output.copy();
-    }
-
-    @Override
-    public RecipeSerializer<?> getSerializer() {
-        return DARecipeSerializers.COMBINING.get();
+    public ItemStack getToastSymbol() {
+        return new ItemStack(DABlocks.COMBINER.get());
     }
 
     @Override
@@ -87,8 +99,19 @@ public class CombinerRecipe implements Recipe<CombinerRecipeInput> {
     }
 
     @Override
-    public ItemStack getToastSymbol() {
-        return new ItemStack(DABlocks.COMBINER.get());
+    public RecipeSerializer<?> getSerializer() {
+        return DARecipeSerializers.COMBINING.get();
+    }
+
+
+    /**
+     * Method that checks if the passed ingredient is present in only one of the 3
+     * slots using the XOR operator. This enables "shapeless" recipes in the combiner.
+     */
+    private boolean testEachSlot(Container pContainer, Ingredient ingredient){
+        return ingredient.test(pContainer.getItem(0))
+                ^ ingredient.test(pContainer.getItem(1))
+                ^ ingredient.test(pContainer.getItem(2));
     }
 
     public static class Serializer implements RecipeSerializer<CombinerRecipe> {
@@ -96,16 +119,17 @@ public class CombinerRecipe implements Recipe<CombinerRecipeInput> {
         public final MapCodec<CombinerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
                 Codec.STRING.optionalFieldOf("group", "").forGetter(CombinerRecipe::getGroup),
                 DABookCategory.CODEC.fieldOf("category").forGetter(CombinerRecipe::daCategory),
-                Ingredient.CODEC_NONEMPTY
-                        .listOf()
+                Ingredient.LIST_CODEC_NONEMPTY
                         .fieldOf("ingredients")
                         .forGetter(recipe -> recipe.inputItems),
-                ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output)
+                ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
+                Codec.FLOAT.fieldOf("experience").orElse(0.0F).forGetter(recipe -> recipe.experience),
+                Codec.INT.fieldOf("processing_time").orElse(200).forGetter(recipe -> recipe.processingTime)
         ).apply(instance, CombinerRecipe::new));
 
 
         public static final StreamCodec<RegistryFriendlyByteBuf, CombinerRecipe> STREAM_CODEC = StreamCodec.of(
-                CombinerRecipe.Serializer::toNetwork, CombinerRecipe.Serializer::fromNetwork
+                Serializer::toNetwork, Serializer::fromNetwork
         );
 
         public static CombinerRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
@@ -117,7 +141,11 @@ public class CombinerRecipe implements Recipe<CombinerRecipeInput> {
             }
 
             ItemStack itemstack = ItemStack.STREAM_CODEC.decode(buffer);
-            return new CombinerRecipe(group, daBookCategory, ingredients, itemstack);
+
+            float experience = buffer.readFloat();
+            int processTime = buffer.readInt();
+
+            return new CombinerRecipe(group, daBookCategory, ingredients, itemstack, experience, processTime);
         }
 
         public static void toNetwork(RegistryFriendlyByteBuf buffer, CombinerRecipe recipe) {
@@ -128,6 +156,9 @@ public class CombinerRecipe implements Recipe<CombinerRecipeInput> {
                 Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, ingredient);
 
             ItemStack.STREAM_CODEC.encode(buffer, recipe.getResult());
+
+            buffer.writeFloat(recipe.getExperience());
+            buffer.writeInt(recipe.getProcessingTime());
         }
 
         @Override

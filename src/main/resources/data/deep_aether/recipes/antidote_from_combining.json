@@ -15,5 +15,7 @@
   "output": {
     "count": 1,
     "result": "deep_aether:antidote"
-  }
+  },
+  "experience": 1.0,
+  "processing_time": 200
 }

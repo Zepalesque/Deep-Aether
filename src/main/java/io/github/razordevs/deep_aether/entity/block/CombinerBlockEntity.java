@@ -2,7 +2,6 @@ package io.github.razordevs.deep_aether.entity.block;
 
 import com.google.common.collect.Lists;
 import io.github.razordevs.deep_aether.DeepAether;
-import io.github.razordevs.deep_aether.block.utility.CombinerBlock;
 import io.github.razordevs.deep_aether.init.DABlockEntityTypes;
 import io.github.razordevs.deep_aether.init.DABlocks;
 import io.github.razordevs.deep_aether.recipe.DARecipeTypes;
@@ -19,10 +18,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
-import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.Containers;
-import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.WorldlyContainer;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.ExperienceOrb;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -88,11 +84,11 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
     private final RecipeManager.CachedCheck<CombinerRecipeInput, CombinerRecipe> quickCheck;
 
     public CombinerBlockEntity() {
-        super(DABlockEntityTypes.COMBINER.get(), BlockPos.ZERO, DABlocks.COMBINER.get().defaultBlockState());
+        this(DABlockEntityTypes.COMBINER.get(), BlockPos.ZERO, DABlocks.COMBINER.get().defaultBlockState());
     }
 
     public CombinerBlockEntity(BlockPos pPos, BlockState pBlockState) {
-        super(DABlockEntityTypes.COMBINER.get(), pPos, pBlockState);
+        this(DABlockEntityTypes.COMBINER.get(), pPos, pBlockState);
     }
 
     public CombinerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -113,7 +109,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
 
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory) {
-        return new CombinerMenu(pContainerId, pPlayerInventory, this, this.data);
+        return new CombinerMenu(pContainerId, pPlayerInventory);
     }
 
     @Override
@@ -143,7 +139,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
     public static void serverTick(Level level, BlockPos pos, BlockState state, CombinerBlockEntity blockEntity) {
         boolean changed = false;
 
-        RecipeHolder<CombinerRecipe> recipeHolder = blockEntity.quickCheck.getRecipeFor(new CombinerRecipeInput(Collections.singletonList(blockEntity.getItem(0))), level).orElse(null);
+        RecipeHolder<CombinerRecipe> recipeHolder = blockEntity.quickCheck.getRecipeFor(new CombinerRecipeInput(blockEntity.items), level).orElse(null);
         int i = blockEntity.getMaxStackSize();
         boolean isCharging = false;
 
@@ -173,17 +169,17 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
             blockEntity.combining = false;
         }
 
-        if (state.getValue(CombinerBlock.CHARGING) != isCharging) {
-            changed = true;
-            state = state.setValue(CombinerBlock.CHARGING, isCharging);
-            level.setBlock(pos, state, 1 | 2);
-        }
-
-        if (state.getValue(CombinerBlock.combining) != blockEntity.combining) {
-            changed = true;
-            state = state.setValue(CombinerBlock.combining, blockEntity.combining);
-            level.setBlock(pos, state, 1 | 2);
-        }
+//        if (state.getValue(CombinerBlock.CHARGING) != isCharging) {
+//            changed = true;
+//            state = state.setValue(CombinerBlock.CHARGING, isCharging);
+//            level.setBlock(pos, state, 1 | 2);
+//        }
+//
+//        if (state.getValue(CombinerBlock.COMBINING) != blockEntity.combining) {
+//            changed = true;
+//            state = state.setValue(CombinerBlock.COMBINING, blockEntity.combining);
+//            level.setBlock(pos, state, 1 | 2);
+//        }
 
         if (changed) {
             setChanged(level, pos, state);
@@ -193,7 +189,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
     private boolean canProcess(RegistryAccess registryAccess, @Nullable RecipeHolder<CombinerRecipe> recipeHolder, NonNullList<ItemStack> stacks, int maxStackSize) {
         ItemStack input = stacks.get(0);
         if (!input.isEmpty() && recipeHolder != null) {
-            ItemStack result = recipeHolder.value().assemble(new CombinerRecipeInput(Collections.singletonList(this.getItem(0))), registryAccess);
+            ItemStack result = recipeHolder.value().assemble(new CombinerRecipeInput(this.getItems()), registryAccess);
             if (result.isEmpty()) {
                 return false;
             } else {

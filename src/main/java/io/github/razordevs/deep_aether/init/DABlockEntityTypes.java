@@ -30,7 +30,6 @@ public class DABlockEntityTypes {
             ).build(null));
 
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CombinerBlockEntity>> COMBINER =
-            BLOCK_ENTITY_TYPES.register("combiner", () ->
-                    BlockEntityType.Builder.of(CombinerBlockEntity::new,
+            BLOCK_ENTITY_TYPES.register("combiner", () -> BlockEntityType.Builder.of(CombinerBlockEntity::new,
                             DABlocks.COMBINER.get()).build(null));
 }
