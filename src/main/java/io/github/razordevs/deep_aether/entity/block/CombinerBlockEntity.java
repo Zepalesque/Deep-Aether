@@ -11,7 +11,6 @@ import io.github.razordevs.deep_aether.screen.CombinerMenu;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.core.*;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -187,19 +186,19 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
     }
 
     private boolean canProcess(RegistryAccess registryAccess, @Nullable RecipeHolder<CombinerRecipe> recipeHolder, NonNullList<ItemStack> stacks, int maxStackSize) {
-        ItemStack input = stacks.get(0);
-        if (!input.isEmpty() && recipeHolder != null) {
+        ItemStack left = stacks.getFirst();
+        ItemStack middle = stacks.get(SECOND_SLOT);
+        ItemStack right = stacks.get(THIRD_SLOT);
+        System.out.println("before slot check");
+        if (!left.isEmpty() && !middle.isEmpty() && !right.isEmpty() && recipeHolder != null) {
             ItemStack result = recipeHolder.value().assemble(new CombinerRecipeInput(this.getItems()), registryAccess);
+            System.out.println("before result check");
             if (result.isEmpty()) {
                 return false;
             } else {
-                ItemStack inResultSlot = stacks.get(9);
+                ItemStack inResultSlot = stacks.get(OUTPUT_SLOT);
                 if (inResultSlot.isEmpty()) {
-                    if (ItemStack.isSameItem(input, result)) {
-                        return !input.has(DataComponents.MAX_DAMAGE) || input.getDamageValue() > 0;
-                    } else {
-                        return true;
-                    }
+                    return true;
                 } else if (!ItemStack.isSameItem(inResultSlot, result)) {
                     return false;
                 } else if (inResultSlot.getCount() + result.getCount() <= maxStackSize && inResultSlot.getCount() + result.getCount() <= inResultSlot.getMaxStackSize()) {
@@ -209,27 +208,29 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
                 }
             }
         } else {
+            System.out.println("just false");
             return false;
         }
     }
 
     private boolean process(RegistryAccess registryAccess, @Nullable RecipeHolder<CombinerRecipe> recipeHolder, NonNullList<ItemStack> stacks, int maxStackSize) {
         if (recipeHolder != null && this.canProcess(registryAccess, recipeHolder, stacks, maxStackSize)) {
-            ItemStack input = stacks.get(0);
+            ItemStack left = stacks.getFirst();
+            ItemStack middle = stacks.get(SECOND_SLOT);
+            ItemStack right = stacks.get(THIRD_SLOT);
             ItemStack result = recipeHolder.value().assemble(new CombinerRecipeInput(Collections.singletonList(this.getItem(0))), registryAccess);
-            ItemStack output = stacks.get(9);
+            ItemStack output = stacks.get(OUTPUT_SLOT);
+
             if (output.isEmpty()) {
-                if (ItemStack.isSameItem(input, result) && input.has(DataComponents.MAX_DAMAGE) && input.getDamageValue() > 0) {
-                    ItemStack copy = input.copy();
-                    copy.setDamageValue(0);
-                    stacks.set(9, copy);
-                } else {
-                    stacks.set(9, result.copy());
-                }
+                stacks.set(OUTPUT_SLOT, result.copy());
             } else if (output.is(result.getItem())) {
                 output.grow(result.getCount());
             }
-            input.shrink(1);
+
+            left.shrink(1);
+            middle.shrink(1);
+            right.shrink(1);
+
             return true;
         } else {
             return false;
