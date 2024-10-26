@@ -141,10 +141,9 @@ public class SliderEye extends AccessoryItem implements FlawlessDrop {
     }
 
     int i = 0;
-
     @Override
-    public void getAttributesTooltip(ItemStack stack, SlotType type, List<Component> tooltips, TooltipContext tooltipContext, TooltipFlag tooltipType) {
-        flawlessComponent(tooltips, i);
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        flawlessComponent(tooltipComponents, i);
         i = i < 80 ? i + 1 : 0;
     }
 }

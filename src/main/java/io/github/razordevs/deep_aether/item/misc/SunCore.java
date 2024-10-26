@@ -13,15 +13,15 @@ import io.github.razordevs.deep_aether.item.gear.other.FlawlessDrop;
 
 import java.util.List;
 
-public class SunCore extends Item implements FlawlessDrop, Accessory {
+public class SunCore extends Item implements FlawlessDrop {
     public SunCore(Properties properties) {
         super(properties);
     }
 
     int i = 0;
     @Override
-    public void getAttributesTooltip(ItemStack stack, SlotType type, List<Component> tooltips, TooltipContext tooltipContext, TooltipFlag tooltipType) {
-        flawlessComponent(tooltips, i);
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        flawlessComponent(tooltipComponents, i);
         i = i < 80 ? i + 1 : 0;
     }
 }

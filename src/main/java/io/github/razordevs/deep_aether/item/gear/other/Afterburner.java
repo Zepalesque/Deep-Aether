@@ -3,6 +3,7 @@ package io.github.razordevs.deep_aether.item.gear.other;
 import io.github.razordevs.deep_aether.entity.living.projectile.FireProjectile;
 import io.github.razordevs.deep_aether.init.DASounds;
 import io.github.razordevs.deep_aether.init.DATiers;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
@@ -15,10 +16,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 
-public class Afterburner extends TieredItem {
+import java.util.List;
+
+public class Afterburner extends TieredItem implements FlawlessDrop {
     public Afterburner(Properties properties) {
         super(DATiers.FIRE, properties);
     }
@@ -70,4 +74,10 @@ public class Afterburner extends TieredItem {
         return UseAnim.BOW;
     }
 
+    int i = 0;
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        flawlessComponent(tooltipComponents, i);
+        i = i < 80 ? i + 1 : 0;
+    }
 }
