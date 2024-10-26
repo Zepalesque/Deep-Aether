@@ -39,7 +39,6 @@ import java.util.EnumSet;
 import java.util.UUID;
 
 public class EOTSSegment extends FlyingMob implements Enemy {
-
     //TODO: Replace Segment death animation
     //TODO: Sounds for the boss
 
@@ -61,7 +60,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
     @Nullable
     private UUID controllerUUID;
 
-    protected boolean deathAnimation = false;
+    protected boolean segmentDeathAnimation = false;
     protected boolean finishedDeathAnimation = false;
 
     //Used to stop EOTS from moving when performing the air charge attack.
@@ -279,7 +278,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
         float health = this.getHealth();
         if (this.getController() != null) {
             if (this.getController().segmentUUIDs.size() == 1 && (health - pAmount <= 0)) {
-                this.deathAnimation = true;
+                this.segmentDeathAnimation = true;
                 this.finishedDeathAnimation = false;
                 this.getController().hurt(createControllerDamageSource(this), this.getController().getHealth() - 0.5F);
                 this.setInvulnerable(true);
@@ -533,7 +532,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
          */
         @Override
         public void tick() {
-            if(segment.isAroundIdlePos() && segment.isControllingSegment() && !segment.deathAnimation)
+            if(segment.isAroundIdlePos() && segment.isControllingSegment() && !segment.segmentDeathAnimation)
                 super.tick();
         }
     }
@@ -615,7 +614,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
         }
 
         public boolean canUse() {
-            if (!this.segment.isControllingSegment() || !this.segment.shouldMove  || this.segment.deathAnimation) {
+            if (!this.segment.isControllingSegment() || !this.segment.shouldMove  || this.segment.segmentDeathAnimation) {
                 return false;
             } else {
                 MoveControl moveControl = this.segment.getMoveControl();
@@ -657,7 +656,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
 
         @Override
         public boolean canUse() {
-            if(!this.segment.isAroundIdlePos() || !this.segment.isControllingSegment() || !this.segment.shouldMove || this.segment.getTarget() == null || this.segment.deathAnimation)
+            if(!this.segment.isAroundIdlePos() || !this.segment.isControllingSegment() || !this.segment.shouldMove || this.segment.getTarget() == null || this.segment.segmentDeathAnimation)
                 return false;
             else if (this.nextScanTick > 0) {
                 --this.nextScanTick;
@@ -736,7 +735,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
 
         @Override
         public boolean canUse() {
-            if(!this.segment.isAroundIdlePos() || !this.segment.isControllingSegment() || this.segment.deathAnimation)
+            if(!this.segment.isAroundIdlePos() || !this.segment.isControllingSegment() || this.segment.segmentDeathAnimation)
                 return false;
             else if (this.attackTimer > 0) {
                 --this.attackTimer;
@@ -815,11 +814,11 @@ public class EOTSSegment extends FlyingMob implements Enemy {
         }
 
         public boolean canUse() {
-            return this.segment.deathAnimation && this.segment.getController() != null && !this.segment.getController().isRemoved();
+            return this.segment.segmentDeathAnimation && this.segment.getController() != null && !this.segment.getController().isRemoved();
         }
 
         public boolean canContinueToUse() {
-            if(this.segment.deathAnimation) {
+            if(this.segment.segmentDeathAnimation) {
                 MoveControl moveControl = this.segment.getMoveControl();
                 if(!hasPositionedAboveController) {
                     double d0 = moveControl.getWantedX() - this.segment.getX();

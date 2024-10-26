@@ -3,7 +3,7 @@ package io.github.razordevs.deep_aether.client.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import io.github.razordevs.deep_aether.entity.living.boss.eots.EOTSSegment;
-import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
@@ -13,7 +13,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 
 @OnlyIn(Dist.CLIENT)
-public class EOTSSegmentModel extends EntityModel<EOTSSegment> {
+public class EOTSSegmentModel extends HierarchicalModel<EOTSSegment> {
 
     private final ModelPart body;
     private final ModelPart head;
@@ -58,6 +58,8 @@ public class EOTSSegmentModel extends EntityModel<EOTSSegment> {
 
     @Override
     public void setupAnim(EOTSSegment entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.root().getAllParts().forEach(ModelPart::resetPose);
+
         if(entity.isControllingSegment()) {
             body.visible = false;
             bb_segment.visible = false;
@@ -76,8 +78,7 @@ public class EOTSSegmentModel extends EntityModel<EOTSSegment> {
                 upperMouth.xRot = mouthRotation;
                 lowerMouth.xRot = -mouthRotation;
             }
-        }
-        else {
+        } else {
             body.visible = true;
             bb_segment.visible = true;
             head.visible = false;
@@ -92,5 +93,10 @@ public class EOTSSegmentModel extends EntityModel<EOTSSegment> {
         head.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
         bb_main.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
         bb_segment.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
+    }
+
+    @Override
+    public ModelPart root() {
+        return body;
     }
 }

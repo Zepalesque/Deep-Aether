@@ -29,6 +29,11 @@ public class EOTSSegmentRenderer extends MobRenderer<EOTSSegment, EOTSSegmentMod
 	}
 
 	@Override
+	protected float getFlipDegrees(EOTSSegment eotsSegment) {
+		return 0F;
+	}
+
+	@Override
 	public void render(EOTSSegment eots, float pEntityYaw, float pPartialTicks, PoseStack pPoseStack, MultiBufferSource pBuffer, int pPackedLight) {
 		/*pPoseStack.pushPose();
 		if(!eots.isControllingSegment()) {
@@ -40,10 +45,18 @@ public class EOTSSegmentRenderer extends MobRenderer<EOTSSegment, EOTSSegmentMod
 		}
 		pPoseStack.popPose();*/
 
+		if(eots.isDeadOrDying()) {
+			pPoseStack.scale(eots.getScale() - (float) eots.deathTime/20 , eots.getScale() - (float) eots.deathTime/20, eots.getScale() - (float) eots.deathTime/20);
+		}
+
 		pPoseStack.scale(1.2f, 1.2f, 1.2f);
 		super.render(eots, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight);
 	}
 
+	@Override
+	protected void scale(EOTSSegment eotsSegment, PoseStack poseStack, float scale) {
+		super.scale(eotsSegment, poseStack, scale);
+	}
 
 	@Override
 	protected float getBob(EOTSSegment pLivingBase, float pPartialTick) {
@@ -65,5 +78,7 @@ public class EOTSSegmentRenderer extends MobRenderer<EOTSSegment, EOTSSegmentMod
 		super.setupRotations(pEntityLiving, pPoseStack, pAgeInTicks, pRotationYaw, pPartialTicks, scale);
 		pPoseStack.mulPose(Axis.XP.rotationDegrees(pEntityLiving.getXRot()));
 	}
+
+
 
 }
