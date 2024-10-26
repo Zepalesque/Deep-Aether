@@ -6,6 +6,7 @@ import io.github.razordevs.deep_aether.init.DABlocks;
 import io.github.razordevs.deep_aether.world.feature.features.configuration.AercloudCloudConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.SectionPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
@@ -36,16 +37,26 @@ public class AercloudCloudFeature extends Feature<AercloudCloudConfiguration> {
         return true;
     }
 
-    public void place(WorldGenLevel reader, BlockPos pos, BlockState block, boolean hasGrass) {
-        boolean goAgainstX = !reader.getBiome(pos.relative(Direction.Axis.X, 16)).is(DATags.Biomes.IS_CLOUD);
-        boolean goAgainstNegativeX = !reader.getBiome(pos.relative(Direction.Axis.X, -16)).is(DATags.Biomes.IS_CLOUD);
-        boolean goAgainstZ = !reader.getBiome(pos.relative(Direction.Axis.Z, 16)).is(DATags.Biomes.IS_CLOUD);
-        boolean goAgainstNegativeZ = !reader.getBiome(pos.relative(Direction.Axis.Z, -16)).is(DATags.Biomes.IS_CLOUD);
+    private boolean getBiome(WorldGenLevel level, BlockPos pos) {
+        //if (level.getChunkSource().hasChunk(SectionPos.blockToSectionCoord(pos.getZ()), SectionPos.blockToSectionCoord(pos.getZ()))) {
+        //
+        //}
+        //return level.getBiomeManager().getNoiseBiomeAtPosition(pos);
+        return false;
+    }
 
-        boolean goAgainstXAndZ = ((!reader.getBiome(pos.relative(Direction.Axis.X, 16).relative(Direction.Axis.Z, 16)).is(DATags.Biomes.IS_CLOUD)) && !goAgainstX && !goAgainstZ);
-        boolean goAgainstXAndNegativeZ = (!reader.getBiome(pos.relative(Direction.Axis.X, 16).relative(Direction.Axis.Z, -16)).is(DATags.Biomes.IS_CLOUD) && !goAgainstX && !goAgainstNegativeZ);
-        boolean goAgainstNegativeXAndZ = (!reader.getBiome(pos.relative(Direction.Axis.X, -16).relative(Direction.Axis.Z, 16)).is(DATags.Biomes.IS_CLOUD) && !goAgainstNegativeX && !goAgainstZ);
-        boolean goAgainstNegativeXAndNegativeZ = (!reader.getBiome(pos.relative(Direction.Axis.X, -16).relative(Direction.Axis.Z, -16)).is(DATags.Biomes.IS_CLOUD) && !goAgainstNegativeX && !goAgainstNegativeZ);
+    public void place(WorldGenLevel reader, BlockPos pos, BlockState block, boolean hasGrass) {
+
+
+        boolean goAgainstX = !reader.getBiomeManager().getNoiseBiomeAtPosition(pos.relative(Direction.Axis.X, 16)).is(DATags.Biomes.IS_CLOUD);
+        boolean goAgainstNegativeX = !reader.getBiomeManager().getNoiseBiomeAtPosition(pos.relative(Direction.Axis.X, -16)).is(DATags.Biomes.IS_CLOUD);
+        boolean goAgainstZ = !reader.getBiomeManager().getNoiseBiomeAtPosition(pos.relative(Direction.Axis.Z, 16)).is(DATags.Biomes.IS_CLOUD);
+        boolean goAgainstNegativeZ = !reader.getBiomeManager().getNoiseBiomeAtPosition(pos.relative(Direction.Axis.Z, -16)).is(DATags.Biomes.IS_CLOUD);
+
+        boolean goAgainstXAndZ = ((!reader.getBiomeManager().getNoiseBiomeAtPosition(pos.relative(Direction.Axis.X, 16).relative(Direction.Axis.Z, 16)).is(DATags.Biomes.IS_CLOUD)) && !goAgainstX && !goAgainstZ);
+        boolean goAgainstXAndNegativeZ = (!reader.getBiomeManager().getNoiseBiomeAtPosition(pos.relative(Direction.Axis.X, 16).relative(Direction.Axis.Z, -16)).is(DATags.Biomes.IS_CLOUD) && !goAgainstX && !goAgainstNegativeZ);
+        boolean goAgainstNegativeXAndZ = (!reader.getBiomeManager().getNoiseBiomeAtPosition(pos.relative(Direction.Axis.X, -16).relative(Direction.Axis.Z, 16)).is(DATags.Biomes.IS_CLOUD) && !goAgainstNegativeX && !goAgainstZ);
+        boolean goAgainstNegativeXAndNegativeZ = (!reader.getBiomeManager().getNoiseBiomeAtPosition(pos.relative(Direction.Axis.X, -16).relative(Direction.Axis.Z, -16)).is(DATags.Biomes.IS_CLOUD) && !goAgainstNegativeX && !goAgainstNegativeZ);
 
         int chunkX = pos.getX() - (pos.getX() % 16);
         int chunkZ = pos.getZ() - (pos.getZ() % 16);
