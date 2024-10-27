@@ -8,15 +8,14 @@ import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.client.renderer.curios.SkyjadeGlovesRenderer;
-import io.github.razordevs.deep_aether.custom.EOTSExplosionParticle;
-import io.github.razordevs.deep_aether.custom.EOTSPreFightParticle;
-import io.github.razordevs.deep_aether.custom.MysticalParticle;
-import io.github.razordevs.deep_aether.custom.PoisonBubbles;
+import io.github.razordevs.deep_aether.custom.*;
 import io.github.razordevs.deep_aether.fluids.DAFluidTypes;
 import io.github.razordevs.deep_aether.init.*;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
 import io.github.razordevs.deep_aether.item.component.DungeonTracker;
 import io.github.razordevs.deep_aether.item.component.MoaFodder;
+import io.github.razordevs.deep_aether.networking.attachment.DAAttachments;
+import io.github.razordevs.deep_aether.networking.attachment.DAPlayerAttachment;
 import io.github.razordevs.deep_aether.screen.CombinerScreen;
 import io.wispforest.accessories.api.client.AccessoriesRendererRegistry;
 import net.minecraft.client.Camera;
@@ -35,6 +34,7 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.FoliageColor;
@@ -159,6 +159,29 @@ public class DAClientModBusEvents {
                 }
 
         );
+
+        ItemProperties.register(DAItems.BLADE_OF_LUCK.get(),
+                ResourceLocation.withDefaultNamespace("sword_state"), (stack, world, entity, value) -> {
+                    if(entity instanceof Player player) {
+                        DAPlayerAttachment attachment = player.getData(DAAttachments.PLAYER);
+                        if(attachment.changeBladeOfLuckState) {
+                            if(player.swinging) {
+                                if (attachment.getOldBladeOfLuckDamage() <= 3)
+                                    return 0.25F;
+                                else if (attachment.getOldBladeOfLuckDamage() <= 10)
+                                    return 0.5F;
+                                else if (attachment.getOldBladeOfLuckDamage() <= 15)
+                                    return 0.75F;
+                                else return 1.0F;
+                            }
+                            else attachment.changeBladeOfLuckState = false;
+                        }
+                        else {
+                            return 0.5F;
+                        }
+                    }
+                    return 0.5F;
+                });
     }
 
 
@@ -218,6 +241,11 @@ public class DAClientModBusEvents {
     public static void registerParticleFactories(final RegisterParticleProvidersEvent event) {
         event.registerSpriteSet(DAParticles.POISON_BUBBLES.get(), PoisonBubbles.Provider::new);
         event.registerSpriteSet(DAParticles.MYTHICAL_PARTICLE.get(), MysticalParticle.Provider::new);
+
+        event.registerSpriteSet(DAParticles.CLOVER_VERY_LUCKY.get(), LuckParticle.Provider::new);
+        event.registerSpriteSet(DAParticles.CLOVER_LUCKY.get(), LuckParticle.Provider::new);
+        event.registerSpriteSet(DAParticles.CLOVER.get(), LuckParticle.Provider::new);
+        event.registerSpriteSet(DAParticles.CLOVER_UNLUCKY.get(), LuckParticle.Provider::new);
 
         event.registerSpriteSet(DAParticles.ROSEROOT_LEAVES.get(), (spriteSet)
                 -> (particleType, level, v, v1, v2, v3, v4, v5)

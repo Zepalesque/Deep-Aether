@@ -409,7 +409,7 @@ public class DAItemModelData extends AetherItemModelProvider {
         this.item(DAItems.GOLDEN_GRASS_SEEDS.get());
         this.item(DAItems.SQUASH_SEEDS.get());
         this.item(DAItems.GOLDEN_SWET_BALL.get());
-        this.translucentItem(DAItems.GLOWING_SPORES.get());
+        this.item(DAItems.GLOWING_SPORES.get());
 
         this.item(DAItems.GREEN_SQUASH_SLICE.get());
         this.item(DAItems.BLUE_SQUASH_SLICE.get());
