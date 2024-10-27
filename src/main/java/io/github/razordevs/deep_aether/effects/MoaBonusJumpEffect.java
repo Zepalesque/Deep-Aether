@@ -1,9 +1,12 @@
 package io.github.razordevs.deep_aether.effects;
 
 import com.aetherteam.aether.entity.passive.Moa;
+import com.aetherteam.nitrogen.attachment.INBTSynchable;
 import io.github.razordevs.deep_aether.entity.MoaBonusJump;
 import io.github.razordevs.deep_aether.event.DAGeneralEvents;
 import io.github.razordevs.deep_aether.mixin.entity.MoaMixin;
+import io.github.razordevs.deep_aether.networking.attachment.DAAttachments;
+import io.github.razordevs.deep_aether.networking.attachment.MoaEffectAttachment;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -18,5 +21,13 @@ import org.jetbrains.annotations.NotNull;
 public class MoaBonusJumpEffect extends MobEffect {
     public MoaBonusJumpEffect() {
         super(MobEffectCategory.BENEFICIAL, 5031241);
+    }
+
+    @Override
+    public void onEffectAdded(LivingEntity livingEntity, int amplifier) {
+        if(livingEntity instanceof Moa moa) {
+            MoaEffectAttachment attachment = moa.getData(DAAttachments.MOA_EFFECT);
+            attachment.setSynched(moa.getId(), INBTSynchable.Direction.CLIENT, "setMoaEffectAmplifier", amplifier);
+        }
     }
 }

@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "aether:skyroot_remedy_bucket"
   },
-  "result": {
+  "id": {
     "item": "aether:skyroot_poison_bucket"
   }
 }

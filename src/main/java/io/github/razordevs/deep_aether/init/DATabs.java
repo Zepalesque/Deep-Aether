@@ -4,7 +4,13 @@ import com.aetherteam.aether.block.AetherBlocks;
 import com.aetherteam.aether.item.AetherCreativeTabs;
 import com.aetherteam.aether.item.AetherItems;
 import io.github.razordevs.deep_aether.DeepAether;
+import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
+import io.github.razordevs.deep_aether.item.component.MoaFodder;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -312,9 +318,9 @@ public class DATabs {
                     DAItems.GOLD_COMPASS.get()
             }, event);
 
-            if (ModList.get().isLoaded(DeepAether.LOST_AETHER_CONTENT)) {
+            //if (ModList.get().isLoaded(DeepAether.LOST_AETHER_CONTENT)) {
                 //addToTab(DAItems.SKYJADE_TOOLS_HOE.get(), DAItems.SKYJADE_SHIELD.get(), event);
-            }
+            //}
 
             addToTab(AetherItems.GRAVITITE_HOE.get(), new Item[]{
                     DAItems.STRATUS_SWORD.get(),
@@ -325,9 +331,9 @@ public class DATabs {
             }, event);
 
 
-            if (ModList.get().isLoaded(DeepAether.LOST_AETHER_CONTENT)) {
+            //if (ModList.get().isLoaded(DeepAether.LOST_AETHER_CONTENT)) {
                 //addToTab(DAItems.STRATUS_HOE.get(), DAItems.STRATUS_SHIELD.get(), event);
-            }
+            //}
 
             addToTab(AetherItems.SKYROOT_POWDER_SNOW_BUCKET.get(), DAItems.SKYROOT_VIRULENT_QUICKSAND_BUCKET.get(), event);
 
@@ -389,20 +395,21 @@ public class DATabs {
                     DAItems.FLOATY_SCARF.get(),
             }, event);
 
-            if (ModList.get().isLoaded(DeepAether.PROTECT_YOUR_MOA)) {
+            //if (ModList.get().isLoaded(DeepAether.PROTECT_YOUR_MOA)) {
                 //addToTab(ProtectItems.ZANITE_MOA_ARMOR.get(), DAItems.SKYJADE_MOA_ARMOR.get(), event);
-            }
+            //}
         }
         if (tab == AetherCreativeTabs.AETHER_FOOD_AND_DRINKS.getKey()) {
             addToTab(AetherItems.CANDY_CANE.get(), new Item[]{
                     DAItems.RAW_QUAIL.get(),
                     DAItems.COOKED_QUAIL.get(),
                     DAItems.RAW_AERGLOW_FISH.get(),
-                    DAItems.COOKED_AERGLOW_FISH.get(),
-                    DAItems.JUMP_FODDER.get(),
-                    DAItems.LEVITATION_FODDER.get(),
-                    DAItems.FIRE_RES_FODDER.get()
+                    DAItems.COOKED_AERGLOW_FISH.get()
             }, event);
+
+            event.insertAfter(new ItemStack(DAItems.COOKED_AERGLOW_FISH.get()), getMoaFodderStack(MobEffects.FIRE_RESISTANCE), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            event.insertAfter(new ItemStack(DAItems.COOKED_AERGLOW_FISH.get()), getMoaFodderStack(MobEffects.JUMP), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+            event.insertAfter(new ItemStack(DAItems.COOKED_AERGLOW_FISH.get()), getMoaFodderStack(DAMobEffects.MOA_BONUS_JUMPS), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
 
             addToTab(AetherItems.WHITE_APPLE.get(), new Item[]{
                     DAItems.GOLDEN_BERRIES.get(),
@@ -495,6 +502,12 @@ public class DATabs {
         for (int i = 1; i < stack.length; i++) {
             event.insertAfter(new ItemStack(stack[i-1]), new ItemStack(stack[i]), CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
         }
+    }
+
+    private static ItemStack getMoaFodderStack(Holder<MobEffect> effect) {
+        ItemStack stack = new ItemStack(DAItems.MOA_FODDER.get());
+        stack.set(DADataComponentTypes.MOA_FODDER, new MoaFodder(new MobEffectInstance(effect, 14400, 1)));
+        return stack;
     }
 }
 

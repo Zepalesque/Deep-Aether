@@ -13,6 +13,7 @@ import io.github.razordevs.deep_aether.init.DAMobEffects;
 import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
 import io.github.razordevs.deep_aether.networking.attachment.DAAttachments;
 import io.github.razordevs.deep_aether.networking.attachment.DAPlayerAttachment;
+import io.github.razordevs.deep_aether.networking.attachment.MoaEffectAttachment;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
@@ -43,6 +44,26 @@ public class DAGeneralEvents {
     public static void onEntityJoin(EntityJoinLevelEvent event) {
         if (event.getEntity() instanceof Moa moa) {
             moa.getData(DAAttachments.MOA_EFFECT).onJoinLevel(moa);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEffectEnded(MobEffectEvent.Expired event) {
+        if(!event.getEntity().level().isClientSide() && event.getEffectInstance() != null && event.getEffectInstance().is(DAMobEffects.MOA_BONUS_JUMPS)) {
+            if(event.getEntity() instanceof Moa moa) {
+                MoaEffectAttachment attachment = moa.getData(DAAttachments.MOA_EFFECT);
+                attachment.setSynched(moa.getId(), INBTSynchable.Direction.CLIENT, "setMoaEffectAmplifier", 0);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEffectRemove(MobEffectEvent.Remove event) {
+        if(!event.getEntity().level().isClientSide() && event.getEffectInstance() != null && event.getEffectInstance().is(DAMobEffects.MOA_BONUS_JUMPS)) {
+            if(event.getEntity() instanceof Moa moa) {
+                MoaEffectAttachment attachment = moa.getData(DAAttachments.MOA_EFFECT);
+                attachment.setSynched(moa.getId(), INBTSynchable.Direction.CLIENT, "setMoaEffectAmplifier", 0);
+            }
         }
     }
 

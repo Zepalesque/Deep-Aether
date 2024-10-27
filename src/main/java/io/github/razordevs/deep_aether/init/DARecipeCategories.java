@@ -21,7 +21,7 @@ public class DARecipeCategories {
     }});
     public static final EnumProxy<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_FODDER = new EnumProxy<>(
             RecipeBookCategories.class, (Supplier<List<ItemStack>>) ()->new ArrayList<>() {{
-        new ItemStack(DAItems.FIRE_RES_FODDER.get());
+        new ItemStack(DAItems.MOA_FODDER.get());
     }});
 
     public static final EnumProxy<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_MISC = new EnumProxy<>(

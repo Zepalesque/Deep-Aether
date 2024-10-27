@@ -16,4 +16,11 @@ public class DADataComponentTypes {
                     .persistent(DungeonTracker.CODEC)
                     .networkSynchronized(DungeonTracker.STREAM_CODEC)
     );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<MoaFodder>> MOA_FODDER = DATA_COMPONENT_TYPES.registerComponentType(
+            "moa_fodder",
+            builder -> builder
+                    .persistent(MoaFodder.CODEC)
+                    .networkSynchronized(MoaFodder.STREAM_CODEC)
+    );
 }

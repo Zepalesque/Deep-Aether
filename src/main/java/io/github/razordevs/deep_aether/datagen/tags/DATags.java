@@ -4,6 +4,7 @@ import io.github.razordevs.deep_aether.DeepAether;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
@@ -47,6 +48,7 @@ public class DATags {
         public static final TagKey<Block> NIMBUS_BLOCKS = tag("nimbus_blocks");
         public static final TagKey<Block> STERLING_AERCLOUD_REPLACEABLE = tag("sterling_aercloud_replaceable");
         public static final TagKey<Block> TOTEMS = tag("totems");
+        public static final TagKey<Block> HAS_GLOWING_SPORES = tag("has_glowing_spores");
 
         private static TagKey<Block> tag(String name) {
             return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, name));

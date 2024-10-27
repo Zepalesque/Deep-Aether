@@ -4,7 +4,7 @@
   "ingredient": {
     "item": "deep_aether:green_squash"
   },
-  "result": {
+  "id": {
     "item": "deep_aether:purple_squash"
   }
 }

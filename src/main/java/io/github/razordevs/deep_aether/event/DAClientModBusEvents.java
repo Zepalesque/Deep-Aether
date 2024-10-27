@@ -3,6 +3,7 @@ package io.github.razordevs.deep_aether.event;
 import com.aetherteam.aether.client.renderer.accessory.GlovesRenderer;
 import com.aetherteam.aether.client.renderer.accessory.PendantRenderer;
 import com.aetherteam.aether.inventory.menu.LoreBookMenu;
+import com.mojang.blaze3d.shaders.Effect;
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.razordevs.deep_aether.DeepAether;
@@ -15,6 +16,7 @@ import io.github.razordevs.deep_aether.fluids.DAFluidTypes;
 import io.github.razordevs.deep_aether.init.*;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
 import io.github.razordevs.deep_aether.item.component.DungeonTracker;
+import io.github.razordevs.deep_aether.item.component.MoaFodder;
 import io.github.razordevs.deep_aether.screen.CombinerScreen;
 import io.wispforest.accessories.api.client.AccessoriesRendererRegistry;
 import net.minecraft.client.Camera;
@@ -29,6 +31,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.decoration.ItemFrame;
@@ -91,10 +94,6 @@ public class DAClientModBusEvents {
             }*/
 
             registerItemModelPredicates();
-
-            compassRotation(DAItems.BRONZE_COMPASS.get());
-            compassRotation(DAItems.SILVER_COMPASS.get());
-            compassRotation(DAItems.GOLD_COMPASS.get());
         });
     }
 
@@ -139,6 +138,31 @@ public class DAClientModBusEvents {
      * Method responsible for the Sun Clock's rotation
      */
     public static void registerItemModelPredicates() {
+        sunClock();
+        compassRotation(DAItems.BRONZE_COMPASS.get());
+        compassRotation(DAItems.SILVER_COMPASS.get());
+        compassRotation(DAItems.GOLD_COMPASS.get());
+        ItemProperties.register(DAItems.MOA_FODDER.asItem(), ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "color"), (stack, level, entity, state) -> {
+                    MoaFodder fodder = stack.get(DADataComponentTypes.MOA_FODDER);
+                    if (fodder != null) {
+                        if(fodder.effect().is(DAMobEffects.MOA_BONUS_JUMPS)) {
+                            return 0.1F;
+                        }
+                        else if(fodder.effect().is(MobEffects.FIRE_RESISTANCE)) {
+                            return 0.2F;
+                        }
+                        else if(fodder.effect().is(MobEffects.JUMP)) {
+                            return 0.3F;
+                        }
+                    }
+                    return  0.0F;
+                }
+
+        );
+    }
+
+
+    private static void sunClock() {
         ItemProperties.register(DAItems.SUN_CLOCK.get(), ResourceLocation.withDefaultNamespace("time"), new ClampedItemPropertyFunction() {
             private double rotation;
             private double rota;

@@ -14,7 +14,16 @@
   ],
   "output": {
     "count": 1,
-    "result": "deep_aether:jump_fodder"
+    "id": "deep_aether:moa_fodder",
+    "components" : {
+        "deep_aether:moa_fodder" : {
+          "effect": {
+            "id": "minecraft:jump_boost",
+            "amplifier": 2,
+            "duration": 14400
+          }
+        }
+      }
   },
   "experience": 1.0,
   "processing_time": 200

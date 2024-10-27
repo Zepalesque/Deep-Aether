@@ -1,6 +1,8 @@
 package io.github.razordevs.deep_aether.item.moa_food;
 
 import com.aetherteam.aether.entity.passive.Moa;
+import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
+import io.github.razordevs.deep_aether.item.component.MoaFodder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -23,15 +25,9 @@ import java.util.List;
 
 public class FodderItem extends Item {
 
-    private final MobEffectInstance effect;
 
-    public FodderItem(Properties properties, MobEffectInstance effect) {
+    public FodderItem(Properties properties) {
         super(properties);
-        this.effect = effect;
-    }
-
-    public MobEffectInstance getMobEffect(){
-        return effect;
     }
 
     @Override
@@ -42,7 +38,7 @@ public class FodderItem extends Item {
         if(!player.isCreative())
             itemStack.shrink(1);
 
-        if(applyMoaEffect(livingEntity)) {
+        if(applyMoaEffect(livingEntity, itemStack)) {
             return InteractionResult.SUCCESS;
         }
 
@@ -55,7 +51,7 @@ public class FodderItem extends Item {
             if(pPlayer.getVehicle() instanceof Moa moa){
                 if(!pPlayer.isCreative())
                     pPlayer.getItemInHand(pUsedHand).shrink(1);
-                applyMoaEffect(moa);
+                applyMoaEffect(moa, pPlayer.getItemInHand(pUsedHand));
                 return InteractionResultHolder.success(pPlayer.getItemInHand(pUsedHand));
             }
         return InteractionResultHolder.pass(pPlayer.getItemInHand(pUsedHand));
@@ -63,11 +59,15 @@ public class FodderItem extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        PotionContents.addPotionTooltip(List.of(effect), tooltipComponents::add, 1.0F, context.level() == null ? 20.0F : context.tickRate());
+        MoaFodder fodder = stack.get(DADataComponentTypes.MOA_FODDER);
+        if(fodder != null)
+            PotionContents.addPotionTooltip(List.of(fodder.effect()), tooltipComponents::add, 1.0F, context.level() == null ? 20.0F : context.tickRate());
     }
 
-    private boolean applyMoaEffect(LivingEntity livingEntity) {
-        if(livingEntity.addEffect(getMobEffect())) {
+    private boolean applyMoaEffect(LivingEntity livingEntity, ItemStack stack) {
+        MoaFodder fodder = stack.get(DADataComponentTypes.MOA_FODDER);
+        if(fodder != null)
+            if(livingEntity.addEffect(fodder.effect())) {
             livingEntity.level().playLocalSound(livingEntity, SoundEvents.PLAYER_BURP, SoundSource.AMBIENT, 1f, 0.2f);
             return true;
         }

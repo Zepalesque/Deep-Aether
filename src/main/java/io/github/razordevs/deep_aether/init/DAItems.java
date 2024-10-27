@@ -117,9 +117,7 @@ public class DAItems {
 	public static final DeferredItem<Item> AERGLOW_FISH_BUCKET = ITEMS.register("aerglow_fish_bucket", () -> new DABucketItem(DAEntities.AETHER_FISH.get(), (new Item.Properties()).stacksTo(1)));
 
 	// MOA FODDER
-	public static final DeferredItem<Item> JUMP_FODDER = ITEMS.register("jump_fodder", () -> new FodderItem(new Item.Properties(), new MobEffectInstance(MobEffects.JUMP, 200, 1, true, true, true)));
-	public static final DeferredItem<Item> LEVITATION_FODDER = ITEMS.register("levitation_fodder", () -> new FodderItem(new Item.Properties(), new MobEffectInstance(MobEffects.LEVITATION, 200, 1, true, true, true)));
-	public static final DeferredItem<Item> FIRE_RES_FODDER = ITEMS.register("fire_res_fodder", () -> new FodderItem(new Item.Properties(), new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200, 1, true, true, true)));
+	public static final DeferredItem<Item> MOA_FODDER = ITEMS.register("moa_fodder", () -> new FodderItem(new Item.Properties()));
 
 
 	// BOATS

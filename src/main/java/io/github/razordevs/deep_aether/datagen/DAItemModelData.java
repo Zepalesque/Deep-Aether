@@ -385,11 +385,6 @@ public class DAItemModelData extends AetherItemModelProvider {
         this.item(DAItems.ANTIDOTE.get());
         this.altItem(DAItems.ENCHANTED_ANTIDOTE.get(), DAItems.ANTIDOTE.get());
 
-        //Moa Fodder
-        this.item(DAItems.JUMP_FODDER.get());
-        this.item(DAItems.LEVITATION_FODDER.get());
-        this.item(DAItems.FIRE_RES_FODDER.get());
-
         //Plants
         this.itemBlockFlat(DABlocks.MEDIUM_GOLDEN_GRASS.get());
         this.itemBlockFlat(DABlocks.SHORT_GOLDEN_GRASS.get());
@@ -414,7 +409,7 @@ public class DAItemModelData extends AetherItemModelProvider {
         this.item(DAItems.GOLDEN_GRASS_SEEDS.get());
         this.item(DAItems.SQUASH_SEEDS.get());
         this.item(DAItems.GOLDEN_SWET_BALL.get());
-        this.item(DAItems.GLOWING_SPORES.get());
+        this.translucentItem(DAItems.GLOWING_SPORES.get());
 
         this.item(DAItems.GREEN_SQUASH_SLICE.get());
         this.item(DAItems.BLUE_SQUASH_SLICE.get());

@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "aether:enchanted_berry"
   },
-  "result": {
+  "id": {
     "item": "aether:blue_berry"
   }
 }
