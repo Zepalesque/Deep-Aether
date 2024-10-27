@@ -12,6 +12,7 @@ import com.aetherteam.aether.item.miscellaneous.bucket.SkyrootBucketItem;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.datagen.DAJukeboxSongs;
 import io.github.razordevs.deep_aether.entity.DABoatEntity;
+import io.github.razordevs.deep_aether.item.dungeon.brass.BladeOfLuckItem;
 import io.github.razordevs.deep_aether.item.dungeon.brass.CloudCapeItem;
 import io.github.razordevs.deep_aether.item.dungeon.brass.StormBowItem;
 import io.github.razordevs.deep_aether.item.dungeon.brass.StormSwordItem;
@@ -38,7 +39,6 @@ import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import teamrazor.deepaether.item.dungeon.brass.BladeOfLuckItem;
 
 import java.util.function.Supplier;
 
