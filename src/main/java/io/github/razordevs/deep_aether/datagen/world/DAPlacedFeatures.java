@@ -238,7 +238,7 @@ public class DAPlacedFeatures {
         );
 
         register(context, SKYROOT_RAINFOREST_TREES, configuredFeatures.getOrThrow(DAConfiguredFeatures.SKYROOT_RAINFOREST_TREE),
-                    CountPlacement.of(2),
+                    CountPlacement.of(5),
                     ImprovedLayerPlacementModifier.of(Heightmap.Types.MOTION_BLOCKING, UniformInt.of(0, 1), 4), BiomeFilter.biome(),
                         BiomeFilter.biome(),
                         PlacementUtils.filteredByBlockSurvival(AetherBlocks.SKYROOT_SAPLING.get()),

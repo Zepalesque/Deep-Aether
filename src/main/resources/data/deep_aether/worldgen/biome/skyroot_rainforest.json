@@ -110,6 +110,12 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 20
+      },
+      {
+        "type": "deep_aether:windfly",
+        "maxCount": 1,
+        "minCount": 3,
+        "weight": 50
       }
     ],
     "aether:aether_surface_monster": [
