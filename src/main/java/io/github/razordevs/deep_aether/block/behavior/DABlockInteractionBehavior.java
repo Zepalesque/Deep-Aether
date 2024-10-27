@@ -5,6 +5,7 @@ import com.aetherteam.aether.item.AetherItems;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.block.natural.GlowingGrassBlock;
 import io.github.razordevs.deep_aether.block.natural.GlowingVineBlock;
+import io.github.razordevs.deep_aether.datagen.tags.DATags;
 import io.github.razordevs.deep_aether.fluids.DAFluidTypes;
 import io.github.razordevs.deep_aether.init.DABlocks;
 import io.github.razordevs.deep_aether.init.DAItems;
@@ -18,6 +19,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
@@ -35,14 +37,26 @@ import net.minecraft.world.level.block.PipeBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.event.entity.player.BonemealEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 @EventBusSubscriber(modid = DeepAether.MODID, bus = EventBusSubscriber.Bus.GAME)
 public class DABlockInteractionBehavior {
+
+    @SubscribeEvent
+    public static void BonemealEvent(BonemealEvent event) {
+        if (event.getState().is(DATags.Blocks.HAS_GLOWING_SPORES)) {
+            Block.popResource(event.getLevel(), event.getPos(), new ItemStack(DAItems.GLOWING_SPORES.get()));
+            event.getStack().consume(1, event.getPlayer());
+            event.setSuccessful(true);
+        }
+    }
 
     /**
      * Used for Block and Item Interactions.
@@ -55,20 +69,28 @@ public class DABlockInteractionBehavior {
         BlockState state = world.getBlockState(pos);
         Player player = event.getEntity();
 
-        if(itemstack.getItem().equals(Items.SHEARS)) {
-            if(state.getBlock().equals(DABlocks.GLOWING_VINE.get())) {
+        if(itemstack.is(Tags.Items.TOOLS_SHEAR)) {
+            if(state.getBlock().equals(DABlocks.GLOWING_VINE.get()) ) {
                 Block.popResource(world, pos, new ItemStack(DAItems.GLOWING_SPORES.get()));
                 world.setBlock(pos, Blocks.VINE.defaultBlockState().setValue(PipeBlock.UP, state.getValue(PipeBlock.UP))
                         .setValue(PipeBlock.NORTH, state.getValue(PipeBlock.NORTH))
                         .setValue(PipeBlock.EAST, state.getValue(PipeBlock.EAST))
                         .setValue(PipeBlock.SOUTH, state.getValue(PipeBlock.SOUTH))
                         .setValue(PipeBlock.WEST, state.getValue(PipeBlock.WEST)), 18);
+                world.playSound(player, pos, SoundEvents.BOGGED_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+                if(!world.isClientSide())
+                    itemstack.hurtAndBreak(1, (ServerLevel) world, player, item -> {});
+                event.setCancellationResult(InteractionResult.sidedSuccess(world.isClientSide()));
             }
             else if(state.getBlock().equals(DABlocks.TALL_GLOWING_GRASS.get())) {
                 if(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF).equals(DoubleBlockHalf.UPPER)) {
                     Block.popResource(world, pos, new ItemStack(DAItems.GLOWING_SPORES.get()));
                     world.setBlock(pos.below(1), Blocks.TALL_GRASS.defaultBlockState().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER),18);
                     world.setBlock(pos, Blocks.TALL_GRASS.defaultBlockState().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER), 18);
+                    world.playSound(player, pos, SoundEvents.BOGGED_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    if(!world.isClientSide())
+                        itemstack.hurtAndBreak(1, (ServerLevel) world, player, item -> {});
+                    event.setCancellationResult(InteractionResult.sidedSuccess(world.isClientSide()));
                 }
             }
         }

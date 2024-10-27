@@ -623,6 +623,11 @@ public class DABlockTagData extends BlockTagsProvider {
                 DABlocks.CRUDEROOT_SAPLING.get(),
                 DABlocks.ROSEROOT_SAPLING.get(),
                 DABlocks.YAGROOT_SAPLING.get()
-                );
+        );
+
+        tag(DATags.Blocks.HAS_GLOWING_SPORES).add(
+                DABlocks.GLOWING_VINE.get(),
+                DABlocks.TALL_GLOWING_GRASS.get()
+        );
     }
 }
