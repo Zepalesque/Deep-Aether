@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "aether:enchanted_dart"
   },
-  "id": {
+  "result": {
     "item": "aether:golden_dart"
   }
 }

@@ -11,7 +11,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
@@ -42,9 +41,9 @@ public class CombinerRecipe implements Recipe<CombinerRecipeInput> {
 
     @Override
     public boolean matches(CombinerRecipeInput input, Level pLevel) {
-        return inputItems.get(0).test(input.items().getFirst())
-                && inputItems.get(1).test(input.items().get(1))
-                && inputItems.get(2).test(input.items().get(2));
+        return testEachSlot(input, inputItems.get(0))
+                && testEachSlot(input, inputItems.get(1))
+                && testEachSlot(input, inputItems.get(2));
     }
 
     @Override
@@ -108,10 +107,10 @@ public class CombinerRecipe implements Recipe<CombinerRecipeInput> {
      * Method that checks if the passed ingredient is present in only one of the 3
      * slots using the XOR operator. This enables "shapeless" recipes in the combiner.
      */
-    private boolean testEachSlot(Container pContainer, Ingredient ingredient){
-        return ingredient.test(pContainer.getItem(0))
-                ^ ingredient.test(pContainer.getItem(1))
-                ^ ingredient.test(pContainer.getItem(2));
+    private boolean testEachSlot(CombinerRecipeInput input, Ingredient ingredient){
+        return ingredient.test(input.getItem(0))
+                ^ ingredient.test(input.getItem(1))
+                ^ ingredient.test(input.getItem(2));
     }
 
     public static class Serializer implements RecipeSerializer<CombinerRecipe> {

@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "aether:enchanted_gravitite"
   },
-  "id": {
+  "result": {
     "item": "aether:gravitite_ore"
   }
 }

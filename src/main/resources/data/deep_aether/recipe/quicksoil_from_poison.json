@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "aether:quicksoil_glass"
   },
-  "id": {
+  "result": {
     "item": "aether:quicksoil"
   }
 }

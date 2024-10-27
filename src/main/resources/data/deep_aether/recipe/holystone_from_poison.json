@@ -3,7 +3,7 @@
   "ingredient": {
     "item": "aether:healing_stone"
   },
-  "id": {
+  "result": {
     "item": "aether:holystone"
   }
 }

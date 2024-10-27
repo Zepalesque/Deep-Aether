@@ -38,7 +38,6 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,6 +73,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
         }
     };
     protected NonNullList<ItemStack> items = NonNullList.withSize(4, ItemStack.EMPTY);
+    protected NonNullList<ItemStack> ingredients = NonNullList.withSize(3, ItemStack.EMPTY);
     int processingProgress = 0;
     int processingTotalTime = 78;
     boolean combining;
@@ -115,7 +115,9 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider registry) {
         super.loadAdditional(tag, registry);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
+        this.ingredients = NonNullList.withSize(this.getContainerSize() - 1, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, this.items, registry);
+        ContainerHelper.loadAllItems(tag, this.ingredients, registry);
         this.processingProgress = tag.getInt("ProcessingTime");
         this.processingTotalTime = tag.getInt("ProcessingTimeTotal");
         CompoundTag recipesUsedTag = tag.getCompound("RecipesUsed");
@@ -130,6 +132,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
         tag.putInt("ProcessingTime", this.processingProgress);
         tag.putInt("ProcessingTimeTotal", this.processingTotalTime);
         ContainerHelper.saveAllItems(tag, this.items, registry);
+        ContainerHelper.saveAllItems(tag, this.ingredients, registry);
         CompoundTag recipesUsedTag = new CompoundTag();
         this.recipesUsed.forEach((location, integer) -> recipesUsedTag.putInt(location.toString(), integer));
         tag.put("RecipesUsed", recipesUsedTag);
@@ -137,8 +140,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
 
     public static void serverTick(Level level, BlockPos pos, BlockState state, CombinerBlockEntity blockEntity) {
         boolean changed = false;
-
-        RecipeHolder<CombinerRecipe> recipeHolder = blockEntity.quickCheck.getRecipeFor(new CombinerRecipeInput(blockEntity.items), level).orElse(null);
+        RecipeHolder<CombinerRecipe> recipeHolder = blockEntity.quickCheck.getRecipeFor(new CombinerRecipeInput(blockEntity.ingredients), level).orElse(null);
         int i = blockEntity.getMaxStackSize();
         boolean isCharging = false;
 
@@ -191,7 +193,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
         ItemStack right = stacks.get(THIRD_SLOT);
         System.out.println("before slot check");
         if (!left.isEmpty() && !middle.isEmpty() && !right.isEmpty() && recipeHolder != null) {
-            ItemStack result = recipeHolder.value().assemble(new CombinerRecipeInput(this.getItems()), registryAccess);
+            ItemStack result = recipeHolder.value().assemble(new CombinerRecipeInput(ingredients), registryAccess);
             System.out.println("before result check");
             if (result.isEmpty()) {
                 return false;
@@ -218,7 +220,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
             ItemStack left = stacks.getFirst();
             ItemStack middle = stacks.get(SECOND_SLOT);
             ItemStack right = stacks.get(THIRD_SLOT);
-            ItemStack result = recipeHolder.value().assemble(new CombinerRecipeInput(Collections.singletonList(this.getItem(0))), registryAccess);
+            ItemStack result = recipeHolder.value().assemble(new CombinerRecipeInput(ingredients), registryAccess);
             ItemStack output = stacks.get(OUTPUT_SLOT);
 
             if (output.isEmpty()) {
@@ -239,7 +241,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
 
 
     private static int getTotalProcessingTime(Level level, CombinerBlockEntity blockEntity) {
-        return blockEntity.quickCheck.getRecipeFor(new CombinerRecipeInput(Collections.singletonList(blockEntity.getItem(0))), level).map(recipeHolder -> recipeHolder.value().getProcessingTime()).orElse(200);
+        return blockEntity.quickCheck.getRecipeFor(new CombinerRecipeInput(blockEntity.ingredients), level).map(recipeHolder -> recipeHolder.value().getProcessingTime()).orElse(200);
     }
 
     public void drops() {
@@ -281,6 +283,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
 
         for(int i = 0; i < itemHandler.getSlots(); i++)
             items.add(i, this.itemHandler.getStackInSlot(i));
+
         return this.level.getRecipeManager().getRecipeFor(DARecipeTypes.COMBINING.get(), new CombinerRecipeInput(items), level);
     }
 
