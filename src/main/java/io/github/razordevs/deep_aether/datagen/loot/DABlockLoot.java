@@ -21,7 +21,6 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
-import net.minecraft.world.level.block.PinkPetalsBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -39,7 +38,6 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class DABlockLoot extends AetherBlockLootSubProvider {
@@ -291,7 +289,7 @@ public class DABlockLoot extends AetherBlockLootSubProvider {
         this.dropNone(DABlocks.FEATHER_GRASS.get());
         this.dropNone(DABlocks.TALL_FEATHER_GRASS.get());
 
-        this.dropSelf(DABlocks.GOLDEN_FLOWER.get());
+        this.add(DABlocks.GOLDEN_FLOWER.get(), (flower) -> createSinglePropConditionTable(DABlocks.GOLDEN_FLOWER.get(), DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
         this.add(DABlocks.GLOWING_SPORES.get(), this.createPetalsDrops(DABlocks.GLOWING_SPORES.get()));
         this.dropSelf(DABlocks.ENCHANTED_BLOSSOM.get());
 
