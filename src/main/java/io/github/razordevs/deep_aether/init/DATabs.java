@@ -327,7 +327,8 @@ public class DATabs {
                     DAItems.STRATUS_SHOVEL.get(),
                     DAItems.STRATUS_PICKAXE.get(),
                     DAItems.STRATUS_AXE.get(),
-                    DAItems.STRATUS_HOE.get()
+                    DAItems.STRATUS_HOE.get(),
+                    DAItems.BLADE_OF_LUCK.get(),
             }, event);
 
 

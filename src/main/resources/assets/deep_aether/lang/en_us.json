@@ -766,6 +766,10 @@
   "item.deep_aether.storm_sword": "Storm Sword",
   "lore.item.deep_aether.storm_sword": "A weapon with a blade made of pure clouds. Deals extra knockback to enemies when attacked with a fully charged attack.",
   "lore.item.deep_aether.storm_ruler": "A weapon with a blade made of pure clouds. Deals extra knockback to enemies when attacked with a fully charged attack. §oOnly a storm can fell a greatwood.",
+  "item.deep_aether.blade_of_luck": "Blade of Luck",
+  "lore.item.deep_aether.blade_of_luck": "A mysterious weapon that deals a random amount of damage when hit fully charged. It can deal as low as one damage and up to a maximum of 20 damage! However be careful since this weapon has a long attack cooldown.",
+
+
   "deep_aether.locate.invalid": "Bound structure invalid. Please re-bind",
   "deep_aether.locate.fail": "Bound structure could not be located nearby",
   "deep_aether.locate.distance": "Bound structure is %s blocks away",
