@@ -21,6 +21,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.PinkPetalsBlock;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -38,6 +39,7 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import java.util.Set;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class DABlockLoot extends AetherBlockLootSubProvider {
@@ -290,6 +292,7 @@ public class DABlockLoot extends AetherBlockLootSubProvider {
         this.dropNone(DABlocks.TALL_FEATHER_GRASS.get());
 
         this.dropSelf(DABlocks.GOLDEN_FLOWER.get());
+        this.add(DABlocks.GLOWING_SPORES.get(), this.createPetalsDrops(DABlocks.GLOWING_SPORES.get()));
         this.dropSelf(DABlocks.ENCHANTED_BLOSSOM.get());
 
         this.add(DABlocks.GOLDEN_VINES.get(), DABlockLoot::createGoldenVinesDrop);
@@ -400,7 +403,6 @@ public class DABlockLoot extends AetherBlockLootSubProvider {
         this.dropSelf(DABlocks.STRIPPED_SUNROOT_LOG_WALL.get());
 
     }
-
 
     protected static LootTable.Builder createGoldenVinesDrop(Block p_251070_) {
         return LootTable.lootTable().withPool(LootPool.lootPool().add(LootItem.lootTableItem(DAItems.GOLDEN_BERRIES.get())).when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(p_251070_).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(GoldenVines.BERRIES, true))));

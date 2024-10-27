@@ -1,6 +1,7 @@
 package io.github.razordevs.deep_aether.init;
 
 import com.aetherteam.aether.data.resources.AetherMobCategory;
+import com.aetherteam.aether.entity.EntityUtil;
 import com.aetherteam.aether.entity.passive.AetherAnimal;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.entity.DABoatEntity;
@@ -20,6 +21,7 @@ import io.github.razordevs.deep_aether.entity.living.quail.Quail;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -107,14 +109,15 @@ public class DAEntities {
 	@SubscribeEvent
 	public static void spawnPlacementRegisterEvent(RegisterSpawnPlacementsEvent event) {
 		event.register(DAEntities.QUAIL.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AetherAnimal::checkAetherAnimalSpawnRules, RegisterSpawnPlacementsEvent.Operation.OR);
-		event.register(DAEntities.WINDFLY.get(), SpawnPlacementTypes.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+		event.register(DAEntities.WINDFLY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
 				DAEntities::checkWindFly, RegisterSpawnPlacementsEvent.Operation.OR);
 		event.register(DAEntities.VENOMITE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,(entityType, serverLevel, spawnType, pos, random)
 				-> (serverLevel.getBlockState(pos.above()).is(Blocks.AIR)), RegisterSpawnPlacementsEvent.Operation.OR);
 	}
 
 	public static boolean checkWindFly(EntityType<Windfly> animal, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
-		return level.isEmptyBlock(pos.above());
+		return Mob.checkMobSpawnRules(animal, level, spawnReason, pos, random) && EntityUtil.wholeHitboxCanSeeSky(level, pos, 2);
+
 	}
 
 	@SubscribeEvent

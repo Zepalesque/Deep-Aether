@@ -21,13 +21,13 @@
                     "half": "lower"
                   }
                 },
-                "weight": 12
+                "weight": 20
               },
               {
                 "data": {
                   "Name": "deep_aether:radiant_orchid"
                 },
-                "weight": 2
+                "weight": 4
               }
             ]
           }
@@ -43,7 +43,7 @@
         }
       ]
     },
-    "tries": 100,
+    "tries": 140,
     "xz_spread": 7,
     "y_spread": 3
   }

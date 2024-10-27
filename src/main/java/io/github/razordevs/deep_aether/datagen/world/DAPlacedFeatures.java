@@ -70,8 +70,8 @@ public class DAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> SACRED_ROCK = createKey("sacred_rock");
     public static final ResourceKey<PlacedFeature> TOTEM = createKey("totem");
     public static final ResourceKey<PlacedFeature> CLORITE_COLUMNS = createKey("clorite_columns");
-    public static final ResourceKey<PlacedFeature> SKYROOT_RAINFOREST_TREES = createKey("skyroot_rainforest_trees");
-    public static final ResourceKey<PlacedFeature> SKYROOT_RAINFOREST_GRASS = createKey("skyroot_rainforest_grass");
+    public static final ResourceKey<PlacedFeature> SKYROOT_SWAMP_TREES = createKey("skyroot_swamp_trees");
+    public static final ResourceKey<PlacedFeature> SKYROOT_SWAMP_VEGETATION = createKey("skyroot_swamp_vegetation");
 
     public static final ResourceKey<PlacedFeature> AERCLOUD_TREES = createKey("aercloud_trees");
     public static final ResourceKey<PlacedFeature> AERCLOUD_GRASS = createKey("aercloud_grass");
@@ -237,17 +237,18 @@ public class DAPlacedFeatures {
                 BiomeFilter.biome()
         );
 
-        register(context, SKYROOT_RAINFOREST_TREES, configuredFeatures.getOrThrow(DAConfiguredFeatures.SKYROOT_RAINFOREST_TREE),
+        register(context, SKYROOT_SWAMP_TREES, configuredFeatures.getOrThrow(DAConfiguredFeatures.SKYROOT_SWAMP_TREE),
                     CountPlacement.of(5),
                     ImprovedLayerPlacementModifier.of(Heightmap.Types.MOTION_BLOCKING, UniformInt.of(0, 1), 4), BiomeFilter.biome(),
                         BiomeFilter.biome(),
                         PlacementUtils.filteredByBlockSurvival(AetherBlocks.SKYROOT_SAPLING.get()),
                         new DungeonBlacklistFilter());
 
-        register(context, SKYROOT_RAINFOREST_GRASS, configuredFeatures.getOrThrow(DAConfiguredFeatures.SKYROOT_RAINFOREST_GRASS),
+        register(context, SKYROOT_SWAMP_VEGETATION, configuredFeatures.getOrThrow(DAConfiguredFeatures.SKYROOT_SWAMP_VEGETATION),
                 NoiseThresholdCountPlacement.of(-0.8D, 5, 9),
                 ImprovedLayerPlacementModifier.of(Heightmap.Types.MOTION_BLOCKING, UniformInt.of(0, 1), 4),
                 BiomeFilter.biome());
+
 
         register(context, AERCLOUD_TREES, configuredFeatures.getOrThrow(DAConfiguredFeatures.AERCLOUD_TREE_CONFIGURATION),
                 CountPlacement.of(1),

@@ -60,7 +60,6 @@ public class BladeOfLuckItem extends SwordItem {
         if(flag && attacker instanceof Player player && !target.level().isClientSide() && player.getAttackStrengthScale(0) >= 1) {
             DAPlayerAttachment attachment = player.getData(DAAttachments.PLAYER);
             target.invulnerableTime = 0;
-            System.out.println(attachment.getBladeOfLuckDamage());
             target.hurt(player.level().damageSources().playerAttack(player), attachment.getBladeOfLuckDamage());
 
             attachment.setSynched(player.getId(), INBTSynchable.Direction.CLIENT,"setBladeOfLuckDamage", player.level().getRandom().nextInt(21));

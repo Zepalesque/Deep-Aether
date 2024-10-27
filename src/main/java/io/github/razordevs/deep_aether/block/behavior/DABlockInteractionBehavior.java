@@ -52,7 +52,7 @@ public class DABlockInteractionBehavior {
     @SubscribeEvent
     public static void BonemealEvent(BonemealEvent event) {
         if (event.getState().is(DATags.Blocks.HAS_GLOWING_SPORES)) {
-            Block.popResource(event.getLevel(), event.getPos(), new ItemStack(DAItems.GLOWING_SPORES.get()));
+            Block.popResource(event.getLevel(), event.getPos(), new ItemStack(DABlocks.GLOWING_SPORES.get()));
             event.getStack().consume(1, event.getPlayer());
             event.setSuccessful(true);
         }
@@ -71,7 +71,7 @@ public class DABlockInteractionBehavior {
 
         if(itemstack.is(Tags.Items.TOOLS_SHEAR)) {
             if(state.getBlock().equals(DABlocks.GLOWING_VINE.get()) ) {
-                Block.popResource(world, pos, new ItemStack(DAItems.GLOWING_SPORES.get()));
+                Block.popResource(world, pos, new ItemStack(DABlocks.GLOWING_SPORES.get()));
                 world.setBlock(pos, Blocks.VINE.defaultBlockState().setValue(PipeBlock.UP, state.getValue(PipeBlock.UP))
                         .setValue(PipeBlock.NORTH, state.getValue(PipeBlock.NORTH))
                         .setValue(PipeBlock.EAST, state.getValue(PipeBlock.EAST))
@@ -84,7 +84,7 @@ public class DABlockInteractionBehavior {
             }
             else if(state.getBlock().equals(DABlocks.TALL_GLOWING_GRASS.get())) {
                 if(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF).equals(DoubleBlockHalf.UPPER)) {
-                    Block.popResource(world, pos, new ItemStack(DAItems.GLOWING_SPORES.get()));
+                    Block.popResource(world, pos, new ItemStack(DABlocks.GLOWING_SPORES.get()));
                     world.setBlock(pos.below(1), Blocks.TALL_GRASS.defaultBlockState().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER),18);
                     world.setBlock(pos, Blocks.TALL_GRASS.defaultBlockState().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER), 18);
                     world.playSound(player, pos, SoundEvents.BOGGED_SHEAR, SoundSource.PLAYERS, 1.0F, 1.0F);

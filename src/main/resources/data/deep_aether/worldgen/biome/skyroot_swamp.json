@@ -40,9 +40,9 @@
       "aether:water_spring"
     ],
     [
-      "deep_aether:skyroot_rainforest_trees",
+      "deep_aether:skyroot_swamp_trees",
       "aether:holiday_tree",
-      "deep_aether:skyroot_rainforest_grass",
+      "deep_aether:skyroot_swamp_vegetation",
       "aether:berry_bush_patch"
     ],
     [
@@ -110,12 +110,6 @@
         "maxCount": 1,
         "minCount": 1,
         "weight": 20
-      },
-      {
-        "type": "deep_aether:windfly",
-        "maxCount": 1,
-        "minCount": 3,
-        "weight": 50
       }
     ],
     "aether:aether_surface_monster": [
@@ -153,6 +147,12 @@
     "ambient": [],
     "axolotls": [],
     "creature": [
+      {
+        "type": "deep_aether:windfly",
+        "maxCount": 1,
+        "minCount": 3,
+        "weight": 10
+      },
       {
         "type": "aether:phyg",
         "maxCount": 4,

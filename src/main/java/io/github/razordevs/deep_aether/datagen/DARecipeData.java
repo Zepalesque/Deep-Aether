@@ -186,7 +186,7 @@ public class DARecipeData extends AetherRecipeProvider {
 
         freezingRecipe(RecipeCategory.MISC, DAItems.FROZEN_GOLDEN_BERRIES.get(), DAItems.GOLDEN_BERRIES.get(), 1, 100).save(consumer, this.name("golden_berries_freezing"));
         enchantingRecipe(RecipeCategory.MISC, DAItems.ENCHANTED_ANTIDOTE.get(), DAItems.ANTIDOTE.get(), 1, 100).save(consumer, this.name("antidote_enchanting"));
-        enchantingRecipe(RecipeCategory.MISC, Items.WHEAT_SEEDS, DAItems.GLOWING_SPORES.get(), 1, 100).save(consumer, this.name("glowing_spores"));
+        enchantingRecipe(RecipeCategory.MISC, Items.WHEAT_SEEDS, DABlocks.GLOWING_SPORES.get(), 1, 100).save(consumer, this.name("glowing_spores"));
 
         enchantingRecipe(RecipeCategory.MISC, AetherBlocks.BLUE_AERCLOUD.get(), DABlocks.BLUE_AERCLOUD_MUSHROOM_BLOCK.get(), 1, 100).save(consumer, this.name("blue_aercloud_from_blue_aercloud_mushroom_blocks"));
         enchantingRecipe(RecipeCategory.MISC, AetherBlocks.GOLDEN_AERCLOUD.get(), DABlocks.PINK_AERCLOUD_MUSHROOM_BLOCK.get(), 1, 400).save(consumer, this.name("golden_aercloud_from_pink_aercloud_mushroom_blocks"));

@@ -66,6 +66,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.neoforged.neoforge.registries.DeferredBlock;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -130,13 +131,16 @@ public class DAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> AERCLOUD_CLOUD_OVERGROWN = createKey("aercloud_cloud_overgrown");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AERCLOUD_RAIN_CLOUD = createKey("aercloud_rain_cloud");
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SKYROOT_RAINFOREST_TREE = createKey("skyroot_rainforest_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SKYROOT_RAINFOREST_GRASS = createKey("skyroot_rainforest_grass");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SKYROOT_SWAMP_TREE = createKey("skyroot_swamp_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SKYROOT_SWAMP_GRASS = createKey("skyroot_swamp_grass");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SKYROOT_SWAMP_VEGETATION = createKey("skyroot_swamp_vegetation");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> AERCLOUD_TREE_CONFIGURATION = createKey("aercloud_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AERCLOUD_GRASS = createKey("aercloud_grass");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AERCLOUD_ROOTS_CARPET = createKey("aercloud_roots_carpet");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AERCLOUD_ROOTS = createKey("aercloud_roots");
+
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GLOWING_FLOWERS = createKey("glowing_flowers");
 
 
     private static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name) {
@@ -181,7 +185,7 @@ public class DAConfiguredFeatures {
                         new TwoLayersFeatureSize(1, 0, 1)
                 ).ignoreVines().build());
 
-        register(context, SKYROOT_RAINFOREST_TREE, Feature.TREE,
+        register(context, SKYROOT_SWAMP_TREE, Feature.TREE,
                 new TreeConfiguration.TreeConfigurationBuilder(
                         BlockStateProvider.simple(AetherFeatureStates.SKYROOT_LOG),
                         new StraightTrunkPlacer(7, 4, 0),
@@ -190,11 +194,28 @@ public class DAConfiguredFeatures {
                         new TwoLayersFeatureSize(1, 0, 1)
                 ).decorators(List.of(new GlowingVineDecorator(0.25F))).ignoreVines().build());
 
-        register(context, SKYROOT_RAINFOREST_GRASS, Feature.RANDOM_PATCH,
+        register(context, SKYROOT_SWAMP_GRASS, Feature.RANDOM_PATCH,
                 NitrogenConfiguredFeatureBuilders.grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(Blocks.SHORT_GRASS.defaultBlockState(),40)
-                        .add(DABlocks.TALL_GLOWING_GRASS.get().defaultBlockState(),12)
-                        .add(DAFeatureStates.RADIANT_ORCHID, 2)), 100));
+                        .add(DABlocks.TALL_GLOWING_GRASS.get().defaultBlockState(),20)
+                        .add(DAFeatureStates.RADIANT_ORCHID, 4)), 140));
+
+        SimpleWeightedRandomList.Builder<BlockState> builder = SimpleWeightedRandomList.builder();
+
+        for(int i = 1; i <= 4; ++i) {
+            for (Direction direction : Direction.Plane.HORIZONTAL) {
+                builder.add(DABlocks.GLOWING_SPORES.get().defaultBlockState().setValue(PinkPetalsBlock.AMOUNT, i).setValue(PinkPetalsBlock.FACING, direction), 1);
+            }
+        }
+
+        register(context, GLOWING_FLOWERS, Feature.FLOWER, new RandomPatchConfiguration(64, 6, 2, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(builder)))));
+
+
+
+        register(context, SKYROOT_SWAMP_VEGETATION, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(
+                PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(SKYROOT_SWAMP_GRASS)), 0.5F)),
+                PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(GLOWING_FLOWERS))));
+
 
         register(context, AERCLOUD_GRASS, Feature.RANDOM_PATCH,
                 NitrogenConfiguredFeatureBuilders.grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()

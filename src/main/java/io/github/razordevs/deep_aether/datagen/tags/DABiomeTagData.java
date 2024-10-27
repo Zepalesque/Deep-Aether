@@ -17,7 +17,6 @@ public class DABiomeTagData extends BiomeTagsProvider {
         super(output, registries, DeepAether.MODID, helper);
     }
     @Override
-    @SuppressWarnings("unchecked")
     public void addTags(HolderLookup.Provider provider) {
         this.tag(AetherTags.Biomes.IS_AETHER).add(
                 DABiomes.AERLAVENDER_FIELDS,
@@ -27,7 +26,11 @@ public class DABiomeTagData extends BiomeTagsProvider {
                 DABiomes.YAGROOT_SWAMP,
                 DABiomes.GOLDEN_HEIGHTS,
                 DABiomes.GOLDEN_GROVE,
-                DABiomes.SACRED_LANDS
+                DABiomes.SACRED_LANDS,
+                DABiomes.CLOUD,
+                DABiomes.STORM_CLOUD,
+                DABiomes.OVERGROWN_CLOUD,
+                DABiomes.SKYROOT_SWAMP
         );
 
         this.tag(DATags.Biomes.IS_NOT_SWAMP).add(

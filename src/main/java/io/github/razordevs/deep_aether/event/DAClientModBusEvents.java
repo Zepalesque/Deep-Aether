@@ -110,7 +110,7 @@ public class DAClientModBusEvents {
             }
 
             @Override
-            public @org.jetbrains.annotations.Nullable ResourceLocation getOverlayTexture() {
+            public @NotNull ResourceLocation getOverlayTexture() {
                 return DAFluidTypes.POISON_OVERLAY_RL;
             }
 
@@ -274,7 +274,7 @@ public class DAClientModBusEvents {
         event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null && pPos != null ?
                 BiomeColors.getAverageFoliageColor(pLevel, pPos) : FoliageColor.getDefaultColor(), DABlocks.GLOWING_VINE.get());
         event.register((pState, pLevel, pPos, pTintIndex) -> pLevel != null && pPos != null ?
-                BiomeColors.getAverageGrassColor(pLevel, pPos) : FoliageColor.getDefaultColor(), DABlocks.AERCLOUD_GRASS_BLOCK.get());
+                BiomeColors.getAverageGrassColor(pLevel, pPos) : FoliageColor.getDefaultColor(), DABlocks.AERCLOUD_GRASS_BLOCK.get(), DABlocks.GLOWING_SPORES.get());
     }
 
     @SubscribeEvent

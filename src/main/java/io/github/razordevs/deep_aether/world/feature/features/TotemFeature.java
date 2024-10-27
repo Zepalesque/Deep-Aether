@@ -45,7 +45,7 @@ public class TotemFeature extends Feature<NoneFeatureConfiguration> {
         for (int i = 0; i < height; i++) {
             if(canPlace(reader, pos)) {
                 //Places the blocks
-                System.out.println(pos.getX() + " " + pos.getY() + " " + pos.getZ());
+                //System.out.println(pos.getX() + " " + pos.getY() + " " + pos.getZ());
                 this.setBlock(reader, pos, getRandomTotem(rand, false).defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
                 pos = pos.above();
             }

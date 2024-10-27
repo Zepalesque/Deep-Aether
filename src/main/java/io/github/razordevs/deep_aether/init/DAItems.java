@@ -187,7 +187,6 @@ public class DAItems {
 	public static final DeferredItem<Item> GOLDEN_SWET_BALL = ITEMS.register("golden_swet_ball",()-> new GoldenSwetBallItem(new Item.Properties()));
 
 	public static final DeferredItem<Item> SQUASH_SEEDS = ITEMS.register("squash_seeds",()-> new ItemNameBlockItem(DABlocks.SQUASH_STEM.get(), new Item.Properties()));
-	public static final DeferredItem<Item> GLOWING_SPORES = ITEMS.register("glowing_spores", ()-> new GlowingSporeItem(new Item.Properties()));
 
 	public static final DeferredItem<Item> SUN_CLOCK = ITEMS.register("sun_clock", ()-> new SunClock(new Item.Properties()));
 	public static final DeferredItem<Item> BRONZE_COMPASS = ITEMS.register("bronze_compass", ()-> new DungeonCompass(new Item.Properties(), AetherStructures.BRONZE_DUNGEON, "Bronze Dungeon"));

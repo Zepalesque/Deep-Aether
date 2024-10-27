@@ -20,7 +20,7 @@ public class DABiomes {
     public static final ResourceKey<Biome> CLOUD = createKey("cloud");
     public static final ResourceKey<Biome> STORM_CLOUD = createKey("storm_cloud");
     public static final ResourceKey<Biome> OVERGROWN_CLOUD = createKey("overgrown_cloud");
-    public static final ResourceKey<Biome> SKYROOT_RAINFOREST = createKey("skyroot_rainforest");
+    public static final ResourceKey<Biome> SKYROOT_SWAMP = createKey("skyroot_swamp");
 
     private static ResourceKey<Biome> createKey(String name) {
         return ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, name));

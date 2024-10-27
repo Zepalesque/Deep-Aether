@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:random_selector",
+  "config": {
+    "default": {
+      "feature": "deep_aether:glowing_flowers",
+      "placement": []
+    },
+    "features": [
+      {
+        "chance": 0.5,
+        "feature": {
+          "feature": "deep_aether:skyroot_swamp_grass",
+          "placement": []
+        }
+      }
+    ]
+  }
+}
