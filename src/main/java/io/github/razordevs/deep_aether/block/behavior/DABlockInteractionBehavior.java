@@ -56,20 +56,19 @@ public class DABlockInteractionBehavior {
         Player player = event.getEntity();
 
         if(itemstack.getItem().equals(Items.SHEARS)) {
-            if(state.getBlock() instanceof GlowingVineBlock) {
+            if(state.getBlock().equals(DABlocks.GLOWING_VINE.get())) {
                 Block.popResource(world, pos, new ItemStack(DAItems.GLOWING_SPORES.get()));
                 world.setBlock(pos, Blocks.VINE.defaultBlockState().setValue(PipeBlock.UP, state.getValue(PipeBlock.UP))
                         .setValue(PipeBlock.NORTH, state.getValue(PipeBlock.NORTH))
                         .setValue(PipeBlock.EAST, state.getValue(PipeBlock.EAST))
                         .setValue(PipeBlock.SOUTH, state.getValue(PipeBlock.SOUTH))
-                        .setValue(PipeBlock.WEST, state.getValue(PipeBlock.WEST)), 16);
+                        .setValue(PipeBlock.WEST, state.getValue(PipeBlock.WEST)), 18);
             }
-            else if(state.getBlock() instanceof GlowingGrassBlock) {
+            else if(state.getBlock().equals(DABlocks.TALL_GLOWING_GRASS.get())) {
                 if(state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF).equals(DoubleBlockHalf.UPPER)) {
                     Block.popResource(world, pos, new ItemStack(DAItems.GLOWING_SPORES.get()));
-                    world.setBlockAndUpdate(pos, Blocks.TALL_GRASS.defaultBlockState().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER));
-                    world.setBlockAndUpdate(pos.below(1), Blocks.TALL_GRASS.defaultBlockState().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER));
-
+                    world.setBlock(pos.below(1), Blocks.TALL_GRASS.defaultBlockState().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.LOWER),18);
+                    world.setBlock(pos, Blocks.TALL_GRASS.defaultBlockState().setValue(BlockStateProperties.DOUBLE_BLOCK_HALF, DoubleBlockHalf.UPPER), 18);
                 }
             }
         }
