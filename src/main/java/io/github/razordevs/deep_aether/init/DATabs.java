@@ -331,6 +331,7 @@ public class DATabs {
                     DAItems.BLADE_OF_LUCK.get(),
             }, event);
 
+            addToTab(AetherItems.BRONZE_DUNGEON_KEY.get(), DAItems.BRASS_DUNGEON_KEY.get(), event);
 
             //if (ModList.get().isLoaded(DeepAether.LOST_AETHER_CONTENT)) {
                 //addToTab(DAItems.STRATUS_HOE.get(), DAItems.STRATUS_SHIELD.get(), event);
@@ -379,6 +380,15 @@ public class DATabs {
                     DAItems.STRATUS_BOOTS.get(),
                     DAItems.STRATUS_GLOVES.get()
             }, event);
+
+            addToTab(AetherItems.NEPTUNE_GLOVES.get(), new Item[]{
+                    DAItems.STORMFORGED_HELMET.get(),
+                    DAItems.STORMFORGED_CHESTPLATE.get(),
+                    DAItems.STORMFORGED_LEGGINGS.get(),
+                    DAItems.STORMFORGED_BOOTS.get(),
+                    DAItems.STORMFORGED_GLOVES.get()
+            }, event);
+
             addToTab(AetherItems.ZANITE_PENDANT.get(), new Item[]{
                     DAItems.SKYJADE_RING.get(),
                     DAItems.GRAVITITE_RING.get(),
@@ -386,6 +396,8 @@ public class DATabs {
             }, event);
 
             addToTab(AetherItems.ICE_PENDANT.get(), DAItems.SPOOKY_RING.get(), event);
+
+            addToTab(AetherItems.SWET_CAPE.get(), DAItems.CLOUD_CAPE.get(), event);
 
             addToTab(AetherItems.SHIELD_OF_REPULSION.get(), new Item[]{
                     DAItems.SLIDER_EYE.get(),

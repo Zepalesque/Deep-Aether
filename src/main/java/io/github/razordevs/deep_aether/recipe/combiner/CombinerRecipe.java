@@ -115,23 +115,25 @@ public class CombinerRecipe implements Recipe<CombinerRecipeInput> {
 
     public static class Serializer implements RecipeSerializer<CombinerRecipe> {
 
-        public final MapCodec<CombinerRecipe> CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
-                Codec.STRING.optionalFieldOf("group", "").forGetter(CombinerRecipe::getGroup),
-                DABookCategory.CODEC.fieldOf("category").forGetter(CombinerRecipe::daCategory),
-                Ingredient.LIST_CODEC_NONEMPTY
-                        .fieldOf("ingredients")
-                        .forGetter(recipe -> recipe.inputItems),
-                ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
-                Codec.FLOAT.fieldOf("experience").orElse(0.0F).forGetter(recipe -> recipe.experience),
-                Codec.INT.fieldOf("processing_time").orElse(200).forGetter(recipe -> recipe.processingTime)
-        ).apply(instance, CombinerRecipe::new));
+        private final MapCodec<CombinerRecipe> codec;
+        private final StreamCodec<RegistryFriendlyByteBuf, CombinerRecipe> streamCodec;
 
+        public Serializer(){
+            this.codec = RecordCodecBuilder.mapCodec((instance) -> instance.group(
+                    Codec.STRING.optionalFieldOf("group", "").forGetter(CombinerRecipe::getGroup),
+                    DABookCategory.CODEC.fieldOf("category").orElse(DABookCategory.COMBINEABLE_MISC).forGetter(CombinerRecipe::daCategory),
+                    Ingredient.LIST_CODEC_NONEMPTY
+                            .fieldOf("ingredients")
+                            .forGetter(recipe -> recipe.inputItems),
+                    ItemStack.CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
+                    Codec.FLOAT.fieldOf("experience").orElse(0.0F).forGetter(recipe -> recipe.experience),
+                    Codec.INT.fieldOf("processing_time").orElse(200).forGetter(recipe -> recipe.processingTime)
+            ).apply(instance, CombinerRecipe::new));
 
-        public static final StreamCodec<RegistryFriendlyByteBuf, CombinerRecipe> STREAM_CODEC = StreamCodec.of(
-                Serializer::toNetwork, Serializer::fromNetwork
-        );
+            this.streamCodec = StreamCodec.of(this::toNetwork, this::fromNetwork);
+        }
 
-        public static CombinerRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
+        public CombinerRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
             String group = buffer.readUtf();
             DABookCategory daBookCategory = buffer.readEnum(DABookCategory.class);
             List<Ingredient> ingredients = new ArrayList<>();
@@ -147,7 +149,7 @@ public class CombinerRecipe implements Recipe<CombinerRecipeInput> {
             return new CombinerRecipe(group, daBookCategory, ingredients, itemstack, experience, processTime);
         }
 
-        public static void toNetwork(RegistryFriendlyByteBuf buffer, CombinerRecipe recipe) {
+        public void toNetwork(RegistryFriendlyByteBuf buffer, CombinerRecipe recipe) {
             buffer.writeUtf(recipe.getGroup());
             buffer.writeEnum(recipe.daCategory());
 
@@ -162,12 +164,12 @@ public class CombinerRecipe implements Recipe<CombinerRecipeInput> {
 
         @Override
         public MapCodec<CombinerRecipe> codec() {
-            return CODEC;
+            return this.codec;
         }
 
         @Override
         public StreamCodec<RegistryFriendlyByteBuf, CombinerRecipe> streamCodec() {
-            return STREAM_CODEC;
+            return this.streamCodec;
         }
     }
 }

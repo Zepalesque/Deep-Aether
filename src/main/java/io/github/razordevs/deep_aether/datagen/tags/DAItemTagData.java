@@ -6,12 +6,10 @@ import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.init.DABlocks;
 import io.github.razordevs.deep_aether.init.DAItems;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
@@ -299,6 +297,15 @@ public class DAItemTagData extends ItemTagsProvider {
                 ResourceLocation.fromNamespaceAndPath(DeepAether.AETHER_REDUX, "golden_swet_ball")
         ).addOptional(
                 ResourceLocation.fromNamespaceAndPath(DeepAether.AETHER_GENESIS,"golden_swet_ball")
+        );
+
+        tag(DATags.Items.BRASS_DUNGEON_LOOT).add(
+                DAItems.STORMFORGED_HELMET.get(),
+                DAItems.STORMFORGED_CHESTPLATE.get(),
+                DAItems.STORMFORGED_LEGGINGS.get(),
+                DAItems.STORMFORGED_BOOTS.get(),
+                DAItems.STORMFORGED_GLOVES.get(),
+                DAItems.CLOUD_CAPE.get()
         );
 
 

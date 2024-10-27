@@ -69,7 +69,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
 
         @Override
         public int getCount() {
-            return 3;
+            return 2;
         }
     };
     protected NonNullList<ItemStack> items = NonNullList.withSize(4, ItemStack.EMPTY);

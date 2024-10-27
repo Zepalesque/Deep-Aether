@@ -14,6 +14,7 @@ import io.github.razordevs.deep_aether.datagen.loot.modifiers.DAGlobalLootModifi
 import io.github.razordevs.deep_aether.datagen.loot.modifiers.DALootDataProvider;
 import io.github.razordevs.deep_aether.datagen.tags.*;
 import io.github.razordevs.deep_aether.event.DAGeneralEvents;
+import io.github.razordevs.deep_aether.event.listeners.DAItemListeners;
 import io.github.razordevs.deep_aether.fluids.DAFluidTypes;
 import io.github.razordevs.deep_aether.init.*;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
@@ -60,6 +61,7 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLPaths;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -149,6 +151,7 @@ public class DeepAether {
 			bus.addListener(DARecipeCategories::registerRecipeCategories);
 		}
 
+		DAItemListeners.listen(NeoForge.EVENT_BUS);
 	}
 
 	public void registerPackets(RegisterPayloadHandlersEvent event) {
