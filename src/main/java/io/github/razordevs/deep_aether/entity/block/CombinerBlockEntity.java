@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.block.utility.CombinerBlock;
 import io.github.razordevs.deep_aether.init.DABlockEntityTypes;
-import io.github.razordevs.deep_aether.init.DABlocks;
 import io.github.razordevs.deep_aether.recipe.DARecipeTypes;
 import io.github.razordevs.deep_aether.recipe.combiner.CombinerRecipe;
 import io.github.razordevs.deep_aether.recipe.combiner.CombinerRecipeInput;
@@ -39,6 +38,7 @@ import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,7 +74,6 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
         }
     };
     protected NonNullList<ItemStack> items = NonNullList.withSize(4, ItemStack.EMPTY);
-    protected NonNullList<ItemStack> ingredients = NonNullList.withSize(3, ItemStack.EMPTY);
     int processingProgress = 0;
     int processingTotalTime = 78;
     boolean combining;
@@ -112,9 +111,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider registry) {
         super.loadAdditional(tag, registry);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        this.ingredients = NonNullList.withSize(this.getContainerSize() - 1, ItemStack.EMPTY);
         ContainerHelper.loadAllItems(tag, this.items, registry);
-        ContainerHelper.loadAllItems(tag, this.ingredients, registry);
         this.processingProgress = tag.getInt("ProcessingTime");
         this.processingTotalTime = tag.getInt("ProcessingTimeTotal");
         CompoundTag recipesUsedTag = tag.getCompound("RecipesUsed");
@@ -129,15 +126,25 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
         tag.putInt("ProcessingTime", this.processingProgress);
         tag.putInt("ProcessingTimeTotal", this.processingTotalTime);
         ContainerHelper.saveAllItems(tag, this.items, registry);
-        ContainerHelper.saveAllItems(tag, this.ingredients, registry);
         CompoundTag recipesUsedTag = new CompoundTag();
         this.recipesUsed.forEach((location, integer) -> recipesUsedTag.putInt(location.toString(), integer));
         tag.put("RecipesUsed", recipesUsedTag);
     }
 
+    private NonNullList<ItemStack> getIngredients() {
+       ArrayList<ItemStack> ingredients = new ArrayList<>();
+
+        ingredients.add(items.get(0));
+        ingredients.add(items.get(1));
+        ingredients.add(items.get(2));
+
+        return NonNullList.copyOf(ingredients);
+    }
+
     public static void serverTick(Level level, BlockPos pos, BlockState state, CombinerBlockEntity blockEntity) {
         boolean changed = false;
-        RecipeHolder<CombinerRecipe> recipeHolder = blockEntity.quickCheck.getRecipeFor(new CombinerRecipeInput(blockEntity.ingredients), level).orElse(null);
+
+        RecipeHolder<CombinerRecipe> recipeHolder = blockEntity.quickCheck.getRecipeFor(new CombinerRecipeInput(blockEntity.getIngredients()), level).orElse(null);
         int i = blockEntity.getMaxStackSize();
         boolean isCharging = false;
 
@@ -159,11 +166,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
             blockEntity.processingProgress = 0;
         }
 
-        if (blockEntity.processingProgress > 0) {
-            blockEntity.processingProgress = Mth.clamp(blockEntity.processingProgress - 2, 0, blockEntity.processingProgress);
-        }
-
-        if (blockEntity.combiningDuration-- <= 0) {
+        if (blockEntity.combiningDuration <= 0) {
             blockEntity.combining = false;
         }
 
@@ -189,7 +192,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
         ItemStack middle = stacks.get(SECOND_SLOT);
         ItemStack right = stacks.get(THIRD_SLOT);
         if (!left.isEmpty() && !middle.isEmpty() && !right.isEmpty() && recipeHolder != null) {
-            ItemStack result = recipeHolder.value().assemble(new CombinerRecipeInput(ingredients), registryAccess);
+            ItemStack result = recipeHolder.value().assemble(new CombinerRecipeInput(getIngredients()), registryAccess);
             if (result.isEmpty()) {
                 return false;
             } else {
@@ -214,7 +217,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
             ItemStack left = stacks.getFirst();
             ItemStack middle = stacks.get(SECOND_SLOT);
             ItemStack right = stacks.get(THIRD_SLOT);
-            ItemStack result = recipeHolder.value().assemble(new CombinerRecipeInput(ingredients), registryAccess);
+            ItemStack result = recipeHolder.value().assemble(new CombinerRecipeInput(getIngredients()), registryAccess);
             ItemStack output = stacks.get(OUTPUT_SLOT);
 
             if (output.isEmpty()) {
@@ -235,7 +238,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
 
 
     private static int getTotalProcessingTime(Level level, CombinerBlockEntity blockEntity) {
-        return blockEntity.quickCheck.getRecipeFor(new CombinerRecipeInput(blockEntity.ingredients), level).map(recipeHolder -> recipeHolder.value().getProcessingTime()).orElse(200);
+        return blockEntity.quickCheck.getRecipeFor(new CombinerRecipeInput(blockEntity.getIngredients()), level).map(recipeHolder -> recipeHolder.value().getProcessingTime()).orElse(200);
     }
 
     public void drops() {
@@ -244,10 +247,6 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
             inventory.setItem(i, itemHandler.getStackInSlot(i));
         }
         Containers.dropContents(this.level, this.worldPosition, inventory);
-    }
-
-    private void resetProgress() {
-        processingProgress = 0;
     }
 
     private void craftItem() {

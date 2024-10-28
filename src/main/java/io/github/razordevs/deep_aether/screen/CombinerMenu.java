@@ -24,12 +24,13 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
     private final Container container;
 
     public CombinerMenu(int containerId, Inventory playerInventory) {
-        this(containerId, playerInventory, new SimpleContainer(4), new SimpleContainerData(7));
+        this(containerId, playerInventory, new SimpleContainer(4), new SimpleContainerData(2));
     }
 
     public CombinerMenu(int pContainerId, Inventory inv, Container container, ContainerData data) {
         super(DAMenuTypes.COMBINER_MENU.get(), pContainerId);
         checkContainerSize(inv, 4);
+        checkContainerDataCount(data, 2);
         this.level = inv.player.level();
         this.data = data;
         this.container = container;
@@ -77,7 +78,8 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
     @Override
     public ItemStack quickMoveStack(Player playerIn, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);
-        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;  //EMPTY_ITEM
+        if (sourceSlot == null || !sourceSlot.hasItem())
+            return ItemStack.EMPTY;  //EMPTY_ITEM
         ItemStack sourceStack = sourceSlot.getItem();
         ItemStack copyOfSourceStack = sourceStack.copy();
 
@@ -135,13 +137,13 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
 
     @Override
     public void clearCraftingContent() {
-        for (Slot slot : slots) {
-            slot.set(ItemStack.EMPTY);
-        }
+        this.getSlot(0).set(ItemStack.EMPTY);
+        this.getSlot(1).set(ItemStack.EMPTY);
+        this.getSlot(2).set(ItemStack.EMPTY);
     }
 
     @Override
-    public boolean recipeMatches(RecipeHolder recipeHolder) {
+    public boolean recipeMatches(RecipeHolder<CombinerRecipe> recipeHolder) {
         NonNullList<ItemStack> stacks = NonNullList.withSize(3, ItemStack.EMPTY);
         for (int i = 0; i < 3; i++) {
             stacks.add(container.getItem(i));

@@ -107,7 +107,7 @@ public class CombinerRecipe implements Recipe<CombinerRecipeInput> {
      * Method that checks if the passed ingredient is present in only one of the 3
      * slots using the XOR operator. This enables "shapeless" recipes in the combiner.
      */
-    private boolean testEachSlot(CombinerRecipeInput input, Ingredient ingredient){
+    private boolean testEachSlot(CombinerRecipeInput input, Ingredient ingredient) {
         return ingredient.test(input.getItem(0))
                 ^ ingredient.test(input.getItem(1))
                 ^ ingredient.test(input.getItem(2));
