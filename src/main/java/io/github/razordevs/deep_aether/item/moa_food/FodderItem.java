@@ -66,10 +66,11 @@ public class FodderItem extends Item {
 
     private boolean applyMoaEffect(LivingEntity livingEntity, ItemStack stack) {
         MoaFodder fodder = stack.get(DADataComponentTypes.MOA_FODDER);
-        if(fodder != null)
-            if(livingEntity.addEffect(fodder.effect())) {
-            livingEntity.level().playLocalSound(livingEntity, SoundEvents.PLAYER_BURP, SoundSource.AMBIENT, 1f, 0.2f);
-            return true;
+        if(fodder != null) {
+            if (livingEntity.addEffect(fodder.effect())) {
+                livingEntity.level().playLocalSound(livingEntity, SoundEvents.PLAYER_BURP, SoundSource.AMBIENT, 1f, 0.2f);
+                return true;
+            }
         }
         return false;
     }

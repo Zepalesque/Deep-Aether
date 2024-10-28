@@ -119,7 +119,7 @@ public record DAChestLoot(HolderLookup.Provider registries) implements LootTable
                         .add(LootItem.lootTableItem(DAItems.CLOUD_CAPE.get()).setWeight(4))
                         .add(LootItem.lootTableItem(DAItems.SKYJADE.get()).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
                         .add(LootItem.lootTableItem(AetherBlocks.COLD_AERCLOUD.get()).setWeight(3))
-                        //.add(LootItem.lootTableItem(AetherItems.VALKYRIE_LANCE.get()).setWeight(1))
+                        .add(LootItem.lootTableItem(DAItems.BLADE_OF_LUCK.get()).setWeight(1))
                         //.add(LootItem.lootTableItem(AetherItems.HAMMER_OF_KINGBDOGZ.get()).setWeight(1))
                         .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_STORM_FORGED).setWeight(10))
                         //.add(LootItem.lootTableItem(AetherItems.SENTRY_BOOTS.get()).setWeight(1))
@@ -146,7 +146,7 @@ public record DAChestLoot(HolderLookup.Provider registries) implements LootTable
                         .add(LootItem.lootTableItem(DAItems.STORMFORGED_CHESTPLATE.get()).setWeight(1))
                         .add(LootItem.lootTableItem(DAItems.STORMFORGED_LEGGINGS.get()).setWeight(1))
                         .add(LootItem.lootTableItem(DAItems.STORMFORGED_BOOTS.get()).setWeight(1))
-                        //.add(LootItem.lootTableItem(DAItems.STORMFORGED_GLOVES.get()).setWeight(1))
+                        .add(LootItem.lootTableItem(DAItems.STORMFORGED_GLOVES.get()).setWeight(1))
                 )
         );
         builder.accept(DALoot.BRASS_DUNGEON_GUMMIES, LootTable.lootTable()

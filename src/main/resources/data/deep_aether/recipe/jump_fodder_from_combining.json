@@ -19,7 +19,7 @@
         "deep_aether:moa_fodder" : {
           "effect": {
             "id": "minecraft:jump_boost",
-            "amplifier": 2,
+            "amplifier": 1,
             "duration": 14400
           }
         }

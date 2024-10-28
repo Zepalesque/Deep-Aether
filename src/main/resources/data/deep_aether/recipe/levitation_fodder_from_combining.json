@@ -18,8 +18,8 @@
     "components": {
       "deep_aether:moa_fodder" : {
         "effect": {
-          "id": "minecraft:jump_boost",
-          "amplifier": 2,
+          "id": "deep_aether:moa_bonus_jumps",
+          "amplifier": 1,
           "duration": 14400
         }
       }
