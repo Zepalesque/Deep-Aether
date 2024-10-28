@@ -130,15 +130,12 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
     public void tick() {
         super.tick();
 
-        if(this.level().isClientSide()) {
-            if(!this.bossFight.isVisible()){
-                this.spawnParticles();
-            }
-        }
-
         if (!this.isAwake() || (this.getTarget() instanceof Player player && (player.isCreative() || player.isSpectator()))) {
             this.setTarget(null);
             this.playBlowingSound();
+            if(this.level().isClientSide()) {
+                this.spawnParticles();
+            }
         }
         this.evaporate();
 
@@ -323,7 +320,7 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
 
     public void spawnParticles() {
         for (int i = 0; i < 2; ++i) {
-            this.level().addParticle(DAParticles.EOTS_PRE_FIGHT.get(), this.getX() - 1, this.getY() + 0.25 + (random.nextFloat() * 2), this.getZ(), 0, 0.001 + (random.nextFloat() * 0.002), 0);
+            this.level().addParticle(DAParticles.EOTS_PRE_FIGHT.get(), this.getX() - 1.1, this.getY() + 0.25 + (random.nextFloat() * 2), this.getZ() + 0.3, 0, 0.001 + (random.nextFloat() * 0.002), 0);
         }
     }
 
