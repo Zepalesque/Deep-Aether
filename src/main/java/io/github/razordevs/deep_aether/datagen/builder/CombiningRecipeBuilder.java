@@ -102,8 +102,9 @@ public class CombiningRecipeBuilder implements RecipeBuilder {
     }
 
     public void save(RecipeOutput output, ResourceLocation location) {
-        if(location.toString().contains("moa_fodder"))
-            location = location.withSuffix("_" + i++);
+        if(location.toString().contains("moa_fodder") && resultStack.get(DADataComponentTypes.MOA_FODDER) != null)
+                location = location.withSuffix("_" + resultStack.get(DADataComponentTypes.MOA_FODDER).effect().getDescriptionId().replaceAll("effect.", ""));
+
         this.ensureValid(location);
         Advancement.Builder advancement$builder = output.advancement().addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(location)).rewards(AdvancementRewards.Builder.recipe(location)).requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);

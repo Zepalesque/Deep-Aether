@@ -10,7 +10,7 @@
       "item": "deep_aether:frozen_goldenleaf_berries"
     },
     {
-      "item": "aether:blue_berry"
+      "item": "aether:icestone"
     }
   ],
   "output": {
@@ -19,10 +19,10 @@
         "effect": {
           "amplifier": 1,
           "duration": 14400,
-          "id": "minecraft:jump_boost",
+          "id": "minecraft:fire_resistance",
           "neoforge:cures": [
-            "protected_by_totem",
-            "milk"
+            "milk",
+            "protected_by_totem"
           ],
           "show_icon": true
         }

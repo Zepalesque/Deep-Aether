@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "deep_aether:moa_fodder_2"
+        "recipe": "deep_aether:moa_fodder_minecraft.jump_boost"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "deep_aether:moa_fodder_2"
+      "deep_aether:moa_fodder_minecraft.jump_boost"
     ]
   }
 }

@@ -10,7 +10,7 @@
       "item": "deep_aether:frozen_goldenleaf_berries"
     },
     {
-      "item": "aether:icestone"
+      "item": "deep_aether:quail_egg"
     }
   ],
   "output": {
@@ -19,10 +19,10 @@
         "effect": {
           "amplifier": 1,
           "duration": 14400,
-          "id": "minecraft:fire_resistance",
+          "id": "deep_aether:moa_bonus_jumps",
           "neoforge:cures": [
-            "protected_by_totem",
-            "milk"
+            "milk",
+            "protected_by_totem"
           ],
           "show_icon": true
         }
