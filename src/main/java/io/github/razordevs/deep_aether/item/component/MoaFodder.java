@@ -23,4 +23,8 @@ public record MoaFodder(MobEffectInstance effect) {
     public static final StreamCodec<RegistryFriendlyByteBuf, MoaFodder> STREAM_CODEC = StreamCodec.composite(
             MobEffectInstance.STREAM_CODEC, MoaFodder::effect, MoaFodder::new
     );
+
+    public MobEffectInstance effect() {
+        return new MobEffectInstance(this.effect);
+    }
 }
