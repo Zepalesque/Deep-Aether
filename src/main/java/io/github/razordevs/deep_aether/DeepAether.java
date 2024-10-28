@@ -186,6 +186,7 @@ public class DeepAether {
 		generator.addProvider(event.includeServer(), new DALootDataProvider(packOutput, lookupProvider));
 		generator.addProvider(event.includeServer(), new DADataMapData(packOutput, lookupProvider));
 		generator.addProvider(event.includeServer(), new DALootTableData(packOutput, lookupProvider));
+		generator.addProvider(event.includeServer(), new DASoundTagData(packOutput, lookupProvider, fileHelper));
 	}
 
 	public void commonSetup(FMLCommonSetupEvent event) {
