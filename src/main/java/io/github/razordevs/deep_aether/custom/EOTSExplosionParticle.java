@@ -13,7 +13,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 
 public class EOTSExplosionParticle extends SimpleAnimatedParticle {
-    public static final AABB INFINITE = new AABB(Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY, Double.POSITIVE_INFINITY);
+
     float yDegrees = 0;
     SingleQuadParticle.FacingCameraMode NO_CAMERA_ROTATION_DOWNWARDS_ROTATING = (quaternionf, camera, partialTicks) -> {
         yDegrees+= partialTicks;
@@ -22,7 +22,7 @@ public class EOTSExplosionParticle extends SimpleAnimatedParticle {
         float xw =Mth.lerp(Mth.abs(yDegrees)/180.0F, 0.0F, 0.707F);
         float yz = 0.707F-xw;
 
-        if(camera.getPosition().y < this.getPos().y) {
+        if(camera.getPosition().y > this.getPos().y) {
             if(yDegrees < 0) {
                 quaternionf.set(-xw, -yz, -yz, xw);
             }
@@ -35,9 +35,6 @@ public class EOTSExplosionParticle extends SimpleAnimatedParticle {
             else quaternionf.set(xw, -yz, yz, xw);
         }
     };
-
-
-
 
 
     protected EOTSExplosionParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, SpriteSet pSprites) {
@@ -77,9 +74,8 @@ public class EOTSExplosionParticle extends SimpleAnimatedParticle {
         }
     }
 
-
     @Override
     public AABB getBoundingBox() {
-        return INFINITE;
+        return AABB.INFINITE;
     }
 }

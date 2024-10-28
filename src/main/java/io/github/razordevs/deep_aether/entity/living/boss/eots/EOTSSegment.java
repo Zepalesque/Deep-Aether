@@ -829,7 +829,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
                     if(hasPositionedAboveController) {
                         if(this.segment.getController() != null) {
                             this.targetY = this.segment.getController().getY() + 6.0;
-                            segment.getMoveControl().setWantedPosition(moveControl.getWantedX(), targetY - 12.0, moveControl.getWantedZ(), 1.0F);
+                            segment.getMoveControl().setWantedPosition(moveControl.getWantedX(), targetY - 12.0, moveControl.getWantedZ(), 1.5F);
                         }
                         else return false;
                     }
@@ -853,7 +853,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
                 Vec3 pos = new Vec3(this.segment.getX(), this.segment.getController().position().y() + 6.3, this.segment.getZ());
 
                 ((ServerLevel) this.segment.level()).sendParticles(DAParticles.EOTS_EXPLOSION.get(), pos.x(), pos.y(), pos.z(), 1,0.0, 0.0, 0.0, 0.0);
-                this.segment.level().playSound(null, pos.x(), pos.y(), pos.z(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILE, 1.0F, 1.0F);
+                this.segment.level().playSound(null, pos.x(), pos.y(), pos.z(), SoundEvents.GENERIC_EXPLODE, SoundSource.HOSTILE, 2.0F, 1.0F);
                 ((ServerLevel) this.segment.level()).sendParticles(ParticleTypes.EXPLOSION_EMITTER, pos.x(), pos.y(), pos.z(), 1,1.0D, 0.0D, 0.0D, 0.0);
             }
 
@@ -863,7 +863,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
         public void start() {
             if(this.segment.getController() != null && !this.segment.getController().isRemoved()) {
                 Vec3 pos = this.segment.getController().position().add(0, 6.0, 0);
-                this.segment.getMoveControl().setWantedPosition(pos.x, this.segment.getIdleYPos() + 20.0F, pos.z, 1.0F);
+                this.segment.getMoveControl().setWantedPosition(pos.x, this.segment.getIdleYPos() + 20.0F, pos.z, 1.4F);
             }
             else {
                 this.segment.setInvulnerable(false);
