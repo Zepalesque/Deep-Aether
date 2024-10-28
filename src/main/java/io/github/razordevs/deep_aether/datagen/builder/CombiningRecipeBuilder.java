@@ -1,5 +1,6 @@
 package io.github.razordevs.deep_aether.datagen.builder;
 
+import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
 import io.github.razordevs.deep_aether.recipe.DABookCategory;
 import io.github.razordevs.deep_aether.recipe.combiner.CombinerRecipe;
 import net.minecraft.advancements.Advancement;
@@ -33,6 +34,8 @@ public class CombiningRecipeBuilder implements RecipeBuilder {
     private String group;
     private final float experience;
     private final int processingTime;
+
+    private static int i = 0;
 
     public CombiningRecipeBuilder(DABookCategory category, ItemLike itemLike, int count, float experience, int processingTime) {
         this(category, new ItemStack(itemLike, count), experience, processingTime);
@@ -99,6 +102,8 @@ public class CombiningRecipeBuilder implements RecipeBuilder {
     }
 
     public void save(RecipeOutput output, ResourceLocation location) {
+        if(location.toString().contains("moa_fodder"))
+            location = location.withSuffix("_" + i++);
         this.ensureValid(location);
         Advancement.Builder advancement$builder = output.advancement().addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(location)).rewards(AdvancementRewards.Builder.recipe(location)).requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(advancement$builder::addCriterion);

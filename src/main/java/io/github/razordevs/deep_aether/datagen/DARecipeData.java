@@ -11,15 +11,20 @@ import io.github.razordevs.deep_aether.datagen.builder.CombiningRecipeBuilder;
 import io.github.razordevs.deep_aether.datagen.tags.DATags;
 import io.github.razordevs.deep_aether.init.DABlocks;
 import io.github.razordevs.deep_aether.init.DAItems;
+import io.github.razordevs.deep_aether.init.DAMobEffects;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
+import io.github.razordevs.deep_aether.item.component.MoaFodder;
 import io.github.razordevs.deep_aether.recipe.DABookCategory;
 import io.github.razordevs.deep_aether.recipe.GlowingSporesRecipe;
 import io.github.razordevs.deep_aether.recipe.GoldenSwetBallRecipe;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -667,6 +672,7 @@ public class DARecipeData extends AetherRecipeProvider {
         hiddenEnchantingRecipe(RecipeCategory.MISC, DAItems.MUSIC_DISC_NABOORU.get(), Items.MUSIC_DISC_PIGSTEP, 1.0F, 2500).save(consumer, name("nabooru_enchanting"));
         enchantingRecipe(RecipeCategory.MISC, DAItems.SQUASH_SEEDS.get(), Items.PUMPKIN_SEEDS, 5, 50).save(consumer, this.name("squash_seeds_enchanting"));
 
+
         CombiningRecipeBuilder.combining(DABookCategory.COMBINEABLE_FODDER, DAItems.ANTIDOTE.get(), 0.1f, 100)
                 .requires(AetherItems.GOLDEN_AMBER.get())
                 .requires(DAItems.FROZEN_GOLDEN_BERRIES.get())
@@ -674,14 +680,34 @@ public class DARecipeData extends AetherRecipeProvider {
                 .unlockedBy(getHasName(DAItems.BIO_CRYSTAL.get()), has(DAItems.BIO_CRYSTAL.get()))
                 .save(consumer);
 
-        /*
-        CombiningRecipeBuilder.combining(DABookCategory.COMBINEABLE_FODDER, new ItemStack(DAItems.MOA_FODDER.get(), 1).applyComponents(DADataComponentTypes.MOA_FODDER.get()), 0.1f, 100)
+        ItemStack fodder = new ItemStack(DAItems.MOA_FODDER.get(), 1);
+
+        fodder.set(DADataComponentTypes.MOA_FODDER, new MoaFodder(new MobEffectInstance(DAMobEffects.MOA_BONUS_JUMPS, 14400, 1)));
+        CombiningRecipeBuilder.combining(DABookCategory.COMBINEABLE_FODDER, fodder,
+                        0.1f, 100)
                 .requires(AetherItems.GOLDEN_AMBER.get())
                 .requires(DAItems.FROZEN_GOLDEN_BERRIES.get())
-                .requires(DAItems.BIO_CRYSTAL.get())
-                .unlockedBy(getHasName(DAItems.BIO_CRYSTAL.get()), has(DAItems.BIO_CRYSTAL.get()))
+                .requires(DAItems.QUAIL_EGG.get())
+                .unlockedBy(getHasName(DAItems.QUAIL_EGG.get()), has(DAItems.QUAIL_EGG.get()))
                 .save(consumer);
-         */
+
+        fodder.set(DADataComponentTypes.MOA_FODDER, new MoaFodder(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 14400, 1)));
+        CombiningRecipeBuilder.combining(DABookCategory.COMBINEABLE_FODDER, fodder,
+                        0.1f, 100)
+                .requires(AetherItems.GOLDEN_AMBER.get())
+                .requires(DAItems.FROZEN_GOLDEN_BERRIES.get())
+                .requires(AetherBlocks.ICESTONE.get().asItem())
+                .unlockedBy(getHasName(AetherBlocks.ICESTONE.get().asItem()), has(AetherBlocks.ICESTONE.get().asItem()))
+                .save(consumer);
+
+        fodder.set(DADataComponentTypes.MOA_FODDER, new MoaFodder(new MobEffectInstance(MobEffects.JUMP, 14400, 1)));
+        CombiningRecipeBuilder.combining(DABookCategory.COMBINEABLE_FODDER, fodder,
+                        0.1f, 100)
+                .requires(AetherItems.GOLDEN_AMBER.get())
+                .requires(DAItems.FROZEN_GOLDEN_BERRIES.get())
+                .requires(AetherItems.BLUE_BERRY.get())
+                .unlockedBy(getHasName(AetherItems.BLUE_BERRY.get()), has(AetherItems.BLUE_BERRY.get()))
+                .save(consumer);
     }
 
     protected ShapedRecipeBuilder makeRing(Supplier<? extends Item> ring, TagKey<Item> material) {
