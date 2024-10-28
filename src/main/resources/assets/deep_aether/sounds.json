@@ -73,9 +73,10 @@
     "subtitle": "subtitles.deep_aether.entity.eots.blowing"
   },
   "music.boss.eots": {
-    "sounds": [
-      "deep_aether:entity/eots/eots_fight"
-    ]
+    "sounds": {
+      "name": "deep_aether:entity/eots/fight",
+      "stream": true
+    }
   },
   "item.armor.equip_skyjade": {
     "sounds": [
