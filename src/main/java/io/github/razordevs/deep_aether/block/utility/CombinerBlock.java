@@ -1,19 +1,24 @@
 package io.github.razordevs.deep_aether.block.utility;
 
+import com.aetherteam.aether.block.AetherBlockStateProperties;
 import com.mojang.serialization.MapCodec;
 import io.github.razordevs.deep_aether.entity.block.CombinerBlockEntity;
 import io.github.razordevs.deep_aether.init.DABlockEntityTypes;
 import io.github.razordevs.deep_aether.init.DABlockStateProperties;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
+import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,7 +30,13 @@ public class CombinerBlock extends AbstractFurnaceBlock {
 
     public CombinerBlock(Properties properties) {
         super(properties);
-//        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(CHARGING, false).setValue(COMBINING, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(CHARGING, false).setValue(COMBINING, false));
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        super.createBlockStateDefinition(builder);
+        builder.add(CHARGING, COMBINING);
     }
 
     @Override

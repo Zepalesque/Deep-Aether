@@ -2,6 +2,7 @@ package io.github.razordevs.deep_aether.entity.block;
 
 import com.google.common.collect.Lists;
 import io.github.razordevs.deep_aether.DeepAether;
+import io.github.razordevs.deep_aether.block.utility.CombinerBlock;
 import io.github.razordevs.deep_aether.init.DABlockEntityTypes;
 import io.github.razordevs.deep_aether.init.DABlocks;
 import io.github.razordevs.deep_aether.recipe.DARecipeTypes;
@@ -82,10 +83,6 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
     private final Object2IntOpenHashMap<ResourceLocation> recipesUsed = new Object2IntOpenHashMap<>();
     private final RecipeManager.CachedCheck<CombinerRecipeInput, CombinerRecipe> quickCheck;
 
-    public CombinerBlockEntity() {
-        this(DABlockEntityTypes.COMBINER.get(), BlockPos.ZERO, DABlocks.COMBINER.get().defaultBlockState());
-    }
-
     public CombinerBlockEntity(BlockPos pPos, BlockState pBlockState) {
         this(DABlockEntityTypes.COMBINER.get(), pPos, pBlockState);
     }
@@ -108,7 +105,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
 
     @Override
     public AbstractContainerMenu createMenu(int pContainerId, Inventory pPlayerInventory) {
-        return new CombinerMenu(pContainerId, pPlayerInventory);
+        return new CombinerMenu(pContainerId, pPlayerInventory, this, this.data);
     }
 
     @Override
@@ -170,17 +167,17 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
             blockEntity.combining = false;
         }
 
-//        if (state.getValue(CombinerBlock.CHARGING) != isCharging) {
-//            changed = true;
-//            state = state.setValue(CombinerBlock.CHARGING, isCharging);
-//            level.setBlock(pos, state, 1 | 2);
-//        }
-//
-//        if (state.getValue(CombinerBlock.COMBINING) != blockEntity.combining) {
-//            changed = true;
-//            state = state.setValue(CombinerBlock.COMBINING, blockEntity.combining);
-//            level.setBlock(pos, state, 1 | 2);
-//        }
+        if (state.getValue(CombinerBlock.CHARGING) != isCharging) {
+            changed = true;
+            state = state.setValue(CombinerBlock.CHARGING, isCharging);
+            level.setBlock(pos, state, 1 | 2);
+        }
+
+        if (state.getValue(CombinerBlock.COMBINING) != blockEntity.combining) {
+            changed = true;
+            state = state.setValue(CombinerBlock.COMBINING, blockEntity.combining);
+            level.setBlock(pos, state, 1 | 2);
+        }
 
         if (changed) {
             setChanged(level, pos, state);
@@ -191,10 +188,8 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
         ItemStack left = stacks.getFirst();
         ItemStack middle = stacks.get(SECOND_SLOT);
         ItemStack right = stacks.get(THIRD_SLOT);
-        System.out.println("before slot check");
         if (!left.isEmpty() && !middle.isEmpty() && !right.isEmpty() && recipeHolder != null) {
             ItemStack result = recipeHolder.value().assemble(new CombinerRecipeInput(ingredients), registryAccess);
-            System.out.println("before result check");
             if (result.isEmpty()) {
                 return false;
             } else {
@@ -210,7 +205,6 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
                 }
             }
         } else {
-            System.out.println("just false");
             return false;
         }
     }

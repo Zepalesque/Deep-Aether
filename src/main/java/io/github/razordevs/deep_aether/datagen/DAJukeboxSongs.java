@@ -22,7 +22,7 @@ public class DAJukeboxSongs {
 
     public static void bootstrap(BootstrapContext<JukeboxSong> context) {
         register(context, NABOORU, (Holder.Reference<SoundEvent>) DASounds.NABOORU.getDelegate(), 364, 7);
-        register(context, A_MORNING_WISH, (Holder.Reference<SoundEvent>) DASounds.NABOORU.getDelegate(), 283, 8);
+        register(context, A_MORNING_WISH, (Holder.Reference<SoundEvent>) DASounds.A_MORNING_WISH.getDelegate(), 283, 8);
     }
 
     private static void register(BootstrapContext<JukeboxSong> context, ResourceKey<JukeboxSong> key, Holder.Reference<SoundEvent> soundEvent, int lengthInSeconds, int comparatorOutput) {

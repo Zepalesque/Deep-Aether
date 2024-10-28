@@ -16,26 +16,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 
 public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRecipe> {
     private final Level level;
     private final ContainerData data;
     private final Container container;
-    private final RecipeType<? extends CombinerRecipe> recipeType;
-    private final RecipeBookType recipeBookType;
 
     public CombinerMenu(int containerId, Inventory playerInventory) {
-        this(containerId, DARecipeTypes.COMBINING.get(), DARecipeBookTypes.DEEP_AETHER_COMBINER.getValue(), playerInventory, new SimpleContainer(4), new SimpleContainerData(7));
+        this(containerId, playerInventory, new SimpleContainer(4), new SimpleContainerData(7));
     }
 
-    public CombinerMenu(int pContainerId, RecipeType<? extends CombinerRecipe> recipeType, RecipeBookType recipeBookType, Inventory inv, Container container, ContainerData data) {
+    public CombinerMenu(int pContainerId, Inventory inv, Container container, ContainerData data) {
         super(DAMenuTypes.COMBINER_MENU.get(), pContainerId);
         checkContainerSize(inv, 4);
         this.level = inv.player.level();
         this.data = data;
         this.container = container;
-        this.recipeType = recipeType;
-        this.recipeBookType = recipeBookType;
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
@@ -149,6 +146,7 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
         for (int i = 0; i < 3; i++) {
             stacks.add(container.getItem(i));
         }
+        System.out.println("aAAAQA");
         return recipeHolder.value().matches(new CombinerRecipeInput(stacks), this.level);
     }
 
@@ -174,7 +172,7 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
 
     @Override
     public RecipeBookType getRecipeBookType() {
-        return this.recipeBookType;
+        return DARecipeBookTypes.DEEP_AETHER_COMBINER.getValue();
     }
 
     @Override
