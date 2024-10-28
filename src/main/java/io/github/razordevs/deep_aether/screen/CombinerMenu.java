@@ -148,7 +148,6 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
         for (int i = 0; i < 3; i++) {
             stacks.add(container.getItem(i));
         }
-        System.out.println("aAAAQA");
         return recipeHolder.value().matches(new CombinerRecipeInput(stacks), this.level);
     }
 

@@ -9,6 +9,7 @@ import com.aetherteam.aether.entity.ai.controller.BlankMoveControl;
 import com.aetherteam.aether.entity.monster.dungeon.boss.BossNameGenerator;
 import com.aetherteam.aether.event.AetherEventDispatch;
 import com.aetherteam.aether.network.packet.clientbound.BossInfoPacket;
+import com.aetherteam.nitrogen.entity.BossMob;
 import com.aetherteam.nitrogen.entity.BossRoomTracker;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.block.building.DoorwayPillarBlock;
@@ -17,6 +18,7 @@ import io.github.razordevs.deep_aether.init.DAEntities;
 import io.github.razordevs.deep_aether.init.DAParticles;
 import io.github.razordevs.deep_aether.init.DASounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -591,6 +593,25 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
         }
 
     }
+
+    @Override
+    public void readBossSaveData(CompoundTag tag, HolderLookup.Provider provider) {
+        if (tag.contains("BossName")) {
+            Component name = Component.Serializer.fromJson(tag.getString("BossName"), provider);
+            if (name != null) {
+                this.setBossName(name);
+            }
+        }
+        if (tag.contains("BossFight")) {
+            this.setBossFight(tag.getBoolean("BossFight"));
+        }
+        if (tag.contains("Dungeon") && tag.get("Dungeon") instanceof CompoundTag dungeonTag) {
+            this.setDungeon(BossRoomTracker.readAdditionalSaveData(dungeonTag, this));
+            if (this.getDungeon() != null)
+                this.setPos(this.getDungeon().originCoordinates());
+        }
+    }
+
 
     @Override
     public void writeSpawnData(RegistryFriendlyByteBuf buffer) {
