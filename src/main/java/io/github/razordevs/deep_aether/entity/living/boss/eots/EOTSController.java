@@ -84,7 +84,7 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
     public EOTSController(EntityType<? extends EOTSController> type, Level level) {
         super(type, level);
         this.moveControl = new BlankMoveControl(this);
-        this.bossFight = new ServerBossEvent(this.getBossName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS);
+        this.bossFight = (ServerBossEvent) (new ServerBossEvent(this.getBossName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS)).setPlayBossMusic(true);;
         this.setBossFight(false);
         this.xpReward = 50;
         this.setRot(0.0F, 0.0F);
