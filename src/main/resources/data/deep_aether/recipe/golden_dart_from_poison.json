@@ -4,6 +4,6 @@
     "item": "aether:enchanted_dart"
   },
   "result": {
-    "item": "aether:golden_dart"
+    "id": "aether:golden_dart"
   }
 }

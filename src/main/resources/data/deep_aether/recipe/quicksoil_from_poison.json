@@ -4,6 +4,6 @@
     "item": "aether:quicksoil_glass"
   },
   "result": {
-    "item": "aether:quicksoil"
+    "id": "aether:quicksoil"
   }
 }

@@ -4,6 +4,6 @@
     "item": "aether:enchanted_gravitite"
   },
   "result": {
-    "item": "aether:gravitite_ore"
+    "id": "aether:gravitite_ore"
   }
 }

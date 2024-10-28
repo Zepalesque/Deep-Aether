@@ -4,6 +4,6 @@
     "item": "aether:skyroot_remedy_bucket"
   },
   "result": {
-    "item": "aether:skyroot_poison_bucket"
+    "id": "aether:skyroot_poison_bucket"
   }
 }
