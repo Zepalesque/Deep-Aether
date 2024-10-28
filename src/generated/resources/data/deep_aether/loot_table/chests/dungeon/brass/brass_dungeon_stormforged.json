@@ -19,6 +19,10 @@
         {
           "type": "minecraft:item",
           "name": "deep_aether:stormforged_boots"
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deep_aether:stormforged_gloves"
         }
       ],
       "rolls": 1.0

@@ -238,9 +238,9 @@ public class DeepAether {
 			DAGeneralEvents.FLAWLESS_BOSS_DROP.put(type, null);
 		}
 		else {
-			String[] SliderItemId = string.split(":");
-			if (BuiltInRegistries.ITEM.containsKey(ResourceLocation.fromNamespaceAndPath(SliderItemId[0], SliderItemId[1])))
-				DAGeneralEvents.FLAWLESS_BOSS_DROP.put(type, BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(SliderItemId[0], SliderItemId[1])));
+			String[] itemId = string.split(":");
+			if (BuiltInRegistries.ITEM.containsKey(ResourceLocation.fromNamespaceAndPath(itemId[0], itemId[1])))
+				DAGeneralEvents.FLAWLESS_BOSS_DROP.put(type, BuiltInRegistries.ITEM.get(ResourceLocation.fromNamespaceAndPath(itemId[0], itemId[1])));
 			else {
 				DAGeneralEvents.FLAWLESS_BOSS_DROP.put(type, fallBack);
 				LOGGER.info("Config value " + string + " is referring to a missing item! Resolving to default value");
@@ -253,6 +253,7 @@ public class DeepAether {
 		DispenserBlock.registerBehavior(DAItems.PLACEABLE_POISON_BUCKET.get(), DADispenseBehaviors.DEEP_AETHER_BUCKET_PICKUP_DISPENSE_BEHAVIOR);
 		DispenserBlock.registerBehavior(DAItems.VIRULENT_QUICKSAND_BUCKET.get(), DADispenseBehaviors.DEEP_AETHER_BUCKET_PICKUP_DISPENSE_BEHAVIOR);
 	}
+
 	public void addAetherAdditionalResourcesPack(AddPackFindersEvent event) {
 		if (event.getPackType() == PackType.CLIENT_RESOURCES) {
 			setupCompatPack("overrides/deep_aether_additional_assets", "Deep Aether Additional Assets", event, PackType.CLIENT_RESOURCES, PackSource.BUILT_IN, false);
@@ -286,12 +287,14 @@ public class DeepAether {
 
 		}
 	}
+
 	private static void setupCompatPack(String location, String name, AddPackFindersEvent event) {
 		setupCompatPack(location, name, event, PackType.SERVER_DATA, PackSource.SERVER, true);
 	}
+
 	private static void setupCompatPack(String location, String name, AddPackFindersEvent event, PackType type, PackSource source, boolean force) {
-		Path resourcePath = ModList.get().getModFileById(DeepAether.MODID).getFile().findResource("packs/"+location);
-		Pack pack = Pack.readMetaAndCreate(new PackLocationInfo("builtin/" +location, Component.literal(name), source, Optional.empty()),
+		Path resourcePath = ModList.get().getModFileById(DeepAether.MODID).getFile().findResource("packs/" + location);
+		Pack pack = Pack.readMetaAndCreate(new PackLocationInfo("builtin/" + location, Component.literal(name), source, Optional.empty()),
                 new PathPackResources.PathResourcesSupplier(resourcePath), type, new PackSelectionConfig(force, Pack.Position.TOP, false));
 		event.addRepositorySource(consumer -> consumer.accept(pack));
 	}

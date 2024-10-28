@@ -7,9 +7,12 @@ import com.aetherteam.aether.item.AetherItems;
 import com.aetherteam.nitrogen.recipe.BlockStateIngredient;
 import com.aetherteam.nitrogen.recipe.builder.BlockStateRecipeBuilder;
 import io.github.razordevs.deep_aether.DeepAether;
+import io.github.razordevs.deep_aether.datagen.builder.CombiningRecipeBuilder;
 import io.github.razordevs.deep_aether.datagen.tags.DATags;
 import io.github.razordevs.deep_aether.init.DABlocks;
 import io.github.razordevs.deep_aether.init.DAItems;
+import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
+import io.github.razordevs.deep_aether.recipe.DABookCategory;
 import io.github.razordevs.deep_aether.recipe.GlowingSporesRecipe;
 import io.github.razordevs.deep_aether.recipe.GoldenSwetBallRecipe;
 import net.minecraft.core.HolderLookup;
@@ -18,12 +21,14 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.data.DataMapProvider;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
@@ -661,6 +666,22 @@ public class DARecipeData extends AetherRecipeProvider {
         hiddenEnchantingRecipe(RecipeCategory.MISC, DAItems.MUSIC_DISC_A_MORNING_WISH.get(), Items.MUSIC_DISC_OTHERSIDE, 2.0F, 2500).save(consumer, name("a_moring_wish_enchanting"));
         hiddenEnchantingRecipe(RecipeCategory.MISC, DAItems.MUSIC_DISC_NABOORU.get(), Items.MUSIC_DISC_PIGSTEP, 1.0F, 2500).save(consumer, name("nabooru_enchanting"));
         enchantingRecipe(RecipeCategory.MISC, DAItems.SQUASH_SEEDS.get(), Items.PUMPKIN_SEEDS, 5, 50).save(consumer, this.name("squash_seeds_enchanting"));
+
+        CombiningRecipeBuilder.combining(DABookCategory.COMBINEABLE_FODDER, DAItems.ANTIDOTE.get(), 0.1f, 100)
+                .requires(AetherItems.GOLDEN_AMBER.get())
+                .requires(DAItems.FROZEN_GOLDEN_BERRIES.get())
+                .requires(DAItems.BIO_CRYSTAL.get())
+                .unlockedBy(getHasName(DAItems.BIO_CRYSTAL.get()), has(DAItems.BIO_CRYSTAL.get()))
+                .save(consumer);
+
+        /*
+        CombiningRecipeBuilder.combining(DABookCategory.COMBINEABLE_FODDER, new ItemStack(DAItems.MOA_FODDER.get(), 1).applyComponents(DADataComponentTypes.MOA_FODDER.get()), 0.1f, 100)
+                .requires(AetherItems.GOLDEN_AMBER.get())
+                .requires(DAItems.FROZEN_GOLDEN_BERRIES.get())
+                .requires(DAItems.BIO_CRYSTAL.get())
+                .unlockedBy(getHasName(DAItems.BIO_CRYSTAL.get()), has(DAItems.BIO_CRYSTAL.get()))
+                .save(consumer);
+         */
     }
 
     protected ShapedRecipeBuilder makeRing(Supplier<? extends Item> ring, TagKey<Item> material) {

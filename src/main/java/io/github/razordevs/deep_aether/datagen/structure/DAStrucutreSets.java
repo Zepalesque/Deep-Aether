@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.datagen.strucutre;
+package io.github.razordevs.deep_aether.datagen.structure;
 
 import io.github.razordevs.deep_aether.DeepAether;
 import net.minecraft.core.HolderGetter;

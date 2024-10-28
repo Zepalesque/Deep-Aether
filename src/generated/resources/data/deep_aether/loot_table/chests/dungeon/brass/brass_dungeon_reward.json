@@ -121,6 +121,10 @@
           "weight": 3
         },
         {
+          "type": "minecraft:item",
+          "name": "deep_aether:blade_of_luck"
+        },
+        {
           "type": "minecraft:loot_table",
           "value": "deep_aether:chests/dungeon/brass/brass_dungeon_stormforged",
           "weight": 10

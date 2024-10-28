@@ -1,21 +1,21 @@
 {
   "type": "deep_aether:combining",
-  "category": "combinable_misc",
+  "category": "combinable_fodder",
+  "experience": 0.1,
   "ingredients": [
     {
       "item": "aether:golden_amber"
     },
     {
-      "item": "deep_aether:bio_crystal"
+      "item": "deep_aether:frozen_goldenleaf_berries"
     },
     {
-      "item": "deep_aether:frozen_goldenleaf_berries"
+      "item": "deep_aether:bio_crystal"
     }
   ],
   "output": {
     "count": 1,
     "id": "deep_aether:antidote"
   },
-  "experience": 1.0,
-  "processing_time": 200
+  "processing_time": 100
 }
