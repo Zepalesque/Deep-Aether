@@ -26,7 +26,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.inventory.RecipeCraftingHolder;
 import net.minecraft.world.inventory.StackedContentsCompatible;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
@@ -35,16 +34,12 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class CombinerBlockEntity extends BaseContainerBlockEntity implements WorldlyContainer, RecipeCraftingHolder, StackedContentsCompatible {
-    private final ItemStackHandler itemHandler = new ItemStackHandler(4);
-
     private static final int FIRST_SLOT = 0;
     private static final int SECOND_SLOT = 1;
     private static final int THIRD_SLOT = 2;
@@ -242,57 +237,8 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
     }
 
     public void drops() {
-        SimpleContainer inventory = new SimpleContainer(itemHandler.getSlots());
-        for(int i = 0; i < itemHandler.getSlots(); i++) {
-            inventory.setItem(i, itemHandler.getStackInSlot(i));
-        }
-        Containers.dropContents(this.level, this.worldPosition, inventory);
-    }
-
-    private void craftItem() {
-        Optional<RecipeHolder<CombinerRecipe>> recipe = getCurrentRecipe();
-        ItemStack result = recipe.get().value().getResultItem(getLevel().registryAccess());
-        consumeIngredients();
-
-        this.itemHandler.setStackInSlot(OUTPUT_SLOT, new ItemStack(result.getItem(),
-                this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + result.getCount()));
-    }
-
-
-    private boolean hasRecipe() {
-        Optional<RecipeHolder<CombinerRecipe>> recipe = getCurrentRecipe();
-
-        if(recipe.isEmpty())
-            return false;
-
-        ItemStack result = recipe.get().value().getResultItem(getLevel().registryAccess());
-        return canInsertAmountIntoOutputSlot(result.getCount()) && canInsertItemIntoOutputSlot(result.getItem());
-    }
-
-
-    private Optional<RecipeHolder<CombinerRecipe>> getCurrentRecipe() {
-
-        NonNullList<ItemStack> items = NonNullList.withSize(3, ItemStack.EMPTY);
-
-        for(int i = 0; i < itemHandler.getSlots(); i++)
-            items.add(i, this.itemHandler.getStackInSlot(i));
-
-        return this.level.getRecipeManager().getRecipeFor(DARecipeTypes.COMBINING.get(), new CombinerRecipeInput(items), level);
-    }
-
-
-    private boolean canInsertItemIntoOutputSlot(Item item) {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).isEmpty() || this.itemHandler.getStackInSlot(OUTPUT_SLOT).is(item);
-    }
-
-    private boolean canInsertAmountIntoOutputSlot(int count) {
-        return this.itemHandler.getStackInSlot(OUTPUT_SLOT).getCount() + count <= this.itemHandler.getStackInSlot(OUTPUT_SLOT).getMaxStackSize();
-    }
-
-    private void consumeIngredients(){
-        this.itemHandler.extractItem(FIRST_SLOT, 1, false);
-        this.itemHandler.extractItem(SECOND_SLOT, 1, false);
-        this.itemHandler.extractItem(THIRD_SLOT, 1, false);
+        if(this.level != null)
+            Containers.dropContents(this.level, this.worldPosition, this.items);
     }
 
     @Override
