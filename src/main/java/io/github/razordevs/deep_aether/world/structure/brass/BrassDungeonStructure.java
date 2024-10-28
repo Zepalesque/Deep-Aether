@@ -7,7 +7,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.github.razordevs.deep_aether.world.structure.DAStructureTypes;
-import io.github.razordevs.deep_aether.world.structure.brass.processor.BrassDungeonRoomProcessor;
 import io.github.razordevs.deep_aether.world.structure.brass.processor.BrassProcessorSettings;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -22,9 +21,6 @@ import net.minecraft.world.level.levelgen.structure.pieces.StructurePiecesBuilde
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 
 import java.util.*;
-
-//TODO: ADD CLOUD BED
-//TODO: ADD ENTRANCE
 
 public class BrassDungeonStructure extends Structure {
     public static final MapCodec<BrassDungeonStructure> CODEC = RecordCodecBuilder.mapCodec(builder -> builder.group(
@@ -119,7 +115,7 @@ public class BrassDungeonStructure extends Structure {
 
         rotation = rotation.getRotated(Rotation.CLOCKWISE_90);
 
-        builder.addPiece(new DefaultBrassRoom(
+        builder.addPiece(new BrassRoom(
                 templateManager,
                 "door",
                 elevatedPos.relative(rotation.rotate(Direction.EAST), 4),
@@ -128,22 +124,23 @@ public class BrassDungeonStructure extends Structure {
 
     private void createBossRoom(RandomSource random, StructurePiecesBuilder builder, BlockPos pos, Rotation rotation, StructureTemplateManager templateManager, boolean parent) {
         String room = this.getRandomRoomType(random);
+
         if(room.equals("garden")) {
-            if(parent) builder.addPiece(new GardenBrassRoom.BossRoom(templateManager, "garden_boss", pos, rotation, this.processors.bossSettings()));
-            else builder.addPiece(new GardenBrassRoom(templateManager, "garden", pos, rotation, this.processors.roomSettings()));
+            if(parent) builder.addPiece(new BrassRoom.BossRoom(templateManager, "garden_boss", pos, rotation, this.processors.gardenBossSettings()));
+            else builder.addPiece(new BrassRoom(templateManager, "garden", pos, rotation, this.processors.gardenRoomSettings()));
 
         }
         else if(room.equals("infested")) {
-            if(parent) builder.addPiece(new InfestedBrassRoom.BossRoom(templateManager, "infested_boss", pos, rotation, this.processors.bossSettings()));
-            else builder.addPiece(new InfestedBrassRoom(templateManager, "infested", pos, rotation, this.processors.roomSettings()));
+            if(parent) builder.addPiece(new BrassRoom.BossRoom(templateManager, "infested_boss", pos, rotation, this.processors.infestedBossSettings()));
+            else builder.addPiece(new BrassRoom(templateManager, "infested", pos, rotation, this.processors.infestedRoomSettings()));
         }
         else {
-            if(parent) builder.addPiece(new DefaultBrassRoom.BossRoom(templateManager, room +"_boss", pos, rotation, this.processors.bossSettings()));
-            else builder.addPiece(new DefaultBrassRoom(templateManager, room, pos, rotation, this.processors.roomSettings()));
+            if(parent) builder.addPiece(new BrassRoom.BossRoom(templateManager, room +"_boss", pos, rotation, this.processors.bossSettings()));
+            else builder.addPiece(new BrassRoom(templateManager, room, pos, rotation, this.processors.roomSettings()));
         }
 
         //Roof
-        builder.addPiece(new DefaultBrassRoom(
+        builder.addPiece(new BrassRoom(
                 templateManager,
                 "room_part_up",
                 pos.above(32),

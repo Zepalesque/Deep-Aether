@@ -67,11 +67,14 @@
           "output_state": {
             "Name": "deep_aether:trapped_skyroot_planks",
             "Properties": {
-              "trapped_mob_type": "0"
+              "trapped_mob_type": "2"
             }
           }
         }
       ]
+    },
+    {
+      "processor_type": "deep_aether:boss_room"
     }
   ]
 }

@@ -3,10 +3,10 @@ package io.github.razordevs.deep_aether.world.structure.brass;
 import com.aetherteam.aether.blockentity.TreasureChestBlockEntity;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.datagen.loot.DALoot;
+import io.github.razordevs.deep_aether.world.structure.DAStructurePieceTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -17,23 +17,25 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
-import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.world.level.storage.loot.LootTable;
 
-import java.util.function.Function;
-
-public abstract class AbstractBrassRoom extends BrassDungeonPiece {
-
-
-    public AbstractBrassRoom(StructurePieceType type, StructureTemplateManager manager, String name, StructurePlaceSettings settings, BlockPos pos, Holder<StructureProcessorList>processors) {
-        super(type, manager, name, settings, pos, processors);
+public class BrassRoom extends BrassDungeonPiece {
+    public BrassRoom(StructureTemplateManager manager, String name, BlockPos pos, Rotation rotation, Holder<StructureProcessorList> processors) {
+        super(DAStructurePieceTypes.BRASS_ROOM.get(), manager, name,
+                makeSettingsWithPivot(makeSettings(), rotation), pos, processors);
     }
 
-    public AbstractBrassRoom(StructurePieceType type, RegistryAccess access, CompoundTag tag, StructureTemplateManager manager, Function<ResourceLocation, StructurePlaceSettings> settingsFactory) {
-        super(type, access, tag, manager, settingsFactory);
+    public BrassRoom(StructurePieceSerializationContext context, CompoundTag tag) {
+        super(DAStructurePieceTypes.BRASS_ROOM.get(), context.registryAccess(), tag, context.structureTemplateManager(), resourceLocation
+                -> makeSettings());
+    }
+
+    protected static StructurePlaceSettings makeSettings() {
+        return new StructurePlaceSettings();
     }
 
     @Override
@@ -55,7 +57,7 @@ public abstract class AbstractBrassRoom extends BrassDungeonPiece {
         }
     }
 
-    protected void createChestLoot(ServerLevelAccessor level, BlockPos pos, RandomSource random, ResourceKey<LootTable> lootTable) {
+    protected static void createChestLoot(ServerLevelAccessor level, BlockPos pos, RandomSource random, ResourceKey<LootTable> lootTable) {
         BlockPos chest = pos.below();
         BlockEntity entity = level.getBlockEntity(chest);
 
@@ -72,14 +74,20 @@ public abstract class AbstractBrassRoom extends BrassDungeonPiece {
         return settings;
     }
 
-    public static class AbstractBossRoom extends AbstractBrassRoom {
 
-        public AbstractBossRoom(StructurePieceType type, StructureTemplateManager manager, String name, StructurePlaceSettings settings, BlockPos pos, Holder<StructureProcessorList> processors) {
-            super(type, manager, name, settings, pos, processors);
+    public static class BossRoom extends BrassDungeonPiece {
+        public BossRoom(StructureTemplateManager manager, String name, BlockPos pos, Rotation rotation, Holder<StructureProcessorList> processors) {
+            super(DAStructurePieceTypes.BRASS_BOSS_ROOM.get(), manager, name,
+                    BrassRoom.makeSettingsWithPivot(makeSettings(), rotation), pos, processors);
         }
 
-        public AbstractBossRoom(StructurePieceType type, RegistryAccess access, CompoundTag tag, StructureTemplateManager manager, Function<ResourceLocation, StructurePlaceSettings> settingsFactory) {
-            super(type, access, tag, manager, settingsFactory);
+        public BossRoom(StructurePieceSerializationContext context, CompoundTag tag) {
+            super(DAStructurePieceTypes.BRASS_BOSS_ROOM.get(), context.registryAccess(), tag, context.structureTemplateManager(), resourceLocation
+                    -> makeSettings());
+        }
+
+        protected static StructurePlaceSettings makeSettings() {
+            return new StructurePlaceSettings().setFinalizeEntities(true);
         }
 
         @Override
