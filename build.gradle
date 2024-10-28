@@ -125,20 +125,6 @@ dependencies {
         }
     }
 
-    jarJar("com.aetherteam.nitrogen:nitrogen_internals:${project.nitrogen_version}") {
-        version {
-            strictly "[${project.nitrogen_version},)"
-            prefer "${project.nitrogen_version}"
-        }
-    }
-
-    jarJar("io.wispforest:accessories-neoforge:${project.accessories_version}+${project.mc_version}") {
-        version {
-            strictly "[${project.accessories_version}+${project.mc_version},)"
-            prefer "${project.accessories_version}+${project.mc_version}"
-        }
-    }
-
     compileOnly "me.shedaniel.cloth:cloth-config-neoforge:${cloth_config_version}"
 
     //Optional Dependencies
