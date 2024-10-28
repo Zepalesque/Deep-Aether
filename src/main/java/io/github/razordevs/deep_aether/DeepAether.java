@@ -97,8 +97,10 @@ public class DeepAether {
 	public static final String ANCIENT_AETHER = "ancient_aether";
 	public static final String EMISSIVITY = "aether_emissivity";
 	public static final String PROTECT_YOUR_MOA = "aether_protect_your_moa";
+	public static final String TREASURE_REFORGING = "aether_treasure_reforging";
 
 	public static final Path DIRECTORY = FMLPaths.CONFIGDIR.get().resolve(MODID);
+
 
 	static Calendar CALENDER = Calendar.getInstance();
 	public static boolean IS_HALLOWEEN = ((CALENDER.get(Calendar.MONTH) == Calendar.OCTOBER && CALENDER.get(Calendar.DAY_OF_MONTH) > 20)

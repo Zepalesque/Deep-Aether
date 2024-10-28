@@ -181,15 +181,15 @@ public class DAItems {
 			() -> new SolidBucketItem(DABlocks.VIRULENT_QUICKSAND.get(), SoundEvents.SAND_BREAK, new Item.Properties().stacksTo(1)));
 
 	public static final DeferredItem<Item> AERGLOW_BLOSSOM = ITEMS.register("aerglow_blossom", () -> new Item(new Item.Properties()));
-	public static final DeferredItem<Item> GOLDEN_BERRIES = ITEMS.register("goldenleaf_berries",()-> new ItemNameBlockItem(DABlocks.GOLDEN_VINES.get(), (new Item.Properties()).food(DAFoods.GOLDEN_BERRIES)));
-	public static final DeferredItem<Item> FROZEN_GOLDEN_BERRIES = ITEMS.register("frozen_goldenleaf_berries",()-> new Item(new Item.Properties()));
-	public static final DeferredItem<Item> ANTIDOTE = ITEMS.register("antidote",()-> new AntidoteItem(false, new Item.Properties().stacksTo(16).food(DAFoods.ANTIDOTE)));
+	public static final DeferredItem<Item> GOLDEN_BERRIES = ITEMS.register("goldenleaf_berries", ()-> new ItemNameBlockItem(DABlocks.GOLDEN_VINES.get(), (new Item.Properties()).food(DAFoods.GOLDEN_BERRIES)));
+	public static final DeferredItem<Item> FROZEN_GOLDEN_BERRIES = ITEMS.register("frozen_goldenleaf_berries", ()-> new Item(new Item.Properties()));
+	public static final DeferredItem<Item> ANTIDOTE = ITEMS.register("antidote", ()-> new AntidoteItem(false, new Item.Properties().stacksTo(16).food(DAFoods.ANTIDOTE)));
 	public static final DeferredItem<Item> ENCHANTED_ANTIDOTE = ITEMS.register("enchanted_antidote",()-> new AntidoteItem(true, new Item.Properties().stacksTo(16).food(DAFoods.ENCHANTED_ANTIDOTE)));
 
-	public static final DeferredItem<Item> GOLDEN_GRASS_SEEDS = ITEMS.register("golden_grass_seeds",()-> new Item(new Item.Properties()));
-	public static final DeferredItem<Item> GOLDEN_SWET_BALL = ITEMS.register("golden_swet_ball",()-> new GoldenSwetBallItem(new Item.Properties()));
+	public static final DeferredItem<Item> GOLDEN_GRASS_SEEDS = ITEMS.register("golden_grass_seeds", ()-> new Item(new Item.Properties()));
+	public static final DeferredItem<Item> GOLDEN_SWET_BALL = ITEMS.register("golden_swet_ball", ()-> new GoldenSwetBallItem(new Item.Properties()));
 
-	public static final DeferredItem<Item> SQUASH_SEEDS = ITEMS.register("squash_seeds",()-> new ItemNameBlockItem(DABlocks.SQUASH_STEM.get(), new Item.Properties()));
+	public static final DeferredItem<Item> SQUASH_SEEDS = ITEMS.register("squash_seeds", ()-> new ItemNameBlockItem(DABlocks.SQUASH_STEM.get(), new Item.Properties()));
 
 	public static final DeferredItem<Item> SUN_CLOCK = ITEMS.register("sun_clock", ()-> new SunClock(new Item.Properties()));
 	public static final DeferredItem<Item> BRONZE_COMPASS = ITEMS.register("bronze_compass", ()-> new DungeonCompass(new Item.Properties(), AetherStructures.BRONZE_DUNGEON, "Bronze Dungeon"));
@@ -203,13 +203,16 @@ public class DAItems {
 	public static final DeferredItem<Item> STORM_BOW = ITEMS.register("storm_bow", () -> new StormBowItem(new Item.Properties().durability(384)));
 	public static final DeferredItem<Item> STORM_SWORD = ITEMS.register("storm_sword", () -> new StormSwordItem(DATiers.STORM, new Item.Properties().durability(384)));
 
+
+	//ADDONS
+
 	//PROTECT YOUR MOA
-	//public static final DeferredItem<?> SKYJADE_MOA_ARMOR = registerPYMItem();
+	//public static final DeferredItem<Item> SKYJADE_MOA_ARMOR = registerPYMItem("skyjade_moa_armor", ()-> new MoaArmorItem(7, ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "textures/entity/moa/armor/moa_armor_skyjade.png"), new Item.Properties().stacksTo(1)));
 
 	//LOST CONTENT
 	/*
-	public static final DeferredItem<Item> SKYJADE_SHIELD = registerLostContentItem("skyjade_shield", () -> new SkyjadeShieldItem(new Item.Properties().durability(672)));
-	public static final DeferredItem<Item> STRATUS_SHIELD = ITEMS.register("stratus_shield", () -> new LCDAShieldItem(new Item.Properties().durability(1344)));
+	public static final DeferredItem<Item> SKYJADE_SHIELD = registerLCItem("skyjade_shield", () -> new SkyjadeShieldItem(new Item.Properties().durability(672)));
+	public static final DeferredItem<Item> STRATUS_SHIELD = registerLCItem("stratus_shield", () -> new LCDAShieldItem(new Item.Properties().durability(1344)));
 	*/
 
 	public static void registerAccessories() {
@@ -234,22 +237,30 @@ public class DAItems {
 	public static void setupBucketReplacements() {
 		SkyrootBucketItem.REPLACEMENTS.put(DAItems.AERGLOW_FISH_BUCKET, DAItems.SKYROOT_AERGLOW_FISH_BUCKET);
 	}
-	private static <T extends Item> DeferredItem<T> registerLostContentItem(String name, Supplier<T> item) {
+
+	private static DeferredItem<Item> registerLCItem(String name, Supplier<Item> item) {
 		if(ModList.get().isLoaded(DeepAether.LOST_AETHER_CONTENT)) {
 			DeepAether.LOGGER.info("Deep Aether: Registering Aether Lost Content compat items");
+			return ITEMS.register(name, item);
 		}
-		return ITEMS.register(name, item);
+		return ITEMS.register(name, ()-> new Item(new Item.Properties()));
 	}
 
-	/*
-	private static DeferredItem<?>  registerPYMItem() {
+	private static DeferredItem<Item> registerPYMItem(String name, Supplier<Item> item) {
 		if(ModList.get().isLoaded(DeepAether.PROTECT_YOUR_MOA)) {
 			DeepAether.LOGGER.info("Deep Aether: Registering Protect Your Moa compat items");
-			return ITEMS.register("skyjade_moa_armor", ()-> new MoaArmorItem(7, ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "textures/entity/moa/armor/moa_armor_skyjade.png"), new Item.Properties().stacksTo(1)));
+			return ITEMS.register(name, item);
 		}
-		else return ITEMS.register("skyjade_moa_armor", () -> new Item(new Item.Properties()));
+		return ITEMS.register(name, ()-> new Item(new Item.Properties()));
 	}
-	 */
+
+	private static DeferredItem<Item> registerTRItem(String name, Supplier<Item> item) {
+		if(ModList.get().isLoaded(DeepAether.TREASURE_REFORGING)) {
+			DeepAether.LOGGER.info("Deep Aether: Registering Treasure Reforging compat items");
+			return ITEMS.register(name, item);
+		}
+		return ITEMS.register(name, ()-> new Item(new Item.Properties()));
+	}
 
 	//For Stratus Template
 	public static final ChatFormatting TITLE_FORMAT = ChatFormatting.GRAY;
