@@ -15,6 +15,14 @@
       }
     ]
   },
+  "item.music_disc.cyclone": {
+    "sounds": [
+      {
+        "name": "deep_aether:quizzly-cyclone",
+        "stream": true
+      }
+    ]
+  },
   "entity.quail.ambient": {
     "sounds": [
       "deep_aether:entity/quail/say1",

@@ -316,7 +316,8 @@ public class DAItemTagData extends ItemTagsProvider {
 
         tag(Tags.Items.MUSIC_DISCS).add(
                 DAItems.MUSIC_DISC_A_MORNING_WISH.get(),
-                DAItems.MUSIC_DISC_NABOORU.get()
+                DAItems.MUSIC_DISC_NABOORU.get(),
+                DAItems.MUSIC_DISC_CYCLONE.get()
         );
 
         tag(ItemTags.SAPLINGS).add(

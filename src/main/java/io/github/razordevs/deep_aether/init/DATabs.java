@@ -361,7 +361,8 @@ public class DATabs {
 
             addToTab(AetherItems.MUSIC_DISC_ASCENDING_DAWN.get(), new Item[]{
                     DAItems.MUSIC_DISC_A_MORNING_WISH.get(),
-                    DAItems.MUSIC_DISC_NABOORU.get()
+                    DAItems.MUSIC_DISC_NABOORU.get(),
+                    DAItems.MUSIC_DISC_CYCLONE.get()
             }, event);
         }
         if (tab == AetherCreativeTabs.AETHER_ARMOR_AND_ACCESSORIES.getKey()) {

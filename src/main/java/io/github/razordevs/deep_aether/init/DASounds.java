@@ -13,6 +13,8 @@ public class DASounds {
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> NABOORU = register("item.music_disc.nabooru");
 	public static final DeferredHolder<SoundEvent, SoundEvent> A_MORNING_WISH = register("item.music_disc.a_morning_wish");
+	public static final DeferredHolder<SoundEvent, SoundEvent> CYCLONE = register("item.music_disc.cyclone");
+
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> QUAIL_DEATH = register("entity.quail.death");
 	public static final DeferredHolder<SoundEvent, SoundEvent> QUAIL_HURT = register("entity.quail.hurt");
