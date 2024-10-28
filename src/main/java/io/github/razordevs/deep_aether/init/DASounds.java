@@ -29,6 +29,7 @@ public class DASounds {
 	public static final DeferredHolder<SoundEvent, SoundEvent> EOTS_HURT = register("entity.eots.hurt");
 	public static final DeferredHolder<SoundEvent, SoundEvent> EOTS_AMBIENT = register("entity.eots.ambient");
 	public static final DeferredHolder<SoundEvent, SoundEvent> EOTS_BLOWING = register("entity.eots.blowing");
+	public static final DeferredHolder<SoundEvent, SoundEvent> MUSIC_BOSS_EOTS = register("music.boss.eots");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> ITEM_ARMOR_EQUIP_SKYJADE = register("item.armor.equip_skyjade");
 	public static final DeferredHolder<SoundEvent, SoundEvent> ITEM_ARMOR_EQUIP_STRATUS = register("item.armor.equip_stratus");

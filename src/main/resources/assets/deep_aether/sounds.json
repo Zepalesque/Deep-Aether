@@ -70,7 +70,12 @@
     "sounds": [
       "deep_aether:entity/eots/blowing"
     ],
-    "subtitle": "subtitles.deep_aether.entity.windfly.hurt"
+    "subtitle": "subtitles.deep_aether.entity.eots.blowing"
+  },
+  "music.boss.eots": {
+    "sounds": [
+      "deep_aether:entity/eots/eots_fight"
+    ]
   },
   "item.armor.equip_skyjade": {
     "sounds": [

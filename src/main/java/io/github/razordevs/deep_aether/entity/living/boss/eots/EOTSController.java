@@ -28,6 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
@@ -69,6 +70,7 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
     protected List<UUID> segmentUUIDs = new ArrayList<>();
     public static final int SEGMENT_COUNT = 15;
     public static final int EXTRA_SEGMENT = 5;
+    private static final Music EOTS_MUSIC = new Music(DASounds.MUSIC_BOSS_EOTS, 0, 0, true);
     private static final EntityDataAccessor<Boolean> DATA_AWAKE_ID = SynchedEntityData.defineId(EOTSController.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Component> DATA_BOSS_NAME_ID = SynchedEntityData.defineId(EOTSController.class, EntityDataSerializers.COMPONENT);
     private final ServerBossEvent bossFight;
@@ -455,24 +457,33 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
 
 
     /**
-     * Temporary
      * @return The {@link ResourceLocation} for this boss's health bar.
      */
     @Nullable
     @Override
     public ResourceLocation getBossBarTexture() {
-        return ResourceLocation.fromNamespaceAndPath(Aether.MODID, "boss_bar/slider");
+        return ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "boss_bar/eots");
     }
 
     /**
-     * Temporary
      * @return The {@link ResourceLocation} for this boss's health bar background.
      */
     @Nullable
     @Override
     public ResourceLocation getBossBarBackgroundTexture() {
-        return ResourceLocation.fromNamespaceAndPath(Aether.MODID, "boss_bar/slider_background");
+        return ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "boss_bar/eots_background");
     }
+
+    /**
+     * @return The {@link Music} for this boss's fight.
+     */
+    @Nullable
+    @Override
+    public Music getBossMusic() {
+        return EOTS_MUSIC;
+    }
+
+
     @Override
     public int getDeathScore() {
         return this.deathScore;

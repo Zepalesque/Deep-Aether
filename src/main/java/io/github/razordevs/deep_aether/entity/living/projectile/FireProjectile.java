@@ -83,6 +83,9 @@ public class FireProjectile extends ThrowableProjectile {
             this.spawnParticles();
         }
 
+        if (target.hurt(AetherDamageTypes.indirectEntityDamageSource(this.level(), DamageTypes.MOB_PROJECTILE, this, this.getOwner()), 10.0F)) {
+            this.discard();
+        }
     }
 
     protected void onHitBlock(BlockHitResult result) {

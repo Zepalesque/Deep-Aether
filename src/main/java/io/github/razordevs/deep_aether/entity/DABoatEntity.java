@@ -1,6 +1,6 @@
 package io.github.razordevs.deep_aether.entity;
 
-import com.aetherteam.aether.entity.miscellaneous.SkyrootBoatBehavior;
+import com.aetherteam.aether.entity.miscellaneous.SkyrootBoat;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.init.DAEntities;
 import io.github.razordevs.deep_aether.init.DAItems;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.function.Supplier;
 
-public class DABoatEntity extends Boat implements SkyrootBoatBehavior {
+public class DABoatEntity extends Boat {
     private static final EntityDataAccessor<Integer> WOOD_TYPE = SynchedEntityData.defineId(DABoatEntity.class, EntityDataSerializers.INT);
 
     public DABoatEntity(EntityType<? extends Boat> type, Level level) {

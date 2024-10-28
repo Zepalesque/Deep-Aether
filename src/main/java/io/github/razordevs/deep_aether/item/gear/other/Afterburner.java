@@ -44,7 +44,7 @@ public class Afterburner extends TieredItem implements FlawlessDrop {
         if(player.getTicksUsingItem() > 20 && itemStack.getMaxDamage() > itemStack.getDamageValue()) {
 
             FireProjectile fireProjectile = new FireProjectile(player, level);
-            fireProjectile.shoot(player.getXRot(), player.getYRot(), 1.0F, 11.0F);
+            fireProjectile.shoot(player.getXRot(), player.getYRot(), 1.0F, 10.0F);
 
             level.addFreshEntity(fireProjectile);
             level.playLocalSound(player.getX(), player.getY(), player.getZ(), DASounds.ITEM_AFTERBURNER_FIRES.get(), SoundSource.PLAYERS, 1.0F, 1.0F / (livingEntity.getRandom().nextFloat() * 0.4F + 0.8F), false);
