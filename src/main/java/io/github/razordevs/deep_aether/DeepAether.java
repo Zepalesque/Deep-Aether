@@ -85,7 +85,7 @@ public class DeepAether {
 	//TODO: add it_lang translation
 	//TODO: add se_lang translation
 	//TODO: clean up code
-	//TODO: Continue Sacred Lands Testing
+	//TODO: lore entries in LANG to be revised
 
 	public static final Logger LOGGER = LogUtils.getLogger();
 
