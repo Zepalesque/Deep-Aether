@@ -1,6 +1,7 @@
 package io.github.razordevs.deep_aether.event.listeners;
 
 import com.aetherteam.aether.event.hooks.ItemHooks;
+import io.github.razordevs.deep_aether.event.hooks.DAItemHooks;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -22,6 +23,6 @@ public class DAItemListeners {
         ItemStack itemStack = event.getItemStack();
         TooltipFlag tooltipFlag = event.getFlags();
         List<Component> itemTooltips = event.getToolTip();
-        ItemHooks.addDungeonTooltips(itemTooltips, itemStack, tooltipFlag);
+        DAItemHooks.addDungeonTooltips(itemTooltips, itemStack, tooltipFlag);
     }
 }
