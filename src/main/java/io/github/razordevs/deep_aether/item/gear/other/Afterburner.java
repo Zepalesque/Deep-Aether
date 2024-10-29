@@ -57,7 +57,7 @@ public class Afterburner extends TieredItem implements FlawlessDrop {
         if(entity instanceof Player player)
             if(count < stack.getUseDuration(entity) - 20 && stack.getMaxDamage() > stack.getDamageValue()) {
                 if(!player.isCreative()) {
-                    player.getCooldowns().addCooldown(this, 100);
+                    player.getCooldowns().addCooldown(this, 60);
                     stack.hurtAndBreak(1, player, LivingEntity.getSlotForHand(InteractionHand.MAIN_HAND));
                 }
             }

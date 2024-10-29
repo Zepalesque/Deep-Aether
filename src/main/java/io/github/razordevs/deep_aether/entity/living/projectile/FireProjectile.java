@@ -1,6 +1,7 @@
 package io.github.razordevs.deep_aether.entity.living.projectile;
 
 import com.aetherteam.aether.data.resources.registries.AetherDamageTypes;
+import com.aetherteam.aether.data.resources.registries.AetherDimensions;
 import com.aetherteam.aether.network.packet.serverbound.HammerProjectileLaunchPacket;
 import io.github.razordevs.deep_aether.init.DAEntities;
 import net.minecraft.core.BlockPos;
@@ -90,7 +91,7 @@ public class FireProjectile extends ThrowableProjectile {
 
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
-        if (!this.level().isClientSide) {
+        if (!this.level().isClientSide && !this.level().dimension().equals(AetherDimensions.AETHER_LEVEL)) {
             Entity entity = this.getOwner();
             if (!(entity instanceof Mob) || EventHooks.canEntityGrief(this.level(), entity)) {
                 BlockPos blockpos = result.getBlockPos().relative(result.getDirection());
