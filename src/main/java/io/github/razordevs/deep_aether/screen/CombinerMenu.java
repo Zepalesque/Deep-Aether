@@ -12,16 +12,22 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.*;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRecipe> {
     private final Level level;
     private final ContainerData data;
     private final Container container;
+    private final RecipeType<CombinerRecipe> recipeType;
+
 
     public CombinerMenu(int containerId, Inventory playerInventory) {
         this(containerId, playerInventory, new SimpleContainer(4), new SimpleContainerData(2));
@@ -29,19 +35,21 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
 
     public CombinerMenu(int pContainerId, Inventory inv, Container container, ContainerData data) {
         super(DAMenuTypes.COMBINER_MENU.get(), pContainerId);
-        checkContainerSize(inv, 4);
+        this.recipeType = DARecipeTypes.COMBINING.get();
+
+        checkContainerSize(container, 4);
         checkContainerDataCount(data, 2);
         this.level = inv.player.level();
         this.data = data;
         this.container = container;
 
+        this.addSlot(new Slot(container, 0, 57, 17));
+        this.addSlot(new Slot(container, 1, 80, 17));
+        this.addSlot(new Slot(container, 2, 103, 17));
+        this.addSlot(new Slot(container, 3, 80, 53));
+
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
-
-            this.addSlot(new Slot(container, 0, 57, 17));
-            this.addSlot(new Slot(container, 1, 80, 17));
-            this.addSlot(new Slot(container, 2, 103, 17));
-            this.addSlot(new Slot(container, 3, 80, 53));
 
         addDataSlots(data);
     }
@@ -74,40 +82,40 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
 
     // THIS YOU HAVE TO DEFINE!
-    private static final int TE_INVENTORY_SLOT_COUNT = 4;  // must be the number of slots you have!
-    @Override
-    public ItemStack quickMoveStack(Player playerIn, int pIndex) {
-        Slot sourceSlot = slots.get(pIndex);
-        if (sourceSlot == null || !sourceSlot.hasItem())
-            return ItemStack.EMPTY;  //EMPTY_ITEM
-        ItemStack sourceStack = sourceSlot.getItem();
-        ItemStack copyOfSourceStack = sourceStack.copy();
-
-        // Check if the slot clicked is one of the vanilla container slots
-        if (pIndex < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
-            // This is a vanilla container slot so merge the stack into the tile inventory
-            if (!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX, TE_INVENTORY_FIRST_SLOT_INDEX
-                    + TE_INVENTORY_SLOT_COUNT, false)) {
-                return ItemStack.EMPTY;  // EMPTY_ITEM
-            }
-        } else if (pIndex < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
-            // This is a TE slot so merge the stack into the players inventory
-            if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
-                return ItemStack.EMPTY;
-            }
-        } else {
-            //System.out.println("Invalid slotIndex:" + pIndex);
-            return ItemStack.EMPTY;
-        }
-        // If stack size == 0 (the entire stack was moved) set slot contents to null
-        if (sourceStack.getCount() == 0) {
-            sourceSlot.set(ItemStack.EMPTY);
-        } else {
-            sourceSlot.setChanged();
-        }
-        sourceSlot.onTake(playerIn, sourceStack);
-        return copyOfSourceStack;
-    }
+//    private static final int TE_INVENTORY_SLOT_COUNT = 4;  // must be the number of slots you have!
+//    @Override
+//    public ItemStack quickMoveStack(Player playerIn, int pIndex) {
+//        Slot sourceSlot = slots.get(pIndex);
+//        if (sourceSlot == null || !sourceSlot.hasItem())
+//            return ItemStack.EMPTY;  //EMPTY_ITEM
+//        ItemStack sourceStack = sourceSlot.getItem();
+//        ItemStack copyOfSourceStack = sourceStack.copy();
+//
+//        // Check if the slot clicked is one of the vanilla container slots
+//        if (pIndex < VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT) {
+//            // This is a vanilla container slot so merge the stack into the tile inventory
+//            if (!moveItemStackTo(sourceStack, TE_INVENTORY_FIRST_SLOT_INDEX, TE_INVENTORY_FIRST_SLOT_INDEX
+//                    + TE_INVENTORY_SLOT_COUNT, false)) {
+//                return ItemStack.EMPTY;  // EMPTY_ITEM
+//            }
+//        } else if (pIndex < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
+//            // This is a TE slot so merge the stack into the players inventory
+//            if (!moveItemStackTo(sourceStack, VANILLA_FIRST_SLOT_INDEX, VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT, false)) {
+//                return ItemStack.EMPTY;
+//            }
+//        } else {
+//            //System.out.println("Invalid slotIndex:" + pIndex);
+//            return ItemStack.EMPTY;
+//        }
+//        // If stack size == 0 (the entire stack was moved) set slot contents to null
+//        if (sourceStack.getCount() == 0) {
+//            sourceSlot.set(ItemStack.EMPTY);
+//        } else {
+//            sourceSlot.setChanged();
+//        }
+//        sourceSlot.onTake(playerIn, sourceStack);
+//        return copyOfSourceStack;
+//    }
 
     @Override
     public boolean stillValid(Player pPlayer) {
@@ -140,15 +148,20 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
         this.getSlot(0).set(ItemStack.EMPTY);
         this.getSlot(1).set(ItemStack.EMPTY);
         this.getSlot(2).set(ItemStack.EMPTY);
+        this.getSlot(3).set(ItemStack.EMPTY);
     }
 
     @Override
     public boolean recipeMatches(RecipeHolder<CombinerRecipe> recipeHolder) {
-        NonNullList<ItemStack> stacks = NonNullList.withSize(3, ItemStack.EMPTY);
-        for (int i = 0; i < 3; i++) {
-            stacks.add(container.getItem(i));
-        }
-        return recipeHolder.value().matches(new CombinerRecipeInput(stacks), this.level);
+        return recipeHolder.value().matches(new CombinerRecipeInput(getIngredients()), this.level);
+    }
+
+    private List<ItemStack> getIngredients(){
+        List<ItemStack> stacks = new ArrayList<>();
+        stacks.add(this.container.getItem(0));
+        stacks.add(this.container.getItem(1));
+        stacks.add(this.container.getItem(2));
+        return stacks;
     }
 
     @Override
@@ -173,11 +186,62 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
 
     @Override
     public RecipeBookType getRecipeBookType() {
-        return DARecipeBookTypes.DEEP_AETHER_COMBINER.getValue();
+        return DARecipeBookTypes.COMBINER;
     }
 
     @Override
-    public boolean shouldMoveToInventory(int i) {
-        return true;
+    public boolean shouldMoveToInventory(int slotIndex) {
+        return slotIndex < 3;
+    }
+
+    @Override
+    public ItemStack quickMoveStack(Player player, int index) {
+        ItemStack itemStack = ItemStack.EMPTY;
+        Slot slot = this.slots.get(index);
+        if (slot != null && slot.hasItem()) {
+            ItemStack itemStack1 = slot.getItem();
+            itemStack = itemStack1.copy();
+            if (index == 3) {
+                if (!this.moveItemStackTo(itemStack1, 4, 40, true)) {
+                    return ItemStack.EMPTY;
+                }
+
+                slot.onQuickCraft(itemStack1, itemStack);
+            } else if (index != 2 && index != 1 && index != 0) {
+                if (this.canProcess(itemStack1)) {
+                    if (!this.moveItemStackTo(itemStack1, 0, 1, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index >= 4 && index < 31) {
+                    if (!this.moveItemStackTo(itemStack1, 31, 40, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                } else if (index >= 31 && index < 40 && !this.moveItemStackTo(itemStack1, 4, 31, false)) {
+                    return ItemStack.EMPTY;
+                }
+            } else if (!this.moveItemStackTo(itemStack1, 4, 40, false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemStack1.isEmpty()) {
+                slot.set(ItemStack.EMPTY);
+            } else {
+                slot.setChanged();
+            }
+
+            if (itemStack1.getCount() == itemStack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            slot.onTake(player, itemStack1);
+        }
+
+        return itemStack;
+    }
+
+    protected boolean canProcess(ItemStack pStack) {
+        if(getIngredients().contains(pStack))
+            return this.level.getRecipeManager().getRecipeFor(this.recipeType, new CombinerRecipeInput(getIngredients()), this.level).isPresent();
+        else return false;
     }
 }

@@ -45,29 +45,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
     private static final int THIRD_SLOT = 2;
     private static final int OUTPUT_SLOT = 3;
 
-    protected final ContainerData data = new ContainerData() {
-        @Override
-        public int get(int pIndex) {
-            return switch (pIndex) {
-                case 0 -> CombinerBlockEntity.this.processingProgress;
-                case 1 -> CombinerBlockEntity.this.processingTotalTime;
-                default -> 0;
-            };
-        }
-
-        @Override
-        public void set(int pIndex, int pValue) {
-            switch (pIndex) {
-                case 0 -> CombinerBlockEntity.this.processingProgress = pValue;
-                case 1 -> CombinerBlockEntity.this.processingTotalTime = pValue;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 2;
-        }
-    };
+    protected final ContainerData data;
     protected NonNullList<ItemStack> items = NonNullList.withSize(4, ItemStack.EMPTY);
     int processingProgress = 0;
     int processingTotalTime = 78;
@@ -84,6 +62,29 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
     public CombinerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.quickCheck = RecipeManager.createCheck(DARecipeTypes.COMBINING.get());
+        this.data = new ContainerData() {
+            @Override
+            public int get(int pIndex) {
+                return switch (pIndex) {
+                    case 0 -> CombinerBlockEntity.this.processingProgress;
+                    case 1 -> CombinerBlockEntity.this.processingTotalTime;
+                    default -> 0;
+                };
+            }
+
+            @Override
+            public void set(int pIndex, int pValue) {
+                switch (pIndex) {
+                    case 0 -> CombinerBlockEntity.this.processingProgress = pValue;
+                    case 1 -> CombinerBlockEntity.this.processingTotalTime = pValue;
+                }
+            }
+
+            @Override
+            public int getCount() {
+                return 2;
+            }
+        };
     }
 
 
@@ -126,7 +127,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
         tag.put("RecipesUsed", recipesUsedTag);
     }
 
-    private NonNullList<ItemStack> getIngredients() {
+    public NonNullList<ItemStack> getIngredients() {
        ArrayList<ItemStack> ingredients = new ArrayList<>();
 
         ingredients.add(items.get(0));

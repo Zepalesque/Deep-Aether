@@ -27,7 +27,7 @@ public class BabyZephyrRenderer extends MobRenderer<BabyZephyr, BabyZephyrModel>
         float f3 = (8.0F + 1.0F / f1) / 2.0F;
 
         poseStack.scale(f3, f2, f3);
-        poseStack.translate(0.0, 0.5, 0.0);
+        poseStack.translate(0.0, 0.55, 0.0);
     }
 
     @Override

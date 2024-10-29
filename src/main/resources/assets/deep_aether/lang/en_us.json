@@ -805,7 +805,8 @@
   "deep_aether.dungeon.brass_dungeon": "Brass Dungeon",
   "menu.deep_aether.brass_treasure_chest": "Brass Treasure Chest",
   "key.deep_aether.toggle_skyjade_transparency": "Toggle Skyjade Transparency",
-  "deep_aether.moa.healed_health": "Health"
+  "deep_aether.moa.healed_health": "Health",
+  "gui.deep_aether.recipebook.toggleRecipes.combinable": "Showing Combinable"
 }
 
 

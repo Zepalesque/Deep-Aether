@@ -32,6 +32,7 @@ public class CombinerRecipeBookComponent extends RecipeBookComponent {
         this.filterButton.initTextureValues(FILTER_SPRITES);
     }
 
+    @Override
     public void slotClicked(@Nullable Slot pSlot) {
         super.slotClicked(pSlot);
         if (pSlot != null && pSlot.index < this.menu.getSize()) {
@@ -39,44 +40,23 @@ public class CombinerRecipeBookComponent extends RecipeBookComponent {
         }
     }
 
-    /*@Override
-    public void setupGhostRecipe(RecipeHolder<?> recipe, List<Slot> slots) {
-        this.ghostRecipe.setRecipe(recipe);
-        Slot outputSlot = slots.get(3);
-        this.ghostRecipe.addIngredient(Ingredient.of(recipe.value().getResultItem(this.minecraft.level.registryAccess())), outputSlot.x, outputSlot.y);
-        addIngredient(recipe, slots, 3);
-        addIngredient(recipe, slots, 0);
-        addIngredient(recipe, slots, 1);
-        addIngredient(recipe, slots, 2);
-    }
-
-    private void addIngredient(RecipeHolder<?> recipe, List<Slot> slots, int i) {
-        Ingredient ingredient = recipe.value().getIngredients().get(i);
-        if (!ingredient.isEmpty()) {
-            Slot ingredientSlot = slots.get(i);
-            this.ghostRecipe.addIngredient(ingredient, ingredientSlot.x, ingredientSlot.y);
-        }
-    }*/
-
-    public void setupGhostRecipe(RecipeHolder<?> pRecipe, List<Slot> pSlots) {
-        ItemStack itemstack = pRecipe.value().getResultItem(this.minecraft.level.registryAccess());
-        this.ghostRecipe.setRecipe(pRecipe);
-        this.ghostRecipe.addIngredient(Ingredient.of(new ItemStack[]{itemstack}), ((Slot)pSlots.get(2)).x, ((Slot)pSlots.get(2)).y);
-        NonNullList<Ingredient> nonnulllist = pRecipe.value().getIngredients();
+    @Override
+    public void setupGhostRecipe(RecipeHolder<?> recipeHolder, List<Slot> slots) {
+        ItemStack itemstack = recipeHolder.value().getResultItem(this.minecraft.level.registryAccess());
+        this.ghostRecipe.setRecipe(recipeHolder);
+        this.ghostRecipe.addIngredient(Ingredient.of(itemstack), slots.get(3).x, slots.get(3).y);
+        NonNullList<Ingredient> nonnulllist = recipeHolder.value().getIngredients();
         Iterator<Ingredient> iterator = nonnulllist.iterator();
 
-        for(int i = 0; i < 2; ++i) {
+        for(int i = 0; i < 3; i++) {
             if (!iterator.hasNext()) {
                 return;
             }
-
-            Ingredient ingredient = (Ingredient)iterator.next();
+            Ingredient ingredient = iterator.next();
             if (!ingredient.isEmpty()) {
-                Slot slot1 = (Slot)pSlots.get(i);
+                Slot slot1 = slots.get(i);
                 this.ghostRecipe.addIngredient(ingredient, slot1.x, slot1.y);
             }
         }
-
     }
-
 }

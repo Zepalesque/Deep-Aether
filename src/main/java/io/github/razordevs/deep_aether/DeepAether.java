@@ -193,7 +193,8 @@ public class DeepAether {
 
 	public void commonSetup(FMLCommonSetupEvent event) {
 		Reflection.initialize(DARecipeBookTypes.class);
-        registerFlawlessBossDrops();
+
+		registerFlawlessBossDrops();
 		registerFluidInteractions();
 
 		event.enqueueWork(() -> {

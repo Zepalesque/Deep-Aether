@@ -15,19 +15,26 @@ import java.util.List;
 
 public class DARecipeCategories {
 
-    public static final EnumProxy<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_SEARCH = new EnumProxy<>(
-            RecipeBookCategories.class, (Supplier<List<ItemStack>>) ()->new ArrayList<>() {{
-        new ItemStack(Items.COMPASS);
-    }});
-    public static final EnumProxy<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_FODDER = new EnumProxy<>(
-            RecipeBookCategories.class, (Supplier<List<ItemStack>>) ()->new ArrayList<>() {{
-        new ItemStack(DAItems.MOA_FODDER.get());
-    }});
+//    public static final EnumProxy<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_SEARCH = new EnumProxy<>(
+//            RecipeBookCategories.class, (Supplier<List<ItemStack>>) ()->new ArrayList<>() {{
+//        new ItemStack(Items.COMPASS);
+//    }});
 
-    public static final EnumProxy<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_MISC = new EnumProxy<>(
-            RecipeBookCategories.class, (Supplier<List<ItemStack>>) ()->new ArrayList<>() {{
-        new ItemStack(DAItems.ANTIDOTE.get());
-    }});
+    //    public static final EnumProxy<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_FODDER = new EnumProxy<>(
+//            RecipeBookCategories.class, (Supplier<List<ItemStack>>) ()->new ArrayList<>() {{
+//        new ItemStack(DAItems.MOA_FODDER.get());
+//    }});
+
+//    public static final EnumProxy<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_MISC = new EnumProxy<>(
+//            RecipeBookCategories.class, (Supplier<List<ItemStack>>) ()->new ArrayList<>() {{
+//        new ItemStack(DAItems.ANTIDOTE.get());
+//    }});
+
+    public static final Supplier<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_SEARCH = Suppliers.memoize(() -> RecipeBookCategories.valueOf("DEEP_AETHER_COMBINEABLE_SEARCH"));
+
+    public static final Supplier<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_FODDER = Suppliers.memoize(() -> RecipeBookCategories.valueOf("DEEP_AETHER_COMBINEABLE_FODDER"));
+
+    public static final Supplier<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_MISC = Suppliers.memoize(() -> RecipeBookCategories.valueOf("DEEP_AETHER_COMBINEABLE_MISC"));
 
     /**
      * Registers the mod's categories to be used in-game, along with functions to sort items.
@@ -36,8 +43,8 @@ public class DARecipeCategories {
      */
     public static void registerRecipeCategories(RegisterRecipeBookCategoriesEvent event) {
         // Combination
-        event.registerBookCategories(DARecipeBookTypes.DEEP_AETHER_COMBINER.getValue(), ImmutableList.of(DEEP_AETHER_COMBINEABLE_SEARCH.getValue(), DEEP_AETHER_COMBINEABLE_FODDER.getValue(), DEEP_AETHER_COMBINEABLE_MISC.getValue()));
-        event.registerAggregateCategory(DEEP_AETHER_COMBINEABLE_SEARCH.getValue(), ImmutableList.of(DEEP_AETHER_COMBINEABLE_FODDER.getValue(), DEEP_AETHER_COMBINEABLE_MISC.getValue()));
-        event.registerRecipeCategoryFinder(DARecipeTypes.COMBINING.get(), recipe -> DEEP_AETHER_COMBINEABLE_MISC.getValue());
+        event.registerBookCategories(DARecipeBookTypes.COMBINER, ImmutableList.of(DEEP_AETHER_COMBINEABLE_SEARCH.get(), DEEP_AETHER_COMBINEABLE_FODDER.get(), DEEP_AETHER_COMBINEABLE_MISC.get()));
+        event.registerAggregateCategory(DEEP_AETHER_COMBINEABLE_SEARCH.get(), ImmutableList.of(DEEP_AETHER_COMBINEABLE_FODDER.get(), DEEP_AETHER_COMBINEABLE_MISC.get()));
+        event.registerRecipeCategoryFinder(DARecipeTypes.COMBINING.get(), recipe -> DEEP_AETHER_COMBINEABLE_MISC.get());
     }
 }
