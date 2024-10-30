@@ -692,6 +692,17 @@ public class DARecipeData extends AetherRecipeProvider {
                 .unlockedBy(getHasName(DAItems.SUN_CORE.get()), has(DAItems.SUN_CORE.get()))
                 .save(consumer, name("afterburner"));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, DABlocks.COMBINER.get(), 1)
+                .define('O', DAItems.SKYJADE.get())
+                .define('W', AetherBlocks.SKYROOT_PLANKS.get())
+                .define('H', AetherBlocks.HOLYSTONE.get())
+                .define('A', AetherItems.AMBROSIUM_SHARD.get())
+                .pattern("WHW")
+                .pattern("OAO")
+                .pattern("HOH")
+                .unlockedBy(getHasName(DAItems.SKYJADE.get()), has(DAItems.SKYJADE.get()))
+                .save(consumer, name("combiner"));
+
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, DAItems.GOLDEN_SWET_BALL.get())
                 .requires(DAItems.GOLDEN_GRASS_SEEDS.get())
                 .requires(AetherItems.SWET_BALL.get())
