@@ -41,13 +41,13 @@ public class SquashStemBlock extends StemBlock {
                     Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(randomSource);
                     BlockPos blockpos = blockPos.relative(direction);
                     BlockState blockstate = level.getBlockState(blockpos.below());
-                    if (level.isEmptyBlock(blockpos) && (blockstate.canSustainPlant(level, blockpos.below(), Direction.UP, fruit.defaultBlockState()).isDefault() || blockstate.is(Blocks.FARMLAND) || blockstate.is(BlockTags.DIRT))) {
-                        Registry<Block> registry = level.registryAccess().registryOrThrow(Registries.BLOCK);
-                        Optional<Block> optional = registry.getOptional(this.randomizedSquash().getKey());
-                        Optional<Block> optional1 = registry.getOptional(this.attachedStem);
-                        if (optional.isPresent() && optional1.isPresent()) {
-                            level.setBlockAndUpdate(blockpos, optional.get().defaultBlockState());
-                            level.setBlockAndUpdate(blockPos, optional1.get().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
+                    Registry<Block> registry = level.registryAccess().registryOrThrow(Registries.BLOCK);
+                    Optional<Block> optional = registry.getOptional(this.randomizedSquash().getKey());
+                    Optional<Block> optional1 = registry.getOptional(this.attachedStem);
+                    if (optional.isPresent() && optional1.isPresent()) {
+                        if (level.isEmptyBlock(blockpos) && (blockstate.canSustainPlant(level, blockpos.below(), Direction.UP, optional.get().defaultBlockState()).isDefault() || blockstate.is(Blocks.FARMLAND) || blockstate.is(BlockTags.DIRT))) {
+                                level.setBlockAndUpdate(blockpos, optional.get().defaultBlockState());
+                                level.setBlockAndUpdate(blockPos, optional1.get().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
                         }
                     }
                 }
