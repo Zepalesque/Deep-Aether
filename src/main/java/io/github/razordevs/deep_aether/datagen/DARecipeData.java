@@ -566,6 +566,42 @@ public class DARecipeData extends AetherRecipeProvider {
                 .unlockedBy(getHasName(DABlocks.PURPLE_SQUASH.get()), has(DABlocks.PURPLE_SQUASH.get()))
                 .save(consumer, name("slice_from_purple_squash"));
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, DAItems.SQUASH_SEEDS.get(), 1)
+                .requires(DAItems.BLUE_SQUASH_SLICE.get(), 1)
+                .unlockedBy(getHasName(DABlocks.BLUE_SQUASH.get()), has(DABlocks.BLUE_SQUASH.get()))
+                .save(consumer, name("seeds_from_blue_squash_slice"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, DAItems.SQUASH_SEEDS.get(), 1)
+                .requires(DAItems.GREEN_SQUASH_SLICE.get(), 1)
+                .unlockedBy(getHasName(DABlocks.GREEN_SQUASH.get()), has(DABlocks.GREEN_SQUASH.get()))
+                .save(consumer, name("seeds_from_green_squash_slice"));
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, DAItems.SQUASH_SEEDS.get(), 1)
+                .requires(DAItems.PURPLE_SQUASH_SLICE.get(), 1)
+                .unlockedBy(getHasName(DABlocks.PURPLE_SQUASH.get()), has(DABlocks.PURPLE_SQUASH.get()))
+                .save(consumer, name("seeds_from_purple_squash_slice"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, DABlocks.BLUE_SQUASH.get(), 1)
+                .define('V', DAItems.BLUE_SQUASH_SLICE.get())
+                .pattern("VV")
+                .pattern("VV")
+                .unlockedBy(getHasName(DABlocks.BLUE_SQUASH.get()), has(DABlocks.BLUE_SQUASH.get()))
+                .save(consumer, name("blue_squash_from_slices"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, DABlocks.GREEN_SQUASH.get(), 1)
+                .define('V', DAItems.GREEN_SQUASH_SLICE.get())
+                .pattern("VV")
+                .pattern("VV")
+                .unlockedBy(getHasName(DABlocks.GREEN_SQUASH.get()), has(DABlocks.GREEN_SQUASH.get()))
+                .save(consumer, name("green_squash_from_slices"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, DABlocks.PURPLE_SQUASH.get(), 1)
+                .define('V', DAItems.PURPLE_SQUASH_SLICE.get())
+                .pattern("VV")
+                .pattern("VV")
+                .unlockedBy(getHasName(DABlocks.PURPLE_SQUASH.get()), has(DABlocks.PURPLE_SQUASH.get()))
+                .save(consumer, name("purple_squash_from_slices"));
+
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, Items.CAKE)
                 .group("minecraft:cake")
                 .define('U', Items.MILK_BUCKET)
