@@ -29,7 +29,6 @@ public class SquashStemBlock extends StemBlock {
 
     @Override
     public void randomTick(BlockState blockState, ServerLevel level, BlockPos blockPos, RandomSource randomSource) {
-        Block fruit = randomizedSquash().get();
         if (!level.isAreaLoaded(blockPos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
         if (level.getRawBrightness(blockPos, 0) >= 9) {
             float f = getGrowthSpeed(blockState, level, blockPos);
