@@ -39,7 +39,6 @@ import java.util.EnumSet;
 import java.util.UUID;
 
 public class EOTSSegment extends FlyingMob implements Enemy {
-    //TODO: Replace Segment death animation
     //TODO: Sounds for the boss
 
     //Used to indicate if the EOTSSegment has been able to connect to the controller on reloading a world during a boss fight.

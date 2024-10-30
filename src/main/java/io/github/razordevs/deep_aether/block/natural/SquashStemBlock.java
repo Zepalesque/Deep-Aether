@@ -29,6 +29,7 @@ public class SquashStemBlock extends StemBlock {
 
     @Override
     public void randomTick(BlockState blockState, ServerLevel level, BlockPos blockPos, RandomSource randomSource) {
+        Block fruit = randomizedSquash().get();
         if (!level.isAreaLoaded(blockPos, 1)) return; // Forge: prevent loading unloaded chunks when checking neighbor's light
         if (level.getRawBrightness(blockPos, 0) >= 9) {
             float f = getGrowthSpeed(blockState, level, blockPos);
@@ -40,7 +41,7 @@ public class SquashStemBlock extends StemBlock {
                     Direction direction = Direction.Plane.HORIZONTAL.getRandomDirection(randomSource);
                     BlockPos blockpos = blockPos.relative(direction);
                     BlockState blockstate = level.getBlockState(blockpos.below());
-                    if (level.isEmptyBlock(blockpos) && (blockstate.is(Blocks.FARMLAND) || blockstate.is(BlockTags.DIRT))) { // TODO 1.20.3 PORTING: reimplement canSustainPlant check
+                    if (level.isEmptyBlock(blockpos) && (blockstate.canSustainPlant(level, blockpos.below(), Direction.UP, fruit.defaultBlockState()).isDefault() || blockstate.is(Blocks.FARMLAND) || blockstate.is(BlockTags.DIRT))) {
                         Registry<Block> registry = level.registryAccess().registryOrThrow(Registries.BLOCK);
                         Optional<Block> optional = registry.getOptional(this.randomizedSquash().getKey());
                         Optional<Block> optional1 = registry.getOptional(this.attachedStem);

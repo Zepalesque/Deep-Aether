@@ -180,7 +180,7 @@ public class DAGeneralEvents {
             player.setData(DAAttachments.PLAYER_BOSS_FIGHT, true);
         }
         if (event.getSource().getDirectEntity() != null && event.getSource().getDirectEntity() instanceof LivingEntity target) {
-            if (DAEquipmentUtil.hasFullStormsteelSet(event.getEntity())) {
+            if (DAEquipmentUtil.hasFullStormforgedSet(event.getEntity())) {
                 target.knockback(0.5F, event.getEntity().getX() - target.getX(), event.getEntity().getZ() - target.getZ());
                 if (target instanceof ServerPlayer serverPlayer) {
                     serverPlayer.connection.send(new ClientboundSetEntityMotionPacket(serverPlayer));

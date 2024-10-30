@@ -6,9 +6,7 @@ import com.aetherteam.aether.item.accessories.ring.RingItem;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.init.DAItems;
 import io.wispforest.accessories.api.AccessoriesAPI;
-import io.wispforest.accessories.api.AccessoriesCapability;
 import io.wispforest.accessories.api.slot.SlotEntryReference;
-import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -17,24 +15,16 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.NeoForgeMod;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import java.util.function.Predicate;
 
 public class DAEquipmentUtil {
     public static boolean hasFullStratusSet(LivingEntity entity) {
         return hasArmorSet(entity, DAItems.STRATUS_HELMET.get(), DAItems.STRATUS_CHESTPLATE.get(), DAItems.STRATUS_LEGGINGS.get(), DAItems.STRATUS_BOOTS.get(), DAItems.STRATUS_GLOVES.get());
     }
 
-    public static boolean hasFullStormsteelSet(LivingEntity entity) {
+    public static boolean hasFullStormforgedSet(LivingEntity entity) {
         return hasArmorSet(entity, DAItems.STORMFORGED_HELMET.get(), DAItems.STORMFORGED_CHESTPLATE.get(), DAItems.STORMFORGED_LEGGINGS.get(), DAItems.STORMFORGED_BOOTS.get());
     }
 
