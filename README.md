@@ -1,5 +1,5 @@
 # Deep Aether
-![](https://cdn.discordapp.com/attachments/1045643746089373747/1104824924520063126/image.png)
+![](https://media.discordapp.net/attachments/1195047956429156544/1301691103292030996/jojo.png?ex=67260e8f&is=6724bd0f&hm=6c594d8c06556224dc18c179558e2676e58fe8e64e687e0f87c57299d9b2a20b&=&format=webp&quality=lossless&width=1072&height=602)
 
 # Check out our Discord and Download pages!
 
