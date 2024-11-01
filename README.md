@@ -60,7 +60,7 @@ New Blocks:
  
 New Items:
  - Golden Grass Seeds (drops from Golden Grass (not the block version); can be crafted with swet balls into a new swet ball type, which can turn Aether Dirt into Golden Grass)
- - Music Disks: "Nabooru" and "A Morning Wish" by Emile van Krieken (these tracks were originally meant for the Aether I mod a long time ago, but were never implemented)
+ - 6 Music Discs: "himininn", "fænt" and "atta" by Aethyus (on Deep Aether OST), "cyclone" by Quizzly, as well as "Nabooru" and "A Morning Wish" by Emile van Krieken.
 
 New Dungeon Loot:
  - Spooky Ring: Increases damage dealt during the nighttime.
@@ -101,10 +101,13 @@ __Q: Do you plan on adding cross-compatibility with other mods and Aether addons
 __Q: I am interested in joining your team to help with the development of the mod! How can I do so?__
   - A: We are always open to accepting new members, especially testers, developers, and texture artists. You can join our Discord Server and follow the directions for filling out an application in #recruitment-info! __BE PREPARED TO SHOW PROOF OF YOUR SKILLS.__
 
+__Q: Can I listen to Deep Aether's Original Soundtrack outside of the game?__
+  - A: Absolutely! It is available on [Bandcamp](https://aethyus.bandcamp.com/album/deep-aether-original-soundtrack) (in high quality: 24-bit/96kHz) and [SoundCloud](https://soundcloud.com/aethyus/sets/deep-aether-ost) (16-bit/44.1kHz)! 
+
 
 # Credits
 
-The rights to this mod belong to The Aether Team and all its developers, and the devs of Team Razor, 345boneshoss, Aethyus, TunefulTurnip, and darksonic300. Logo and background by Aethyus. Music rights go to Emile van Krieken. Also thanks to careful#4376 (discord name) for contributing art.
+Deep Aether is property of RazorDevs, including 345boneshoss, Aethyus, TunefulTurnip and darksonic300. Art lead and music by Aethyus, Development by TunefulTurnip, darksonic300 and 345boneshoss. Art and music by Quizzly. Logo and background are by Simeeow and Aethyus. Special thanks to careful#4376 (on Discord) for contributing art. Music rights for "Nabooru" and "A Morning Wish" goes to Emile van Krieken. 
 
 
 # Former Members
