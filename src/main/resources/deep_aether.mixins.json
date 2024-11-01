@@ -10,7 +10,6 @@
     "block/BlockBehaviourMixin",
     "BrewingFuelMenuMixin",
     "BrewingFuelMixin",
-    "entity/MoaMixin",
     "block/PowderedSnowMixin",
     "TriviaGeneratorMixin",
     "block/LavaFluidMixin"

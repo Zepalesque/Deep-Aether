@@ -31,7 +31,6 @@ public class DAItemTagData extends ItemTagsProvider {
         return "Deep Aether Item Tags";
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void addTags(HolderLookup.Provider provider) {
 
@@ -369,6 +368,10 @@ public class DAItemTagData extends ItemTagsProvider {
 
         tag(AetherTags.Items.ACCESSORIES_MISCELLANEOUS).add(
                 DAItems.SLIDER_EYE.get()
+        );
+
+        tag(AetherTags.Items.ACCESSORIES_SHIELDS).add(
+                DAItems.WIND_SHIELD.asItem()
         );
 
         tag(AetherTags.Items.ACCESSORIES_PENDANTS).add(

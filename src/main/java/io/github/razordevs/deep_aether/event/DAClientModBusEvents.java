@@ -2,12 +2,13 @@ package io.github.razordevs.deep_aether.event;
 
 import com.aetherteam.aether.client.renderer.accessory.GlovesRenderer;
 import com.aetherteam.aether.client.renderer.accessory.PendantRenderer;
+import com.aetherteam.aether.entity.passive.Moa;
 import com.aetherteam.aether.inventory.menu.LoreBookMenu;
-import com.mojang.blaze3d.shaders.Effect;
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.razordevs.deep_aether.DeepAether;
-import io.github.razordevs.deep_aether.client.renderer.curios.SkyjadeGlovesRenderer;
+import io.github.razordevs.deep_aether.client.renderer.accessory.SkyjadeGlovesRenderer;
+import io.github.razordevs.deep_aether.client.renderer.accessory.WindShieldRenderer;
 import io.github.razordevs.deep_aether.custom.*;
 import io.github.razordevs.deep_aether.fluids.DAFluidTypes;
 import io.github.razordevs.deep_aether.init.*;
@@ -94,6 +95,11 @@ public class DAClientModBusEvents {
             }*/
 
             registerItemModelPredicates();
+            Moa.registerJumpOverlayTextureOverride(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "effect_extra_jumps"),
+                    ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "hud/effect_feather"));
+            Moa.registerJumpOverlayTextureOverride(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "test_effect"),
+                            ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "hud/gravitite")
+            );
         });
     }
 
@@ -167,11 +173,13 @@ public class DAClientModBusEvents {
                         if(attachment.changeBladeOfLuckState) {
                             if(player.swinging) {
                                 if (attachment.getOldBladeOfLuckDamage() <= 3)
-                                    return 0.25F;
-                                else if (attachment.getOldBladeOfLuckDamage() <= 10)
-                                    return 0.5F;
-                                else if (attachment.getOldBladeOfLuckDamage() <= 15)
-                                    return 0.75F;
+                                    return 0.2F;
+                                if (attachment.getOldBladeOfLuckDamage() <= 8)
+                                    return 0.4F;
+                                else if (attachment.getOldBladeOfLuckDamage() <= 12)
+                                    return 0.6F;
+                                else if (attachment.getOldBladeOfLuckDamage() <= 16)
+                                    return 0.8F;
                                 else return 1.0F;
                             }
                             else attachment.changeBladeOfLuckState = false;
@@ -182,6 +190,15 @@ public class DAClientModBusEvents {
                     }
                     return 0.5F;
                 });
+
+        ItemProperties.register(DAItems.STORM_BOW.get(), ResourceLocation.withDefaultNamespace("pull"), (p_344163_, p_344164_, p_344165_, p_344166_) -> {
+            if (p_344165_ == null) {
+                return 0.0F;
+            } else {
+                return p_344165_.getUseItem() != p_344163_ ? 0.0F : (float)(p_344163_.getUseDuration(p_344165_) - p_344165_.getUseItemRemainingTicks()) / 20.0F;
+            }
+        });
+        ItemProperties.register(DAItems.STORM_BOW.get(), ResourceLocation.withDefaultNamespace("pulling"), (p_174630_, p_174631_, p_174632_, p_174633_) -> p_174632_ != null && p_174632_.isUsingItem() && p_174632_.getUseItem() == p_174630_ ? 1.0F : 0.0F);
     }
 
 
@@ -261,6 +278,7 @@ public class DAClientModBusEvents {
 
     public static void registerCuriosRenderers() {
         AccessoriesRendererRegistry.registerRenderer(DAItems.SKYJADE_GLOVES.get(), SkyjadeGlovesRenderer::new);
+        AccessoriesRendererRegistry.registerRenderer(DAItems.WIND_SHIELD.get(), WindShieldRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.STRATUS_GLOVES.get(), GlovesRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.MEDAL_OF_HONOR.get(), PendantRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.AERCLOUD_NECKLACE.get(), PendantRenderer::new);

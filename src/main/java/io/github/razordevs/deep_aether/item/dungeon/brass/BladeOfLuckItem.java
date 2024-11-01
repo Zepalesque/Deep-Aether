@@ -32,10 +32,10 @@ public class BladeOfLuckItem extends SwordItem {
                 particleType = DAParticles.CLOVER_UNLUCKY.get();
                 player.level().playSound(player, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_BREAK, SoundSource.PLAYERS);
             }
-            else if(attachment.getBladeOfLuckDamage() <= 10) {
+            else if(attachment.getBladeOfLuckDamage() <= 8) {
                 particleType = DAParticles.CLOVER.get();
             }
-            else if (attachment.getOldBladeOfLuckDamage() <= 15) {
+            else if (attachment.getOldBladeOfLuckDamage() <= 16) {
                 particleType = DAParticles.CLOVER_LUCKY.get();
             }
             else{

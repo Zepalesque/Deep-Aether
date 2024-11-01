@@ -318,6 +318,13 @@ public class DATabs {
                     DAItems.GOLD_COMPASS.get()
             }, event);
 
+            addToTab(AetherItems.CLOUD_STAFF.get(), new Item[]{
+                    DAItems.STORM_SWORD.get(),
+                    DAItems.STORM_BOW.get(),
+                    DAItems.BLADE_OF_LUCK.get()
+            }, event);
+
+
             //if (ModList.get().isLoaded(DeepAether.LOST_AETHER_CONTENT)) {
                 //addToTab(DAItems.SKYJADE_TOOLS_HOE.get(), DAItems.SKYJADE_SHIELD.get(), event);
             //}
@@ -327,8 +334,7 @@ public class DATabs {
                     DAItems.STRATUS_SHOVEL.get(),
                     DAItems.STRATUS_PICKAXE.get(),
                     DAItems.STRATUS_AXE.get(),
-                    DAItems.STRATUS_HOE.get(),
-                    DAItems.BLADE_OF_LUCK.get(),
+                    DAItems.STRATUS_HOE.get()
             }, event);
 
             addToTab(AetherItems.BRONZE_DUNGEON_KEY.get(), DAItems.BRASS_DUNGEON_KEY.get(), event);
@@ -406,7 +412,8 @@ public class DATabs {
                     DAItems.SUN_CORE.get(),
                     DAItems.AFTERBURNER.get(),
                     DAItems.AERWHALE_SADDLE.get(),
-                    DAItems.FLOATY_SCARF.get(),
+                    DAItems.AERCLOUD_NECKLACE.get(),
+                    DAItems.FLOATY_SCARF.get()
             }, event);
 
             //if (ModList.get().isLoaded(DeepAether.PROTECT_YOUR_MOA)) {

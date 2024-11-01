@@ -2,24 +2,25 @@ package io.github.razordevs.deep_aether.event;
 
 import com.aetherteam.aether.entity.AetherBossMob;
 import com.aetherteam.aether.entity.AetherEntityTypes;
-import com.aetherteam.aether.entity.passive.Moa;
 import com.aetherteam.aether.event.BossFightEvent;
+import com.aetherteam.aether.item.EquipmentUtil;
 import com.aetherteam.nitrogen.attachment.INBTSynchable;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.advancement.DAAdvancementTriggers;
-import io.github.razordevs.deep_aether.entity.MoaBonusJump;
 import io.github.razordevs.deep_aether.init.DAItems;
 import io.github.razordevs.deep_aether.init.DAMobEffects;
 import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
 import io.github.razordevs.deep_aether.networking.attachment.DAAttachments;
 import io.github.razordevs.deep_aether.networking.attachment.DAPlayerAttachment;
-import io.github.razordevs.deep_aether.networking.attachment.MoaEffectAttachment;
+import io.wispforest.accessories.api.slot.SlotEntryReference;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -32,38 +33,15 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @EventBusSubscriber(modid = DeepAether.MODID)
 public class DAGeneralEvents {
 
     @SubscribeEvent
     public static void onEntityJoin(EntityJoinLevelEvent event) {
-        if (event.getEntity() instanceof Moa moa) {
-            moa.getData(DAAttachments.MOA_EFFECT).onJoinLevel(moa);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onEffectEnded(MobEffectEvent.Expired event) {
-        if(!event.getEntity().level().isClientSide() && event.getEffectInstance() != null && event.getEffectInstance().is(DAMobEffects.MOA_BONUS_JUMPS)) {
-            if(event.getEntity() instanceof Moa moa) {
-                MoaEffectAttachment attachment = moa.getData(DAAttachments.MOA_EFFECT);
-                attachment.setSynched(moa.getId(), INBTSynchable.Direction.CLIENT, "setMoaEffectAmplifier", 0);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onEffectRemove(MobEffectEvent.Remove event) {
-        if(!event.getEntity().level().isClientSide() && event.getEffectInstance() != null && event.getEffectInstance().is(DAMobEffects.MOA_BONUS_JUMPS)) {
-            if(event.getEntity() instanceof Moa moa) {
-                MoaEffectAttachment attachment = moa.getData(DAAttachments.MOA_EFFECT);
-                attachment.setSynched(moa.getId(), INBTSynchable.Direction.CLIENT, "setMoaEffectAmplifier", 0);
-            }
+        if(event.getEntity() instanceof Player player) {
+            player.getData(DAAttachments.PLAYER).onJoinLevel(player);
         }
     }
 
@@ -136,15 +114,6 @@ public class DAGeneralEvents {
         }
     }
 */
-    @SubscribeEvent
-    public static void onEffectRemoved(MobEffectEvent.Remove effectEvent) {
-        LivingEntity entity = effectEvent.getEntity();
-        MobEffect effect = effectEvent.getEffect().value();
-        if (entity instanceof Moa moa && effect.equals(DAMobEffects.MOA_BONUS_JUMPS.get())) {
-            MoaBonusJump moaBonusJump = (MoaBonusJump) moa;
-            moaBonusJump.deep_Aether$setBonusJumps(0);
-        }
-    }
 
 
     @SubscribeEvent
@@ -175,6 +144,21 @@ public class DAGeneralEvents {
     public static HashMap<EntityType<?>, Item> FLAWLESS_BOSS_DROP = new HashMap<>();
 
     @SubscribeEvent
+    public static void onLivingIncomingDamageEvent(LivingIncomingDamageEvent event) {
+        if (event.getEntity() instanceof Player player) {
+            DAPlayerAttachment attachment = player.getData(DAAttachments.PLAYER);
+            Optional<SlotEntryReference> stack = EquipmentUtil.findFirstAccessory(player, DAItems.WIND_SHIELD.get());
+            if (stack.isPresent() && !event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY) && attachment.getWindShieldCooldown() <= 0 && DAEquipmentUtil.hasWindShield(player)) {
+                player.getData(DAAttachments.PLAYER).setSynched(player.getId(), INBTSynchable.Direction.CLIENT, "setWindShieldCooldown", 200);
+                player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.0F);
+                if(!player.level().isClientSide())
+                    stack.get().stack().hurtAndBreak(1, (ServerLevel) player.level(), player, item -> {});
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
     public static void onLivingEntityHurt(LivingDamageEvent.Pre event) {
         if (event.getEntity() instanceof ServerPlayer player && !event.getEntity().isDamageSourceBlocked(event.getSource())) {
             player.setData(DAAttachments.PLAYER_BOSS_FIGHT, true);
@@ -188,6 +172,7 @@ public class DAGeneralEvents {
             }
         }
     }
+
 
     @SubscribeEvent
     public static void onEquip(LivingEquipmentChangeEvent event) {

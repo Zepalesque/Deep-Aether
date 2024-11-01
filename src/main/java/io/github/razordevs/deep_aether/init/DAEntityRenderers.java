@@ -7,7 +7,10 @@ import io.github.razordevs.deep_aether.client.renderer.entity.*;
 import io.github.razordevs.deep_aether.entity.DABoatEntity;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
+import net.minecraft.client.model.PlayerModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.blockentity.HangingSignRenderer;
 import net.minecraft.client.renderer.blockentity.SignRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
@@ -55,6 +58,10 @@ public class DAEntityRenderers {
 		event.registerLayerDefinition(DAModelLayers.VENOMITE, VenomiteModel::createBodyLayer);
 		event.registerLayerDefinition(DAModelLayers.WINDFLY, WindflyModel::createBodyLayer);
 		event.registerLayerDefinition(DAModelLayers.BABY_ZEPHYR, BabyZephyrModel::createBodyLayer);
+
+		event.registerLayerDefinition(DAModelLayers.WIND_SHIELD, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(1.1F), false), 64, 64));
+		event.registerLayerDefinition(DAModelLayers.WIND_SHIELD_SLIM, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(1.15F), true), 64, 64));
+		event.registerLayerDefinition(DAModelLayers.WIND_SHIELD_ARM, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.4F), false), 64, 64));
 
 		for (DABoatEntity.Type type : DABoatEntity.Type.values()) {
 			event.registerLayerDefinition(new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, type.getModelLocation()), "main"), BoatModel::createBodyModel);

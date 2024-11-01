@@ -12,10 +12,7 @@ import com.aetherteam.aether.item.miscellaneous.bucket.SkyrootBucketItem;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.datagen.DAJukeboxSongs;
 import io.github.razordevs.deep_aether.entity.DABoatEntity;
-import io.github.razordevs.deep_aether.item.dungeon.brass.BladeOfLuckItem;
-import io.github.razordevs.deep_aether.item.dungeon.brass.CloudCapeItem;
-import io.github.razordevs.deep_aether.item.dungeon.brass.StormBowItem;
-import io.github.razordevs.deep_aether.item.dungeon.brass.StormSwordItem;
+import io.github.razordevs.deep_aether.item.dungeon.brass.*;
 import io.github.razordevs.deep_aether.item.gear.DAArmorMaterials;
 import io.github.razordevs.deep_aether.item.gear.other.*;
 import io.github.razordevs.deep_aether.item.gear.skyjade.*;
@@ -86,7 +83,7 @@ public class DAItems {
 	public static final DeferredItem<Item> SPOOKY_RING = ITEMS.register("spooky_ring", () -> new SpookyRing(DASounds.ITEM_ACCESSORY_EQUIP_SPOOKY_RING, new Item.Properties().stacksTo(1).durability(500)));
 	public static final DeferredItem<Item> SLIDER_EYE = ITEMS.register("slider_eye", () -> new SliderEye(DASounds.ITEM_ACCESSORY_EQUIP_SLIDER_EYE, new Item.Properties().stacksTo(1).durability(500).rarity(AetherItems.AETHER_LOOT).fireResistant()));
 	public static final DeferredItem<Item> MEDAL_OF_HONOR = ITEMS.register("medal_of_honor", () -> new MedalOfHonor(new Item.Properties().stacksTo(1).rarity(AetherItems.AETHER_LOOT).fireResistant()));
-
+	public static final DeferredItem<Item> WIND_SHIELD = ITEMS.register("wind_shield", () -> new WindShieldItem(new Item.Properties().stacksTo(1).durability(512).rarity(AetherItems.AETHER_LOOT)));
 	public static final DeferredItem<Item> STRATUS_SWORD = ITEMS.register("stratus_sword", () -> new StratusSwordItem(DATiers.STRATUS, (new Item.Properties().attributes(SwordItem.createAttributes(DATiers.STRATUS, 3, -2.4F)))));
 	public static final DeferredItem<Item> STRATUS_SHOVEL = ITEMS.register("stratus_shovel", () -> new StratusShovelItem(DATiers.STRATUS, (new Item.Properties().attributes(ShovelItem.createAttributes(DATiers.STRATUS, 1.5F, -3.0F)))));
 	public static final DeferredItem<Item> STRATUS_PICKAXE = ITEMS.register("stratus_pickaxe", () -> new StratusPickaxeItem(DATiers.STRATUS, (new Item.Properties().attributes(PickaxeItem.createAttributes(DATiers.STRATUS, 1, -2.8F)))));
@@ -230,6 +227,7 @@ public class DAItems {
 
 		AccessoriesAPI.registerAccessory(DAItems.AERCLOUD_NECKLACE.get(), (Accessory) DAItems.AERCLOUD_NECKLACE.get());
 		AccessoriesAPI.registerAccessory(DAItems.CLOUD_CAPE.get(), (Accessory) DAItems.CLOUD_CAPE.get());
+		AccessoriesAPI.registerAccessory(DAItems.WIND_SHIELD.get(), (Accessory) DAItems.WIND_SHIELD.get());
 		AccessoriesAPI.registerAccessory(DAItems.FLOATY_SCARF.get(), (Accessory) DAItems.FLOATY_SCARF.get());
 
 	}

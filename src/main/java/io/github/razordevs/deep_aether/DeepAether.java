@@ -21,7 +21,6 @@ import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
 import io.github.razordevs.deep_aether.item.gear.DAArmorMaterials;
 import io.github.razordevs.deep_aether.networking.attachment.DAAttachments;
 import io.github.razordevs.deep_aether.networking.packet.DAPlayerSyncPacket;
-import io.github.razordevs.deep_aether.networking.packet.MoaEffectSyncPacket;
 import io.github.razordevs.deep_aether.recipe.DARecipeSerializers;
 import io.github.razordevs.deep_aether.recipe.DARecipeTypes;
 import io.github.razordevs.deep_aether.world.biomes.DARareRegion;
@@ -160,7 +159,6 @@ public class DeepAether {
 		PayloadRegistrar registrar = event.registrar(MODID).versioned("1.0.0").optional();
 
 		registrar.playBidirectional(DAPlayerSyncPacket.TYPE, DAPlayerSyncPacket.STREAM_CODEC, DAPlayerSyncPacket::execute);
-		registrar.playBidirectional(MoaEffectSyncPacket.TYPE, MoaEffectSyncPacket.STREAM_CODEC, MoaEffectSyncPacket::execute);
 	}
 
 	public void dataSetup(GatherDataEvent event) {

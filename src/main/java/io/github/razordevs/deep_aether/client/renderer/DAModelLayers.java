@@ -13,6 +13,9 @@ public class DAModelLayers {
     public static final ModelLayerLocation QUAIL = register("quail");
     public static final ModelLayerLocation WINDFLY = register("windfly");
     public static final ModelLayerLocation BABY_ZEPHYR = register("baby_zephyr");
+    public static final ModelLayerLocation WIND_SHIELD = register("wind_shield");
+    public static final ModelLayerLocation WIND_SHIELD_SLIM = register("wind_shield_slim");
+    public static final ModelLayerLocation WIND_SHIELD_ARM = register("wind_shield_arm");
 
     private static ModelLayerLocation register(String name) {
         return register(name, "main");

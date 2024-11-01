@@ -80,6 +80,10 @@ public class DAEquipmentUtil {
         return EquipmentUtil.findFirstAccessory(entity, DAItems.AERCLOUD_NECKLACE.get()).isPresent();
     }
 
+    public static boolean hasWindShield(LivingEntity entity) {
+        return EquipmentUtil.findFirstAccessory(entity, DAItems.WIND_SHIELD.get()).isPresent();
+    }
+
     public static void damageRing(LivingEntity entity, RingItem ring) {
         List<SlotEntryReference> slotResults = EquipmentUtil.getAccessories(entity, ring);
         for (SlotEntryReference slotResult : slotResults) {

@@ -767,9 +767,11 @@
   "subtitles.deep_aether.entity.eots.blowing": "Wind howls",
   "item.deep_aether.skyjade_moa_armor": "Skyjade Moa Armor",
   "lore.item.deep_aether.skyjade_moa_armor": "A piece of skyjade armor for your Moa to wear, offering some amount of protection.",
+
   "item.deep_aether.storm_sword": "Storm Sword",
   "lore.item.deep_aether.storm_sword": "A weapon with a blade made of pure clouds. Deals extra knockback to enemies when attacked with a fully charged attack.",
   "lore.item.deep_aether.storm_ruler": "A weapon with a blade made of pure clouds. Deals extra knockback to enemies when attacked with a fully charged attack. §oOnly a storm can fell a greatwood.",
+
   "item.deep_aether.blade_of_luck": "Blade of Luck",
   "lore.item.deep_aether.blade_of_luck": "A mysterious weapon that deals a random amount of damage when hit fully charged. It can deal as low as one damage and up to a maximum of 20 damage! However be careful since this weapon has a long attack cooldown.",
   "item.deep_aether.storm_bow": "Storm Bow",
