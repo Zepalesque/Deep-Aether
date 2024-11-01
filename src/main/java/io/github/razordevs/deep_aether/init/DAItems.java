@@ -168,6 +168,14 @@ public class DAItems {
 	public static final DeferredItem<Item> MUSIC_DISC_CYCLONE = ITEMS.register("music_disc_cyclone",
 			() -> new Item( new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(DAJukeboxSongs.CYCLONE)));
 
+	public static final DeferredItem<Item> MUSIC_DISC_ATTA = ITEMS.register("music_disc_atta",
+			() -> new Item( new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(DAJukeboxSongs.ATTA)));
+	public static final DeferredItem<Item> MUSIC_DISC_FAENT = ITEMS.register("music_disc_faent",
+			() -> new Item( new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(DAJukeboxSongs.FAENT)));
+	public static final DeferredItem<Item> MUSIC_DISC_HIMININN = ITEMS.register("music_disc_himininn",
+			() -> new Item( new Item.Properties().stacksTo(1).rarity(Rarity.RARE).jukeboxPlayable(DAJukeboxSongs.HIMININN)));
+
+
 	public static final DeferredItem<Item> PLACEABLE_POISON_BUCKET = ITEMS.register("poison_bucket",
 			() -> new DrinkableBucketItem(DAFluids.POISON_FLUID.get(), new Item.Properties().stacksTo(1)));
 

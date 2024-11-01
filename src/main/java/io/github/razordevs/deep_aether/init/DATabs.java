@@ -365,10 +365,14 @@ public class DATabs {
                     DAItems.SUNROOT_CHEST_BOAT.get(),
             }, event);
 
-            addToTab(AetherItems.MUSIC_DISC_ASCENDING_DAWN.get(), new Item[]{
+            addToTab(AetherItems.MUSIC_DISC_SLIDERS_WRATH.get(), new Item[]{
                     DAItems.MUSIC_DISC_A_MORNING_WISH.get(),
                     DAItems.MUSIC_DISC_NABOORU.get(),
-                    DAItems.MUSIC_DISC_CYCLONE.get()
+                    DAItems.MUSIC_DISC_CYCLONE.get(),
+                    DAItems.MUSIC_DISC_ATTA.get(),
+                    DAItems.MUSIC_DISC_FAENT.get(),
+                    DAItems.MUSIC_DISC_HIMININN.get()
+
             }, event);
         }
         if (tab == AetherCreativeTabs.AETHER_ARMOR_AND_ACCESSORIES.getKey()) {
