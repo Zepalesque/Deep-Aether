@@ -15,6 +15,7 @@ import io.github.razordevs.deep_aether.datagen.loot.modifiers.DALootDataProvider
 import io.github.razordevs.deep_aether.datagen.tags.*;
 import io.github.razordevs.deep_aether.event.DAGeneralEvents;
 import io.github.razordevs.deep_aether.event.listeners.DAItemListeners;
+import io.github.razordevs.deep_aether.event.listeners.DAMenuListener;
 import io.github.razordevs.deep_aether.fluids.DAFluidTypes;
 import io.github.razordevs.deep_aether.init.*;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
@@ -149,10 +150,12 @@ public class DeepAether {
 		mod.registerConfig(ModConfig.Type.CLIENT, DeepAetherConfig.CLIENT_SPEC);
 
 		if (dist == Dist.CLIENT) {
+			DAMenus.MENUS.register(bus);
 			bus.addListener(DARecipeCategories::registerRecipeCategories);
 		}
 
 		DAItemListeners.listen(NeoForge.EVENT_BUS);
+		DAMenuListener.listen(NeoForge.EVENT_BUS);
 	}
 
 	public void registerPackets(RegisterPayloadHandlersEvent event) {
