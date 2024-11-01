@@ -13,6 +13,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class DAMobEffects {
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, DeepAether.MODID);
+
     public static final DeferredHolder<MobEffect, MoaBonusJumpEffect> MOA_BONUS_JUMPS = EFFECTS.register("moa_bonus_jumps" , ()-> (MoaBonusJumpEffect) (new MoaBonusJumpEffect())
             .addAttributeModifier(AetherAttributes.MOA_MAX_JUMPS, ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "effect_extra_jumps"), 1.0, AttributeModifier.Operation.ADD_VALUE));
 
