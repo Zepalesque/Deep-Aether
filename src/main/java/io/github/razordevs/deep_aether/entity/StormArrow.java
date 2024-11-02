@@ -3,6 +3,7 @@ package io.github.razordevs.deep_aether.entity;
 import com.aetherteam.aether.entity.AetherEntityTypes;
 import com.aetherteam.aether.entity.monster.PassiveWhirlwind;
 import io.github.razordevs.deep_aether.init.DAEntities;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -39,6 +40,15 @@ public class StormArrow extends AbstractArrow {
     @Override
     protected ItemStack getDefaultPickupItem() {
         return new ItemStack(Items.ARROW);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if(this.level().isClientSide()) {
+            this.level().addParticle(ParticleTypes.END_ROD, this.getX() + random.nextFloat(), this.getY(), this.getZ(), 0.0, 0.0, 0.0);
+        }
     }
 
     @Override
