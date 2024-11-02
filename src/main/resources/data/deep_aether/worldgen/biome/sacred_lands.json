@@ -3,18 +3,18 @@
   "creature_spawn_probability": 0.25,
   "downfall": 0.0,
   "effects": {
-    "fog_color": 9671612,
-    "foliage_color": 377215134,
-    "grass_color": 	13616256,
+    "fog_color": 11665355,
+    "foliage_color": 11665355,
+    "grass_color": 11665355,
     "music": {
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": true,
       "sound": "deep_aether:music.deep_aether"
     },
-    "sky_color": 13616256,
-    "water_color": 5601152,
-    "water_fog_color": 5601152
+    "sky_color": 12643327,
+    "water_color": 12643327,
+    "water_fog_color": 12643327
   },
   "features": [
     [
@@ -26,7 +26,8 @@
     [],
     [],
     [
-      "deep_aether:totem"
+      "deep_aether:totem",
+      "deep_aether:patch_squash"
     ],
     [],
     [

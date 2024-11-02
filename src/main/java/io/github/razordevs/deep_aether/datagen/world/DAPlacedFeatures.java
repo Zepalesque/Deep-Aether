@@ -44,6 +44,7 @@ public class DAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> SKY_TULIPS = createKey("sky_tulips");
     public static final ResourceKey<PlacedFeature> GOLDEN_ASPESS = createKey("golden_aspess");
     public static final ResourceKey<PlacedFeature> ECHAISY = createKey("echaisy");
+    public static final ResourceKey<PlacedFeature> PATCH_SQUASH = createKey("patch_squash");
 
     public static final ResourceKey<PlacedFeature> AERGLOW_FOREST_GRASS = createKey("aerglow_forest_grass");
 
@@ -67,9 +68,7 @@ public class DAPlacedFeatures {
 
     public static final ResourceKey<PlacedFeature> AERCLOUD_ROOTS = createKey("aercloud_roots");
 
-    public static final ResourceKey<PlacedFeature> SACRED_ROCK = createKey("sacred_rock");
     public static final ResourceKey<PlacedFeature> TOTEM = createKey("totem");
-    public static final ResourceKey<PlacedFeature> CLORITE_COLUMNS = createKey("clorite_columns");
     public static final ResourceKey<PlacedFeature> LUMINESCENT_SKYROOT_FOREST_TREES = createKey("luminescent_skyroot_forest_trees");
     public static final ResourceKey<PlacedFeature> LUMINESCENT_SKYROOT_FOREST_VEGETATION = createKey("luminescent_skyroot_forest_vegetation");
 
@@ -234,8 +233,13 @@ public class DAPlacedFeatures {
                 CountPlacement.of(1),
                 InSquarePlacement.spread(),
                 HeightmapPlacement.onHeightmap(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES),
-                BiomeFilter.biome()
-        );
+                BiomeFilter.biome());
+
+        register(context, PATCH_SQUASH, configuredFeatures.getOrThrow(DAConfiguredFeatures.PATCH_SQUASH),
+                RarityFilter.onAverageOnceEvery(100),
+                InSquarePlacement.spread(),
+                PlacementUtils.HEIGHTMAP,
+                BiomeFilter.biome());
 
         register(context, LUMINESCENT_SKYROOT_FOREST_TREES, configuredFeatures.getOrThrow(DAConfiguredFeatures.LUMINESCENT_SKYROOT_FOREST_TREE),
                     CountPlacement.of(5),
