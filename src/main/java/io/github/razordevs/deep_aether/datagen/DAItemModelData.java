@@ -568,14 +568,28 @@ public class DAItemModelData extends AetherItemModelProvider {
         }
     }
     public void bowItem(Item item) {
+        //Normal
         this.withExistingParent(this.itemName(item) + "_pulling_0", this.mcLoc("item/bow")).texture("layer0", this.modLoc("item/" + this.itemName(item) + "_pulling_0"));
         this.withExistingParent(this.itemName(item) + "_pulling_1", this.mcLoc("item/bow")).texture("layer0", this.modLoc("item/" + this.itemName(item) + "_pulling_1"));
         this.withExistingParent(this.itemName(item) + "_pulling_2", this.mcLoc("item/bow")).texture("layer0", this.modLoc("item/" + this.itemName(item) + "_pulling_2"));
+        //Special
+        this.withExistingParent(this.itemName(item) + "_pulling_0_special", this.mcLoc("item/bow")).texture("layer0", this.modLoc("item/" + this.itemName(item) + "_pulling_0_special"));
+        this.withExistingParent(this.itemName(item) + "_pulling_1_special", this.mcLoc("item/bow")).texture("layer0", this.modLoc("item/" + this.itemName(item) + "_pulling_1_special"));
+        this.withExistingParent(this.itemName(item) + "_pulling_2_special", this.mcLoc("item/bow")).texture("layer0", this.modLoc("item/" + this.itemName(item) + "_pulling_2_special"));
+
         this.withExistingParent(this.itemName(item), this.mcLoc("item/bow"))
+                //Normal
                 .texture("layer0", this.modLoc("item/" + this.itemName(item)))
                 .override().predicate(ResourceLocation.withDefaultNamespace("pulling"), 1).model(this.getExistingFile(this.modLoc("item/" + this.itemName(item) + "_pulling_0"))).end()
                 .override().predicate(ResourceLocation.withDefaultNamespace("pulling"), 1).predicate(ResourceLocation.withDefaultNamespace("pull"), 0.65F).model(this.getExistingFile(this.modLoc("item/" + this.itemName(item) + "_pulling_1"))).end()
-                .override().predicate(ResourceLocation.withDefaultNamespace("pulling"), 1).predicate(ResourceLocation.withDefaultNamespace("pull"), 0.9F).model(this.getExistingFile(this.modLoc("item/" + this.itemName(item) + "_pulling_2"))).end();
+                .override().predicate(ResourceLocation.withDefaultNamespace("pulling"), 1).predicate(ResourceLocation.withDefaultNamespace("pull"), 0.9F).model(this.getExistingFile(this.modLoc("item/" + this.itemName(item) + "_pulling_2"))).end()
+                //Special
+                .override().predicate(ResourceLocation.withDefaultNamespace("pulling"), 1).predicate(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "enchanted"), 1.0F)
+                .model(this.getExistingFile(this.modLoc("item/" + this.itemName(item) + "_pulling_0_special"))).end()
+                .override().predicate(ResourceLocation.withDefaultNamespace("pulling"), 1).predicate(ResourceLocation.withDefaultNamespace("pull"), 0.65F).predicate(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "enchanted"), 1.0F)
+                .model(this.getExistingFile(this.modLoc("item/" + this.itemName(item) + "_pulling_1_special"))).end()
+                .override().predicate(ResourceLocation.withDefaultNamespace("pulling"), 1).predicate(ResourceLocation.withDefaultNamespace("pull"), 0.9F).predicate(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "enchanted"), 1.0F)
+                .model(this.getExistingFile(this.modLoc("item/" + this.itemName(item) + "_pulling_2_special"))).end();
     }
 
 
