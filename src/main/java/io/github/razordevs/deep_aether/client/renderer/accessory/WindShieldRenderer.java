@@ -53,7 +53,6 @@ public class WindShieldRenderer implements AccessoryRenderer {
 
         AccessoryRenderer.followBodyRotations(reference.entity(), model);
         float f = (float)livingEntity.tickCount + partialTicks;
-        System.out.println(f);
         VertexConsumer consumer = ItemRenderer.getArmorFoilBuffer(buffer, windShieldRenderType(texture, (f * 0.02F) % 1.0F, 0.0F), false);
 
         model.renderToBuffer(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY);
