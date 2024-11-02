@@ -30,6 +30,6 @@ public class DAStrucutreSets {
 
         context.register(BRASS_DUNGEON, new StructureSet(List.of(
                 StructureSet.entry(structures.getOrThrow(DAStructures.BRASS_DUNGEON), 1)),
-                new RandomSpreadStructurePlacement(36, 24, RandomSpreadType.LINEAR, 4325807)));
+                new RandomSpreadStructurePlacement(20, 12, RandomSpreadType.LINEAR, 4325807)));
     }
 }
