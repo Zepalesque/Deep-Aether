@@ -4,6 +4,7 @@ import io.github.razordevs.deep_aether.DeepAether;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
@@ -81,6 +82,14 @@ public class DATags {
 
         private static TagKey<Fluid> tag(String name) {
             return TagKey.create(Registries.FLUID, ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, name));
+        }
+    }
+
+    public static class DamageTypes {
+        public static final TagKey<DamageType> EOTS_IMMUNE = tag("eots_immune");
+
+        private static TagKey<DamageType> tag(String name) {
+            return TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, name));
         }
     }
 }

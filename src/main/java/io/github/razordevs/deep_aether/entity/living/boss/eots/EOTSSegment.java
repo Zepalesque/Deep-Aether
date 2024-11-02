@@ -1,6 +1,7 @@
 package io.github.razordevs.deep_aether.entity.living.boss.eots;
 
 import io.github.razordevs.deep_aether.client.model.EOTSSegmentModel;
+import io.github.razordevs.deep_aether.datagen.tags.DATags;
 import io.github.razordevs.deep_aether.entity.living.projectile.WindCrystal;
 import io.github.razordevs.deep_aether.init.DAEntities;
 import io.github.razordevs.deep_aether.init.DAParticles;
@@ -275,6 +276,10 @@ public class EOTSSegment extends FlyingMob implements Enemy {
     @Override
     public boolean hurt(@NotNull DamageSource pSource, float pAmount) {
         float health = this.getHealth();
+
+        if(pSource.is(DATags.DamageTypes.EOTS_IMMUNE))
+            return false;
+
         if (this.getController() != null) {
             if (this.getController().segmentUUIDs.size() == 1 && (health - pAmount <= 0)) {
                 this.segmentDeathAnimation = true;

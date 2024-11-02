@@ -180,12 +180,15 @@ public class DeepAether {
 		CompletableFuture<HolderLookup.Provider> lookupProvider = datapackProvider.getRegistryProvider();
 		generator.addProvider(event.includeServer(), datapackProvider);
 		generator.addProvider(event.includeServer(), new DARecipeData(packOutput, lookupProvider));
+
 		DABlockTagData blockTags = new DABlockTagData(packOutput, lookupProvider, fileHelper);
 		generator.addProvider(event.includeServer(), blockTags);
 		generator.addProvider(event.includeServer(), new DAItemTagData(packOutput, lookupProvider, blockTags.contentsGetter(), fileHelper));
 		generator.addProvider(event.includeServer(), new DABiomeTagData(packOutput, lookupProvider, fileHelper));
 		generator.addProvider(event.includeServer(), new DAFluidTagData(packOutput, lookupProvider, fileHelper));
 		generator.addProvider(event.includeServer(), new DAEntityTagData(packOutput, lookupProvider, fileHelper));
+		generator.addProvider(event.includeServer(), new DADamageTypeTags(packOutput, lookupProvider, fileHelper));
+
 		generator.addProvider(event.includeServer(), new DALootDataProvider(packOutput, lookupProvider));
 		generator.addProvider(event.includeServer(), new DADataMapData(packOutput, lookupProvider));
 		generator.addProvider(event.includeServer(), new DALootTableData(packOutput, lookupProvider));
