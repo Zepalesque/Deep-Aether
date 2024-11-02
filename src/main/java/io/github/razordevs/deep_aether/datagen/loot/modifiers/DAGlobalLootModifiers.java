@@ -12,4 +12,6 @@ public class DAGlobalLootModifiers {
     public static DeferredRegister<MapCodec<? extends IGlobalLootModifier>> LOOT_MODIFIERS = DeferredRegister.create(NeoForgeRegistries.Keys.GLOBAL_LOOT_MODIFIER_SERIALIZERS, DeepAether.MODID);
 
     public static DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<? extends IGlobalLootModifier>> AETHER_DUNGEON_LOOT_CODEC = LOOT_MODIFIERS.register("aether_dungeon_loot", DAAddDungeonLootModifier.CODEC);
+    public static DeferredHolder<MapCodec<? extends IGlobalLootModifier>, MapCodec<? extends IGlobalLootModifier>> AETHER_FISH_LOOT_CODEC = LOOT_MODIFIERS.register("aether_fish_loot", DAFishingLootModifier.CODEC);
+
 }

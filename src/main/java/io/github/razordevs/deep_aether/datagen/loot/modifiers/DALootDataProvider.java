@@ -1,5 +1,6 @@
 package io.github.razordevs.deep_aether.datagen.loot.modifiers;
 
+import com.aetherteam.aether.item.AetherItems;
 import com.aetherteam.aether.loot.AetherLoot;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.init.DABlocks;
@@ -8,6 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.neoforged.neoforge.common.data.GlobalLootModifierProvider;
 import net.neoforged.neoforge.common.loot.LootTableIdCondition;
@@ -77,6 +79,17 @@ public class DALootDataProvider extends GlobalLootModifierProvider {
                 ),
                 100,
                 0.0f
+        ));
+
+        add("fish_aether", new DAFishingLootModifier(
+                new LootItemCondition[] { LootTableIdCondition.builder(BuiltInLootTables.FISHING.location()).build() },
+                List.of(
+                        WeightedEntry.wrap(new ItemStack(DAItems.RAW_AERGLOW_FISH.get(), 1), 100),
+                        WeightedEntry.wrap(new ItemStack(DAItems.AERGLOW_BLOSSOM.get(), 1), 12),
+                        WeightedEntry.wrap(new ItemStack(AetherItems.SKYROOT_STICK.get(), 1), 12)
+                ),
+                124,
+                0.75f
         ));
     }
 }

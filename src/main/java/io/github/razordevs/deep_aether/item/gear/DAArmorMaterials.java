@@ -8,6 +8,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -36,7 +37,7 @@ public class DAArmorMaterials {
                 map.put(ArmorItem.Type.LEGGINGS, 6);
                 map.put(ArmorItem.Type.CHESTPLATE, 8);
                 map.put(ArmorItem.Type.HELMET, 3);
-            }), 10, DASounds.ITEM_ARMOR_EQUIP_STRATUS, ()->Ingredient.of(DATags.Items.STRATUS_REPAIRING),
+            }), 10, DASounds.ITEM_ARMOR_EQUIP_STORMFORGED, ()->Ingredient.of(ItemStack.EMPTY),
             List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "stormforged"))),
             1.5F, 0.15F
     ));
