@@ -149,7 +149,7 @@ public class DAGeneralEvents {
             DAPlayerAttachment attachment = player.getData(DAAttachments.PLAYER);
             Optional<SlotEntryReference> stack = EquipmentUtil.findFirstAccessory(player, DAItems.WIND_SHIELD.get());
             if (stack.isPresent() && !event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY) && attachment.getWindShieldCooldown() <= 0 && DAEquipmentUtil.hasWindShield(player)) {
-                player.getData(DAAttachments.PLAYER).setSynched(player.getId(), INBTSynchable.Direction.CLIENT, "setWindShieldCooldown", 200);
+                player.getData(DAAttachments.PLAYER).setSynched(player.getId(), INBTSynchable.Direction.CLIENT, "setWindShieldCooldown", 1200);
                 player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.0F);
 
                 if(!player.level().isClientSide()) {

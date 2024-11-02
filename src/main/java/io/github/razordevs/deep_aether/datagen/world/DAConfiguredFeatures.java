@@ -131,9 +131,9 @@ public class DAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> AERCLOUD_CLOUD_OVERGROWN = createKey("aercloud_cloud_overgrown");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AERCLOUD_RAIN_CLOUD = createKey("aercloud_rain_cloud");
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SKYROOT_SWAMP_TREE = createKey("skyroot_swamp_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SKYROOT_SWAMP_GRASS = createKey("skyroot_swamp_grass");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SKYROOT_SWAMP_VEGETATION = createKey("skyroot_swamp_vegetation");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LUMINESCENT_SKYROOT_FOREST_TREE = createKey("luminescent_skyroot_forest_tree");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LUMINESCENT_SKYROOT_FOREST_GRASS = createKey("luminescent_skyroot_forest_grass");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LUMINESCENT_SKYROOT_FOREST_VEGETATION = createKey("luminescent_skyroot_forest_vegetation");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> AERCLOUD_TREE_CONFIGURATION = createKey("aercloud_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> AERCLOUD_GRASS = createKey("aercloud_grass");
@@ -185,7 +185,7 @@ public class DAConfiguredFeatures {
                         new TwoLayersFeatureSize(1, 0, 1)
                 ).ignoreVines().build());
 
-        register(context, SKYROOT_SWAMP_TREE, Feature.TREE,
+        register(context, LUMINESCENT_SKYROOT_FOREST_TREE, Feature.TREE,
                 new TreeConfiguration.TreeConfigurationBuilder(
                         BlockStateProvider.simple(AetherFeatureStates.SKYROOT_LOG),
                         new StraightTrunkPlacer(7, 4, 0),
@@ -194,7 +194,7 @@ public class DAConfiguredFeatures {
                         new TwoLayersFeatureSize(1, 0, 1)
                 ).decorators(List.of(new GlowingVineDecorator(0.25F))).ignoreVines().build());
 
-        register(context, SKYROOT_SWAMP_GRASS, Feature.RANDOM_PATCH,
+        register(context, LUMINESCENT_SKYROOT_FOREST_GRASS, Feature.RANDOM_PATCH,
                 NitrogenConfiguredFeatureBuilders.grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(Blocks.SHORT_GRASS.defaultBlockState(),40)
                         .add(DABlocks.TALL_GLOWING_GRASS.get().defaultBlockState(),20)
@@ -212,8 +212,8 @@ public class DAConfiguredFeatures {
 
 
 
-        register(context, SKYROOT_SWAMP_VEGETATION, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(
-                PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(SKYROOT_SWAMP_GRASS)), 0.5F)),
+        register(context, LUMINESCENT_SKYROOT_FOREST_VEGETATION, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(new WeightedPlacedFeature(
+                PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(LUMINESCENT_SKYROOT_FOREST_GRASS)), 0.5F)),
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(GLOWING_FLOWERS))));
 
 

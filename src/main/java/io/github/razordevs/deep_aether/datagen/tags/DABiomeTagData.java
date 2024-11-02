@@ -30,7 +30,7 @@ public class DABiomeTagData extends BiomeTagsProvider {
                 DABiomes.CLOUD,
                 DABiomes.STORM_CLOUD,
                 DABiomes.OVERGROWN_CLOUD,
-                DABiomes.SKYROOT_SWAMP
+                DABiomes.LUMINESCENT_SKYROOT_FOREST
         );
 
         this.tag(DATags.Biomes.IS_NOT_SWAMP).add(

@@ -70,8 +70,8 @@ public class DAPlacedFeatures {
     public static final ResourceKey<PlacedFeature> SACRED_ROCK = createKey("sacred_rock");
     public static final ResourceKey<PlacedFeature> TOTEM = createKey("totem");
     public static final ResourceKey<PlacedFeature> CLORITE_COLUMNS = createKey("clorite_columns");
-    public static final ResourceKey<PlacedFeature> SKYROOT_SWAMP_TREES = createKey("skyroot_swamp_trees");
-    public static final ResourceKey<PlacedFeature> SKYROOT_SWAMP_VEGETATION = createKey("skyroot_swamp_vegetation");
+    public static final ResourceKey<PlacedFeature> LUMINESCENT_SKYROOT_FOREST_TREES = createKey("luminescent_skyroot_forest_trees");
+    public static final ResourceKey<PlacedFeature> LUMINESCENT_SKYROOT_FOREST_VEGETATION = createKey("luminescent_skyroot_forest_vegetation");
 
     public static final ResourceKey<PlacedFeature> AERCLOUD_TREES = createKey("aercloud_trees");
     public static final ResourceKey<PlacedFeature> AERCLOUD_GRASS = createKey("aercloud_grass");
@@ -237,14 +237,14 @@ public class DAPlacedFeatures {
                 BiomeFilter.biome()
         );
 
-        register(context, SKYROOT_SWAMP_TREES, configuredFeatures.getOrThrow(DAConfiguredFeatures.SKYROOT_SWAMP_TREE),
+        register(context, LUMINESCENT_SKYROOT_FOREST_TREES, configuredFeatures.getOrThrow(DAConfiguredFeatures.LUMINESCENT_SKYROOT_FOREST_TREE),
                     CountPlacement.of(5),
                     ImprovedLayerPlacementModifier.of(Heightmap.Types.MOTION_BLOCKING, UniformInt.of(0, 1), 4), BiomeFilter.biome(),
                         BiomeFilter.biome(),
                         PlacementUtils.filteredByBlockSurvival(AetherBlocks.SKYROOT_SAPLING.get()),
                         new DungeonBlacklistFilter());
 
-        register(context, SKYROOT_SWAMP_VEGETATION, configuredFeatures.getOrThrow(DAConfiguredFeatures.SKYROOT_SWAMP_VEGETATION),
+        register(context, LUMINESCENT_SKYROOT_FOREST_VEGETATION, configuredFeatures.getOrThrow(DAConfiguredFeatures.LUMINESCENT_SKYROOT_FOREST_VEGETATION),
                 NoiseThresholdCountPlacement.of(-0.8D, 5, 9),
                 ImprovedLayerPlacementModifier.of(Heightmap.Types.MOTION_BLOCKING, UniformInt.of(0, 1), 4),
                 BiomeFilter.biome());
