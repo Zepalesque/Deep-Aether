@@ -6,6 +6,20 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
+          "value": "deep_aether:chests/dungeon/brass/brass_dungeon_fodder"
+        }
+      ],
+      "rolls": {
+        "type": "minecraft:uniform",
+        "max": 2.0,
+        "min": 1.0
+      }
+    },
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
           "value": "deep_aether:chests/dungeon/brass/brass_dungeon_stormforged"
         }
       ],
@@ -39,7 +53,7 @@
       ],
       "rolls": {
         "type": "minecraft:uniform",
-        "max": 2.0,
+        "max": 1.0,
         "min": 1.0
       }
     },
@@ -77,12 +91,13 @@
         },
         {
           "type": "minecraft:item",
-          "name": "minecraft:saddle"
+          "name": "deep_aether:wind_shield",
+          "weight": 4
         },
         {
           "type": "minecraft:item",
           "name": "aether:cloud_staff",
-          "weight": 4
+          "weight": 2
         },
         {
           "type": "minecraft:item",
@@ -118,11 +133,17 @@
         {
           "type": "minecraft:item",
           "name": "aether:cold_aercloud",
-          "weight": 3
+          "weight": 2
         },
         {
           "type": "minecraft:item",
-          "name": "deep_aether:blade_of_luck"
+          "name": "deep_aether:blade_of_luck",
+          "weight": 2
+        },
+        {
+          "type": "minecraft:item",
+          "name": "deep_aether:music_disc_cyclone",
+          "weight": 2
         },
         {
           "type": "minecraft:loot_table",

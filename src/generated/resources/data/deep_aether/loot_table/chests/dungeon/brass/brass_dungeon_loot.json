@@ -39,6 +39,11 @@
         {
           "type": "minecraft:item",
           "name": "deep_aether:skyjade_hoe"
+        },
+        {
+          "type": "minecraft:loot_table",
+          "value": "deep_aether:chests/dungeon/brass/brass_dungeon_fodder",
+          "weight": 2
         }
       ],
       "rolls": {

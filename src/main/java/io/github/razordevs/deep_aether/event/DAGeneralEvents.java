@@ -151,8 +151,12 @@ public class DAGeneralEvents {
             if (stack.isPresent() && !event.getSource().is(DamageTypeTags.BYPASSES_INVULNERABILITY) && attachment.getWindShieldCooldown() <= 0 && DAEquipmentUtil.hasWindShield(player)) {
                 player.getData(DAAttachments.PLAYER).setSynched(player.getId(), INBTSynchable.Direction.CLIENT, "setWindShieldCooldown", 200);
                 player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.SHIELD_BLOCK, SoundSource.PLAYERS, 1.0F, 1.0F);
-                if(!player.level().isClientSide())
-                    stack.get().stack().hurtAndBreak(1, (ServerLevel) player.level(), player, item -> {});
+
+                if(!player.level().isClientSide()) {
+                    stack.get().stack().hurtAndBreak(1, (ServerLevel) player.level(), player, item -> {
+                    });
+                    player.invulnerableTime = 20;
+                }
                 event.setCanceled(true);
             }
         }

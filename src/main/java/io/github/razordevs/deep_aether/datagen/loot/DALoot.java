@@ -16,6 +16,7 @@ public class DALoot {
 
     public static final ResourceKey<LootTable> BRASS_DUNGEON = register("chests/dungeon/brass/brass_dungeon");
     public static final ResourceKey<LootTable> BRASS_DUNGEON_LOOT = register("chests/dungeon/brass/brass_dungeon_loot");
+    public static final ResourceKey<LootTable> BRASS_DUNGEON_FODDER_LOOT = register("chests/dungeon/brass/brass_dungeon_fodder");
     //public static final ResourceLocation BRASS_DUNGEON_LIBRARY_LOOT = register("chests/dungeon/brass/brass_dungeon_library_loot");
     //public static final ResourceLocation BRASS_DUNGEON_COMBINDER_LOOT = register("chests/dungeon/brass/brass_dungeon_combinder_loot");
     public static final ResourceKey<LootTable> BRASS_DUNGEON_TRASH = register("chests/dungeon/brass/brass_dungeon_trash");

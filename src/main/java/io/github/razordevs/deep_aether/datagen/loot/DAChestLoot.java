@@ -5,11 +5,17 @@ import com.aetherteam.aether.item.AetherItems;
 import io.github.razordevs.deep_aether.datagen.DAEnchantments;
 import io.github.razordevs.deep_aether.init.DABlocks;
 import io.github.razordevs.deep_aether.init.DAItems;
+import io.github.razordevs.deep_aether.init.DAMobEffects;
+import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
+import io.github.razordevs.deep_aether.item.component.MoaFodder;
+import io.github.razordevs.deep_aether.item.moa_food.FodderItem;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -17,7 +23,10 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.entries.NestedLootTable;
 import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
+import net.minecraft.world.level.storage.loot.functions.SetComponentsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -34,6 +43,21 @@ public record DAChestLoot(HolderLookup.Provider registries) implements LootTable
                         .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_TRASH).setWeight(1))
                 )
         );
+        builder.accept(DALoot.BRASS_DUNGEON_FODDER_LOOT, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).when(LootItemRandomChanceCondition.randomChance(0.3F))
+                        .add(LootItem.lootTableItem(DAItems.MOA_FODDER.get())).apply(SetComponentsFunction.setComponent(
+                                DADataComponentTypes.MOA_FODDER.get(),
+                                new MoaFodder(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 14400, 1)))))
+                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).when(LootItemRandomChanceCondition.randomChance(0.3F))
+                                .add(LootItem.lootTableItem(DAItems.MOA_FODDER.get())).apply(SetComponentsFunction.setComponent(
+                                        DADataComponentTypes.MOA_FODDER.get(),
+                                        new MoaFodder(new MobEffectInstance(MobEffects.JUMP, 14400, 1)))))
+                        .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).when(LootItemRandomChanceCondition.randomChance(0.3F))
+                                .add(LootItem.lootTableItem(DAItems.MOA_FODDER.get())).apply(SetComponentsFunction.setComponent(
+                                        DADataComponentTypes.MOA_FODDER.get(),
+                                        new MoaFodder(new MobEffectInstance(DAMobEffects.MOA_BONUS_JUMPS, 14400, 1)))))
+
+                );
         builder.accept(DALoot.BRASS_DUNGEON_LOOT, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 1.0F))
                         .add(LootItem.lootTableItem(DAItems.SKYJADE_TOOLS_PICKAXE.get()).setWeight(4))
@@ -44,6 +68,7 @@ public record DAChestLoot(HolderLookup.Provider registries) implements LootTable
                         .add(LootItem.lootTableItem(AetherItems.ICE_PENDANT.get()).setWeight(1))
                         .add(LootItem.lootTableItem(DAItems.SKYJADE_TOOLS_SHOVEL.get()).setWeight(1))
                         .add(LootItem.lootTableItem(DAItems.SKYJADE_TOOLS_HOE.get()).setWeight(1))
+                        .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_FODDER_LOOT).setWeight(2))
                 )
                 .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(2.0F, 6.0F))
                         .add(LootItem.lootTableItem(AetherItems.GOLDEN_DART.get()).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 10.0F))))
@@ -95,13 +120,15 @@ public record DAChestLoot(HolderLookup.Provider registries) implements LootTable
                 )
         );
         builder.accept(DALoot.BRASS_DUNGEON_REWARD, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 2.0F))
+                        .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_FODDER_LOOT)))
                 .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 1.0F))
                         .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_STORM_FORGED).setWeight(1))
                 )
                 .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 1.0F))
                         .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_TREASURE).setWeight(1))
                 )
-                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 2.0F))
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 1.0F))
                         .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_GUMMIES).setWeight(1))
                 )
                 .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(3.0F, 5.0F))
@@ -111,16 +138,15 @@ public record DAChestLoot(HolderLookup.Provider registries) implements LootTable
                         .add(LootItem.lootTableItem(DAItems.SKYJADE_BOOTS.get()).setWeight(2))
                         .add(LootItem.lootTableItem(DAItems.SKYJADE_GLOVES.get()).setWeight(2))
                         .add(LootItem.lootTableItem(DAItems.SKYJADE_RING.get()).setWeight(1))
-                        .add(LootItem.lootTableItem(Items.SADDLE).setWeight(1))
-                        //.add(LootItem.lootTableItem(AetherItems.SHIELD_OF_REPULSION.get()).setWeight(4))
-                        .add(LootItem.lootTableItem(AetherItems.CLOUD_STAFF.get()).setWeight(4))
+                        .add(LootItem.lootTableItem(DAItems.WIND_SHIELD.get()).setWeight(4))
+                        .add(LootItem.lootTableItem(AetherItems.CLOUD_STAFF.get()).setWeight(2))
                         .add(LootItem.lootTableItem(DAItems.STORM_BOW.get()).setWeight(4))
                         .add(LootItem.lootTableItem(DAItems.STORM_SWORD.get()).setWeight(4))
                         .add(LootItem.lootTableItem(DAItems.CLOUD_CAPE.get()).setWeight(4))
                         .add(LootItem.lootTableItem(DAItems.SKYJADE.get()).setWeight(3).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
-                        .add(LootItem.lootTableItem(AetherBlocks.COLD_AERCLOUD.get()).setWeight(3))
-                        .add(LootItem.lootTableItem(DAItems.BLADE_OF_LUCK.get()).setWeight(1))
-                        //.add(LootItem.lootTableItem(AetherItems.HAMMER_OF_KINGBDOGZ.get()).setWeight(1))
+                        .add(LootItem.lootTableItem(AetherBlocks.COLD_AERCLOUD.get()).setWeight(2))
+                        .add(LootItem.lootTableItem(DAItems.BLADE_OF_LUCK.get()).setWeight(2))
+                        .add(LootItem.lootTableItem(DAItems.MUSIC_DISC_CYCLONE.get()).setWeight(2))
                         .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_STORM_FORGED).setWeight(10))
                         //.add(LootItem.lootTableItem(AetherItems.SENTRY_BOOTS.get()).setWeight(1))
                         .add(LootItem.lootTableItem(DABlocks.NIMBUS_STONE.get()).setWeight(1))

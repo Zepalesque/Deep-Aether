@@ -13,7 +13,7 @@
         "count": 2,
         "id": "deep_aether:skyjade"
       },
-      "weight": 60
+      "weight": 50
     },
     {
       "data": {
@@ -42,6 +42,13 @@
         "id": "deep_aether:sterling_aercloud"
       },
       "weight": 20
+    },
+    {
+      "data": {
+        "count": 1,
+        "id": "deep_aether:music_disc_himininn"
+      },
+      "weight": 40
     }
   ],
   "totalWeight": 100

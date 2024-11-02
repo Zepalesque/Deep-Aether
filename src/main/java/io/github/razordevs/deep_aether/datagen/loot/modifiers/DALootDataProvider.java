@@ -34,13 +34,23 @@ public class DALootDataProvider extends GlobalLootModifierProvider {
                 0.0f
         ));
 
+        add("bronze_loot_reward_modifiers", new DAAddDungeonLootModifier(
+                new LootItemCondition[] { LootTableIdCondition.builder(AetherLoot.BRONZE_DUNGEON_REWARD.location()).build() },
+                List.of(
+                        WeightedEntry.wrap(new ItemStack(DAItems.MUSIC_DISC_ATTA.get(), 1), 40)
+                ),
+                100,
+                0.0f
+        ));
+
         add("silver_loot_reward_modifiers", new DAAddDungeonLootModifier(
                 new LootItemCondition[] { LootTableIdCondition.builder(AetherLoot.SILVER_DUNGEON_REWARD.location()).build() },
                 List.of(
-                        WeightedEntry.wrap(new ItemStack(DAItems.SKYJADE.get(), 2), 65),
+                        WeightedEntry.wrap(new ItemStack(DAItems.SKYJADE.get(), 2), 45),
                         WeightedEntry.wrap(new ItemStack(DAItems.STRATUS_INGOT.get(), 1), 10),
                         WeightedEntry.wrap(new ItemStack(DABlocks.STERLING_AERCLOUD.get(), 1), 15),
-                        WeightedEntry.wrap(new ItemStack(DAItems.STRATUS_SMITHING_TEMPLATE.get(), 1), 25)
+                        WeightedEntry.wrap(new ItemStack(DAItems.STRATUS_SMITHING_TEMPLATE.get(), 1), 25),
+                        WeightedEntry.wrap(new ItemStack(DAItems.MUSIC_DISC_FAENT.get(), 1), 40)
                 ),
                 100,
                 0.0f
@@ -49,11 +59,12 @@ public class DALootDataProvider extends GlobalLootModifierProvider {
         add("gold_loot_modifiers", new DAAddDungeonLootModifier(
                 new LootItemCondition[] { LootTableIdCondition.builder(AetherLoot.GOLD_DUNGEON_REWARD.location()).build() },
                 List.of(
-                        WeightedEntry.wrap(new ItemStack(DAItems.SKYJADE.get(), 2), 60),
+                        WeightedEntry.wrap(new ItemStack(DAItems.SKYJADE.get(), 2), 50),
                         WeightedEntry.wrap(new ItemStack(DAItems.SKYJADE.get(), 5), 20),
                         WeightedEntry.wrap(new ItemStack(DAItems.STRATUS_INGOT.get(), 1), 10),
                         WeightedEntry.wrap(new ItemStack(DABlocks.STERLING_AERCLOUD.get(), 2), 7),
-                        WeightedEntry.wrap(new ItemStack(DABlocks.STERLING_AERCLOUD.get(), 1), 20)
+                        WeightedEntry.wrap(new ItemStack(DABlocks.STERLING_AERCLOUD.get(), 1), 20),
+                        WeightedEntry.wrap(new ItemStack(DAItems.MUSIC_DISC_HIMININN.get(), 1), 40)
                 ),
                 100,
                 0.25f
