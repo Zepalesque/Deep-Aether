@@ -34,6 +34,7 @@ public class DASounds {
 	public static final DeferredHolder<SoundEvent, SoundEvent> EOTS_HURT = register("entity.eots.hurt");
 	public static final DeferredHolder<SoundEvent, SoundEvent> EOTS_AMBIENT = register("entity.eots.ambient");
 	public static final DeferredHolder<SoundEvent, SoundEvent> EOTS_BLOWING = register("entity.eots.blowing");
+	public static final DeferredHolder<SoundEvent, SoundEvent> EOTS_SHOOT = register("entity.eots.shoot");
 	public static final DeferredHolder<SoundEvent, SoundEvent> MUSIC_BOSS_EOTS = register("music.boss.eots");
 
 	public static final DeferredHolder<SoundEvent, SoundEvent> ITEM_ARMOR_EQUIP_SKYJADE = register("item.armor.equip_skyjade");
@@ -47,6 +48,7 @@ public class DASounds {
 	public static final DeferredHolder<SoundEvent, SoundEvent> ITEM_ACCESSORY_ABILITY_SLIDER_EYE = register("item.accessory.ability_slider_eye");
 	public static final DeferredHolder<SoundEvent, SoundEvent> ITEM_ACCESSORY_EQUIP_MEDAL_OF_HONOR = register("item.accessory.equip_medal_of_honor");
 	public static final DeferredHolder<SoundEvent, SoundEvent> ITEM_AFTERBURNER_FIRES = register("item.tool.afterburner_fires");
+
 	public static final DeferredHolder<SoundEvent, SoundEvent> DEEP_AETHER_MUSIC = register("music.deep_aether");
 
 	private static DeferredHolder<SoundEvent, SoundEvent> register(String name) {

@@ -105,6 +105,13 @@
     ],
     "subtitle": "subtitles.deep_aether.entity.eots.blowing"
   },
+  "entity.eots.shoot": {
+    "sounds": [
+      "deep_aether:entity/eots/shoot_1",
+      "deep_aether:entity/eots/shoot_2"
+    ],
+    "subtitle": "subtitles.deep_aether.entity.eots.shoot"
+  },
   "music.boss.eots": {
     "sounds": [
       {
