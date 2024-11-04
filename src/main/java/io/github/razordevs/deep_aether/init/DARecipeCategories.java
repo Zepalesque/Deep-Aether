@@ -3,7 +3,9 @@ package io.github.razordevs.deep_aether.init;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.ImmutableList;
+import io.github.razordevs.deep_aether.recipe.DABookCategory;
 import io.github.razordevs.deep_aether.recipe.DARecipeTypes;
+import io.github.razordevs.deep_aether.recipe.combiner.CombinerRecipe;
 import net.minecraft.client.RecipeBookCategories;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -45,6 +47,14 @@ public class DARecipeCategories {
         // Combination
         event.registerBookCategories(DARecipeBookTypes.COMBINER, ImmutableList.of(DEEP_AETHER_COMBINEABLE_SEARCH.get(), DEEP_AETHER_COMBINEABLE_FODDER.get(), DEEP_AETHER_COMBINEABLE_MISC.get()));
         event.registerAggregateCategory(DEEP_AETHER_COMBINEABLE_SEARCH.get(), ImmutableList.of(DEEP_AETHER_COMBINEABLE_FODDER.get(), DEEP_AETHER_COMBINEABLE_MISC.get()));
-        event.registerRecipeCategoryFinder(DARecipeTypes.COMBINING.get(), recipe -> DEEP_AETHER_COMBINEABLE_MISC.get());
+
+        event.registerRecipeCategoryFinder(DARecipeTypes.COMBINING.get(), recipe -> {
+                    if(recipe.value() instanceof CombinerRecipe value){
+                        return value.daCategory() == DABookCategory.COMBINEABLE_FODDER ?
+                                DEEP_AETHER_COMBINEABLE_FODDER.get() :
+                                DEEP_AETHER_COMBINEABLE_MISC.get();
+                    }
+                    return DEEP_AETHER_COMBINEABLE_MISC.get();
+                });
     }
 }
