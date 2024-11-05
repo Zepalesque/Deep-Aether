@@ -720,7 +720,7 @@ public class DARecipeData extends AetherRecipeProvider {
         enchantingRecipe(RecipeCategory.MISC, DAItems.SQUASH_SEEDS.get(), Items.PUMPKIN_SEEDS, 5, 50).save(consumer, this.name("squash_seeds_enchanting"));
 
 
-        CombiningRecipeBuilder.combining(DABookCategory.COMBINEABLE_FODDER, DAItems.ANTIDOTE.get(), 0.1f, 100)
+        CombiningRecipeBuilder.combining(DABookCategory.COMBINEABLE_MISC, DAItems.ANTIDOTE.get(), 0.1f, 100)
                 .requires(AetherItems.GOLDEN_AMBER.get())
                 .requires(DAItems.FROZEN_GOLDEN_BERRIES.get())
                 .requires(DAItems.BIO_CRYSTAL.get())

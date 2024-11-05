@@ -20,6 +20,9 @@ import net.neoforged.neoforge.client.ClientHooks;
 import net.neoforged.neoforge.internal.BrandingControl;
 
 public class DATitleScreen extends AetherTitleScreen implements TitleScreenBehavior {
+
+    //TODO: Panorama pain
+
     private static final ResourceLocation PANORAMA_OVERLAY = ResourceLocation.withDefaultNamespace("textures/gui/title/background/panorama_overlay.png");
     private static final ResourceLocation DEEP_AETHER_LOGO = ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "textures/gui/title/deep_aether.png");
     public static final Music MENU = new Music(AetherSoundEvents.MUSIC_MENU, 20, 600, true);

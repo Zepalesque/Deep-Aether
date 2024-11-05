@@ -25,6 +25,5 @@ public class DAFeatures {
     public static DeferredHolder<Feature<?>, Feature<ColumnFeatureConfiguration>> CLORITE_COLUMNS = FEATURES.register("clorite_columns", () -> new CloriteColumnsFeature(ColumnFeatureConfiguration.CODEC));
     public static DeferredHolder<Feature<?>, Feature<DAHugeMushroomFeatureConfiguration>> IMPROVED_MUSHROOM_FEATURE = FEATURES.register("improved_mushroom_feature", () -> new DAHugeMushroomFeature(DAHugeMushroomFeatureConfiguration.CODEC));
     public static DeferredHolder<Feature<?>, Feature<AetherLakeConfiguration>> POISON_LAKE = FEATURES.register("poison_lake", () -> new PoisonLakeFeature(AetherLakeConfiguration.CODEC));
-
 }
 

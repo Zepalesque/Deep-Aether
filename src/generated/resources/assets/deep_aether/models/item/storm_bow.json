@@ -20,6 +20,29 @@
         "minecraft:pull": 0.9,
         "minecraft:pulling": 1.0
       }
+    },
+    {
+      "model": "deep_aether:item/storm_bow_pulling_0_special",
+      "predicate": {
+        "deep_aether:enchanted": 1.0,
+        "minecraft:pulling": 1.0
+      }
+    },
+    {
+      "model": "deep_aether:item/storm_bow_pulling_1_special",
+      "predicate": {
+        "deep_aether:enchanted": 1.0,
+        "minecraft:pull": 0.65,
+        "minecraft:pulling": 1.0
+      }
+    },
+    {
+      "model": "deep_aether:item/storm_bow_pulling_2_special",
+      "predicate": {
+        "deep_aether:enchanted": 1.0,
+        "minecraft:pull": 0.9,
+        "minecraft:pulling": 1.0
+      }
     }
   ],
   "textures": {

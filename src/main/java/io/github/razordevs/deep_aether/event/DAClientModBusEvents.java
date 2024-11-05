@@ -100,6 +100,13 @@ public class DAClientModBusEvents {
             Moa.registerJumpOverlayTextureOverride(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "test_effect"),
                             ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "hud/gravitite")
             );
+
+            ItemProperties.register(DAItems.STORM_BOW.get(),
+                    // The id of the property.
+                    ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "enchanted"),
+                    // A reference to a method that calculates the override value.
+                    (stack, level, player, seed) -> stack.isEnchanted() ? 1 : 0
+            );
         });
     }
 

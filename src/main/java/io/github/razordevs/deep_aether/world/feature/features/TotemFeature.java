@@ -38,14 +38,13 @@ public class TotemFeature extends Feature<NoneFeatureConfiguration> {
         Direction direction = getRandomDirectionYExcluded(rand);
 
         //Checks if the feature can be placed first.
-        if(!canPlace(reader, pos) || canPlace(reader, pos.below()))
+        if((!canPlace(reader, pos) || canPlace(reader, pos.below())) && rand.nextBoolean())
             return false;
 
 
         for (int i = 0; i < height; i++) {
             if(canPlace(reader, pos)) {
                 //Places the blocks
-                //System.out.println(pos.getX() + " " + pos.getY() + " " + pos.getZ());
                 this.setBlock(reader, pos, getRandomTotem(rand, false).defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
                 pos = pos.above();
             }
