@@ -2,6 +2,8 @@ package io.github.razordevs.deep_aether.item.gear;
 
 import com.google.common.collect.ImmutableMap;
 import io.github.razordevs.deep_aether.init.DABlocks;
+import io.github.razordevs.deep_aether.item.gear.skyjade.SkyjadeTool;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.ItemAbilities;
@@ -27,6 +29,13 @@ public class DAAbilityHooks {
                 }
             }
             return old;
+        }
+
+        public static float handleSkyjadeToolAbility(ItemStack stack, float speed) {
+            if (stack.getItem() instanceof SkyjadeTool skyjadeTool) {
+                return skyjadeTool.decreaseSpeed(stack, speed);
+            }
+            return speed;
         }
     }
 }

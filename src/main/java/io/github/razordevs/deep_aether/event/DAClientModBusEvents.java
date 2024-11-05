@@ -7,6 +7,7 @@ import com.aetherteam.aether.inventory.menu.LoreBookMenu;
 import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.razordevs.deep_aether.DeepAether;
+import io.github.razordevs.deep_aether.DeepAetherConfig;
 import io.github.razordevs.deep_aether.client.renderer.accessory.SkyjadeGlovesRenderer;
 import io.github.razordevs.deep_aether.client.renderer.accessory.WindShieldRenderer;
 import io.github.razordevs.deep_aether.custom.*;
@@ -284,7 +285,8 @@ public class DAClientModBusEvents {
     }
 
     public static void registerCuriosRenderers() {
-        AccessoriesRendererRegistry.registerRenderer(DAItems.SKYJADE_GLOVES.get(), SkyjadeGlovesRenderer::new);
+        if(DeepAetherConfig.COMMON.enable_skyjade_rework.get())
+            AccessoriesRendererRegistry.registerRenderer(DAItems.SKYJADE_GLOVES.get(), SkyjadeGlovesRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.WIND_SHIELD.get(), WindShieldRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.STRATUS_GLOVES.get(), GlovesRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.MEDAL_OF_HONOR.get(), PendantRenderer::new);
