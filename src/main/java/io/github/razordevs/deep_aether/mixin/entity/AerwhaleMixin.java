@@ -14,8 +14,10 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -30,7 +32,10 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -87,7 +92,7 @@ public abstract class AerwhaleMixin extends FlyingMob implements AerwhaleSaddlea
         else if (this.isEffectiveAi() || this.isControlledByLocalInstance()) {
             List<Entity> passengers = this.getPassengers();
             if (!passengers.isEmpty()) {
-                Entity entity = passengers.get(0);
+                Entity entity = passengers.getFirst();
                 if (entity instanceof Player player) {
                     this.setYRot(player.getYRot() + 90.0F);
                     this.yRotO = player.getYHeadRot();
@@ -164,9 +169,6 @@ public abstract class AerwhaleMixin extends FlyingMob implements AerwhaleSaddlea
         }
     }
 
-    /**
-     * Code Copied from {@link net.minecraft.world.entity.vehicle.ChestBoat}
-     */
     @Unique
     private InteractionResult chestInteract(Player player) {
         InteractionResult interactionresult = this.interactWithContainerVehicle(player);
@@ -375,7 +377,6 @@ public abstract class AerwhaleMixin extends FlyingMob implements AerwhaleSaddlea
     @Nullable
     @Override
     public AbstractContainerMenu createMenu(int a, Inventory inventory, Player player) {
-
         if (this.deep_Aether$lootTable != null && player.isSpectator()) {
             return null;
         } else {
@@ -384,7 +385,7 @@ public abstract class AerwhaleMixin extends FlyingMob implements AerwhaleSaddlea
         }
     }
     @Unique
-    public void deep_Aether$unpackLootTable(@javax.annotation.Nullable Player player) {
+    public void deep_Aether$unpackLootTable(@Nullable Player player) {
         this.unpackChestVehicleLootTable(player);
     }
 
@@ -393,14 +394,17 @@ public abstract class AerwhaleMixin extends FlyingMob implements AerwhaleSaddlea
         return this.getChestVehicleSlot(a);
     }
 
+    @Override
     public void setLootTable(@Nullable ResourceKey<LootTable> lootTable) {
         this.deep_Aether$lootTable = lootTable;
     }
 
+    @Override
     public long getLootTableSeed() {
         return this.deep_Aether$lootTableSeed;
     }
 
+    @Override
     public void setLootTableSeed(long seed) {
         this.deep_Aether$lootTableSeed = seed;
     }
@@ -410,18 +414,37 @@ public abstract class AerwhaleMixin extends FlyingMob implements AerwhaleSaddlea
         return this.deep_Aether$lootTable;
     }
 
-    /**
-     * Makes the Aerwhale drop a saddle on death if a saddle is equipped
-     */
+    @Override
+    protected void dropFromLootTable(DamageSource p_21021_, boolean p_21022_) {
+        ResourceKey<LootTable> resourcekey = this.getLootTable();
+        if(resourcekey == null)
+            return;
+        LootTable loottable = this.level().getServer().reloadableRegistries().getLootTable(resourcekey);
+        LootParams.Builder lootparams$builder = new LootParams.Builder((ServerLevel)this.level())
+                .withParameter(LootContextParams.THIS_ENTITY, this)
+                .withParameter(LootContextParams.ORIGIN, this.position())
+                .withParameter(LootContextParams.DAMAGE_SOURCE, p_21021_)
+                .withOptionalParameter(LootContextParams.ATTACKING_ENTITY, p_21021_.getEntity())
+                .withOptionalParameter(LootContextParams.DIRECT_ATTACKING_ENTITY, p_21021_.getDirectEntity());
+        if (p_21022_ && this.lastHurtByPlayer != null) {
+            lootparams$builder = lootparams$builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, this.lastHurtByPlayer)
+                    .withLuck(this.lastHurtByPlayer.getLuck());
+        }
+
+        LootParams lootparams = lootparams$builder.create(LootContextParamSets.ENTITY);
+        loottable.getRandomItems(lootparams, this.getLootTableSeed(), this::spawnAtLocation);
+    }
 
     @Override
     protected void dropEquipment() {
-        super.dropEquipment();
         if (this.isSaddled()) {
-            if (!this.level().isClientSide) {
-                this.spawnAtLocation(DAItems.AERWHALE_SADDLE.get());
-            }
+            this.spawnAtLocation(DAItems.AERWHALE_SADDLE.get());
             this.deep_Aether$setSaddled(false);
         }
+    }
+
+    @Override
+    public void stopOpen(Player player) {
+        this.level().gameEvent(GameEvent.CONTAINER_CLOSE, this.position(), GameEvent.Context.of(player));
     }
 }
