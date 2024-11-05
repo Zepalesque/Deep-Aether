@@ -66,19 +66,20 @@ public class DAItems {
 	public static final DeferredItem<Item> SKYJADE_TOOLS_SHOVEL = ITEMS.register("skyjade_shovel", () -> new SkyjadeToolsShovelItem(DATiers.SKYJADE, new Item.Properties().attributes(ShovelItem.createAttributes(DATiers.SKYJADE, 1, -3f))));
 	public static final DeferredItem<Item> SKYJADE_TOOLS_HOE = ITEMS.register("skyjade_hoe", () -> new SkyjadeToolsHoeItem(DATiers.SKYJADE, new Item.Properties().attributes(HoeItem.createAttributes(DATiers.SKYJADE, 0, -3f))));
 
-	public static final DeferredItem<Item> SKYJADE_HELMET = ITEMS.register("skyjade_helmet", () -> new SkyjadeHelmetItem(DAArmorMaterials.SKYJADE, ArmorItem.Type.HELMET, new Item.Properties()));
-	public static final DeferredItem<Item> SKYJADE_CHESTPLATE = ITEMS.register("skyjade_chestplate", () -> new ArmorItem(DAArmorMaterials.SKYJADE, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-	public static final DeferredItem<Item> SKYJADE_LEGGINGS = ITEMS.register("skyjade_leggings", () -> new ArmorItem(DAArmorMaterials.SKYJADE, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-	public static final DeferredItem<Item> SKYJADE_BOOTS = ITEMS.register("skyjade_boots", () -> new ArmorItem(DAArmorMaterials.SKYJADE, ArmorItem.Type.BOOTS, new Item.Properties()));
+	public static final DeferredItem<Item> SKYJADE_HELMET = ITEMS.register("skyjade_helmet", () -> new SkyjadeHelmetItem(DAArmorMaterials.SKYJADE, ArmorItem.Type.HELMET, new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(3))));
+	public static final DeferredItem<Item> SKYJADE_CHESTPLATE = ITEMS.register("skyjade_chestplate", () -> new ArmorItem(DAArmorMaterials.SKYJADE, ArmorItem.Type.CHESTPLATE, new Item.Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(3))));
+	public static final DeferredItem<Item> SKYJADE_LEGGINGS = ITEMS.register("skyjade_leggings", () -> new ArmorItem(DAArmorMaterials.SKYJADE, ArmorItem.Type.LEGGINGS, new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(3))));
+	public static final DeferredItem<Item> SKYJADE_BOOTS = ITEMS.register("skyjade_boots", () -> new ArmorItem(DAArmorMaterials.SKYJADE, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(3))));
 	public static final DeferredItem<Item> SKYJADE_GLOVES = ITEMS.register("skyjade_gloves", () -> new SkyjadeGlovesItem(0.5, new Item.Properties().durability(75)));
 	public static final DeferredItem<Item> SKYJADE_RING = ITEMS.register("skyjade_ring", () -> new SkyjadeRingItem(new Item.Properties().stacksTo(1).durability(30)));
 
 	public static final DeferredItem<Item> GRAVITITE_RING = ITEMS.register("gravitite_ring", () -> new RingItem(DASounds.ITEM_ACCESSORY_EQUIP_GRAVITITE_RING, new Item.Properties().stacksTo(1).durability(50)));
-	public static final DeferredItem<Item> STRATUS_HELMET = ITEMS.register("stratus_helmet", () -> new StratusAbility(DAArmorMaterials.STRATUS, ArmorItem.Type.HELMET, new Item.Properties()));
-	public static final DeferredItem<Item> STRATUS_CHESTPLATE = ITEMS.register("stratus_chestplate", () -> new ArmorItem(DAArmorMaterials.STRATUS, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-	public static final DeferredItem<Item> STRATUS_LEGGINGS = ITEMS.register("stratus_leggings", () -> new ArmorItem(DAArmorMaterials.STRATUS, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-	public static final DeferredItem<Item> STRATUS_BOOTS = ITEMS.register("stratus_boots", () -> new ArmorItem(DAArmorMaterials.STRATUS, ArmorItem.Type.BOOTS, new Item.Properties()));
+	public static final DeferredItem<Item> STRATUS_HELMET = ITEMS.register("stratus_helmet", () -> new StratusAbility(DAArmorMaterials.STRATUS, ArmorItem.Type.HELMET, new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(37))));
+	public static final DeferredItem<Item> STRATUS_CHESTPLATE = ITEMS.register("stratus_chestplate", () -> new ArmorItem(DAArmorMaterials.STRATUS, ArmorItem.Type.CHESTPLATE, new Item.Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(37))));
+	public static final DeferredItem<Item> STRATUS_LEGGINGS = ITEMS.register("stratus_leggings", () -> new ArmorItem(DAArmorMaterials.STRATUS, ArmorItem.Type.LEGGINGS, new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(37))));
+	public static final DeferredItem<Item> STRATUS_BOOTS = ITEMS.register("stratus_boots", () -> new ArmorItem(DAArmorMaterials.STRATUS, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(37))));
 	public static final DeferredItem<Item> STRATUS_GLOVES = ITEMS.register("stratus_gloves", () -> new GlovesItem(DAArmorMaterials.STRATUS, 1.0, ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "stratus_gloves"), DASounds.ITEM_ARMOR_EQUIP_STRATUS, new Item.Properties().durability(2031)));
+
 	public static final DeferredItem<Item> STRATUS_RING = ITEMS.register("stratus_ring", () -> new RingItem(DASounds.ITEM_ACCESSORY_EQUIP_STRATUS_RING, new Item.Properties().stacksTo(1).durability(100)));
 	public static final DeferredItem<Item> SPOOKY_RING = ITEMS.register("spooky_ring", () -> new SpookyRing(DASounds.ITEM_ACCESSORY_EQUIP_SPOOKY_RING, new Item.Properties().stacksTo(1).durability(500)));
 	public static final DeferredItem<Item> SLIDER_EYE = ITEMS.register("slider_eye", () -> new SliderEye(DASounds.ITEM_ACCESSORY_EQUIP_SLIDER_EYE, new Item.Properties().stacksTo(1).durability(500).rarity(AetherItems.AETHER_LOOT).fireResistant()));
@@ -91,10 +92,10 @@ public class DAItems {
 	public static final DeferredItem<Item> STRATUS_HOE = ITEMS.register("stratus_hoe", () -> new StratusHoeItem(DATiers.STRATUS, (new Item.Properties().attributes(HoeItem.createAttributes(DATiers.STRATUS, -4, 0.0F)))));
 	public static final DeferredItem<Item> STRATUS_SMITHING_TEMPLATE = ITEMS.register("stratus_smithing_template", () -> new SmithingTemplateItem(DAItems.STRATUS_UPGRADE_APPLIES_TO, DAItems.STRATUS_UPGRADE_INGREDIENTS, DAItems.STRATUS_UPGRADE, DAItems.STRATUS_UPGRADE_BASE_SLOT_DESCRIPTION, DAItems.STRATUS_UPGRADE_ADDITIONS_SLOT_DESCRIPTION, SmithingTemplateItem.createNetheriteUpgradeIconList(),  SmithingTemplateItem.createNetheriteUpgradeMaterialList()));
 
-	public static final DeferredItem<Item> STORMFORGED_HELMET = ITEMS.register("stormforged_helmet", () -> new ArmorItem(DAArmorMaterials.STORMFORGED, ArmorItem.Type.HELMET, new Item.Properties()));
-	public static final DeferredItem<Item> STORMFORGED_CHESTPLATE = ITEMS.register("stormforged_chestplate", () -> new ArmorItem(DAArmorMaterials.STORMFORGED, ArmorItem.Type.CHESTPLATE, new Item.Properties()));
-	public static final DeferredItem<Item> STORMFORGED_LEGGINGS = ITEMS.register("stormforged_leggings", () -> new ArmorItem(DAArmorMaterials.STORMFORGED, ArmorItem.Type.LEGGINGS, new Item.Properties()));
-	public static final DeferredItem<Item> STORMFORGED_BOOTS = ITEMS.register("stormforged_boots", () -> new ArmorItem(DAArmorMaterials.STORMFORGED, ArmorItem.Type.BOOTS, new Item.Properties()));
+	public static final DeferredItem<Item> STORMFORGED_HELMET = ITEMS.register("stormforged_helmet", () -> new ArmorItem(DAArmorMaterials.STORMFORGED, ArmorItem.Type.HELMET, new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(33))));
+	public static final DeferredItem<Item> STORMFORGED_CHESTPLATE = ITEMS.register("stormforged_chestplate", () -> new ArmorItem(DAArmorMaterials.STORMFORGED, ArmorItem.Type.CHESTPLATE, new Item.Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(33))));
+	public static final DeferredItem<Item> STORMFORGED_LEGGINGS = ITEMS.register("stormforged_leggings", () -> new ArmorItem(DAArmorMaterials.STORMFORGED, ArmorItem.Type.LEGGINGS, new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(33))));
+	public static final DeferredItem<Item> STORMFORGED_BOOTS = ITEMS.register("stormforged_boots", () -> new ArmorItem(DAArmorMaterials.STORMFORGED, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(33))));
 	public static final DeferredItem<Item> STORMFORGED_GLOVES = ITEMS.register("stormforged_gloves", () -> new GlovesItem(DAArmorMaterials.STORMFORGED, 0.75, ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "stormforged_gloves"), DASounds.ITEM_ARMOR_EQUIP_STORMFORGED, new Item.Properties()));
 
 	public static final DeferredItem<Item> BLADE_OF_LUCK = ITEMS.register("blade_of_luck", () -> new BladeOfLuckItem(DATiers.LUCK, (new Item.Properties()).attributes(SwordItem.createAttributes(DATiers.LUCK, 0, -3.5F))));
