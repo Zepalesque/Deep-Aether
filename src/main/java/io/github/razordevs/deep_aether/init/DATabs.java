@@ -417,6 +417,7 @@ public class DATabs {
                     DAItems.AFTERBURNER.get(),
                     DAItems.AERWHALE_SADDLE.get(),
                     DAItems.AERCLOUD_NECKLACE.get(),
+                    DAItems.WIND_SHIELD.get(),
                     DAItems.FLOATY_SCARF.get()
             }, event);
 
