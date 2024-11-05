@@ -8,6 +8,7 @@ public class DeepAetherConfig {
 
     public static class Common {
         public final ConfigValue<Boolean> skyjade_enchant;
+        public final ConfigValue<Boolean> enable_skyjade_rework;
         public final ConfigValue<Integer> deep_aether_biome_weight;
         public final ConfigValue<Integer> stratus_dash_cooldown;
         public final ConfigValue<Boolean> always_enable_halloween_content;
@@ -27,9 +28,16 @@ public class DeepAetherConfig {
         public Common(ModConfigSpec.Builder builder) {
             builder.push("Gameplay");
             skyjade_enchant = builder
-                    .comment("Skyjade tools will be enchantable")
+                    .comment("Skyjade tools will be enchantable. Only takes effect if \"Enable Skyjade Rework\" is disabled. ")
                     .translation("config.deep_aether.common.gameplay.skyjade_enchant")
                     .define("Skyjade Enchant", false);
+            builder.pop();
+
+            builder.push("Gameplay");
+            enable_skyjade_rework = builder
+                    .comment("Enables the new skyjade armor and toolset rework. ")
+                    .translation("config.deep_aether.common.gameplay.enable_skyjade_rework")
+                    .define("Enable Skyjade Rework", false);
             builder.pop();
 
             builder.push("Gameplay");

@@ -6,10 +6,12 @@ import com.aetherteam.aether.event.BossFightEvent;
 import com.aetherteam.aether.item.EquipmentUtil;
 import com.aetherteam.nitrogen.attachment.INBTSynchable;
 import io.github.razordevs.deep_aether.DeepAether;
+import io.github.razordevs.deep_aether.DeepAetherConfig;
 import io.github.razordevs.deep_aether.advancement.DAAdvancementTriggers;
 import io.github.razordevs.deep_aether.init.DAItems;
 import io.github.razordevs.deep_aether.init.DAMobEffects;
 import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
+import io.github.razordevs.deep_aether.item.gear.skyjade.SkyjadeWeapon;
 import io.github.razordevs.deep_aether.networking.attachment.DAAttachments;
 import io.github.razordevs.deep_aether.networking.attachment.DAPlayerAttachment;
 import io.wispforest.accessories.api.slot.SlotEntryReference;
@@ -27,9 +29,11 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.*;
 
@@ -177,28 +181,42 @@ public class DAGeneralEvents {
         }
     }
 
-
     @SubscribeEvent
     public static void onEquip(LivingEquipmentChangeEvent event) {
-        if(event.getEntity() instanceof Player player) {
-            DAPlayerAttachment attachment = player.getData(DAAttachments.PLAYER);
-            boolean skyjade = DAEquipmentUtil.hasFullSkyjadeSet(player);
-            boolean enabled = attachment.isSkyjadeAbilityActivated();
-            attachment.setSynched(player.getId(), INBTSynchable.Direction.CLIENT, "hasSkyjadeSet", skyjade);
+        if(DeepAetherConfig.COMMON.enable_skyjade_rework.get()) {
+            if (event.getEntity() instanceof Player player) {
+                DAPlayerAttachment attachment = player.getData(DAAttachments.PLAYER);
+                boolean skyjade = DAEquipmentUtil.hasFullSkyjadeSet(player);
+                boolean enabled = attachment.isSkyjadeAbilityActivated();
+                attachment.setSynched(player.getId(), INBTSynchable.Direction.CLIENT, "hasSkyjadeSet", skyjade);
 
-            DAEquipmentUtil.updateSkyjadeBehavior(player, skyjade && enabled);
+                DAEquipmentUtil.updateSkyjadeBehavior(player, skyjade && enabled);
+            }
         }
     }
 
     @SubscribeEvent
     public static void livingVisibilityModification(LivingEvent.LivingVisibilityEvent event) {
-        if(event.getLookingEntity() instanceof LivingEntity living) {
-            boolean enabled = true;
-            if(living instanceof Player player) {
-                enabled = player.getData(DAAttachments.PLAYER).isSkyjadeAbilityActivated();
+        if(DeepAetherConfig.COMMON.enable_skyjade_rework.get()) {
+            if (event.getLookingEntity() instanceof LivingEntity living) {
+                boolean enabled = true;
+                if (living instanceof Player player) {
+                    enabled = player.getData(DAAttachments.PLAYER).isSkyjadeAbilityActivated();
+                }
+                if (enabled && DAEquipmentUtil.hasFullSkyjadeSet(living))
+                    event.modifyVisibility(event.getVisibilityModifier() * 0.5F);
             }
-            if(enabled && DAEquipmentUtil.hasFullSkyjadeSet(living))
-                event.modifyVisibility(event.getVisibilityModifier() * 0.5F);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onModifyAttributes(ItemAttributeModifierEvent event) {
+        ItemAttributeModifiers modifiers = event.getDefaultModifiers();
+        ItemStack itemStack = event.getItemStack();
+        Item var4 = itemStack.getItem();
+        if (var4 instanceof SkyjadeWeapon zaniteWeapon) {
+            ItemAttributeModifiers.Entry attributeEntry = zaniteWeapon.increaseDamage(modifiers, itemStack);
+            event.replaceModifier(attributeEntry.attribute(), attributeEntry.modifier(), attributeEntry.slot());
         }
     }
 }

@@ -5,8 +5,11 @@ import com.aetherteam.aether.item.EquipmentUtil;
 import com.aetherteam.aether.item.accessories.ring.RingItem;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.init.DAItems;
+import io.github.razordevs.deep_aether.item.gear.skyjade.SkyjadeAccessory;
 import io.wispforest.accessories.api.AccessoriesAPI;
 import io.wispforest.accessories.api.slot.SlotEntryReference;
+import io.wispforest.accessories.api.slot.SlotReference;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -16,6 +19,8 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.List;
 
@@ -111,5 +116,30 @@ public class DAEquipmentUtil {
             multiplier = multiplier+(1.1*items.size());
 
         return multiplier;
+    }
+
+    public static float handleSkyjadeRingAbility(LivingEntity entity, float speed) {
+        float newSpeed = speed;
+        List<SlotEntryReference> slotResults = EquipmentUtil.getAccessories(entity, DAItems.SKYJADE_RING.get());
+        for (SlotEntryReference slotResult : slotResults) {
+            if (slotResult != null) {
+                newSpeed = SkyjadeAccessory.handleMiningSpeed(newSpeed, slotResult.stack());
+            }
+        }
+        return newSpeed;
+    }
+
+
+    public static void damageSkyjadeRing(LivingEntity entity, LevelAccessor level, BlockState state, BlockPos pos) {
+        List<SlotEntryReference> slotResults = EquipmentUtil.getAccessories(entity, DAItems.SKYJADE_RING.get());
+        for (SlotEntryReference slotResult : slotResults) {
+            if (slotResult != null) {
+                if (state.getDestroySpeed(level, pos) > 0 && entity.getRandom().nextInt(6) == 0) {
+                    if (entity.level() instanceof ServerLevel serverLevel) {
+                        slotResult.stack().hurtAndBreak(1, serverLevel, entity, (item) -> AccessoriesAPI.breakStack(slotResult.reference()));
+                    }
+                }
+            }
+        }
     }
 }

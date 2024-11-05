@@ -36,6 +36,10 @@ public record DAChestLoot(HolderLookup.Provider registries) implements LootTable
     @Override
     public void generate(BiConsumer<ResourceKey<LootTable>, LootTable.Builder> builder) {
         HolderLookup.RegistryLookup<Enchantment> lookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+
+        builder.accept(DALoot.BRASS_DUNGEON_COMBINDER_LOOT, LootTable.lootTable()
+                
+        );
         builder.accept(DALoot.BRASS_DUNGEON, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 1.0F))
                         .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_LOOT).setWeight(8))

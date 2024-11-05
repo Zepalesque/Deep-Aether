@@ -2,6 +2,7 @@ package io.github.razordevs.deep_aether.item.gear.skyjade;
 
 import com.aetherteam.aether.item.accessories.ring.RingItem;
 import io.github.razordevs.deep_aether.DeepAether;
+import io.github.razordevs.deep_aether.DeepAetherConfig;
 import io.github.razordevs.deep_aether.init.DAItems;
 import io.github.razordevs.deep_aether.init.DASounds;
 import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
@@ -13,7 +14,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 
-public class SkyjadeRingItem extends RingItem {
+public class SkyjadeRingItem extends RingItem implements SkyjadeAccessory {
     public SkyjadeRingItem(Properties properties) {
         super(DASounds.ITEM_ACCESSORY_EQUIP_SKYJADE_RING, properties);
     }
@@ -25,6 +26,9 @@ public class SkyjadeRingItem extends RingItem {
 
     @Override
     public void onEquip(ItemStack stack, SlotReference reference) {
+        if(!DeepAetherConfig.COMMON.enable_skyjade_rework.get())
+            return;
+
         LivingEntity livingEntity = reference.entity();
         AttributeInstance stepHeight = livingEntity.getAttribute(Attributes.STEP_HEIGHT);
         if (stepHeight != null) {
@@ -39,6 +43,9 @@ public class SkyjadeRingItem extends RingItem {
 
     @Override
     public void onUnequip(ItemStack stack, SlotReference reference) {
+        if(!DeepAetherConfig.COMMON.enable_skyjade_rework.get())
+            return;
+
         LivingEntity livingEntity = reference.entity();
         AttributeInstance stepHeight = livingEntity.getAttribute(Attributes.STEP_HEIGHT);
         if (stepHeight != null) {
