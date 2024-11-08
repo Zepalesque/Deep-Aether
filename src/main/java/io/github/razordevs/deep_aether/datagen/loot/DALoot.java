@@ -17,8 +17,11 @@ public class DALoot {
     public static final ResourceKey<LootTable> BRASS_DUNGEON = register("chests/dungeon/brass/brass_dungeon");
     public static final ResourceKey<LootTable> BRASS_DUNGEON_LOOT = register("chests/dungeon/brass/brass_dungeon_loot");
     public static final ResourceKey<LootTable> BRASS_DUNGEON_FODDER_LOOT = register("chests/dungeon/brass/brass_dungeon_fodder");
-    //public static final ResourceLocation BRASS_DUNGEON_LIBRARY_LOOT = register("chests/dungeon/brass/brass_dungeon_library_loot");
     public static final ResourceKey<LootTable> BRASS_DUNGEON_COMBINDER_LOOT = register("chests/dungeon/brass/brass_dungeon_combinder_loot");
+    public static final ResourceKey<LootTable> BRASS_DUNGEON_COMBINDER_LOOT_SUB_0 = register("chests/dungeon/brass/brass_dungeon_combinder_loot_sub_1");
+    public static final ResourceKey<LootTable> BRASS_DUNGEON_COMBINDER_LOOT_SUB_1 = register("chests/dungeon/brass/brass_dungeon_combinder_loot_sub_2");
+    public static final ResourceKey<LootTable> BRASS_DUNGEON_COMBINDER_LOOT_SUB_2 = register("chests/dungeon/brass/brass_dungeon_combinder_loot_sub_3");
+
     public static final ResourceKey<LootTable> BRASS_DUNGEON_TRASH = register("chests/dungeon/brass/brass_dungeon_trash");
     public static final ResourceKey<LootTable> BRASS_DUNGEON_DISC = register("chests/dungeon/brass/brass_dungeon_disc");
     public static final ResourceKey<LootTable> BRASS_DUNGEON_REWARD = register("chests/dungeon/brass/brass_dungeon_reward");

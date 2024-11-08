@@ -38,8 +38,48 @@ public record DAChestLoot(HolderLookup.Provider registries) implements LootTable
         HolderLookup.RegistryLookup<Enchantment> lookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
 
         builder.accept(DALoot.BRASS_DUNGEON_COMBINDER_LOOT, LootTable.lootTable()
-                
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 1.0F))
+                        .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_COMBINDER_LOOT_SUB_0).setWeight(1))
+                        .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_COMBINDER_LOOT_SUB_1).setWeight(1))
+                        .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_COMBINDER_LOOT_SUB_2).setWeight(1)))
         );
+
+        builder.accept(DALoot.BRASS_DUNGEON_COMBINDER_LOOT_SUB_0, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(4.0F, 6.0F))
+                        .add(LootItem.lootTableItem(AetherItems.GOLDEN_AMBER))
+                )
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(4.0F, 6.0F))
+                        .add(LootItem.lootTableItem(DAItems.FROZEN_GOLDEN_BERRIES))
+                )
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(4.0F, 6.0F))
+                        .add(LootItem.lootTableItem(DAItems.QUAIL_EGG))
+                )
+        );
+
+        builder.accept(DALoot.BRASS_DUNGEON_COMBINDER_LOOT_SUB_1, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(4.0F, 6.0F))
+                        .add(LootItem.lootTableItem(AetherItems.GOLDEN_AMBER))
+                )
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(4.0F, 6.0F))
+                        .add(LootItem.lootTableItem(DAItems.FROZEN_GOLDEN_BERRIES))
+                )
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(4.0F, 6.0F))
+                        .add(LootItem.lootTableItem(AetherBlocks.ICESTONE))
+                )
+        );
+
+        builder.accept(DALoot.BRASS_DUNGEON_COMBINDER_LOOT_SUB_2, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(4.0F, 6.0F))
+                        .add(LootItem.lootTableItem(AetherItems.GOLDEN_AMBER))
+                )
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(4.0F, 6.0F))
+                        .add(LootItem.lootTableItem(DAItems.FROZEN_GOLDEN_BERRIES))
+                )
+                .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(4.0F, 6.0F))
+                        .add(LootItem.lootTableItem(AetherItems.BLUE_BERRY))
+                )
+        );
+
         builder.accept(DALoot.BRASS_DUNGEON, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 1.0F))
                         .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_LOOT).setWeight(8))
@@ -47,6 +87,7 @@ public record DAChestLoot(HolderLookup.Provider registries) implements LootTable
                         .add(NestedLootTable.lootTableReference(DALoot.BRASS_DUNGEON_TRASH).setWeight(1))
                 )
         );
+
         builder.accept(DALoot.BRASS_DUNGEON_FODDER_LOOT, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).when(LootItemRandomChanceCondition.randomChance(0.3F))
                         .add(LootItem.lootTableItem(DAItems.MOA_FODDER.get())).apply(SetComponentsFunction.setComponent(
@@ -60,8 +101,8 @@ public record DAChestLoot(HolderLookup.Provider registries) implements LootTable
                                 .add(LootItem.lootTableItem(DAItems.MOA_FODDER.get())).apply(SetComponentsFunction.setComponent(
                                         DADataComponentTypes.MOA_FODDER.get(),
                                         new MoaFodder(new MobEffectInstance(DAMobEffects.MOA_BONUS_JUMPS, 14400, 1)))))
+        );
 
-                );
         builder.accept(DALoot.BRASS_DUNGEON_LOOT, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 1.0F))
                         .add(LootItem.lootTableItem(DAItems.SKYJADE_TOOLS_PICKAXE.get()).setWeight(4))
@@ -98,6 +139,7 @@ public record DAChestLoot(HolderLookup.Provider registries) implements LootTable
                         .add(LootItem.lootTableItem(DABlocks.ROSEROOT_PLANKS.get()).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
                 )
         );
+
         builder.accept(DALoot.BRASS_DUNGEON_TRASH, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(2.0F, 6.0F))
                         .add(LootItem.lootTableItem(DAItems.AERGLOW_BLOSSOM.get()).setWeight(6).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F))))
@@ -110,6 +152,7 @@ public record DAChestLoot(HolderLookup.Provider registries) implements LootTable
                         .add(LootItem.lootTableItem(AetherItems.SKYROOT_PICKAXE.get()).setWeight(1))
                 )
         );
+
         builder.accept(DALoot.BRASS_DUNGEON_DISC, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(UniformGenerator.between(1.0F, 1.0F))
                         .add(LootItem.lootTableItem(AetherItems.MUSIC_DISC_AETHER_TUNE.get()).setWeight(2))

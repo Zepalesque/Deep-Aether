@@ -41,9 +41,8 @@ public class BrassRoom extends BrassDungeonPiece {
     @Override
     protected void handleDataMarker(String name, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox box) {
         switch (name) {
-            case "Brass Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_LOOT);
-            case "Library Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_LOOT); //Fix later
-            case "Combinder Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_LOOT); //Fix later
+            case "Brass Chest", "Library Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_LOOT);
+            case "Combinder Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_COMBINDER_LOOT);
             case "Infested Chest Up" -> {
                 BlockPos chest = pos.above();
                 BlockEntity entity = level.getBlockEntity(chest);
@@ -93,9 +92,8 @@ public class BrassRoom extends BrassDungeonPiece {
         @Override
         protected void handleDataMarker(String name, BlockPos pos, ServerLevelAccessor level, RandomSource random, BoundingBox box) {
             switch (name) {
-                case "Brass Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_LOOT);
-                case "Library Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_LOOT); //Fix later
-                case "Combiner Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_LOOT); //Fix later
+                case "Brass Chest", "Library Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_LOOT);
+                case "Combinder Chest" -> createChestLoot(level, pos, random, DALoot.BRASS_DUNGEON_COMBINDER_LOOT);
                 case "Infested Chest Up" -> {
                     BlockPos chest = pos.above();
                     BlockEntity entity = level.getBlockEntity(chest);
