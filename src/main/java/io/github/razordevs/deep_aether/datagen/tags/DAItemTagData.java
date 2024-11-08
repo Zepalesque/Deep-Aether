@@ -391,10 +391,19 @@ public class DAItemTagData extends ItemTagsProvider {
                 DAItems.STRATUS_SMITHING_TEMPLATE.get()
         );
 
-        this.tag(ItemTags.COMPASSES).add(
+        tag(ItemTags.COMPASSES).add(
                 DAItems.BRONZE_COMPASS.get(),
                 DAItems.SILVER_COMPASS.get(),
                 DAItems.GOLD_COMPASS.get()
+        );
+
+        tag(ItemTags.BEACON_PAYMENT_ITEMS).add(
+                DAItems.SKYJADE.get(),
+                DAItems.STRATUS_INGOT.get()
+        );
+
+        tag(Tags.Items.INGOTS).add(
+                DAItems.STRATUS_INGOT.get()
         );
     }
 }
