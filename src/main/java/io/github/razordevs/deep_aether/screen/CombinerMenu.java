@@ -2,22 +2,19 @@ package io.github.razordevs.deep_aether.screen;
 
 import io.github.razordevs.deep_aether.init.DAMenuTypes;
 import io.github.razordevs.deep_aether.init.DARecipeBookTypes;
-import io.github.razordevs.deep_aether.recipe.DARecipeTypes;
 import io.github.razordevs.deep_aether.recipe.combiner.CombinerRecipe;
 import io.github.razordevs.deep_aether.recipe.combiner.CombinerRecipeInput;
-import net.minecraft.core.NonNullList;
+import io.github.razordevs.deep_aether.recipe.combiner.CombinerServerPlaceRecipe;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.player.StackedContents;
 import net.minecraft.world.inventory.*;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.AbstractFurnaceBlockEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,16 +23,25 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
     private final Level level;
     private final ContainerData data;
     private final Container container;
-    private final RecipeType<CombinerRecipe> recipeType;
-
 
     public CombinerMenu(int containerId, Inventory playerInventory) {
         this(containerId, playerInventory, new SimpleContainer(4), new SimpleContainerData(2));
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public void handlePlacement(boolean flag, RecipeHolder<?> holder, ServerPlayer serverPlayer) {
+        this.beginPlacingRecipe();
+
+        try {
+            new CombinerServerPlaceRecipe(this).recipeClicked(serverPlayer, (RecipeHolder<CombinerRecipe>) holder, flag);
+        } finally {
+            this.finishPlacingRecipe((RecipeHolder<CombinerRecipe>)holder);
+        }
+    }
+
     public CombinerMenu(int pContainerId, Inventory inv, Container container, ContainerData data) {
         super(DAMenuTypes.COMBINER_MENU.get(), pContainerId);
-        this.recipeType = DARecipeTypes.COMBINING.get();
 
         checkContainerSize(container, 4);
         checkContainerDataCount(data, 2);
@@ -97,7 +103,6 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
         this.getSlot(0).set(ItemStack.EMPTY);
         this.getSlot(1).set(ItemStack.EMPTY);
         this.getSlot(2).set(ItemStack.EMPTY);
-        this.getSlot(3).set(ItemStack.EMPTY);
     }
 
     @Override
@@ -147,7 +152,7 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
     public ItemStack quickMoveStack(Player player, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        if (slot != null && slot.hasItem()) {
+        if (slot.hasItem()) {
             ItemStack itemStack1 = slot.getItem();
             itemStack = itemStack1.copy();
             if (index == 3) {
@@ -157,15 +162,7 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
 
                 slot.onQuickCraft(itemStack1, itemStack);
             } else if (index > 3) {
-                if (this.canProcess(itemStack1)) {
-                    if (!this.moveItemStackTo(itemStack1, 0, 3, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (index >= 4 && index < 31) {
-                    if (!this.moveItemStackTo(itemStack1, 31, 40, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                } else if (index >= 31 && index < 40 && !this.moveItemStackTo(itemStack1, 4, 31, false)) {
+                if (!this.moveItemStackTo(itemStack1, 0, 3, false)) {
                     return ItemStack.EMPTY;
                 }
             } else if (!this.moveItemStackTo(itemStack1, 4, 40, false)) {
@@ -186,11 +183,5 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
         }
 
         return itemStack;
-    }
-
-    protected boolean canProcess(ItemStack pStack) {
-        if(getIngredients().contains(pStack))
-            return this.level.getRecipeManager().getRecipeFor(this.recipeType, new CombinerRecipeInput(getIngredients()), this.level).isPresent();
-        else return false;
     }
 }

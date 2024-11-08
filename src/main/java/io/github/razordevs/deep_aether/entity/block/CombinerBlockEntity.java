@@ -195,7 +195,7 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
                 ItemStack inResultSlot = stacks.get(OUTPUT_SLOT);
                 if (inResultSlot.isEmpty()) {
                     return true;
-                } else if (!ItemStack.isSameItem(inResultSlot, result)) {
+                } else if (!ItemStack.isSameItemSameComponents(inResultSlot, result)) {
                     return false;
                 } else if (inResultSlot.getCount() + result.getCount() <= maxStackSize && inResultSlot.getCount() + result.getCount() <= inResultSlot.getMaxStackSize()) {
                     return true;
@@ -304,13 +304,13 @@ public class CombinerBlockEntity extends BaseContainerBlockEntity implements Wor
     @Override
     public void setItem(int index, ItemStack stack) {
         ItemStack itemstack = this.items.get(index);
-        boolean flag = !stack.isEmpty() && ItemStack.isSameItemSameComponents(itemstack, stack);
+        boolean continueProcess = !stack.isEmpty() && ItemStack.isSameItemSameComponents(itemstack, stack);
         this.items.set(index, stack);
         if (stack.getCount() > this.getMaxStackSize()) {
             stack.setCount(this.getMaxStackSize());
         }
 
-        if (index == 0 && !flag) {
+        if (index == 0 && !continueProcess) {
             this.processingTotalTime = getTotalProcessingTime(this.level, this);
             this.processingProgress = 0;
             this.setChanged();

@@ -5,17 +5,12 @@ import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.recipe.combiner.CombinerRecipe;
 import io.github.razordevs.deep_aether.recipe.combiner.CombinerRecipeInput;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.screens.recipebook.RecipeBookComponent;
 import net.minecraft.client.gui.screens.recipebook.RecipeUpdateListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.inventory.Slot;
 
 public class CombinerScreen extends AbstractRecipeBookScreen<CombinerRecipeInput, CombinerRecipe, CombinerMenu, CombinerRecipeBookComponent> implements RecipeUpdateListener {
-    //TODO: Make RecipeBook recipes work
-
     private static final ResourceLocation TEXTURE =
             ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "textures/gui/combiner_gui.png");
 

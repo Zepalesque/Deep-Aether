@@ -42,6 +42,9 @@ public class CombinerRecipeBookComponent extends RecipeBookComponent {
 
     @Override
     public void setupGhostRecipe(RecipeHolder<?> recipeHolder, List<Slot> slots) {
+        if(this.minecraft.level == null)
+            return;
+
         ItemStack itemstack = recipeHolder.value().getResultItem(this.minecraft.level.registryAccess());
         this.ghostRecipe.setRecipe(recipeHolder);
         this.ghostRecipe.addIngredient(Ingredient.of(itemstack), slots.get(3).x, slots.get(3).y);
