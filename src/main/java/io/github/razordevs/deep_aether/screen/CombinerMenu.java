@@ -46,7 +46,7 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
         this.addSlot(new Slot(container, 0, 57, 17));
         this.addSlot(new Slot(container, 1, 80, 17));
         this.addSlot(new Slot(container, 2, 103, 17));
-        this.addSlot(new Slot(container, 3, 80, 53));
+        this.addSlot(new FurnaceResultSlot(inv.player, container, 3, 80, 53));
 
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
@@ -140,16 +140,14 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
 
     @Override
     public boolean shouldMoveToInventory(int slotIndex) {
-        return slotIndex < 3;
+        return slotIndex != 3;
     }
 
     @Override
     public ItemStack quickMoveStack(Player player, int index) {
         ItemStack itemStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(index);
-        Slot slot1 = this.slots.get(index + 1);
-        Slot slot2 = this.slots.get(index + 2);
-        if (slot != null && slot.hasItem() && slot1 != null && slot1.hasItem() && slot2 != null && slot2.hasItem()) {
+        if (slot != null && slot.hasItem()) {
             ItemStack itemStack1 = slot.getItem();
             itemStack = itemStack1.copy();
             if (index == 3) {
@@ -158,9 +156,9 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
                 }
 
                 slot.onQuickCraft(itemStack1, itemStack);
-            } else if (index != 2 && index != 1 && index != 0) {
+            } else if (index > 3) {
                 if (this.canProcess(itemStack1)) {
-                    if (!this.moveItemStackTo(itemStack1, 0, 1, false)) {
+                    if (!this.moveItemStackTo(itemStack1, 0, 3, false)) {
                         return ItemStack.EMPTY;
                     }
                 } else if (index >= 4 && index < 31) {
@@ -175,7 +173,7 @@ public class CombinerMenu extends RecipeBookMenu<CombinerRecipeInput, CombinerRe
             }
 
             if (itemStack1.isEmpty()) {
-                slot.set(ItemStack.EMPTY);
+                slot.setByPlayer(ItemStack.EMPTY);
             } else {
                 slot.setChanged();
             }
