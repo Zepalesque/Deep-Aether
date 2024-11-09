@@ -356,7 +356,8 @@ public class DAItemTagData extends ItemTagsProvider {
         );
 
         tag(AetherTags.Items.ACCESSORIES_CAPES).add(
-                DAItems.CLOUD_CAPE.get()
+                DAItems.CLOUD_CAPE.get(),
+                DAItems.FLOATY_SCARF.get()
         );
 
         tag(AetherTags.Items.ACCESSORIES_RINGS).add(

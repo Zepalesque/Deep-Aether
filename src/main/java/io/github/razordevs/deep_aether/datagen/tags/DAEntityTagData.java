@@ -25,7 +25,6 @@ public class DAEntityTagData extends EntityTypeTagsProvider {
         return "Deep Aether EntityType Tags";
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void addTags(HolderLookup.Provider p_256380_) {
         tag(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(
@@ -42,15 +41,18 @@ public class DAEntityTagData extends EntityTypeTagsProvider {
                 DAEntities.EOTS_CONTROLLER.get()
         );
 
-        tag(DATags.Entities.WIND_CHARGE_BLACKLIST).add(
+        tag(DATags.Entities.FRIENDLY_WIND_CHARGE_BLACKLIST).add(
                 AetherEntityTypes.AERWHALE.get(),
                 AetherEntityTypes.EVIL_WHIRLWIND.get(),
                 AetherEntityTypes.WHIRLWIND.get(),
                 AetherEntityTypes.ZEPHYR.get(),
-                AetherEntityTypes.ZEPHYR_SNOWBALL.get(),
+                AetherEntityTypes.ZEPHYR_SNOWBALL.get()
+        );
+        tag(DATags.Entities.WIND_CHARGE_BLACKLIST).add(
                 DAEntities.EOTS_SEGMENT.get(),
                 DAEntities.EOTS_CONTROLLER.get()
-        );
+        ).addTag(DATags.Entities.FRIENDLY_WIND_CHARGE_BLACKLIST);
+
         tag(Tags.EntityTypes.BOSSES).add(
                 DAEntities.EOTS_SEGMENT.get(),
                 DAEntities.EOTS_CONTROLLER.get()

@@ -4,6 +4,7 @@ import com.aetherteam.aether.data.resources.AetherMobCategory;
 import com.aetherteam.aether.entity.EntityUtil;
 import com.aetherteam.aether.entity.passive.AetherAnimal;
 import io.github.razordevs.deep_aether.DeepAether;
+import io.github.razordevs.deep_aether.entity.BabyEots;
 import io.github.razordevs.deep_aether.entity.DABoatEntity;
 import io.github.razordevs.deep_aether.entity.DAChestBoatEntity;
 import io.github.razordevs.deep_aether.entity.StormArrow;
@@ -21,10 +22,8 @@ import io.github.razordevs.deep_aether.entity.living.quail.Quail;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -98,6 +97,9 @@ public class DAEntities {
 					.sized(1.5F, 1.0F)
 					.clientTrackingRange(10).build("baby_zephyr"));
 
+	public static final DeferredHolder<EntityType<?>,EntityType<BabyEots>> BABY_EOTS = register("baby_eots",
+			BabyEots::new, 1F, 1F);
+
 
 	private static <T extends Entity> DeferredHolder<EntityType<?>,EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
 		return ENTITY_TYPES.register(registryname, () -> entityTypeBuilder.build(registryname));
@@ -118,7 +120,6 @@ public class DAEntities {
 
 	public static boolean checkWindFly(EntityType<Windfly> animal, LevelAccessor level, MobSpawnType spawnReason, BlockPos pos, RandomSource random) {
 		return Mob.checkMobSpawnRules(animal, level, spawnReason, pos, random) && EntityUtil.wholeHitboxCanSeeSky(level, pos, 2);
-
 	}
 
 	@SubscribeEvent
@@ -130,5 +131,6 @@ public class DAEntities {
 		event.put(EOTS_CONTROLLER.get(), EOTSController.createMobAttributes().build());
 		event.put(WINDFLY.get(), Windfly.createAttributes().build());
 		event.put(BABY_ZEPHYR.get(), BabyZephyr.createMobAttributes().build());
+		event.put(BABY_EOTS.get(), BabyEots.createMobAttributes().build());
 	}
 }

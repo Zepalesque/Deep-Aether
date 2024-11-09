@@ -79,7 +79,4 @@ public class EOTSSegmentRenderer extends MobRenderer<EOTSSegment, EOTSSegmentMod
 		super.setupRotations(pEntityLiving, pPoseStack, pAgeInTicks, pRotationYaw, pPartialTicks, scale);
 		pPoseStack.mulPose(Axis.XP.rotationDegrees(Mth.lerp(pAgeInTicks, pEntityLiving.xRotO, pEntityLiving.getXRot())));
 	}
-
-
-
 }

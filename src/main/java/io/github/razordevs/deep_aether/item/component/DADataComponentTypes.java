@@ -23,4 +23,11 @@ public class DADataComponentTypes {
                     .persistent(MoaFodder.CODEC)
                     .networkSynchronized(MoaFodder.STREAM_CODEC)
     );
+
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<FloatyScarf>> FLOATY_SCARF = DATA_COMPONENT_TYPES.registerComponentType(
+            "floaty_scarf",
+            builder -> builder
+                    .persistent(FloatyScarf.CODEC)
+                    .networkSynchronized(FloatyScarf.STREAM_CODEC)
+    );
 }

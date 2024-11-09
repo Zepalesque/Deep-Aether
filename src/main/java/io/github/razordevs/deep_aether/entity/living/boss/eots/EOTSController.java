@@ -1,6 +1,5 @@
 package io.github.razordevs.deep_aether.entity.living.boss.eots;
 
-import com.aetherteam.aether.Aether;
 import com.aetherteam.aether.block.AetherBlocks;
 import com.aetherteam.aether.block.dungeon.DoorwayBlock;
 import com.aetherteam.aether.client.AetherSoundEvents;
@@ -9,7 +8,6 @@ import com.aetherteam.aether.entity.ai.controller.BlankMoveControl;
 import com.aetherteam.aether.entity.monster.dungeon.boss.BossNameGenerator;
 import com.aetherteam.aether.event.AetherEventDispatch;
 import com.aetherteam.aether.network.packet.clientbound.BossInfoPacket;
-import com.aetherteam.nitrogen.entity.BossMob;
 import com.aetherteam.nitrogen.entity.BossRoomTracker;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.block.building.DoorwayPillarBlock;
@@ -84,7 +82,7 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
     public EOTSController(EntityType<? extends EOTSController> type, Level level) {
         super(type, level);
         this.moveControl = new BlankMoveControl(this);
-        this.bossFight = (ServerBossEvent) (new ServerBossEvent(this.getBossName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS)).setPlayBossMusic(true);;
+        this.bossFight = (ServerBossEvent) (new ServerBossEvent(this.getBossName(), BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.PROGRESS)).setPlayBossMusic(true);
         this.setBossFight(false);
         this.xpReward = 50;
         this.setRot(0.0F, 0.0F);
@@ -499,14 +497,6 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
         return AetherSoundEvents.ENTITY_SLIDER_AWAKEN.get();
     }
 
-    /*
-    @Override
-    @Nullable
-    protected SoundEvent getAmbientSound() {
-        return AetherSoundEvents.ENTITY_ZEPHYR_SHOOT.get();
-    }
-     */
-
     @Override
     protected SoundEvent getDeathSound() {
         return null;
@@ -606,6 +596,8 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
             this.setDungeon(BossRoomTracker.readAdditionalSaveData(dungeonTag, this));
             if (this.getDungeon() != null)
                 this.setPos(this.getDungeon().originCoordinates());
+            if(this.isBossFight())
+                this.setPos(this.position().subtract(0, 6.0,0));
         }
     }
 

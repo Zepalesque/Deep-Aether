@@ -33,6 +33,8 @@ public class DAEntityRenderers {
 		event.registerEntityRenderer(DAEntities.WINDFLY.get(), WindflyRenderer::new);
 		event.registerEntityRenderer(DAEntities.EOTS_CONTROLLER.get(), EOTSRenderer::new);
 		event.registerEntityRenderer(DAEntities.EOTS_SEGMENT.get(), EOTSSegmentRenderer::new);
+		event.registerEntityRenderer(DAEntities.BABY_EOTS.get(), BabyEotsRenderer::new);
+
 		event.registerEntityRenderer(DAEntities.WINDFLY.get(), WindflyRenderer::new);
 		event.registerBlockEntityRenderer(DABlockEntityTypes.SIGN.get(), SignRenderer::new);
 		event.registerBlockEntityRenderer(DABlockEntityTypes.HANGING_SIGN.get(), HangingSignRenderer::new);
@@ -53,6 +55,7 @@ public class DAEntityRenderers {
 		event.registerLayerDefinition(DAModelLayers.AERGLOW_FISH, AerglowFishModel::createBodyLayer);
 		event.registerLayerDefinition(DAModelLayers.EOTS_CONTROLLER, EOTSModel::createBodyLayer);
 		event.registerLayerDefinition(DAModelLayers.EOTS_SEGMENT, EOTSSegmentModel::createBodyLayer);
+		event.registerLayerDefinition(DAModelLayers.BABY_EOTS, BabyEotsModel::createBodyLayer);
 		event.registerLayerDefinition(DAModelLayers.QUAIL, QuailModel::createBodyLayer);
 		event.registerLayerDefinition(DAModelLayers.VENOMITE_BUBBLE, VenomiteBubbleModel::createBodyLayer);
 		event.registerLayerDefinition(DAModelLayers.VENOMITE, VenomiteModel::createBodyLayer);

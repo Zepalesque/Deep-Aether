@@ -8,9 +8,13 @@ import com.aetherteam.nitrogen.attachment.INBTSynchable;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.DeepAetherConfig;
 import io.github.razordevs.deep_aether.advancement.DAAdvancementTriggers;
+import io.github.razordevs.deep_aether.entity.BabyEots;
 import io.github.razordevs.deep_aether.init.DAItems;
 import io.github.razordevs.deep_aether.init.DAMobEffects;
+import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
+import io.github.razordevs.deep_aether.item.component.FloatyScarf;
 import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
+import io.github.razordevs.deep_aether.item.gear.other.FloatyScarfItem;
 import io.github.razordevs.deep_aether.item.gear.skyjade.SkyjadeWeapon;
 import io.github.razordevs.deep_aether.networking.attachment.DAAttachments;
 import io.github.razordevs.deep_aether.networking.attachment.DAPlayerAttachment;
@@ -36,6 +40,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.*;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import java.util.*;
 
@@ -46,6 +51,17 @@ public class DAGeneralEvents {
     public static void onEntityJoin(EntityJoinLevelEvent event) {
         if(event.getEntity() instanceof Player player) {
             player.getData(DAAttachments.PLAYER).onJoinLevel(player);
+
+            if (event.loadedFromDisk()) {
+                return;
+            }
+
+            SlotEntryReference reference = DAEquipmentUtil.getFloatyScarf(player);
+            if (reference != null) {
+                FloatyScarfItem.tryDiscardBabyEots(reference.stack(), player.level());
+                BabyEots eots = new BabyEots(player.level(), player);
+                reference.stack().set(DADataComponentTypes.FLOATY_SCARF, new FloatyScarf(eots.getId(), 0, 0, 0, 0));
+            }
         }
     }
 
@@ -218,5 +234,13 @@ public class DAGeneralEvents {
             ItemAttributeModifiers.Entry attributeEntry = zaniteWeapon.increaseDamage(modifiers, itemStack);
             event.replaceModifier(attributeEntry.attribute(), attributeEntry.modifier(), attributeEntry.slot());
         }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerChangedDimensionEvent(PlayerEvent.PlayerChangedDimensionEvent event) {
+        Player player = event.getEntity();
+        SlotEntryReference reference = DAEquipmentUtil.getFloatyScarf(player);
+        if(reference != null)
+            FloatyScarfItem.tryDiscardBabyEots(reference.stack(), player.level());
     }
 }

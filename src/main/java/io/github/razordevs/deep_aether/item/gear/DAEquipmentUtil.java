@@ -8,7 +8,6 @@ import io.github.razordevs.deep_aether.init.DAItems;
 import io.github.razordevs.deep_aether.item.gear.skyjade.SkyjadeAccessory;
 import io.wispforest.accessories.api.AccessoriesAPI;
 import io.wispforest.accessories.api.slot.SlotEntryReference;
-import io.wispforest.accessories.api.slot.SlotReference;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -21,6 +20,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -74,6 +74,11 @@ public class DAEquipmentUtil {
 
     public static boolean hasTwoSpookyRings(LivingEntity entity) {
         return EquipmentUtil.getAccessories(entity, DAItems.SPOOKY_RING.get()).size() == 2;
+    }
+
+    @Nullable
+    public static SlotEntryReference getFloatyScarf(LivingEntity entity) {
+        return EquipmentUtil.getAccessory(entity, DAItems.FLOATY_SCARF.get());
     }
 
 
