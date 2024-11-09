@@ -101,7 +101,6 @@ public class DeepAether {
 
 	public static final Path DIRECTORY = FMLPaths.CONFIGDIR.get().resolve(MODID);
 
-
 	static Calendar CALENDER = Calendar.getInstance();
 	public static boolean IS_HALLOWEEN = ((CALENDER.get(Calendar.MONTH) == Calendar.OCTOBER && CALENDER.get(Calendar.DAY_OF_MONTH) > 20)
 			|| (CALENDER.get(Calendar.MONTH) == Calendar.NOVEMBER) && CALENDER.get(Calendar.DAY_OF_MONTH) < 10);
