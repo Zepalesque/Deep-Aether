@@ -107,8 +107,7 @@
   },
   "entity.eots.shoot": {
     "sounds": [
-      "deep_aether:entity/eots/shoot_1",
-      "deep_aether:entity/eots/shoot_2"
+      "aether:entity/zephyr/shoot"
     ],
     "subtitle": "subtitles.deep_aether.entity.eots.shoot"
   },
