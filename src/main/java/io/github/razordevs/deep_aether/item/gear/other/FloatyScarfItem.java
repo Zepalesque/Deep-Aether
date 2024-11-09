@@ -23,21 +23,16 @@ public class FloatyScarfItem extends CapeItem implements FlawlessDrop {
     @Override
     public void onEquip(ItemStack stack, SlotReference reference) {
         if(reference.entity() instanceof Player player) {
-            tryDiscardBabyEots(stack, player.level());
-            BabyEots eots = new BabyEots(player.level(), player);
-            stack.set(DADataComponentTypes.FLOATY_SCARF, new FloatyScarf(eots.getId(), 0, 0, 0, 0));
+            tryAddBabyEots(stack, player);
         }
     }
 
     @Override
     public void onUnequip(ItemStack stack, SlotReference reference) {
-        FloatyScarf scarf = stack.get(DADataComponentTypes.FLOATY_SCARF);
-        if(scarf != null) {
-            Entity entity = reference.entity().level().getEntity(scarf.uuid());
-            if(entity != null)
-                entity.discard();
-        }
+        tryDiscardBabyEots(stack, reference.entity().level());
     }
+
+
 
     public static void tryDiscardBabyEots(@Nullable ItemStack stack, Level level) {
         if(stack == null)
@@ -48,6 +43,17 @@ public class FloatyScarfItem extends CapeItem implements FlawlessDrop {
             Entity entity = level.getEntity(scarf.uuid());
             if(entity != null)
                 entity.discard();
+        }
+    }
+
+    public static void tryAddBabyEots(@Nullable ItemStack stack, Player player) {
+        if(stack == null)
+            return;
+
+        FloatyScarf scarf = stack.get(DADataComponentTypes.FLOATY_SCARF);
+        if(scarf != null) {
+            BabyEots eots = new BabyEots(player.level(), player);
+            stack.set(DADataComponentTypes.FLOATY_SCARF, new FloatyScarf(eots.getId(), 0, 0, 0, 0));
         }
     }
 

@@ -3,7 +3,10 @@ package io.github.razordevs.deep_aether.entity;
 import io.github.razordevs.deep_aether.entity.living.projectile.WindCrystal;
 import io.github.razordevs.deep_aether.init.DAEntities;
 import io.github.razordevs.deep_aether.init.DASounds;
-import net.minecraft.nbt.CompoundTag;
+import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
+import io.github.razordevs.deep_aether.item.component.FloatyScarf;
+import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
+import io.wispforest.accessories.api.slot.SlotEntryReference;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -86,10 +89,6 @@ public class BabyEots extends FlyingMob {
         this.getEntityData().set(DATA_OWNER_ID, entity.getId());
     }
 
-    public void setOwner(int entity) {
-        this.getEntityData().set(DATA_OWNER_ID, entity);
-    }
-
     private void followOwner() {
         Player player = this.getOwner();
         if(player != null) {
@@ -120,12 +119,6 @@ public class BabyEots extends FlyingMob {
         return false;
     }
 
-    @Override
-    public void load(CompoundTag tag) {
-        this.setOwner(0);
-        this.discard();
-    }
-
     public static class FollowPlayerGoal extends Goal {
         private final BabyEots eots;
 
@@ -140,7 +133,19 @@ public class BabyEots extends FlyingMob {
             if (livingentity == null) {
                 this.eots.discard();
                 return false;
-            } else {
+            }
+            SlotEntryReference reference = DAEquipmentUtil.getFloatyScarf(livingentity);
+            if(reference == null) {
+                this.eots.discard();
+                return false;
+            }
+
+            FloatyScarf scarf = reference.stack().get(DADataComponentTypes.FLOATY_SCARF);
+            if(scarf == null || scarf.uuid() != this.eots.getId()) {
+                this.eots.discard();
+                return false;
+            }
+            else {
                 return true;
             }
         }
@@ -331,7 +336,7 @@ public class BabyEots extends FlyingMob {
                 this.lookAt(this.eots.getTarget());
                 if(attackDelay <= 0) {
                     new WindCrystal(this.eots.level(), this.eots, this.eots.getLookAngle().multiply(0.7F,0.7F,0.7F).offsetRandom(this.eots.random, 0.3F), true);
-                    this.eots.level().playSound(null, this.eots.getX(), this.eots.getY(), this.eots.getZ(), DASounds.EOTS_SHOOT, SoundSource.HOSTILE, 2.0F, 1.0F);
+                    this.eots.level().playSound(null, this.eots.getX(), this.eots.getY(), this.eots.getZ(), DASounds.EOTS_SHOOT, SoundSource.HOSTILE, 1.0F, 2.0F);
                     if(numberOfAttacks > 0) {
                         numberOfAttacks--;
                         attackDelay = 9;

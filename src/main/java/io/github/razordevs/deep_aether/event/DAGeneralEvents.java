@@ -52,16 +52,26 @@ public class DAGeneralEvents {
         if(event.getEntity() instanceof Player player) {
             player.getData(DAAttachments.PLAYER).onJoinLevel(player);
 
-            if (event.loadedFromDisk()) {
-                return;
-            }
-
             SlotEntryReference reference = DAEquipmentUtil.getFloatyScarf(player);
+
             if (reference != null) {
-                FloatyScarfItem.tryDiscardBabyEots(reference.stack(), player.level());
-                BabyEots eots = new BabyEots(player.level(), player);
-                reference.stack().set(DADataComponentTypes.FLOATY_SCARF, new FloatyScarf(eots.getId(), 0, 0, 0, 0));
+                FloatyScarfItem.tryAddBabyEots(reference.stack(), player);
             }
+        }
+        else if(event.getEntity() instanceof BabyEots) {
+            if(event.loadedFromDisk()) {
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void playerLoggedOutEvent(PlayerEvent.PlayerLoggedOutEvent event) {
+        Player player = event.getEntity();
+        SlotEntryReference reference = DAEquipmentUtil.getFloatyScarf(player);
+
+        if (reference != null) {
+            FloatyScarfItem.tryDiscardBabyEots(reference.stack(), player.level());
         }
     }
 
@@ -240,7 +250,9 @@ public class DAGeneralEvents {
     public static void onPlayerChangedDimensionEvent(PlayerEvent.PlayerChangedDimensionEvent event) {
         Player player = event.getEntity();
         SlotEntryReference reference = DAEquipmentUtil.getFloatyScarf(player);
-        if(reference != null)
+        if(reference != null) {
             FloatyScarfItem.tryDiscardBabyEots(reference.stack(), player.level());
+            reference.stack().set(DADataComponentTypes.FLOATY_SCARF, new FloatyScarf(0, 0, 0, 0, 0));
+        }
     }
 }

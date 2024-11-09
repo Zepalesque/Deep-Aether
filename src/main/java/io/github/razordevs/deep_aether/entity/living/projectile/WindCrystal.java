@@ -9,6 +9,9 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -39,7 +42,7 @@ public class WindCrystal extends AbstractCrystal {
     public double yPower;
     public double zPower = 0;
     private static final double baseSpeed = 0.3;
-    private boolean isFriendly = false;
+    private static final EntityDataAccessor<Boolean> IS_FRIENDLY = SynchedEntityData.defineId(WindCrystal.class, EntityDataSerializers.BOOLEAN);
 
     public WindCrystal(EntityType<WindCrystal> entityType, Level level) {
         super(entityType, level);
@@ -60,7 +63,13 @@ public class WindCrystal extends AbstractCrystal {
 
     public WindCrystal(Level level, Entity shooter, Vec3 direction, boolean friendly) {
             this(level, shooter, direction);
-            this.isFriendly = friendly;
+            this.setFriendly(friendly);
+    }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(IS_FRIENDLY, false);
     }
 
     @Override
@@ -75,7 +84,7 @@ public class WindCrystal extends AbstractCrystal {
     }
 
     private float getDamage() {
-        if(this.isFriendly)
+        if(this.isFriendly())
             return 4.0F;
         else return 10.0F;
     }
@@ -97,7 +106,7 @@ public class WindCrystal extends AbstractCrystal {
     @Override
     protected void onHitBlock(BlockHitResult result) {
         this.markHurt();
-        if(!this.isFriendly) {
+        if(!this.isFriendly()) {
             if (result.getDirection() == Direction.UP) {
                 float offset = (float) this.random.nextInt(200) / 1000;
                 new WindCrystal(level(), this, baseSpeed + offset, 0, baseSpeed - offset);
@@ -154,7 +163,7 @@ public class WindCrystal extends AbstractCrystal {
         tag.putDouble("XSpeed", this.xPower);
         tag.putDouble("YSpeed", this.yPower);
         tag.putDouble("ZSpeed", this.zPower);
-        tag.putBoolean("isFriendly", this.isFriendly);
+        tag.putBoolean("isFriendly", this.isFriendly());
     }
 
     @Override
@@ -163,7 +172,7 @@ public class WindCrystal extends AbstractCrystal {
         this.xPower = tag.getDouble("XSpeed");
         this.yPower = tag.getDouble("YSpeed");
         this.zPower = tag.getDouble("ZSpeed");
-        this.isFriendly = tag.getBoolean("isFriendly");
+        this.setFriendly(tag.getBoolean("isFriendly"));
     }
 
 
@@ -188,7 +197,11 @@ public class WindCrystal extends AbstractCrystal {
         }
     }
 
+    public void setFriendly(boolean friendly) {
+        this.entityData.set(IS_FRIENDLY, friendly);
+    }
+
     public boolean isFriendly() {
-        return this.isFriendly;
+        return this.entityData.get(IS_FRIENDLY);
     }
 }
