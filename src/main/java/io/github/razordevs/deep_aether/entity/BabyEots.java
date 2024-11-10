@@ -7,9 +7,6 @@ import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
 import io.github.razordevs.deep_aether.item.component.FloatyScarf;
 import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
 import io.wispforest.accessories.api.slot.SlotEntryReference;
-import net.minecraft.core.component.DataComponentType;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -31,13 +28,10 @@ import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -74,7 +68,10 @@ public class BabyEots extends FlyingMob {
         return FastColor.ARGB32.opaque(this.getColors()[index]);
     }
 
-
+    @Override
+    public boolean canBeHitByProjectile() {
+        return false;
+    }
 
     public static AttributeSupplier.Builder createMobAttributes() {
         return FlyingMob.createMobAttributes().add(Attributes.MAX_HEALTH, 1.0).add(Attributes.MOVEMENT_SPEED, 10.0);
@@ -113,7 +110,6 @@ public class BabyEots extends FlyingMob {
     protected void registerGoals() {
         this.targetSelector.addGoal(1, new BabyEotsOwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new BabyEotsOwnerHurtTargetGoal(this));
-        //this.goalSelector.addGoal(1, new BabyEotsMeeleGoal(this));
         this.goalSelector.addGoal(2, new BabyEotsAirChargeGoal(this));
         this.goalSelector.addGoal(3, new FollowPlayerGoal(this));
     }
@@ -141,6 +137,9 @@ public class BabyEots extends FlyingMob {
     private void followOwner() {
         Player player = this.getOwner();
         if(player != null) {
+            if(this.distanceTo(player) > 4200)
+                this.setPos(player.position().add(0, 3,0));
+
             this.moveControl.setWantedPosition(player.getX(), player.getY() + 3, player.getZ(), 1.0F);
         }
     }
@@ -284,61 +283,6 @@ public class BabyEots extends FlyingMob {
         }
     }
 
-    public static class BabyEotsMeeleGoal extends Goal {
-        int cooldown = 20;
-        private final BabyEots eots;
-
-        public BabyEotsMeeleGoal(BabyEots eots) {
-            this.eots = eots;
-        }
-
-        @Override
-        public boolean canUse() {
-            if(eots.getTarget() == null || !eots.getTarget().isAlive())
-                return false;
-            else if(cooldown > 0) {
-                cooldown--;
-                return false;
-            }
-            else {
-                cooldown = eots.random.nextInt(20) + 20;
-                return true;
-            }
-        }
-
-        @Override
-        public boolean canContinueToUse() {
-            LivingEntity livingentity = this.eots.getTarget();
-            if (livingentity == null || !livingentity.isAlive()) {
-                return false;
-            }
-            else return this.eots.isWithinRestriction(livingentity.blockPosition());
-        }
-
-        @Override
-        public void start() {
-            this.eots.setAggressive(true);
-        }
-
-        @Override
-        public void stop() {
-            this.eots.setAggressive(false);
-            this.eots.followOwner();
-        }
-
-        @Override
-        public void tick() {
-            LivingEntity living = eots.getTarget();
-            if(living != null) {
-                Vec3 target = this.eots.getTarget().position().add(0, 1.0F,0);
-                this.eots.getMoveControl().setWantedPosition(target.x(), target.y(), target.z(), 2.0);
-                if (this.eots.position().distanceToSqr(target) < 2.0F) {
-                    living.hurt(this.eots.level().damageSources().mobAttack(this.eots), 4.0F);
-                }
-            }
-        }
-    }
-
     protected static class BabyEotsAirChargeGoal extends Goal {
         BabyEots eots;
         private int attackTimer = 10; //Delay between attacks
@@ -432,6 +376,7 @@ public class BabyEots extends FlyingMob {
             double d1 = this.getWantedY() - this.eots.getY();
             double d2 = this.getWantedZ() - this.eots.getZ();
             double d3 = Math.sqrt(d0 * d0 + d2 * d2);
+
             if (Math.abs(d3) > 1.0E-5F) {
                 double d4 = 1.0 - Math.abs(d1 * 0.7F) / d3;
                 d0 *= d4;

@@ -1,6 +1,5 @@
 package io.github.razordevs.deep_aether.world.structure;
 
-import com.aetherteam.aether.world.processor.BossRoomProcessor;
 import com.aetherteam.aether.world.processor.DoubleDropsProcessor;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.world.structure.brass.BrassDungeonPiece;
@@ -9,7 +8,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.levelgen.structure.templatesystem.RuleProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorList;
 
@@ -51,7 +49,6 @@ public class DAStructureProcessorLists {
     private static List<StructureProcessor> createBrassDungeonList(StructureProcessor... ruleProcessor) {
         List<StructureProcessor> list = new ArrayList<>() {{
             add(BrassDungeonPiece.LOCKED_NIMBUS_STONE);
-            add(BrassDungeonPiece.TRAPPED_NIMBUS_STONE);
             add(DoubleDropsProcessor.INSTANCE);
         }};
         list.addAll(List.of(ruleProcessor));

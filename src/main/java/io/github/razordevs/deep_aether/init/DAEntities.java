@@ -98,7 +98,7 @@ public class DAEntities {
 					.clientTrackingRange(10).build("baby_zephyr"));
 
 	public static final DeferredHolder<EntityType<?>,EntityType<BabyEots>> BABY_EOTS = register("baby_eots",
-			BabyEots::new, 1F, 1F);
+			BabyEots::new, 1F, 0.3F);
 
 
 	private static <T extends Entity> DeferredHolder<EntityType<?>,EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {

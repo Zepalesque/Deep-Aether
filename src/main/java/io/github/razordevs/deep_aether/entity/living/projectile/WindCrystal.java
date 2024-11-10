@@ -85,7 +85,7 @@ public class WindCrystal extends AbstractCrystal {
 
     private float getDamage() {
         if(this.isFriendly())
-            return 4.0F;
+            return 6.0F;
         else return 10.0F;
     }
 

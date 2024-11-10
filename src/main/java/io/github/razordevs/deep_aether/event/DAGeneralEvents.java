@@ -11,8 +11,6 @@ import io.github.razordevs.deep_aether.advancement.DAAdvancementTriggers;
 import io.github.razordevs.deep_aether.entity.BabyEots;
 import io.github.razordevs.deep_aether.init.DAItems;
 import io.github.razordevs.deep_aether.init.DAMobEffects;
-import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
-import io.github.razordevs.deep_aether.item.component.FloatyScarf;
 import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
 import io.github.razordevs.deep_aether.item.gear.other.FloatyScarfItem;
 import io.github.razordevs.deep_aether.item.gear.skyjade.SkyjadeWeapon;

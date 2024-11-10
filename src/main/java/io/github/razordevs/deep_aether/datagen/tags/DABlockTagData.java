@@ -36,8 +36,7 @@ public class DABlockTagData extends BlockTagsProvider {
         Collection<DeferredHolder<Block, ? extends Block>> blocks = DABlocks.BLOCKS.getEntries();
 
 
-        for (DeferredHolder<Block, ? extends Block> block : blocks)
-        {
+        for (DeferredHolder<Block, ? extends Block> block : blocks) {
             aether_block_tag.add(block.get());
         }
 
@@ -473,7 +472,7 @@ public class DABlockTagData extends BlockTagsProvider {
                 DABlocks.CRUDEROOT_WALL_HANGING_SIGN.get(),
                 DABlocks.CONBERRY_WALL_HANGING_SIGN.get(),
                 DABlocks.SUNROOT_WALL_HANGING_SIGN.get()
-                );
+        );
 
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 DABlocks.BIG_HOLYSTONE_BRICKS.get(),
@@ -568,7 +567,7 @@ public class DABlockTagData extends BlockTagsProvider {
                 DABlocks.NIMBUS_STAIRS.get(),
                 DABlocks.NIMBUS_SLAB.get(),
                 DABlocks.NIMBUS_WALL.get()
-                );
+        );
 
         tag(BlockTags.SNAPS_GOAT_HORN).add(
                 DABlocks.ROSEROOT_LOG.get(),
@@ -628,6 +627,29 @@ public class DABlockTagData extends BlockTagsProvider {
         tag(DATags.Blocks.HAS_GLOWING_SPORES).add(
                 DABlocks.GLOWING_VINE.get(),
                 DABlocks.TALL_GLOWING_GRASS.get()
+        );
+
+        tag(AetherTags.Blocks.DUNGEON_BLOCKS).add(
+                DABlocks.NIMBUS_STONE.get(),
+                DABlocks.LIGHT_NIMBUS_STONE.get(),
+                DABlocks.NIMBUS_PILLAR.get(),
+                DABlocks.LIGHT_NIMBUS_PILLAR.get()
+        );
+
+        tag(AetherTags.Blocks.TRAPPED_DUNGEON_BLOCKS).add(
+                DABlocks.TRAPPED_NIMBUS_STONE.get(),
+                DABlocks.TRAPPED_SKYROOT_PLANKS.get(),
+                DABlocks.TRAPPED_LIGHT_NIMBUS_STONE.get(),
+                DABlocks.TRAPPED_NIMBUS_PILLAR.get(),
+                DABlocks.TRAPPED_LIGHT_NIMBUS_PILLAR.get()
+        );
+
+
+        tag(AetherTags.Blocks.LOCKED_DUNGEON_BLOCKS).add(
+                DABlocks.LOCKED_NIMBUS_STONE.get(),
+                DABlocks.LOCKED_LIGHT_NIMBUS_STONE.get(),
+                DABlocks.LOCKED_NIMBUS_PILLAR.get(),
+                DABlocks.LOCKED_LIGHT_NIMBUS_PILLAR.get()
         );
     }
 }
