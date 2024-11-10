@@ -72,7 +72,7 @@ public class DeepAetherConfig {
             eots_flawless_boss_drop = builder
                     .comment("The item dropped when the Eye of the Storm is defeated flawlessly, set value to null (with quotation marks!) to disable flawless boss drops from the Eye of the Storm")
                     .translation("config.deep_aether.common.flawless.eots_flawless_boss_drop")
-                    .define("Eye of the Storm Flawless Boss Drop", "deep_aether:sun_core");
+                    .define("Eye of the Storm Flawless Boss Drop", "deep_aether:floaty_scarf");
             builder.pop();
 
             builder.push("Gameplay");
