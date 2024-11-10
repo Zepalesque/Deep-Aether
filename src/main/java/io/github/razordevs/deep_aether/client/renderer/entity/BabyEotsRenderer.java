@@ -72,6 +72,10 @@ public class BabyEotsRenderer extends MobRenderer<BabyEots, BabyEotsModel> {
         this.model.body[3].render(matrixStack, vertexconsumer, packedLight, i, eots.getFromColor(4));
 
         matrixStack.popPose();
+
+        if (this.shouldShowName(eots) && eots.getDisplayName() != null) {
+            this.renderNameTag(eots, eots.getDisplayName(), matrixStack, buffer, packedLight, partialTicks);
+        }
     }
 
     @Override

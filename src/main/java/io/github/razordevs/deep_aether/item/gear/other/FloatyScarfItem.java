@@ -65,6 +65,10 @@ public class FloatyScarfItem extends CapeItem implements FlawlessDrop {
             scarf = FloatyScarf.withDefaultColor(0);
         }
         BabyEots eots = new BabyEots(player.level(), player, scarf.colors());
+        Component component = stack.get(DataComponents.CUSTOM_NAME);
+        if (component != null) {
+            eots.setCustomName(component);
+        }
         stack.set(DADataComponentTypes.FLOATY_SCARF, new FloatyScarf(eots.getId(), scarf.colors(), scarf.currentModification()));
     }
 

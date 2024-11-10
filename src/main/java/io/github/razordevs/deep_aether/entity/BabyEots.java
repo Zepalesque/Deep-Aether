@@ -105,7 +105,7 @@ public class BabyEots extends FlyingMob {
         colors[1] = this.entityData.get(COLOR_1);
         colors[2] = this.entityData.get(COLOR_2);
         colors[3] = this.entityData.get(COLOR_3);
-        colors[4] = this.entityData.get(COLOR_3);
+        colors[4] = this.entityData.get(COLOR_4);
         return colors;
     }
 
