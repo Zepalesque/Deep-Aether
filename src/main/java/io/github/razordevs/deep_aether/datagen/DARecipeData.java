@@ -15,10 +15,10 @@ import io.github.razordevs.deep_aether.init.DAMobEffects;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
 import io.github.razordevs.deep_aether.item.component.MoaFodder;
 import io.github.razordevs.deep_aether.recipe.DABookCategory;
+import io.github.razordevs.deep_aether.recipe.FloatyScarfColoring;
 import io.github.razordevs.deep_aether.recipe.GlowingSporesRecipe;
 import io.github.razordevs.deep_aether.recipe.GoldenSwetBallRecipe;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -33,11 +33,11 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.data.DataMapProvider;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
+@SuppressWarnings("SameParameterValue")
 public class DARecipeData extends AetherRecipeProvider {
     public DARecipeData(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(output, lookupProvider, DeepAether.MODID);
@@ -755,6 +755,8 @@ public class DARecipeData extends AetherRecipeProvider {
                 .requires(AetherItems.BLUE_BERRY.get())
                 .unlockedBy(getHasName(AetherItems.BLUE_BERRY.get()), has(AetherItems.BLUE_BERRY.get()))
                 .save(consumer);
+
+        SpecialRecipeBuilder.special(FloatyScarfColoring::new).save(consumer, "floaty_scarf_coloring");
     }
 
     protected ShapedRecipeBuilder makeRing(Supplier<? extends Item> ring, TagKey<Item> material) {

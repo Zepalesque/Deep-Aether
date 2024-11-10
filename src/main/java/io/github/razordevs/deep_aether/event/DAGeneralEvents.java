@@ -252,7 +252,6 @@ public class DAGeneralEvents {
         SlotEntryReference reference = DAEquipmentUtil.getFloatyScarf(player);
         if(reference != null) {
             FloatyScarfItem.tryDiscardBabyEots(reference.stack(), player.level());
-            reference.stack().set(DADataComponentTypes.FLOATY_SCARF, new FloatyScarf(0, 0, 0, 0, 0));
         }
     }
 }

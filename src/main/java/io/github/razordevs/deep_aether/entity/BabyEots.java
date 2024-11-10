@@ -7,10 +7,14 @@ import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
 import io.github.razordevs.deep_aether.item.component.FloatyScarf;
 import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
 import io.wispforest.accessories.api.slot.SlotEntryReference;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
@@ -27,13 +31,24 @@ import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.EnumSet;
+import java.util.List;
 
 public class BabyEots extends FlyingMob {
+
+    private static final EntityDataAccessor<Integer> COLOR_0 = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> COLOR_1 = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> COLOR_2 = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> COLOR_3 = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> COLOR_4 = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
+
 
     private static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
 
@@ -50,6 +65,17 @@ public class BabyEots extends FlyingMob {
         level.addFreshEntity(this);
     }
 
+    public BabyEots(Level level, Player owner, List<Integer> colors) {
+        this(level, owner);
+        this.setColors(colors);
+    }
+
+    public int getFromColor(int index) {
+        return FastColor.ARGB32.opaque(this.getColors()[index]);
+    }
+
+
+
     public static AttributeSupplier.Builder createMobAttributes() {
         return FlyingMob.createMobAttributes().add(Attributes.MAX_HEALTH, 1.0).add(Attributes.MOVEMENT_SPEED, 10.0);
     }
@@ -58,6 +84,29 @@ public class BabyEots extends FlyingMob {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_OWNER_ID, 0);
+        builder.define(COLOR_0, -1);
+        builder.define(COLOR_1, -1);
+        builder.define(COLOR_2, -1);
+        builder.define(COLOR_3, -1);
+        builder.define(COLOR_4, -1);
+    }
+
+    private void setColors(List<Integer> colors) {
+        this.entityData.set(COLOR_0, colors.get(0));
+        this.entityData.set(COLOR_1, colors.get(1));
+        this.entityData.set(COLOR_2, colors.get(2));
+        this.entityData.set(COLOR_3, colors.get(3));
+        this.entityData.set(COLOR_4, colors.get(4));
+    }
+
+    private int[] getColors() {
+        int[] colors = new int[5];
+        colors[0] = this.entityData.get(COLOR_0);
+        colors[1] = this.entityData.get(COLOR_1);
+        colors[2] = this.entityData.get(COLOR_2);
+        colors[3] = this.entityData.get(COLOR_3);
+        colors[4] = this.entityData.get(COLOR_3);
+        return colors;
     }
 
     @Override

@@ -10,9 +10,9 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
 public class BabyEotsModel extends EntityModel<BabyEots> {
-	private final ModelPart[] body = new ModelPart[4];
+	public final ModelPart[] body = new ModelPart[4];
+	public final ModelPart head;
 	private final ModelPart[] bodyRot = new ModelPart[4];
-	private final ModelPart head;
 
 	public BabyEotsModel(ModelPart root) {
 		this.body[0] = root.getChild("body_0");
@@ -74,10 +74,5 @@ public class BabyEotsModel extends EntityModel<BabyEots> {
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int color) {
-		body[0].render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-		body[1].render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-		body[2].render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-		body[3].render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
-		head.render(poseStack, vertexConsumer, packedLight, packedOverlay, color);
 	}
 }

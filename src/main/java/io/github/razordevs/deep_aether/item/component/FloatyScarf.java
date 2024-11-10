@@ -5,25 +5,39 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.effect.MobEffectInstance;
 
-public record FloatyScarf(int uuid, int color0, int color1, int color2, int color3) {
+import java.util.ArrayList;
+import java.util.List;
+
+public record FloatyScarf(int uuid, List<Integer> colors, byte currentModification) {
     public static final Codec<FloatyScarf> CODEC = RecordCodecBuilder.create(
             codec -> codec.group(
                             Codec.INT.fieldOf("id").forGetter(FloatyScarf::uuid),
-                            Codec.INT.fieldOf("color_0").forGetter(FloatyScarf::color0),
-                            Codec.INT.fieldOf("color_1").forGetter(FloatyScarf::color1),
-                            Codec.INT.fieldOf("color_2").forGetter(FloatyScarf::color2),
-                            Codec.INT.fieldOf("color_3").forGetter(FloatyScarf::color3)
-                    )
+                            Codec.INT.listOf().fieldOf("colors").forGetter(FloatyScarf::colors),
+                            Codec.BYTE.fieldOf("current").forGetter(FloatyScarf::currentModification)
+                            )
                     .apply(codec, FloatyScarf::new)
     );
 
     public static final StreamCodec<RegistryFriendlyByteBuf, FloatyScarf> STREAM_CODEC = StreamCodec.composite(
             ByteBufCodecs.INT, FloatyScarf::uuid,
-            ByteBufCodecs.INT, FloatyScarf::color0,
-            ByteBufCodecs.INT, FloatyScarf::color1,
-            ByteBufCodecs.INT, FloatyScarf::color2,
-            ByteBufCodecs.INT, FloatyScarf::color3,
+            ByteBufCodecs.INT.apply(ByteBufCodecs.list()), FloatyScarf::colors,
+            ByteBufCodecs.BYTE, FloatyScarf::currentModification,
             FloatyScarf::new
     );
+
+    public static FloatyScarf withDefaultColor(int id) {
+        List<Integer> list = new ArrayList<>();
+        list.add(-1);
+        list.add(-1);
+        list.add(-1);
+        list.add(-1);
+        list.add(-1);
+        return new FloatyScarf(id, list, (byte) 0);
+    }
+
+    public List<Integer> colors() {
+        return new ArrayList<>(this.colors);
+    }
 }
