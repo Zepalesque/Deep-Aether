@@ -1,35 +1,28 @@
 package io.github.razordevs.deep_aether.item.gear.other;
 
-import com.aetherteam.aether.item.accessories.cape.CapeItem;
+import com.aetherteam.aether.item.accessories.pendant.PendantItem;
 import io.github.razordevs.deep_aether.entity.BabyEots;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
 import io.github.razordevs.deep_aether.item.component.FloatyScarf;
 import io.wispforest.accessories.api.slot.SlotReference;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ClickAction;
-import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.inventory.tooltip.TooltipComponent;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.component.BundleContents;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 
-public class FloatyScarfItem extends CapeItem implements FlawlessDrop {
-    public FloatyScarfItem(String capeLocation, Properties properties) {
-        super(capeLocation, properties);
+public class FloatyScarfItem extends PendantItem implements FlawlessDrop {
+    public FloatyScarfItem(ResourceLocation pendantLocation, Holder<SoundEvent> pendantSound, Properties properties) {
+        super(pendantLocation, pendantSound, properties);
     }
 
     @Override

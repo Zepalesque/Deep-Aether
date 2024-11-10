@@ -356,8 +356,7 @@ public class DAItemTagData extends ItemTagsProvider {
         );
 
         tag(AetherTags.Items.ACCESSORIES_CAPES).add(
-                DAItems.CLOUD_CAPE.get(),
-                DAItems.FLOATY_SCARF.get()
+                DAItems.CLOUD_CAPE.get()
         );
 
         tag(AetherTags.Items.ACCESSORIES_RINGS).add(
@@ -377,7 +376,8 @@ public class DAItemTagData extends ItemTagsProvider {
 
         tag(AetherTags.Items.ACCESSORIES_PENDANTS).add(
                 DAItems.MEDAL_OF_HONOR.get(),
-                DAItems.AERCLOUD_NECKLACE.get()
+                DAItems.AERCLOUD_NECKLACE.get(),
+                DAItems.FLOATY_SCARF.get()
         );
 
         tag(ItemTags.HANGING_SIGNS).add(

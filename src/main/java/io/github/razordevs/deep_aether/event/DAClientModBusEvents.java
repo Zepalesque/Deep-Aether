@@ -291,6 +291,7 @@ public class DAClientModBusEvents {
         AccessoriesRendererRegistry.registerRenderer(DAItems.STRATUS_GLOVES.get(), GlovesRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.MEDAL_OF_HONOR.get(), PendantRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.AERCLOUD_NECKLACE.get(), PendantRenderer::new);
+        AccessoriesRendererRegistry.registerNoRenderer(DAItems.FLOATY_SCARF.get());
     }
 
     @SubscribeEvent
