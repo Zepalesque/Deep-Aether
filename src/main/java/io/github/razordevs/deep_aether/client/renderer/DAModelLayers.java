@@ -17,6 +17,7 @@ public class DAModelLayers {
     public static final ModelLayerLocation WIND_SHIELD = register("wind_shield");
     public static final ModelLayerLocation WIND_SHIELD_SLIM = register("wind_shield_slim");
     public static final ModelLayerLocation WIND_SHIELD_ARM = register("wind_shield_arm");
+    public static final ModelLayerLocation SCARF = register("scarf");
 
     private static ModelLayerLocation register(String name) {
         return register(name, "main");

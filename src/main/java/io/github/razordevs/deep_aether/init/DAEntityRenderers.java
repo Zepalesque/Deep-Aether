@@ -66,6 +66,8 @@ public class DAEntityRenderers {
 		event.registerLayerDefinition(DAModelLayers.WIND_SHIELD_SLIM, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(1.15F), true), 64, 64));
 		event.registerLayerDefinition(DAModelLayers.WIND_SHIELD_ARM, () -> LayerDefinition.create(PlayerModel.createMesh(new CubeDeformation(0.4F), false), 64, 64));
 
+		event.registerLayerDefinition(DAModelLayers.SCARF, ScarfModel::createBodyLayer);
+
 		for (DABoatEntity.Type type : DABoatEntity.Type.values()) {
 			event.registerLayerDefinition(new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, type.getModelLocation()), "main"), BoatModel::createBodyModel);
 			event.registerLayerDefinition(new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, type.getChestModelLocation()), "main"), ChestBoatModel::createBodyModel);

@@ -8,6 +8,7 @@ import com.mojang.blaze3d.shaders.FogShape;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.DeepAetherConfig;
+import io.github.razordevs.deep_aether.client.renderer.accessory.FloatyScarfRenderer;
 import io.github.razordevs.deep_aether.client.renderer.accessory.SkyjadeGlovesRenderer;
 import io.github.razordevs.deep_aether.client.renderer.accessory.WindShieldRenderer;
 import io.github.razordevs.deep_aether.custom.*;
@@ -77,7 +78,7 @@ public class DAClientModBusEvents {
 
     @SubscribeEvent
     public static void clientSetup(FMLClientSetupEvent event) {
-        registerCuriosRenderers();
+        registerAccessoriesRenderers();
         ItemBlockRenderTypes.setRenderLayer(DAFluids.POISON_FLUID.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(DAFluids.POISON_FLOWING.get(), RenderType.translucent());
 
@@ -284,14 +285,14 @@ public class DAClientModBusEvents {
         event.registerSpriteSet(DAParticles.EOTS_PRE_FIGHT.get(), EOTSPreFightParticle.Provider::new);
     }
 
-    public static void registerCuriosRenderers() {
+    public static void registerAccessoriesRenderers() {
         if(DeepAetherConfig.COMMON.enable_skyjade_rework.get())
             AccessoriesRendererRegistry.registerRenderer(DAItems.SKYJADE_GLOVES.get(), SkyjadeGlovesRenderer::new);
+        AccessoriesRendererRegistry.registerRenderer(DAItems.FLOATY_SCARF.get(), FloatyScarfRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.WIND_SHIELD.get(), WindShieldRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.STRATUS_GLOVES.get(), GlovesRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.MEDAL_OF_HONOR.get(), PendantRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.AERCLOUD_NECKLACE.get(), PendantRenderer::new);
-        AccessoriesRendererRegistry.registerNoRenderer(DAItems.FLOATY_SCARF.get());
     }
 
     @SubscribeEvent

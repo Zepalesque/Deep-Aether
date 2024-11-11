@@ -7,7 +7,6 @@ import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.client.model.BabyEotsModel;
 import io.github.razordevs.deep_aether.client.renderer.DAModelLayers;
 import io.github.razordevs.deep_aether.entity.BabyEots;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -28,6 +27,13 @@ public class BabyEotsRenderer extends MobRenderer<BabyEots, BabyEotsModel> {
     @Override
     public void render(BabyEots eots, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
         matrixStack.pushPose();
+
+        if(eots.isWrappedAroundNeck()){
+            matrixStack.clear();
+            matrixStack.popPose();
+            return;
+        }
+
         this.model.attackTime = this.getAttackAnim(eots, partialTicks);
         float f = Mth.rotLerp(partialTicks, eots.yBodyRotO, eots.yBodyRot);
         float f1 = Mth.rotLerp(partialTicks, eots.yHeadRotO, eots.yHeadRot);

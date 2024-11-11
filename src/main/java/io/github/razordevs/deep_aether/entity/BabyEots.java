@@ -10,6 +10,7 @@ import io.wispforest.accessories.api.slot.SlotEntryReference;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
@@ -43,8 +44,12 @@ public class BabyEots extends FlyingMob {
     private static final EntityDataAccessor<Integer> COLOR_3 = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COLOR_4 = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
 
+    private static final int RIDE_COOLDOWN = 100;
+    private int rideCooldownCounter;
 
     private static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
+
+    private boolean isWrappedAroundNeck;
 
     public BabyEots(EntityType<? extends FlyingMob> type, Level level) {
         super(type, level);
@@ -56,6 +61,8 @@ public class BabyEots extends FlyingMob {
         this(DAEntities.BABY_EOTS.get(), level);
         this.setOwner(owner);
         this.setPos(owner.position());
+        this.setEntityAroundNeck(owner);
+
         level.addFreshEntity(this);
     }
 
@@ -111,7 +118,8 @@ public class BabyEots extends FlyingMob {
         this.targetSelector.addGoal(1, new BabyEotsOwnerHurtByTargetGoal(this));
         this.targetSelector.addGoal(2, new BabyEotsOwnerHurtTargetGoal(this));
         this.goalSelector.addGoal(2, new BabyEotsAirChargeGoal(this));
-        this.goalSelector.addGoal(3, new FollowPlayerGoal(this));
+        this.goalSelector.addGoal(3, new WrapAroundPlayerGoal(this));
+        this.goalSelector.addGoal(4, new FollowPlayerGoal(this));
     }
 
     protected void pushEntities() {
@@ -127,7 +135,12 @@ public class BabyEots extends FlyingMob {
 
     @Nullable
     public Player getOwner() {
-        return (Player)this.level().getEntity(this.getEntityData().get(DATA_OWNER_ID));
+        return (Player) this.level().getEntity(this.getEntityData().get(DATA_OWNER_ID));
+    }
+
+    @Nullable
+    public ServerPlayer getServerOwner() {
+        return (ServerPlayer) this.level().getEntity(this.getEntityData().get(DATA_OWNER_ID));
     }
 
     public void setOwner(Player entity) {
@@ -137,10 +150,10 @@ public class BabyEots extends FlyingMob {
     private void followOwner() {
         Player player = this.getOwner();
         if(player != null) {
-            if(this.distanceTo(player) > 40)
-                this.setPos(player.position().add(0, 3,0));
+            if(this.distanceTo(player) > 4200)
+                this.setPos(player.position().add(0, 2,0));
 
-            this.moveControl.setWantedPosition(player.getX(), player.getY() + 3, player.getZ(), 1.0F);
+            this.moveControl.setWantedPosition(player.getX(), player.getY() + 2, player.getZ(), 1.0F);
         }
     }
 
@@ -165,6 +178,72 @@ public class BabyEots extends FlyingMob {
     @Override
     public boolean canUsePortal(boolean use) {
         return false;
+    }
+
+    @Override
+    public void tick() {
+        if(this.isWrappedAroundNeck() && this.getOwner() != null) {
+            this.setPos(getOwner().getX(), getOwner().getY() + 1.2, getOwner().getZ());
+        }
+        ++rideCooldownCounter;
+        super.tick();
+    }
+
+    public boolean isWrappedAroundNeck(){
+        return isWrappedAroundNeck;
+    }
+
+    public boolean setEntityAroundNeck(Player owner){
+        if(isWrappedAroundNeck()) return false;
+
+        this.setPos(owner.getX(), owner.getY() + 1.2, owner.getZ());
+        this.getNavigation().stop();
+        this.isWrappedAroundNeck = true;
+        return true;
+    }
+
+    public boolean removeEntityAroundNeck(){
+        if(!isWrappedAroundNeck()) return false;
+
+        this.rideCooldownCounter = 0;
+        this.isWrappedAroundNeck = false;
+        return true;
+    }
+
+    public static class WrapAroundPlayerGoal extends Goal {
+        private final BabyEots eots;
+        private ServerPlayer owner;
+
+        public WrapAroundPlayerGoal(BabyEots eots) {
+            this.eots = eots;
+        }
+
+        public boolean canUse() {
+            ServerPlayer serverplayer = this.eots.getServerOwner();
+            if(serverplayer == null) return false;
+
+            boolean flag = !serverplayer.isSpectator() && !serverplayer.isInWater() && !serverplayer.isInPowderSnow;
+            return flag && !this.eots.isWrappedAroundNeck() && this.eots.rideCooldownCounter > 50;
+        }
+
+        public boolean isInterruptable() {
+            return !this.eots.isWrappedAroundNeck();
+        }
+
+        public void start() {
+            this.owner = this.eots.getServerOwner();
+        }
+
+        @Override
+        public void stop() {
+            this.eots.removeEntityAroundNeck();
+        }
+
+        public void tick() {
+            if (!this.eots.isWrappedAroundNeck() && this.eots.getBoundingBox().intersects(this.owner.getBoundingBox().inflate(0, 2, 0))) {
+                this.eots.setEntityAroundNeck(owner);
+            }
+        }
     }
 
     public static class FollowPlayerGoal extends Goal {
@@ -193,9 +272,8 @@ public class BabyEots extends FlyingMob {
                 this.eots.discard();
                 return false;
             }
-            else {
-                return true;
-            }
+
+            return !this.eots.isWrappedAroundNeck();
         }
 
         @Override
@@ -236,6 +314,7 @@ public class BabyEots extends FlyingMob {
 
         @Override
         public void start() {
+            this.eots.removeEntityAroundNeck();
             this.mob.setTarget(this.ownerLastHurtBy);
             LivingEntity livingentity = this.eots.getOwner();
             if (livingentity != null) {
@@ -273,6 +352,7 @@ public class BabyEots extends FlyingMob {
 
         @Override
         public void start() {
+            this.eots.removeEntityAroundNeck();
             this.mob.setTarget(this.ownerLastHurt);
             LivingEntity livingentity = this.eots.getOwner();
             if (livingentity != null) {
@@ -317,6 +397,7 @@ public class BabyEots extends FlyingMob {
 
         @Override
         public void start() {
+            this.eots.removeEntityAroundNeck();
             this.attackDelay = 10;
             this.numberOfAttacks = this.eots.random.nextInt(2);
             super.start();
