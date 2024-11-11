@@ -21,6 +21,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class FloatyScarfItem extends PendantItem implements FlawlessDrop {
+    private BabyEots eots = null;
+
     public FloatyScarfItem(ResourceLocation pendantLocation, Holder<SoundEvent> pendantSound, Properties properties) {
         super(pendantLocation, pendantSound, properties);
     }
@@ -28,30 +30,27 @@ public class FloatyScarfItem extends PendantItem implements FlawlessDrop {
     @Override
     public void onEquip(ItemStack stack, SlotReference reference) {
         if(reference.entity() instanceof Player player) {
-            tryAddBabyEots(stack, player);
+            this.eots = tryAddBabyEots(stack, player);
         }
     }
 
     @Override
     public void onUnequip(ItemStack stack, SlotReference reference) {
         tryDiscardBabyEots(stack, reference.entity().level());
+        this.eots = null;
     }
 
     public static void tryDiscardBabyEots(@Nullable ItemStack stack, Level level) {
         if(stack == null)
             return;
-
-        FloatyScarf scarf = stack.get(DADataComponentTypes.FLOATY_SCARF);
-        if(scarf != null) {
-            Entity entity = level.getEntity(scarf.uuid());
-            if(entity != null)
-                entity.discard();
-        }
+        Entity entity = getEOTS(stack, level);
+        if(entity != null)
+            entity.discard();
     }
 
-    public static void tryAddBabyEots(@Nullable ItemStack stack, Player player) {
+    public static BabyEots tryAddBabyEots(@Nullable ItemStack stack, Player player) {
         if(stack == null)
-            return;
+            return null;
 
         FloatyScarf scarf = stack.get(DADataComponentTypes.FLOATY_SCARF);
         if(scarf == null) {
@@ -63,8 +62,18 @@ public class FloatyScarfItem extends PendantItem implements FlawlessDrop {
             eots.setCustomName(component);
         }
         stack.set(DADataComponentTypes.FLOATY_SCARF, new FloatyScarf(eots.getId(), scarf.colors(), scarf.currentModification()));
+        return eots;
     }
 
+    public static Entity getEOTS(ItemStack stack, Level level){
+        FloatyScarf scarf = stack.get(DADataComponentTypes.FLOATY_SCARF);
+        return scarf != null ? level.getEntity(scarf.uuid()) : null;
+    }
+
+    public boolean hasStoredEOTS(){
+        if(this.eots == null) return false;
+        return this.eots.isWrappedAroundNeck();
+    }
 
     int i = 0;
     @Override
