@@ -14,13 +14,14 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class DAMossBlock extends AetherDoubleDropBlock implements BonemealableBlock {
-    public DAMossBlock(BlockBehaviour.Properties p_153790_) {
-        super(p_153790_);
+    public DAMossBlock(BlockBehaviour.Properties properties) {
+        super(properties);
         this.registerDefaultState(this.defaultBlockState().setValue(AetherBlockStateProperties.DOUBLE_DROPS, false));
     }
+
     @Override
-    public boolean isValidBonemealTarget(LevelReader p_256559_, BlockPos p_50898_, BlockState p_50899_) {
-        return p_256559_.getBlockState(p_50898_.above()).isAir();
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState p_50899_) {
+        return level.getBlockState(pos.above()).isAir();
     }
 
     @Override
@@ -29,11 +30,9 @@ public class DAMossBlock extends AetherDoubleDropBlock implements BonemealableBl
     }
 
     @Override
-    public void performBonemeal(ServerLevel pLevel, RandomSource pRanfom, BlockPos pPos, BlockState pState) {
-        pLevel.registryAccess().registry(Registries.CONFIGURED_FEATURE).flatMap((p_258973_) -> {
-            return p_258973_.getHolder(DAConfiguredFeatures.AETHER_MOSS_PATCH_BONEMEAL);
-        }).ifPresent((p_255669_) -> {
-            p_255669_.value().place(pLevel, pLevel.getChunkSource().getGenerator(), pRanfom, pPos.above());
-        });
+    public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pPos, BlockState pState) {
+        level.registryAccess().registry(Registries.CONFIGURED_FEATURE).flatMap((features)
+                -> features.getHolder(DAConfiguredFeatures.AETHER_MOSS_PATCH_BONEMEAL)).ifPresent((feature)
+                -> feature.value().place(level, level.getChunkSource().getGenerator(), random, pPos.above()));
     }
 }

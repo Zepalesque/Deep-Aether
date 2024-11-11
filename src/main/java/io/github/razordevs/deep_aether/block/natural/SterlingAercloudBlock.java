@@ -19,12 +19,12 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class SterlingAercloudBlock extends HalfTransparentBlock {
+    public static final VoxelShape FULL_COLLISION = Block.box(0.0, 0.0, 0.0, 16.0, 16.0, 16.0);
+    public static final VoxelShape NO_COLLISION = Block.box(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
     public SterlingAercloudBlock(Properties properties) {
         super(properties);
     }
-    public static final VoxelShape FULL_COLLISION = Block.box(0.0, 0.0, 0.0, 16.0, 16.0, 16.0);
-    public static final VoxelShape NO_COLLISION = Block.box(0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
 
     @Override
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
@@ -53,7 +53,7 @@ public class SterlingAercloudBlock extends HalfTransparentBlock {
     }
 
     @Override
-    public boolean propagatesSkylightDown(BlockState p_49928_, BlockGetter p_49929_, BlockPos p_49930_) {
+    public boolean propagatesSkylightDown(BlockState state, BlockGetter getter, BlockPos pos) {
         return true;
     }
 }

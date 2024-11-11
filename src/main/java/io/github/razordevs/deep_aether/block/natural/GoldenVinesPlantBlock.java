@@ -9,30 +9,26 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.BonemealableBlock;
-import net.minecraft.world.level.block.GrowingPlantBodyBlock;
-import net.minecraft.world.level.block.GrowingPlantHeadBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.phys.BlockHitResult;
-import org.jetbrains.annotations.NotNull;
 
 public class GoldenVinesPlantBlock extends GrowingPlantBodyBlock implements BonemealableBlock, GoldenVines {
-
     public static final MapCodec<GoldenVinesPlantBlock> CODEC = simpleCodec(GoldenVinesPlantBlock::new);
+
     public GoldenVinesPlantBlock(BlockBehaviour.Properties p_153000_) {
         super(p_153000_, Direction.UP, SHAPE, false);
-        this.registerDefaultState(this.stateDefinition.any().setValue(BERRIES, Boolean.valueOf(false)));
+        this.registerDefaultState(this.stateDefinition.any().setValue(BERRIES, Boolean.FALSE));
     }
-    @NotNull
+
+    @Override
     protected GrowingPlantHeadBlock getHeadBlock() {
         return (GrowingPlantHeadBlock) DABlocks.GOLDEN_VINES.get();
     }
@@ -42,34 +38,39 @@ public class GoldenVinesPlantBlock extends GrowingPlantBodyBlock implements Bone
         return CODEC;
     }
 
-    @NotNull
+    @Override
     protected BlockState updateHeadAfterConvertedFromBody(BlockState value, BlockState blockState) {
         return blockState.setValue(BERRIES, value.getValue(BERRIES));
     }
-    @NotNull
+
+    @Override
     public ItemStack getCloneItemStack(LevelReader blockGetter, BlockPos blockPos, BlockState blockState) {
         return new ItemStack(DAItems.GOLDEN_BERRIES.get());
     }
 
-    @NotNull
-    public InteractionResult use(BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand p_153025_, BlockHitResult p_153026_) {
-        return GoldenVines.use(player, blockState, level, blockPos);
+    @Override
+    protected InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos pos, Player player, BlockHitResult result) {
+        return GoldenVines.use(player, blockState, level, pos);
     }
 
+    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {
         stateBuilder.add(BERRIES);
     }
 
-    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState value, boolean b) {
+    @Override
+    public boolean isValidBonemealTarget(LevelReader levelReader, BlockPos blockPos, BlockState value) {
         return !value.getValue(BERRIES);
     }
 
+    @Override
     public boolean isBonemealSuccess(Level level, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
         return true;
     }
 
+    @Override
     public void performBonemeal(ServerLevel serverLevel, RandomSource randomSource, BlockPos blockPos, BlockState blockState) {
-        serverLevel.setBlock(blockPos, blockState.setValue(BERRIES, Boolean.valueOf(true)), 2);
+        serverLevel.setBlock(blockPos, blockState.setValue(BERRIES, Boolean.TRUE), 2);
     }
 
     @Override

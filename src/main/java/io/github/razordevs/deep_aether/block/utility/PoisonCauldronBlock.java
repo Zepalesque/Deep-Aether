@@ -14,17 +14,16 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 
-
 public class PoisonCauldronBlock extends AbstractCauldronBlock {
-
     public static final MapCodec<PoisonCauldronBlock> CODEC = simpleCodec(PoisonCauldronBlock::new);
-    @Override
-    public MapColor getMapColor(BlockState state, BlockGetter level, BlockPos pos, MapColor defaultColor) {
-        return super.getMapColor(state, level, pos, defaultColor);
-    }
 
     public PoisonCauldronBlock(BlockBehaviour.Properties properties) {
         super(properties, DaCauldronInteraction.POISON);
+    }
+
+    @Override
+    public MapColor getMapColor(BlockState state, BlockGetter level, BlockPos pos, MapColor defaultColor) {
+        return super.getMapColor(state, level, pos, defaultColor);
     }
 
     @Override
@@ -32,22 +31,25 @@ public class PoisonCauldronBlock extends AbstractCauldronBlock {
         return CODEC;
     }
 
+    @Override
     protected double getContentHeight(BlockState p_153500_) {
         return 0.9375D;
     }
 
+    @Override
     public boolean isFull(BlockState p_153511_) {
         return true;
     }
 
+    @Override
     public void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (this.isEntityInsideContent(state, pos, entity)) {
             if (entity instanceof LivingEntity livingEntity)
                 livingEntity.addEffect(new MobEffectInstance(AetherEffects.INEBRIATION, 250, 0, false, false));
         }
-
     }
 
+    @Override
     public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
         return 14;
     }

@@ -32,17 +32,16 @@ public class TrappedPillarBlock extends RotatedPillarBlock {
     }
 
     public BlockState getFacadeBlock() {
-        return (BlockState)this.defaultStateSupplier.get();
+        return this.defaultStateSupplier.get();
     }
 
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
         if (entity instanceof Player player) {
             if (AetherEventDispatch.onTriggerTrap(player, level, pos, state)) {
-                level.setBlockAndUpdate(pos, (BlockState)this.defaultStateSupplier.get());
-                if (level instanceof ServerLevel) {
-                    ServerLevel serverLevel = (ServerLevel)level;
+                level.setBlockAndUpdate(pos, this.defaultStateSupplier.get());
+                if (level instanceof ServerLevel serverLevel) {
                     float yRot = player.getYRot() * 0.017453292F;
-                    Vec3 targetVec = new Vec3((double)pos.getX() + 0.5 - (double)(Mth.sin(yRot) * 3.0F), (double)(pos.getY() + 1), (double)pos.getZ() + 0.5 + (double)(Mth.cos(yRot) * 3.0F));
+                    Vec3 targetVec = new Vec3((double)pos.getX() + 0.5 - (double)(Mth.sin(yRot) * 3.0F), pos.getY() + 1, (double)pos.getZ() + 0.5 + (double)(Mth.cos(yRot) * 3.0F));
                     ClipContext context = new ClipContext(player.position(), targetVec, net.minecraft.world.level.ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, player);
                     BlockHitResult hitResult = serverLevel.clip(context);
                     BlockPos spawnPos = hitResult.getBlockPos();
@@ -50,7 +49,7 @@ public class TrappedPillarBlock extends RotatedPillarBlock {
                         spawnPos = spawnPos.relative(hitResult.getDirection());
                     }
 
-                    ((EntityType)this.spawnableEntityTypeSupplier.get()).spawn(serverLevel, spawnPos, MobSpawnType.TRIGGERED);
+                    this.spawnableEntityTypeSupplier.get().spawn(serverLevel, spawnPos, MobSpawnType.TRIGGERED);
                     serverLevel.playSound(null, pos, AetherSoundEvents.BLOCK_DUNGEON_TRAP_TRIGGER.get(), SoundSource.BLOCKS, 0.5F, level.getRandom().nextFloat() * 0.1F + 0.9F);
                 }
             }

@@ -15,7 +15,6 @@ public class GoldenGrassPlant extends TallGrassBlock {
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource source, BlockPos pos, BlockState state) {
-
         if (state.is(DABlocks.MINI_GOLDEN_GRASS.get()))
             level.setBlockAndUpdate(pos, DABlocks.SHORT_GOLDEN_GRASS.get().defaultBlockState());
 

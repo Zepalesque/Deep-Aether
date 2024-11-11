@@ -20,6 +20,7 @@ import javax.annotation.Nonnull;
 
 public class EmptyLog extends DALogBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+
     public EmptyLog(Properties properties) {
         super(properties);
         registerDefaultState(defaultBlockState().setValue(WATERLOGGED, false));
@@ -47,8 +48,11 @@ public class EmptyLog extends DALogBlock {
     }
 
     @Override
-    public BlockState getStateForPlacement(BlockPlaceContext ctx) {
-        return super.getStateForPlacement(ctx).setValue(WATERLOGGED, ctx.getLevel().getFluidState(ctx.getClickedPos()).getType() == Fluids.WATER);
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState state = super.getStateForPlacement(context);
+        if(state == null)
+            return null;
+        else return state.setValue(WATERLOGGED, context.getLevel().getFluidState(context.getClickedPos()).getType() == Fluids.WATER);
     }
 
     @Override
@@ -73,7 +77,7 @@ public class EmptyLog extends DALogBlock {
     }
 
     @Override
-    public boolean useShapeForLightOcclusion(BlockState p_56967_) {
+    public boolean useShapeForLightOcclusion(BlockState state) {
         return true;
     }
 

@@ -19,7 +19,6 @@ import java.util.Optional;
 import java.util.Random;
 
 public class SquashStemBlock extends StemBlock {
-
     private final ResourceKey<Block> attachedStem;
 
     public SquashStemBlock(ResourceKey<Block> fruit, ResourceKey<Block> stem, ResourceKey<Item> seed, Properties properties) {
@@ -58,19 +57,19 @@ public class SquashStemBlock extends StemBlock {
     /**
      * [Code Copy] {@link CropBlock#getGrowthSpeed(BlockState, BlockGetter, BlockPos)}
      */
-    protected static float getGrowthSpeed(BlockState blockState, BlockGetter p_52274_, BlockPos p_52275_) {
+    protected static float getGrowthSpeed(BlockState blockState, BlockGetter getter, BlockPos pos) {
         Block p_52273_ = blockState.getBlock();
         float f = 1.0F;
-        BlockPos blockpos = p_52275_.below();
+        BlockPos blockpos = pos.below();
 
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 float f1 = 0.0F;
-                BlockState blockstate = p_52274_.getBlockState(blockpos.offset(i, 0, j));
-                net.neoforged.neoforge.common.util.TriState soilDecision = blockstate.canSustainPlant(p_52274_, blockpos.offset(i, 0, j), net.minecraft.core.Direction.UP, blockState);
+                BlockState blockstate = getter.getBlockState(blockpos.offset(i, 0, j));
+                net.neoforged.neoforge.common.util.TriState soilDecision = blockstate.canSustainPlant(getter, blockpos.offset(i, 0, j), net.minecraft.core.Direction.UP, blockState);
                 if (soilDecision.isDefault() ? blockstate.getBlock() instanceof net.minecraft.world.level.block.FarmBlock : soilDecision.isTrue()) {
                     f1 = 1.0F;
-                    if (blockstate.isFertile(p_52274_, p_52275_.offset(i, 0, j))) {
+                    if (blockstate.isFertile(getter, pos.offset(i, 0, j))) {
                         f1 = 3.0F;
                     }
                 }
@@ -83,19 +82,19 @@ public class SquashStemBlock extends StemBlock {
             }
         }
 
-        BlockPos blockpos1 = p_52275_.north();
-        BlockPos blockpos2 = p_52275_.south();
-        BlockPos blockpos3 = p_52275_.west();
-        BlockPos blockpos4 = p_52275_.east();
-        boolean flag = p_52274_.getBlockState(blockpos3).is(p_52273_) || p_52274_.getBlockState(blockpos4).is(p_52273_);
-        boolean flag1 = p_52274_.getBlockState(blockpos1).is(p_52273_) || p_52274_.getBlockState(blockpos2).is(p_52273_);
+        BlockPos blockpos1 = pos.north();
+        BlockPos blockpos2 = pos.south();
+        BlockPos blockpos3 = pos.west();
+        BlockPos blockpos4 = pos.east();
+        boolean flag = getter.getBlockState(blockpos3).is(p_52273_) || getter.getBlockState(blockpos4).is(p_52273_);
+        boolean flag1 = getter.getBlockState(blockpos1).is(p_52273_) || getter.getBlockState(blockpos2).is(p_52273_);
         if (flag && flag1) {
             f /= 2.0F;
         } else {
-            boolean flag2 = p_52274_.getBlockState(blockpos3.north()).is(p_52273_)
-                    || p_52274_.getBlockState(blockpos4.north()).is(p_52273_)
-                    || p_52274_.getBlockState(blockpos4.south()).is(p_52273_)
-                    || p_52274_.getBlockState(blockpos3.south()).is(p_52273_);
+            boolean flag2 = getter.getBlockState(blockpos3.north()).is(p_52273_)
+                    || getter.getBlockState(blockpos4.north()).is(p_52273_)
+                    || getter.getBlockState(blockpos4.south()).is(p_52273_)
+                    || getter.getBlockState(blockpos3.south()).is(p_52273_);
             if (flag2) {
                 f /= 2.0F;
             }
@@ -104,7 +103,7 @@ public class SquashStemBlock extends StemBlock {
         return f;
     }
 
-    private DeferredBlock<Block> randomizedSquash(){
+    private DeferredBlock<Block> randomizedSquash() {
         return new Random().nextBoolean() ? DABlocks.BLUE_SQUASH : DABlocks.GREEN_SQUASH;
     }
 }

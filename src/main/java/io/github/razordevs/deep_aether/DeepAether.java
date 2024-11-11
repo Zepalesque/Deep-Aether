@@ -1,7 +1,9 @@
 package io.github.razordevs.deep_aether;
 
 
+import com.aetherteam.aether.block.dispenser.AetherDispenseBehaviors;
 import com.aetherteam.aether.entity.AetherEntityTypes;
+import com.aetherteam.aether.item.AetherItems;
 import com.google.common.reflect.Reflection;
 import com.mojang.logging.LogUtils;
 import io.github.razordevs.aeroblender.aether.AetherRuleCategory;
@@ -98,9 +100,7 @@ public class DeepAether {
 	public static final String EMISSIVITY = "aether_emissivity";
 	public static final String PROTECT_YOUR_MOA = "aether_protect_your_moa";
 	public static final String TREASURE_REFORGING = "aether_treasure_reforging";
-
-	public static final Path DIRECTORY = FMLPaths.CONFIGDIR.get().resolve(MODID);
-
+	
 	static Calendar CALENDER = Calendar.getInstance();
 	public static boolean IS_HALLOWEEN = ((CALENDER.get(Calendar.MONTH) == Calendar.OCTOBER && CALENDER.get(Calendar.DAY_OF_MONTH) > 20)
 			|| (CALENDER.get(Calendar.MONTH) == Calendar.NOVEMBER) && CALENDER.get(Calendar.DAY_OF_MONTH) < 10);
@@ -256,6 +256,8 @@ public class DeepAether {
 		DispenserBlock.registerBehavior(Items.POTION, DADispenseBehaviors.WATER_BOTTLE_TO_AETHER_MUD_DISPENSE_BEHAVIOR);
 		DispenserBlock.registerBehavior(DAItems.PLACEABLE_POISON_BUCKET.get(), DADispenseBehaviors.DEEP_AETHER_BUCKET_PICKUP_DISPENSE_BEHAVIOR);
 		DispenserBlock.registerBehavior(DAItems.VIRULENT_QUICKSAND_BUCKET.get(), DADispenseBehaviors.DEEP_AETHER_BUCKET_PICKUP_DISPENSE_BEHAVIOR);
+		DispenserBlock.registerBehavior(DAItems.SKYROOT_VIRULENT_QUICKSAND_BUCKET.get(), AetherDispenseBehaviors.SKYROOT_BUCKET_DISPENSE_BEHAVIOR);
+		DispenserBlock.registerBehavior(AetherItems.SKYROOT_POISON_BUCKET.get(), DADispenseBehaviors.SKYROOT_POISON_BUCKET_DISPENSE_BEHAVIOR);
 	}
 
 	public void addAetherAdditionalResourcesPack(AddPackFindersEvent event) {

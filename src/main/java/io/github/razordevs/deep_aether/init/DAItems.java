@@ -245,6 +245,8 @@ public class DAItems {
 
 	public static void setupBucketReplacements() {
 		SkyrootBucketItem.REPLACEMENTS.put(DAItems.AERGLOW_FISH_BUCKET, DAItems.SKYROOT_AERGLOW_FISH_BUCKET);
+		SkyrootBucketItem.REPLACEMENTS.put(DAItems.VIRULENT_QUICKSAND_BUCKET, DAItems.SKYROOT_VIRULENT_QUICKSAND_BUCKET);
+		SkyrootBucketItem.REPLACEMENTS.put(DAItems.PLACEABLE_POISON_BUCKET, AetherItems.SKYROOT_POISON_BUCKET);
 	}
 
 	private static DeferredItem<Item> registerLCItem(String name, Supplier<Item> item) {

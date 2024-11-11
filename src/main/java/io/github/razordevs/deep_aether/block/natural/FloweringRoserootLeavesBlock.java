@@ -13,6 +13,7 @@ public class FloweringRoserootLeavesBlock extends AetherDoubleDropsLeaves {
     public FloweringRoserootLeavesBlock(Properties properties) {
         super(properties);
     }
+
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         super.animateTick(state, level, pos, random);

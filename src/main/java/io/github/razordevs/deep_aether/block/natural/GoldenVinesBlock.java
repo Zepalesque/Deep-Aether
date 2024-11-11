@@ -108,18 +108,18 @@ public class GoldenVinesBlock extends GrowingPlantHeadBlock implements Bonemeala
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        boolean HasValidHightAndBlock = false;
+        boolean HasValidHeightAndBlock = false;
         Block block;
         for (int i = 1; i < 5; i++) {
             block = level.getBlockState(pos.below(i)).getBlock();
             if (block.defaultBlockState().is(DATags.Blocks.CAN_GOLDEN_VINES_SURVIVE_ON)) {
-                HasValidHightAndBlock = true;
+                HasValidHeightAndBlock = true;
             }
         }
 
         BlockPos blockpos = pos.relative(this.growthDirection.getOpposite());
         BlockState blockstate = level.getBlockState(blockpos);
-        if (!this.canAttachTo(blockstate) || !HasValidHightAndBlock) {
+        if (!this.canAttachTo(blockstate) || !HasValidHeightAndBlock) {
             return false;
         } else {
             return blockstate.is(this.getHeadBlock()) || blockstate.is(this.getBodyBlock()) || blockstate.isFaceSturdy(level, blockpos, this.growthDirection);

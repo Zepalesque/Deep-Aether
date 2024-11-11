@@ -44,6 +44,6 @@ public class TotemBlock extends HorizontalDirectionalBlock {
 
     @Override
     public BlockState mirror(BlockState pState, Mirror pMirror) {
-        return pState.rotate(pMirror.getRotation(pState.getValue(FACING)));
+        return this.rotate(pState, pMirror.getRotation(pState.getValue(FACING)));
     }
 }

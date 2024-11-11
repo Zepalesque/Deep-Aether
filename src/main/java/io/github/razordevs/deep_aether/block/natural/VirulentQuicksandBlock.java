@@ -23,7 +23,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import io.github.razordevs.deep_aether.init.DAItems;
 
 import java.util.Optional;
@@ -33,25 +32,27 @@ public class VirulentQuicksandBlock extends PowderSnowBlock {
         super(properties);
     }
 
+    @Override
     public void onPlace(BlockState blockState, Level level, BlockPos blockPos, BlockState state, boolean b) {
         level.scheduleTick(blockPos, this, this.getDelayAfterPlace());
     }
-    @NotNull
+
+    @Override
     public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState1, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos1) {
         levelAccessor.scheduleTick(blockPos, this, this.getDelayAfterPlace());
         return super.updateShape(blockState, direction, blockState1, levelAccessor, blockPos, blockPos1);
     }
 
-    @SuppressWarnings("SameReturnValue")
     protected int getDelayAfterPlace() {
         return 2;
     }
 
-    public static boolean isFree(BlockState blockState) {;
-        return blockState.isAir() || blockState.is(BlockTags.FIRE) || blockState.liquid() || blockState.canBeReplaced();
+    public static boolean isFree(BlockState blockState) {
+        return blockState.isAir() || blockState.is(BlockTags.FIRE) || !blockState.getFluidState().isEmpty() || blockState.canBeReplaced();
     }
 
-    public void animateTick(@NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos blockPos, RandomSource randomSource) {
+    @Override
+    public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
         if (randomSource.nextInt(16) == 0) {
             BlockPos blockpos = blockPos.below();
             if (isFree(level.getBlockState(blockpos))) {
@@ -74,7 +75,7 @@ public class VirulentQuicksandBlock extends PowderSnowBlock {
                 RandomSource randomsource = level.getRandom();
                 boolean flag = entity.xOld != entity.getX() || entity.zOld != entity.getZ();
                 if (flag && randomsource.nextBoolean()) {
-                    level.addParticle(ParticleTypes.ASH, entity.getX(), pos.getY() + 1, entity.getZ(), Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F, (double) 0.05F, (double) (Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
+                    level.addParticle(ParticleTypes.ASH, entity.getX(), pos.getY() + 1, entity.getZ(), Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F, 0.05F, Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F);
                 }
             }
         }
@@ -85,7 +86,7 @@ public class VirulentQuicksandBlock extends PowderSnowBlock {
 
 
     @Override
-    public ItemStack pickupBlock(Player player, LevelAccessor accessor, @NotNull BlockPos pos, @NotNull BlockState blockState) {
+    public ItemStack pickupBlock(Player player, LevelAccessor accessor, BlockPos pos, BlockState blockState) {
         accessor.setBlock(pos, Blocks.AIR.defaultBlockState(), 11);
         if (!accessor.isClientSide()) {
             accessor.levelEvent(2001, pos, Block.getId(blockState));
@@ -94,21 +95,23 @@ public class VirulentQuicksandBlock extends PowderSnowBlock {
         return new ItemStack(DAItems.VIRULENT_QUICKSAND_BUCKET.get());
     }
 
-    public boolean skipRendering(@NotNull BlockState blockState, BlockState blockState1, @NotNull Direction direction) {
+    @Override
+    public boolean skipRendering(BlockState blockState, BlockState blockState1, Direction direction) {
         return blockState1.is(this) || super.skipRendering(blockState, blockState1, direction);
     }
 
-    public @NotNull VoxelShape getOcclusionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
-        return Shapes.empty();
-    }
-
-
-    public @NotNull VoxelShape getVisualShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, CollisionContext context) {
+    @Override
+    public VoxelShape getOcclusionShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos) {
         return Shapes.empty();
     }
 
     @Override
-    public @NotNull Optional<SoundEvent> getPickupSound() {
+    public VoxelShape getVisualShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext context) {
+        return Shapes.empty();
+    }
+
+    @Override
+    public Optional<SoundEvent> getPickupSound() {
         return Optional.of(SoundEvents.SAND_BREAK);
     }
 

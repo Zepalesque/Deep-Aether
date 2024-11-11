@@ -9,8 +9,8 @@ import net.neoforged.neoforge.common.ItemAbility;
 import org.jetbrains.annotations.Nullable;
 
 public class AetherCoarseDirtBlock extends AetherDoubleDropBlock {
-    public AetherCoarseDirtBlock(Properties p_49795_) {
-        super(p_49795_);
+    public AetherCoarseDirtBlock(Properties properties) {
+        super(properties);
     }
 
     @Override

@@ -22,8 +22,6 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.neoforged.neoforge.event.EventHooks;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class DrinkableBucketItem extends BucketItem implements ConsumableItem {
     boolean CAN_CONSUME = false;
@@ -43,7 +41,8 @@ public class DrinkableBucketItem extends BucketItem implements ConsumableItem {
         else return stack;
     }
 
-    public int getUseDuration(ItemStack stack) {
+    @Override
+    public int getUseDuration(ItemStack stack, LivingEntity livingEntity) {
         return 32;
     }
 
@@ -68,14 +67,11 @@ public class DrinkableBucketItem extends BucketItem implements ConsumableItem {
             if (world.mayInteract(player, blockpos) && player.mayUseItemAt(blockpos1, direction, itemstack)) {
                 if (this.content == Fluids.EMPTY) {
                     BlockState blockstate1 = world.getBlockState(blockpos);
-                    if (blockstate1.getBlock() instanceof BucketPickup) {
-                        BucketPickup bucketpickup = (BucketPickup)blockstate1.getBlock();
+                    if (blockstate1.getBlock() instanceof BucketPickup bucketpickup) {
                         ItemStack itemstack1 = bucketpickup.pickupBlock(player, world, blockpos, blockstate1);
                         if (!itemstack1.isEmpty()) {
                             player.awardStat(Stats.ITEM_USED.get(this));
-                            bucketpickup.getPickupSound(blockstate1).ifPresent((p_150709_) -> {
-                                player.playSound(p_150709_, 1.0F, 1.0F);
-                            });
+                            bucketpickup.getPickupSound(blockstate1).ifPresent((p_150709_) -> player.playSound(p_150709_, 1.0F, 1.0F));
                             world.gameEvent(player, GameEvent.FLUID_PICKUP, blockpos);
                             ItemStack itemstack2 = ItemUtils.createFilledResult(itemstack, player, itemstack1);
                             if (!world.isClientSide) {

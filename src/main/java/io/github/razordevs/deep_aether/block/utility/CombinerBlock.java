@@ -1,6 +1,5 @@
 package io.github.razordevs.deep_aether.block.utility;
 
-import com.aetherteam.aether.block.AetherBlockStateProperties;
 import com.mojang.serialization.MapCodec;
 import io.github.razordevs.deep_aether.entity.block.CombinerBlockEntity;
 import io.github.razordevs.deep_aether.init.DABlockEntityTypes;
@@ -18,12 +17,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.Property;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import org.jetbrains.annotations.Nullable;
 
 public class CombinerBlock extends AbstractFurnaceBlock {
-
     public static final MapCodec<CombinerBlock> CODEC = simpleCodec(CombinerBlock::new);
     public static final BooleanProperty CHARGING = DABlockStateProperties.COMBINER_CHARGING;
     public static final BooleanProperty COMBINING = DABlockStateProperties.COMBINER_COMBINING;
@@ -76,12 +73,6 @@ public class CombinerBlock extends AbstractFurnaceBlock {
     protected static <T extends BlockEntity> BlockEntityTicker<T> createTicker(Level level, BlockEntityType<T> serverType, BlockEntityType<? extends CombinerBlockEntity> clientType) {
         return level.isClientSide() ? null : createTickerHelper(serverType, clientType, CombinerBlockEntity::serverTick);
     }
-
-
-//    @Override
-//    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-//        builder.add(FACING, CHARGING, COMBINING);
-//    }
 
     @Nullable
     @Override

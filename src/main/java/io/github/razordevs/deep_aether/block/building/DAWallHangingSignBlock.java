@@ -14,6 +14,7 @@ public class DAWallHangingSignBlock extends WallHangingSignBlock {
         super(woodType, properties);
     }
 
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new DAHangingSignBlockEntity(pos, state);
     }

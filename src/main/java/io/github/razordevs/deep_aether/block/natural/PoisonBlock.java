@@ -23,14 +23,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.LiquidBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FlowingFluid;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
-import net.neoforged.neoforge.registries.DeferredHolder;
-
-import java.util.Properties;
 
 public class PoisonBlock extends LiquidBlock {
-
     public PoisonBlock(FlowingFluid deferredHolder, Properties properties) {
         super(deferredHolder, properties);
     }
@@ -59,19 +54,21 @@ public class PoisonBlock extends LiquidBlock {
         super.animateTick(blockState, level, blockPos, randomSource);
     }
 
-
-
     //Used as a timer, to indicate when the position recipe is finished.
-    boolean COUNT = false;
-    int TIME = 0;
+    boolean count = false;
+    int time = 0;
+
+    @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (COUNT && TIME < 200) {
-            TIME += 1;
+        if (count && time < 200) {
+            time += 1;
         } else {
-            TIME = 0;
-            COUNT = false;
+            time = 0;
+            count = false;
         }
     }
+
+    @Override
     public boolean isRandomlyTicking(BlockState state) {
         return true;
     }
@@ -103,7 +100,7 @@ public class PoisonBlock extends LiquidBlock {
                         TRANSFORM_ITEM = recipe.value().getResult().getItem();
 
                         //Starts the timer in the randomTick function.
-                        COUNT = true;
+                        this.count = true;
                     }
                 }
             }
@@ -123,10 +120,10 @@ public class PoisonBlock extends LiquidBlock {
             }
 
             //Converts the ingredient when enough time has passed and the entity still is alive.
-            if ((TIME > 2) && itemEntity.isAlive()) {
+            if ((time > 2) && itemEntity.isAlive()) {
 
                 //Stops the timer
-                COUNT = false;
+                this.count = false;
                 //Grants the "Purple Magic" advancement.
                 if (itemEntity.getOwner() instanceof ServerPlayer player) {
                     PoisonTrigger.INSTANCE.trigger(player, itemEntity.getItem());

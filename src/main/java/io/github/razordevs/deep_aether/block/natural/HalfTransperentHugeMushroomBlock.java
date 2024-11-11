@@ -5,9 +5,8 @@ import net.minecraft.world.level.block.HugeMushroomBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class HalfTransperentHugeMushroomBlock extends HugeMushroomBlock {
-
-    public HalfTransperentHugeMushroomBlock(Properties p_54136_) {
-        super(p_54136_);
+    public HalfTransperentHugeMushroomBlock(Properties properties) {
+        super(properties);
     }
 
     @Override

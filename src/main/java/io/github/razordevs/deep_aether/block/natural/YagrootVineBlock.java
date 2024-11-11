@@ -20,9 +20,9 @@ public class YagrootVineBlock extends VineBlock {
         this.registerDefaultState(this.stateDefinition.any().setValue(BOTTOM, false).setValue(UP, false).setValue(NORTH, false).setValue(EAST, false).setValue(SOUTH, false).setValue(WEST, false));
     }
 
-    public BlockState updateShape(BlockState state, Direction direction, BlockState p_57877_, LevelAccessor level, BlockPos pos, BlockPos p_57880_) {
+    @Override
+    public BlockState updateShape(BlockState state, Direction direction, BlockState p_57877_, LevelAccessor level, BlockPos pos, BlockPos update) {
         boolean isBottom = !level.getBlockState(pos.below()).is(this);
-
 
         if (direction == Direction.DOWN) {
             return state.setValue(YagrootVineBlock.BOTTOM, isBottom);
@@ -46,5 +46,4 @@ public class YagrootVineBlock extends VineBlock {
             return state.setValue(BOTTOM, isBottom);
         else return null;
     }
-
 }

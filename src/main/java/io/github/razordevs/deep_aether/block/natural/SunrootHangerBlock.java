@@ -23,6 +23,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 public class SunrootHangerBlock extends Block {
     protected static final VoxelShape SHAPE = Block.box(4.0D, 0.0D, 4.0D, 12.0D, 16.0D, 12.0D);
     public static final BooleanProperty BOTTOM = BlockStateProperties.BOTTOM;
+
     public SunrootHangerBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(BOTTOM, false));
@@ -31,8 +32,6 @@ public class SunrootHangerBlock extends Block {
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> state) {
         state.add(BOTTOM);
     }
-
-
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {

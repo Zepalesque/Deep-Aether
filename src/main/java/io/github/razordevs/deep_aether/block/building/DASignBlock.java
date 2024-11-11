@@ -15,6 +15,7 @@ public class DASignBlock extends StandingSignBlock {
         super(woodType, properties);
     }
 
+    @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         return new DASignBlockEntity(pos, state);
     }
