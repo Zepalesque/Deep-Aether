@@ -1,6 +1,6 @@
 package io.github.razordevs.deep_aether.world.feature.tree;
 
-import io.github.razordevs.deep_aether.datagen.world.DAConfiguredFeatures;
+import io.github.razordevs.deep_aether.datagen.registry.DAConfiguredFeatures;
 import net.minecraft.world.level.block.grower.TreeGrower;
 
 import java.util.Optional;

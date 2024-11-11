@@ -1,6 +1,7 @@
 package io.github.razordevs.deep_aether.datagen.builder;
 
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
+import io.github.razordevs.deep_aether.item.component.MoaFodder;
 import io.github.razordevs.deep_aether.recipe.DABookCategory;
 import io.github.razordevs.deep_aether.recipe.combiner.CombinerRecipe;
 import net.minecraft.advancements.Advancement;
@@ -25,8 +26,6 @@ import java.util.Objects;
 
 public class CombiningRecipeBuilder implements RecipeBuilder {
     private final DABookCategory category;
-    private final Item result;
-    private final int count;
     private final ItemStack resultStack;
     private final NonNullList<Ingredient> ingredients;
     private final Map<String, Criterion<?>> criteria;
@@ -35,18 +34,14 @@ public class CombiningRecipeBuilder implements RecipeBuilder {
     private final float experience;
     private final int processingTime;
 
-    private static int i = 0;
-
     public CombiningRecipeBuilder(DABookCategory category, ItemLike itemLike, int count, float experience, int processingTime) {
         this(category, new ItemStack(itemLike, count), experience, processingTime);
     }
 
     public CombiningRecipeBuilder(DABookCategory category, ItemStack result, float experience, int processingTime) {
         this.ingredients = NonNullList.create();
-        this.criteria = new LinkedHashMap();
+        this.criteria = new LinkedHashMap<>();
         this.category = category;
-        this.result = result.getItem();
-        this.count = result.getCount();
         this.resultStack = result;
         this.experience = experience;
         this.processingTime = processingTime;
@@ -60,6 +55,7 @@ public class CombiningRecipeBuilder implements RecipeBuilder {
         return new CombiningRecipeBuilder(category, result, experience, processingTime);
     }
 
+    @SuppressWarnings("unused")
     public CombiningRecipeBuilder requires(TagKey<Item> item) {
         return this.requires(Ingredient.of(item));
     }
@@ -87,23 +83,28 @@ public class CombiningRecipeBuilder implements RecipeBuilder {
         return this;
     }
 
+    @Override
     public CombiningRecipeBuilder unlockedBy(String string, Criterion<?> criterion) {
         this.criteria.put(string, criterion);
         return this;
     }
 
+    @Override
     public CombiningRecipeBuilder group(@Nullable String group) {
         this.group = group;
         return this;
     }
 
+    @Override
     public Item getResult() {
-        return this.result;
+        return resultStack.getItem();
     }
 
     public void save(RecipeOutput output, ResourceLocation location) {
-        if(location.toString().contains("moa_fodder") && resultStack.get(DADataComponentTypes.MOA_FODDER) != null)
-                location = location.withSuffix("_" + resultStack.get(DADataComponentTypes.MOA_FODDER).effect().getDescriptionId().replaceAll("effect.", ""));
+        MoaFodder fodder = resultStack.get(DADataComponentTypes.MOA_FODDER);
+
+        if(location.toString().contains("moa_fodder") && fodder != null)
+                location = location.withSuffix("_" + fodder.effect().getDescriptionId().replaceAll("effect.", ""));
 
         this.ensureValid(location);
         Advancement.Builder advancement$builder = output.advancement().addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(location)).rewards(AdvancementRewards.Builder.recipe(location)).requirements(AdvancementRequirements.Strategy.OR);
@@ -114,7 +115,7 @@ public class CombiningRecipeBuilder implements RecipeBuilder {
 
     private void ensureValid(ResourceLocation location) {
         if (this.criteria.isEmpty()) {
-            throw new IllegalStateException("No way of obtaining recipe " + String.valueOf(location));
+            throw new IllegalStateException("No way of obtaining recipe " + location);
         }
     }
 }

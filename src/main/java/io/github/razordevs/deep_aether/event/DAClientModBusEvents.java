@@ -12,7 +12,6 @@ import io.github.razordevs.deep_aether.client.particle.*;
 import io.github.razordevs.deep_aether.client.renderer.accessory.FloatyScarfRenderer;
 import io.github.razordevs.deep_aether.client.renderer.accessory.SkyjadeGlovesRenderer;
 import io.github.razordevs.deep_aether.client.renderer.accessory.WindShieldRenderer;
-import io.github.razordevs.deep_aether.particle.*;
 import io.github.razordevs.deep_aether.fluids.DAFluidTypes;
 import io.github.razordevs.deep_aether.init.*;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;

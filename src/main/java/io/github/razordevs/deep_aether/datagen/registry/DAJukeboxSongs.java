@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.datagen;
+package io.github.razordevs.deep_aether.datagen.registry;
 
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.init.DASounds;
@@ -11,7 +11,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.JukeboxSong;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
 public class DAJukeboxSongs {
     public static ResourceKey<JukeboxSong> NABOORU = create("nabooru");

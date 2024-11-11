@@ -1,7 +1,6 @@
-package io.github.razordevs.deep_aether.datagen;
+package io.github.razordevs.deep_aether.datagen.registry;
 
 import com.aetherteam.aether.AetherTags;
-import com.aetherteam.aether.inventory.AetherAccessorySlots;
 import io.github.razordevs.deep_aether.DeepAether;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;

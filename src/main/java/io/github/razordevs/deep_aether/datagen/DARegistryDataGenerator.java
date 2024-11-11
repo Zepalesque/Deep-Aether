@@ -1,10 +1,12 @@
 package io.github.razordevs.deep_aether.datagen;
 
 import io.github.razordevs.deep_aether.DeepAether;
-import io.github.razordevs.deep_aether.datagen.structure.DAStructures;
-import io.github.razordevs.deep_aether.datagen.structure.DAStrucutreSets;
-import io.github.razordevs.deep_aether.datagen.world.DAConfiguredFeatures;
-import io.github.razordevs.deep_aether.datagen.world.DAPlacedFeatures;
+import io.github.razordevs.deep_aether.datagen.registry.DAEnchantments;
+import io.github.razordevs.deep_aether.datagen.registry.DAJukeboxSongs;
+import io.github.razordevs.deep_aether.datagen.registry.structure.DAStructures;
+import io.github.razordevs.deep_aether.datagen.registry.structure.DAStrucutreSets;
+import io.github.razordevs.deep_aether.datagen.registry.DAConfiguredFeatures;
+import io.github.razordevs.deep_aether.datagen.registry.DAPlacedFeatures;
 import io.github.razordevs.deep_aether.world.structure.DAStructureProcessorLists;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;

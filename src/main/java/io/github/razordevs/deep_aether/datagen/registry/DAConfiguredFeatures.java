@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.datagen.world;
+package io.github.razordevs.deep_aether.datagen.registry;
 
 
 import com.aetherteam.aether.block.AetherBlockStateProperties;

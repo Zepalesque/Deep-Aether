@@ -6,7 +6,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.random.WeightedEntry;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -18,9 +17,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.function.Supplier;
 
-/**
- * Same as {@link DAFishingLootModifier}, but the loot can't replace existing loot items
- */
 public class DAFishingLootModifier extends LootModifier {
 
     public static final Supplier<MapCodec<DAFishingLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(inst -> codecStart(inst)
@@ -46,11 +42,9 @@ public class DAFishingLootModifier extends LootModifier {
             if(context.getRandom().nextFloat() > chance) {
 
                 int itemNum = context.getRandom().nextInt(totalWeight);
-                int total = 0;
                 ItemStack modifiedStack = null;
 
                 for (WeightedEntry.Wrapper<ItemStack> stack : items) {
-                    total+=stack.getWeight().asInt();
                     if (stack.getWeight().asInt() >= itemNum) {
                         modifiedStack = stack.data();
                         break;

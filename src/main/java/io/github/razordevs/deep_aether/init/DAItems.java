@@ -10,7 +10,7 @@ import com.aetherteam.aether.item.components.AetherDataComponents;
 import com.aetherteam.aether.item.components.DungeonKind;
 import com.aetherteam.aether.item.miscellaneous.bucket.SkyrootBucketItem;
 import io.github.razordevs.deep_aether.DeepAether;
-import io.github.razordevs.deep_aether.datagen.DAJukeboxSongs;
+import io.github.razordevs.deep_aether.datagen.registry.DAJukeboxSongs;
 import io.github.razordevs.deep_aether.entity.DABoatEntity;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
 import io.github.razordevs.deep_aether.item.component.FloatyScarf;

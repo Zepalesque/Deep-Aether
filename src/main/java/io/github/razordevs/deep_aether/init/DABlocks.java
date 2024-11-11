@@ -18,7 +18,7 @@ import io.github.razordevs.deep_aether.block.misc.*;
 import io.github.razordevs.deep_aether.block.natural.*;
 import io.github.razordevs.deep_aether.block.utility.CombinerBlock;
 import io.github.razordevs.deep_aether.block.utility.PoisonCauldronBlock;
-import io.github.razordevs.deep_aether.datagen.world.DAConfiguredFeatures;
+import io.github.razordevs.deep_aether.datagen.registry.DAConfiguredFeatures;
 import io.github.razordevs.deep_aether.world.feature.tree.DATreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;

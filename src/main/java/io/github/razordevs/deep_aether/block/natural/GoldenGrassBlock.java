@@ -1,7 +1,7 @@
 package io.github.razordevs.deep_aether.block.natural;
 
 import com.aetherteam.aether.block.natural.AetherGrassBlock;
-import io.github.razordevs.deep_aether.datagen.world.DAPlacedFeatures;
+import io.github.razordevs.deep_aether.datagen.registry.DAPlacedFeatures;
 import io.github.razordevs.deep_aether.init.DABlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;

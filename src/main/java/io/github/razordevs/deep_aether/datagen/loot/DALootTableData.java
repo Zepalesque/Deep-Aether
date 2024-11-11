@@ -24,7 +24,6 @@ public class DALootTableData extends LootTableProvider {
 
     @Override
     protected void validate(WritableRegistry<LootTable> writableregistry, ValidationContext validationcontext, ProblemReporter.Collector problemreporter$collector) {
-
     }
 }
 

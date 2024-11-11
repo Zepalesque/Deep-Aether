@@ -17,9 +17,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.function.Supplier;
 
-/**
- * Same as {@link DAAddDungeonLootModifier}, but the loot can't replace existing loot items
- */
 public class DAAddDungeonLootModifier extends LootModifier {
 
     public static final Supplier<MapCodec<DAAddDungeonLootModifier>> CODEC = Suppliers.memoize(() -> RecordCodecBuilder.mapCodec(inst -> codecStart(inst)
@@ -43,8 +40,8 @@ public class DAAddDungeonLootModifier extends LootModifier {
     protected @NotNull ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
         RandomSource random = context.getRandom();
             if(random.nextFloat() > chance) {
-                // if the loot is not full, for each slot remaining, have x chance to add one of our item in the empty slots
 
+                // if the loot is not full, for each slot remaining, have x chance to add one of our item in the empty slots
                 for (WeightedEntry.Wrapper<ItemStack> stack : items) {
                     if (random.nextInt(totalWeight) <= stack.getWeight().asInt()) {
                         generatedLoot.add(stack.data());

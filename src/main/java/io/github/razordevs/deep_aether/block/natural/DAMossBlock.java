@@ -2,7 +2,7 @@ package io.github.razordevs.deep_aether.block.natural;
 
 import com.aetherteam.aether.block.AetherBlockStateProperties;
 import com.aetherteam.aether.block.natural.AetherDoubleDropBlock;
-import io.github.razordevs.deep_aether.datagen.world.DAConfiguredFeatures;
+import io.github.razordevs.deep_aether.datagen.registry.DAConfiguredFeatures;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;

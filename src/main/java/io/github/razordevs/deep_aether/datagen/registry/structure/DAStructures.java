@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.datagen.structure;
+package io.github.razordevs.deep_aether.datagen.registry.structure;
 
 import com.aetherteam.aether.data.resources.builders.AetherStructureBuilders;
 import io.github.razordevs.deep_aether.DeepAether;
