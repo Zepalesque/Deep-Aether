@@ -37,6 +37,7 @@ public class WindShieldRenderer implements AccessoryRenderer {
         this.shieldModelArm = new HumanoidModel<>(Minecraft.getInstance().getEntityModels().bakeLayer(DAModelLayers.WIND_SHIELD_ARM));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <M extends LivingEntity> void render(ItemStack stack, SlotReference reference, PoseStack poseStack, EntityModel<M> entityModel, MultiBufferSource buffer, int packedLight, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         LivingEntity livingEntity = reference.entity();

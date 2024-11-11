@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.custom;
+package io.github.razordevs.deep_aether.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -22,6 +22,7 @@ public class LuckParticle extends SimpleAnimatedParticle {
         this.setSpriteFromAge(spriteSet);
     }
 
+    @Override
     public void move(double x, double y, double z) {
         this.setBoundingBox(this.getBoundingBox().move(x, y, z));
         this.setLocationFromBoundingbox();

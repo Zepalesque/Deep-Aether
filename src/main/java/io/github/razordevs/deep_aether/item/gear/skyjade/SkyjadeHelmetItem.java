@@ -1,7 +1,7 @@
 package io.github.razordevs.deep_aether.item.gear.skyjade;
 
 import com.aetherteam.nitrogen.attachment.INBTSynchable;
-import io.github.razordevs.deep_aether.client.keys.DeepAetherKeys;
+import io.github.razordevs.deep_aether.client.DeepAetherKeys;
 import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
 import io.github.razordevs.deep_aether.networking.attachment.DAAttachments;
 import io.github.razordevs.deep_aether.networking.attachment.DAPlayerAttachment;

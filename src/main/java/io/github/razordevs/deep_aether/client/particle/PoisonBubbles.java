@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.custom;
+package io.github.razordevs.deep_aether.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
@@ -21,11 +21,12 @@ public class PoisonBubbles extends TextureSheetParticle {
         this.lifetime = (int)(10.0D / (Math.random() * 0.8D + 0.2D));
     }
 
+    @Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
-
+    @Override
     public void tick() {
         this.setSpriteFromAge(Provider.sprite);
         super.tick();
@@ -36,12 +37,12 @@ public class PoisonBubbles extends TextureSheetParticle {
         protected static SpriteSet sprite = null;
 
         public Provider(SpriteSet spriteSet) {
-            this.sprite = spriteSet;
+            sprite = spriteSet;
         }
 
         public Particle createParticle(SimpleParticleType particleType, ClientLevel clientLevel, double v, double v1, double v2, double v3, double v4, double v5) {
             PoisonBubbles poisonBubbles = new PoisonBubbles(clientLevel, v, v1, v2, v3, v4, v5);
-            poisonBubbles.setSpriteFromAge(this.sprite);
+            poisonBubbles.setSpriteFromAge(sprite);
             return poisonBubbles;
         }
     }

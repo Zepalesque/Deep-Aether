@@ -15,9 +15,6 @@ public class StormArrowRenderer extends ArrowRenderer<StormArrow> {
         super(pContext);
     }
 
-    /**
-     * Returns the location of an entity's texture.
-     */
     public ResourceLocation getTextureLocation(StormArrow pEntity) {
         return SPECTRAL_ARROW_LOCATION;
     }

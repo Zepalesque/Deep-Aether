@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.custom;
+package io.github.razordevs.deep_aether.client.particle;
 
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
@@ -21,6 +21,7 @@ public class EOTSPreFightParticle extends TextureSheetParticle {
         this.count = 2.5f;
     }
 
+    @Override
     public void tick() {
         if (this.age++ >= this.lifetime) {
             this.remove();
@@ -43,6 +44,7 @@ public class EOTSPreFightParticle extends TextureSheetParticle {
         this.move(xd, yd, zd);
     }
 
+    @Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }

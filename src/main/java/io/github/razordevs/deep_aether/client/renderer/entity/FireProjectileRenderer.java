@@ -15,7 +15,7 @@ import org.joml.Matrix4f;
 
 public class FireProjectileRenderer extends EntityRenderer<FireProjectile> {
     public static final ResourceLocation FIRE_PROJECTILE_TEXTURE = ResourceLocation.withDefaultNamespace("textures/item/fire_charge.png");
-            //ResourceLocation.fromNamespaceAndPath(DeepAetherMod.MODID, "textures/item/sun_core.png");
+
     public FireProjectileRenderer(EntityRendererProvider.Context context) {
         super(context);
         this.shadowRadius = 0.0F;
@@ -33,7 +33,6 @@ public class FireProjectileRenderer extends EntityRenderer<FireProjectile> {
         VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutout(this.getTextureLocation(hammer)));
         PoseStack.Pose pose = poseStack.last();
         Matrix4f matrix4f = pose.pose();
-        Matrix3f matrix3f = pose.normal();
         vertex(consumer, matrix4f, poseStack, packedLight, 0.0F, 0.0F, 0.0F, 1.0F);
         vertex(consumer, matrix4f, poseStack, packedLight, 1.0F, 0.0F, 1.0F, 1.0F);
         vertex(consumer, matrix4f, poseStack, packedLight, 1.0F, 1.0F, 1.0F, 0.0F);

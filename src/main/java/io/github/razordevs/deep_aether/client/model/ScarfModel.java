@@ -32,11 +32,6 @@ public class ScarfModel extends HumanoidModel<LivingEntity> {
     }
 
     @Override
-    protected Iterable<ModelPart> headParts() {
-        return ImmutableList.of(this.head);
-    }
-
-    @Override
     protected Iterable<ModelPart> bodyParts() {
         return ImmutableList.of();
     }

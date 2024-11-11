@@ -62,7 +62,6 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.fml.loading.FMLPaths;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
@@ -100,7 +99,7 @@ public class DeepAether {
 	public static final String EMISSIVITY = "aether_emissivity";
 	public static final String PROTECT_YOUR_MOA = "aether_protect_your_moa";
 	public static final String TREASURE_REFORGING = "aether_treasure_reforging";
-	
+
 	static Calendar CALENDER = Calendar.getInstance();
 	public static boolean IS_HALLOWEEN = ((CALENDER.get(Calendar.MONTH) == Calendar.OCTOBER && CALENDER.get(Calendar.DAY_OF_MONTH) > 20)
 			|| (CALENDER.get(Calendar.MONTH) == Calendar.NOVEMBER) && CALENDER.get(Calendar.DAY_OF_MONTH) < 10);

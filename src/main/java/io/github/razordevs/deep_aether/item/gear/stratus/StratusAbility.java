@@ -13,7 +13,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import io.github.razordevs.deep_aether.client.keys.DeepAetherKeys;
+import io.github.razordevs.deep_aether.client.DeepAetherKeys;
 import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
 
 public class StratusAbility extends ArmorItem {

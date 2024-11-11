@@ -10,7 +10,6 @@ import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
 public class WindflyRenderer extends MobRenderer<Windfly, WindflyModel> {
-
     public WindflyRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new WindflyModel(renderManager.bakeLayer(DAModelLayers.WINDFLY)), 0.5f);
     }

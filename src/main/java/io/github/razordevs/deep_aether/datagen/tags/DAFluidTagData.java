@@ -23,7 +23,6 @@ public class DAFluidTagData extends FluidTagsProvider {
         return "Deep Aether Fluid Tags";
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void addTags(HolderLookup.Provider p_256380_) {
         tag(DATags.Fluids.POISON).add(

@@ -14,7 +14,6 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class EOTSSegmentModel extends HierarchicalModel<EOTSSegment> {
-
     private final ModelPart body;
     private final ModelPart head;
     private final ModelPart bb_main;

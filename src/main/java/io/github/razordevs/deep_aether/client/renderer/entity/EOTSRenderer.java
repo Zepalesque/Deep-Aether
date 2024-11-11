@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class EOTSRenderer extends MobRenderer<EOTSController, EOTSModel> {
-
     public EOTSRenderer(EntityRendererProvider.Context renderManager) {
         super(renderManager, new EOTSModel(renderManager.bakeLayer(DAModelLayers.EOTS_CONTROLLER)), 0f);
     }

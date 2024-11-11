@@ -1,27 +1,20 @@
 package io.github.razordevs.deep_aether.client.model;// Made with Blockbench 4.5.2
-// Exported for Minecraft version 1.17 - 1.18 with Mojang mappings
-// Paste this class into your mod and generate all required imports
-
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import io.github.razordevs.deep_aether.DeepAether;
+import io.github.razordevs.deep_aether.entity.living.AerglowFish;
 import net.minecraft.client.model.EntityModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 
-public class AerglowFishModel<T extends Entity> extends EntityModel<T> {
-	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "aether_fish_model"), "main");
+public class AerglowFishModel extends EntityModel<AerglowFish> {
 	private final ModelPart body;
 	private final ModelPart head;
 	private final ModelPart fin_left;
 	private final ModelPart fin_right;
+
 	public AerglowFishModel(ModelPart root) {
 		this.body = root.getChild("body");
 		this.head = root.getChild("head");
@@ -46,15 +39,15 @@ public class AerglowFishModel<T extends Entity> extends EntityModel<T> {
 
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
-	public void setupAnim(T p_103640_, float p_103641_, float p_103642_, float p_103643_, float p_103644_, float p_103645_) {
+	public void setupAnim(AerglowFish entity, float pLimbSwing, float pLimbSwingAmount, float pAgeInTicks, float pNetHeadYaw, float pHeadPitch) {
 		float f = 1.0F;
 		float f1 = 1.0F;
-		if (!p_103640_.isInWater()) {
+		if (!entity.isInWater()) {
 			f = 1.3F;
 			f1 = 1.7F;
 		}
 
-		this.body.yRot = -f * 0.25F * Mth.sin(f1 * 0.6F * p_103643_);
+		this.body.yRot = -f * 0.25F * Mth.sin(f1 * 0.6F * pAgeInTicks);
 	}
 
 	@Override
@@ -64,6 +57,4 @@ public class AerglowFishModel<T extends Entity> extends EntityModel<T> {
 		fin_left.render(poseStack, buffer, packedLight, packedOverlay, color);
 		fin_right.render(poseStack, buffer, packedLight, packedOverlay, color);
 	}
-
-
 }

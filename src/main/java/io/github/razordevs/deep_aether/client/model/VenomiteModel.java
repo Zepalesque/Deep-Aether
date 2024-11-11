@@ -10,7 +10,6 @@ import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
 public class VenomiteModel extends EntityModel<Venomite> {
-
     private final ModelPart head;
     private final ModelPart body;
     private final ModelPart wingsfront;

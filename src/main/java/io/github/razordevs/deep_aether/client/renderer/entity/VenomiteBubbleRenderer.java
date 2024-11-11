@@ -32,7 +32,6 @@ public class VenomiteBubbleRenderer extends EntityRenderer<VenomiteBubble> {
 		return LOCATION;
 	}
 
-
 	@Override
 	public void render(VenomiteBubble venomiteBubble, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
 		poseStack.pushPose();

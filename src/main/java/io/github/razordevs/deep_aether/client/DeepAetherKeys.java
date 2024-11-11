@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.client.keys;
+package io.github.razordevs.deep_aether.client;
 
 import io.github.razordevs.deep_aether.DeepAether;
 import net.minecraft.client.KeyMapping;

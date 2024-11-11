@@ -10,23 +10,20 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
-public class AetherFishRenderer extends MobRenderer<AerglowFish, AerglowFishModel<AerglowFish>> {
+public class AetherFishRenderer extends MobRenderer<AerglowFish, AerglowFishModel> {
 	private static final ResourceLocation AERGLOW_FISH_LOCATION = ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "textures/entity/aerglow_fish.png");
 
 	public AetherFishRenderer(EntityRendererProvider.Context renderer) {
-		super(renderer, new AerglowFishModel<>(renderer.bakeLayer(DAModelLayers.AERGLOW_FISH)), 0.4F);
+		super(renderer, new AerglowFishModel(renderer.bakeLayer(DAModelLayers.AERGLOW_FISH)), 0.4F);
 	}
 
 	public ResourceLocation getTextureLocation(AerglowFish fish) {
 		return AERGLOW_FISH_LOCATION;
 	}
 
-	protected void setupRotations(AerglowFish fish, PoseStack pose, float p_115830_, float p_115831_, float p_115832_, float scale) {
-		super.setupRotations(fish, pose, p_115830_, p_115831_, p_115832_, scale);
+	protected void setupRotations(AerglowFish fish, PoseStack pose, float ageInTicks, float rotationYaw, float partialTicks, float scale) {
+		super.setupRotations(fish, pose, ageInTicks, rotationYaw, partialTicks, scale);
 		float f = 1.0F;
 		float f1 = 1.0F;
 		if (!fish.isInWater()) {
@@ -34,13 +31,12 @@ public class AetherFishRenderer extends MobRenderer<AerglowFish, AerglowFishMode
 			f1 = 1.7F;
 		}
 
-		float f2 = f * 4.3F * Mth.sin(f1 * 0.6F * p_115830_);
+		float f2 = f * 4.3F * Mth.sin(f1 * 0.6F * ageInTicks);
 		pose.mulPose(Axis.YP.rotationDegrees(f2));
 		pose.translate(0.0F, 0.0F, -0.4F);
 		if (!fish.isInWater()) {
 			pose.translate(0.2F, 0.1F, 0.0F);
 			pose.mulPose(Axis.ZP.rotationDegrees(90.0F));
 		}
-
 	}
 }

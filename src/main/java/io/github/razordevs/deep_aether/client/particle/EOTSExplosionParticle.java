@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.custom;
+package io.github.razordevs.deep_aether.client.particle;
 
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
@@ -7,14 +7,23 @@ import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 
 public class EOTSExplosionParticle extends SimpleAnimatedParticle {
-
     float yDegrees = 0;
+
+    protected EOTSExplosionParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, SpriteSet pSprites) {
+        super(pLevel, pX, pY+0.1, pZ, pSprites, 0.0F);
+        this.xd = pXSpeed;
+        this.yd = pYSpeed;
+        this.zd = pZSpeed;
+        this.lifetime = 50;
+        this.setFadeColor(15916745);
+        this.setSpriteFromAge(pSprites);
+        this.setSize(0.1F, 0.1F);
+    }
+
     SingleQuadParticle.FacingCameraMode NO_CAMERA_ROTATION_DOWNWARDS_ROTATING = (quaternionf, camera, partialTicks) -> {
         yDegrees+= partialTicks;
         yDegrees = Mth.wrapDegrees(yDegrees);
@@ -36,18 +45,6 @@ public class EOTSExplosionParticle extends SimpleAnimatedParticle {
         }
     };
 
-
-    protected EOTSExplosionParticle(ClientLevel pLevel, double pX, double pY, double pZ, double pXSpeed, double pYSpeed, double pZSpeed, SpriteSet pSprites) {
-        super(pLevel, pX, pY+0.1, pZ, pSprites, 0.0F);
-        this.xd = pXSpeed;
-        this.yd = pYSpeed;
-        this.zd = pZSpeed;
-        this.lifetime = 50;
-        this.setFadeColor(15916745);
-        this.setSpriteFromAge(pSprites);
-        this.setSize(0.1F, 0.1F);
-    }
-
     @Override
     public void render(VertexConsumer pBuffer, Camera pRenderInfo, float pPartialTicks) {
         super.render(pBuffer, pRenderInfo, pPartialTicks);
@@ -59,7 +56,11 @@ public class EOTSExplosionParticle extends SimpleAnimatedParticle {
         return NO_CAMERA_ROTATION_DOWNWARDS_ROTATING;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    @Override
+    public AABB getBoundingBox() {
+        return AABB.INFINITE;
+    }
+
     public static class Provider implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet sprites;
 
@@ -74,8 +75,4 @@ public class EOTSExplosionParticle extends SimpleAnimatedParticle {
         }
     }
 
-    @Override
-    public AABB getBoundingBox() {
-        return AABB.INFINITE;
-    }
 }

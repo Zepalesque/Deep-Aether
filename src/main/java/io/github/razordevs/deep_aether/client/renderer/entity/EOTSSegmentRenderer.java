@@ -11,11 +11,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-
-@OnlyIn(Dist.CLIENT)
 public class EOTSSegmentRenderer extends MobRenderer<EOTSSegment, EOTSSegmentModel> {
 	private static final ResourceLocation EOTS_SEGMENT_LOCATION = ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "textures/entity/eots/eots_segment.png");
 	private static final ResourceLocation EOTS_SEGMENT_CONTROLLING_LOCATION = ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "textures/entity/eots/eots_segment_controlling.png");

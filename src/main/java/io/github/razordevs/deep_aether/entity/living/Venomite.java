@@ -134,7 +134,7 @@ public class Venomite extends AetherAnimal implements NeutralMob, FlyingAnimal {
     @SuppressWarnings("deprecation")
     @Override
     public boolean canBeAffected(MobEffectInstance effectInstance) {
-        return !effectInstance.getEffect().equals(AetherEffects.INEBRIATION.get());
+        return !effectInstance.getEffect().is(AetherEffects.INEBRIATION);
     }
 
     private boolean getFlag(int flag) {
