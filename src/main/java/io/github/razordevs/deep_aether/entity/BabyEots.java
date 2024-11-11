@@ -137,7 +137,7 @@ public class BabyEots extends FlyingMob {
     private void followOwner() {
         Player player = this.getOwner();
         if(player != null) {
-            if(this.distanceTo(player) > 4200)
+            if(this.distanceTo(player) > 40)
                 this.setPos(player.position().add(0, 3,0));
 
             this.moveControl.setWantedPosition(player.getX(), player.getY() + 3, player.getZ(), 1.0F);

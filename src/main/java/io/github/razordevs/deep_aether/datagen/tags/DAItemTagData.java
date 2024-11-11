@@ -10,13 +10,16 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
 public class DAItemTagData extends ItemTagsProvider {
@@ -40,6 +43,11 @@ public class DAItemTagData extends ItemTagsProvider {
         this.copy(DATags.Blocks.CONBERRY_LOGS, DATags.Items.CONBERRY_LOGS);
         this.copy(DATags.Blocks.SUNROOT_LOGS, DATags.Items.SUNROOT_LOGS);
         this.copy(DATags.Blocks.NIMBUS_BLOCKS, DATags.Items.NIMBUS_BLOCKS);
+
+        Collection<DeferredHolder<Item, ? extends Item>> items = DAItems.ITEMS.getEntries();
+
+        IntrinsicTagAppender<Item> tag = this.tag(AetherTags.Items.TREATED_AS_AETHER_ITEM);
+        items.forEach(item -> tag.add(item.get()));
 
         tag(AetherTags.Items.PLANKS_CRAFTING).add(
                 DABlocks.ROSEROOT_PLANKS.get().asItem(),
@@ -104,18 +112,6 @@ public class DAItemTagData extends ItemTagsProvider {
         tag(AetherTags.Items.SLIDER_DAMAGING_ITEMS).add(
                 DAItems.SKYJADE_TOOLS_PICKAXE.get().asItem(),
                 DAItems.STRATUS_PICKAXE.get().asItem()
-        );
-        tag(AetherTags.Items.TREATED_AS_AETHER_ITEM).add(
-                DAItems.SKYJADE_TOOLS_SWORD.get().asItem(),
-                DAItems.SKYJADE_TOOLS_PICKAXE.get().asItem(),
-                DAItems.SKYJADE_TOOLS_AXE.get().asItem(),
-                DAItems.SKYJADE_TOOLS_SHOVEL.get().asItem(),
-                DAItems.SKYJADE_TOOLS_HOE.get().asItem(),
-                DAItems.STRATUS_SWORD.get().asItem(),
-                DAItems.STRATUS_PICKAXE.get().asItem(),
-                DAItems.STRATUS_AXE.get().asItem(),
-                DAItems.STRATUS_SHOVEL.get().asItem(),
-                DAItems.STRATUS_HOE.get().asItem()
         );
         tag(ItemTags.SMALL_FLOWERS).add(
                 DABlocks.AERLAVENDER.get().asItem(),
@@ -304,9 +300,26 @@ public class DAItemTagData extends ItemTagsProvider {
                 DAItems.STORMFORGED_LEGGINGS.get(),
                 DAItems.STORMFORGED_BOOTS.get(),
                 DAItems.STORMFORGED_GLOVES.get(),
-                DAItems.CLOUD_CAPE.get()
+                DAItems.CLOUD_CAPE.get(),
+                DAItems.WIND_SHIELD.get(),
+                DAItems.AERCLOUD_NECKLACE.get(),
+                DAItems.STORM_SWORD.get(),
+                DAItems.STORM_BOW.get(),
+                DAItems.BLADE_OF_LUCK.get(),
+                DAItems.MUSIC_DISC_CYCLONE.get()
         );
 
+        tag(AetherTags.Items.BRONZE_DUNGEON_LOOT).add(
+                DAItems.MUSIC_DISC_ATTA.get()
+        );
+
+        tag(AetherTags.Items.SILVER_DUNGEON_LOOT).add(
+                DAItems.MUSIC_DISC_FAENT.get()
+        );
+
+        tag(AetherTags.Items.GOLD_DUNGEON_LOOT).add(
+                DAItems.MUSIC_DISC_HIMININN.get()
+        );
 
         /*tag(TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(DeepAether.LOST_AETHER_CONTENT, "aether_shields"))).add(
                 DAItems.SKYJADE_SHIELD.get(),

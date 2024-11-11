@@ -8,7 +8,6 @@ import com.aetherteam.nitrogen.attachment.INBTSynchable;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.DeepAetherConfig;
 import io.github.razordevs.deep_aether.advancement.DAAdvancementTriggers;
-import io.github.razordevs.deep_aether.entity.BabyEots;
 import io.github.razordevs.deep_aether.init.DAItems;
 import io.github.razordevs.deep_aether.init.DAMobEffects;
 import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
@@ -54,11 +53,6 @@ public class DAGeneralEvents {
 
             if (reference != null) {
                 FloatyScarfItem.tryAddBabyEots(reference.stack(), player);
-            }
-        }
-        else if(event.getEntity() instanceof BabyEots) {
-            if(event.loadedFromDisk()) {
-                event.setCanceled(true);
             }
         }
     }
