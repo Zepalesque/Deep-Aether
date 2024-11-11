@@ -447,10 +447,21 @@ public class EOTSSegment extends FlyingMob implements Enemy {
     private float getGlobalSpeedModifier() {
         EOTSController controller = this.getController();
         if(controller != null) {
-            return Mth.lerp(Mth.abs(controller.getHealth()/controller.getMaxHealth()), 2.0F, 1.0F);
+            return Mth.lerp(Mth.abs(controller.getHealth()/controller.getMaxHealth()), 2.3F, 1.0F);
         }
         else return 1.0F;
     }
+
+    private float getGlobalAttackModifier() {
+        EOTSController controller = this.getController();
+        if(controller != null) {
+            if(controller.controllingSegments.size() == 1)
+                return Mth.lerp(Mth.abs(controller.getHealth()/controller.getMaxHealth()), 2.3F, 1.5F) * 1.5F;
+            else return Mth.lerp(Mth.abs(controller.getHealth()/controller.getMaxHealth()), 2.3F, 1.5F);
+        }
+        else return 1.0F;
+    }
+
 
     /**
      * Used to check if EOTS can perform or start a new attack
@@ -645,7 +656,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
 
     protected static class EotsAttackGoal extends Goal {
         EOTSSegment segment;
-        private int nextScanTick = 150;
+        private int nextScanTick = 50;
         private boolean hasAttacked = false; //Used for sweeping attack pattern
         int maxFollowingTimer = 150; //Used for following attack pattern
         Vec3 targetStartPos;
@@ -667,7 +678,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
                 return false;
             } else {
                 this.hasAttacked = false;
-                this.nextScanTick = (int) (((float) (50 + this.segment.random.nextInt(-25,40)))/this.segment.getGlobalSpeedModifier());
+                this.nextScanTick = (int) (((float) (50 + this.segment.random.nextInt(-25,40)))/this.segment.getGlobalAttackModifier());
                 return true;
             }
         }
@@ -730,7 +741,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
 
     protected static class EotsAirChargeGoal extends Goal {
         EOTSSegment segment;
-        private int attackTimer = 150; //Delay between attacks
+        private int attackTimer = 75; //Delay between attacks
         private int attackDelay = 9; //Gives the segment time to rotate against the player before attacking
         private int numberOfAttacks = 0;
         public EotsAirChargeGoal(EOTSSegment segment) {
@@ -745,7 +756,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
                 --this.attackTimer;
                 return false;
             } else {
-                this.attackTimer = (int) (((float) (75 + this.segment.random.nextInt(-50,50)))/this.segment.getGlobalSpeedModifier());
+                this.attackTimer = (int) (((float) (75 + this.segment.random.nextInt(-50,50)))/this.segment.getGlobalAttackModifier());
                 return true;
             }
         }
