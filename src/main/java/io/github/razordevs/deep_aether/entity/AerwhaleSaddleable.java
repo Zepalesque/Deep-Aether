@@ -7,6 +7,6 @@ import javax.annotation.Nullable;
 public interface AerwhaleSaddleable {
     boolean isSaddleable();
 
-    void equipSaddle(@Nullable SoundSource p_21748_);
+    void equipSaddle(@Nullable SoundSource source);
     boolean isSaddled();
 }

@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.entity.living.projectile;
+package io.github.razordevs.deep_aether.entity.projectile;
 
 import com.aetherteam.aether.AetherTags;
 import com.aetherteam.aether.client.AetherSoundEvents;

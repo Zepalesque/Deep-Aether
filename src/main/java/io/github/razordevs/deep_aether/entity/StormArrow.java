@@ -14,13 +14,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 
 public class StormArrow extends AbstractArrow {
-
     public StormArrow(EntityType<? extends AbstractArrow> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
-    }
-
-    public StormArrow(double pX, double pY, double pZ, Level pLevel, ItemStack projectileStack, ItemStack weaponStack) {
-        super(DAEntities.STORM_ARROW.get(), pX, pY, pZ, pLevel, projectileStack, weaponStack);
     }
 
     public StormArrow(LivingEntity pOwner, Level pLevel, ItemStack pPickupItemStack, ItemStack weaponStack) {

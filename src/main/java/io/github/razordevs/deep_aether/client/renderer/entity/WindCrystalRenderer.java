@@ -3,7 +3,7 @@ package io.github.razordevs.deep_aether.client.renderer.entity;
 import com.aetherteam.aether.client.renderer.entity.IceCrystalRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import io.github.razordevs.deep_aether.DeepAether;
-import io.github.razordevs.deep_aether.entity.living.projectile.WindCrystal;
+import io.github.razordevs.deep_aether.entity.projectile.WindCrystal;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;

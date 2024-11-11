@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.entity.living.projectile;
+package io.github.razordevs.deep_aether.entity.projectile;
 
 import com.aetherteam.aether.data.resources.registries.AetherDamageTypes;
 import com.aetherteam.aether.data.resources.registries.AetherDimensions;
@@ -34,10 +34,6 @@ public class FireProjectile extends ThrowableProjectile {
         super(DAEntities.FIRE_PROJECTILE.get(), owner, level);
     }
 
-    public FireProjectile(Level level) {
-        super(DAEntities.FIRE_PROJECTILE.get(), level);
-    }
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
     }
@@ -65,6 +61,7 @@ public class FireProjectile extends ThrowableProjectile {
         super.shoot( x, y, z, velocity, inaccuracy);
     }
 
+    @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
         if (!this.level().isClientSide()) {
@@ -74,6 +71,7 @@ public class FireProjectile extends ThrowableProjectile {
 
     }
 
+    @Override
     protected void onHitEntity(EntityHitResult result) {
         Entity target = result.getEntity();
         if (!this.level().isClientSide()) {
@@ -89,6 +87,7 @@ public class FireProjectile extends ThrowableProjectile {
         }
     }
 
+    @Override
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
         if (!this.level().isClientSide && !this.level().dimension().equals(AetherDimensions.AETHER_LEVEL)) {
@@ -134,17 +133,18 @@ public class FireProjectile extends ThrowableProjectile {
 
     }
 
+    @Override
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("TicksInAir", this.ticksInAir);
     }
 
+    @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         if (tag.contains("TicksInAir")) {
             this.ticksInAir = tag.getInt("TicksInAir");
         }
-
     }
 }
 

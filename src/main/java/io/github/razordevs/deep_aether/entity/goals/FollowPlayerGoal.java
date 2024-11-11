@@ -14,7 +14,7 @@ public class FollowPlayerGoal extends Goal {
     private final TargetingConditions targetingConditions;
     protected final PathfinderMob mob;
     private final double speedModifier;
-    private double heightDifference;
+    private final double heightDifference;
     @Nullable
     protected Player player;
     private int calmDown;
@@ -65,9 +65,5 @@ public class FollowPlayerGoal extends Goal {
         } else {
             this.mob.getNavigation().moveTo(this.player.getX(), this.player.getY() + heightDifference, this.player.getZ(), this.speedModifier);
         }
-    }
-
-    public boolean isRunning() {
-        return this.isRunning;
     }
 }

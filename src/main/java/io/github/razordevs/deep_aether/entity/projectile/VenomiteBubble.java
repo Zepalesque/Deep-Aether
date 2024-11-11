@@ -1,6 +1,5 @@
-package io.github.razordevs.deep_aether.entity.living.projectile;
+package io.github.razordevs.deep_aether.entity.projectile;
 
-import io.github.razordevs.deep_aether.init.DAEntities;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
@@ -20,14 +19,11 @@ public class VenomiteBubble extends ThrowableProjectile {
         super(type, level);
     }
 
-    public VenomiteBubble(Level level) {
-        super(DAEntities.VENOMITE_BUBBLE.get(), level);
-    }
-
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
     }
 
+    @Override
     public void tick() {
         super.tick();
         if (!this.onGround())
@@ -37,6 +33,7 @@ public class VenomiteBubble extends ThrowableProjectile {
             this.discard();
     }
 
+    @Override
     protected void onHit(HitResult result) {
         super.onHit(result);
         if (!this.level().isClientSide()) {
@@ -45,6 +42,7 @@ public class VenomiteBubble extends ThrowableProjectile {
         }
     }
 
+    @Override
     protected void onHitEntity(EntityHitResult result) {
         if (!this.level().isClientSide()) {
             this.explode();
@@ -52,6 +50,7 @@ public class VenomiteBubble extends ThrowableProjectile {
         }
     }
 
+    @Override
     protected void onHitBlock(BlockHitResult result) {
         super.onHitBlock(result);
         if (!this.level().isClientSide) {
@@ -59,7 +58,7 @@ public class VenomiteBubble extends ThrowableProjectile {
         }
     }
 
-    private void explode(){
+    private void explode() {
         level().explode(this, this.getX(),this.getY(),this.getZ(),1, Level.ExplosionInteraction.NONE);
         level().addFreshEntity(new ItemEntity(level(), this.getX(),this.getY(),this.getZ(), new ItemStack(DAItems.BIO_CRYSTAL.asItem())));
     }
@@ -69,21 +68,23 @@ public class VenomiteBubble extends ThrowableProjectile {
         return 0.07F;
     }
 
+    @Override
     public void handleEntityEvent(byte id) {
         super.handleEntityEvent(id);
     }
 
+    @Override
     public void addAdditionalSaveData(CompoundTag tag) {
         super.addAdditionalSaveData(tag);
         tag.putInt("TicksInAir", this.ticksInAir);
     }
 
+    @Override
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         if (tag.contains("TicksInAir")) {
             this.ticksInAir = tag.getInt("TicksInAir");
         }
-
     }
 }
 

@@ -1,6 +1,5 @@
 package io.github.razordevs.deep_aether.entity;
 
-import com.aetherteam.aether.entity.miscellaneous.SkyrootBoat;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.init.DAEntities;
 import io.github.razordevs.deep_aether.init.DAItems;

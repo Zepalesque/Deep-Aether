@@ -3,7 +3,7 @@ package io.github.razordevs.deep_aether.client.renderer.entity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
-import io.github.razordevs.deep_aether.entity.living.projectile.FireProjectile;
+import io.github.razordevs.deep_aether.entity.projectile.FireProjectile;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;

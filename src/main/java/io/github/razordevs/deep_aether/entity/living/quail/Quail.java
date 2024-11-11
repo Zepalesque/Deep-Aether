@@ -35,11 +35,14 @@ import javax.annotation.Nullable;
 
 public class Quail extends SittingAetherAnimal {
 
-    private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT =
-            SynchedEntityData.defineId(Quail.class, EntityDataSerializers.INT);
     private static final Ingredient FOOD_ITEMS = Ingredient.of(
             Items.WHEAT_SEEDS, Items.TORCHFLOWER_SEEDS, DAItems.GOLDEN_BERRIES.get()
     );
+
+    private static final EntityDimensions BABY_DIMENSIONS = EntityType.CHICKEN.getDimensions().scale(0.5F).withEyeHeight(0.5F);
+    private static final EntityDimensions DIMENSIONS = EntityType.CHICKEN.getDimensions().withEyeHeight(0.8F);
+
+    private static final EntityDataAccessor<Integer> DATA_ID_TYPE_VARIANT = SynchedEntityData.defineId(Quail.class, EntityDataSerializers.INT);
 
     public float flap;
     public float flapSpeed;
@@ -49,13 +52,12 @@ public class Quail extends SittingAetherAnimal {
     private float nextFlap = 1.0F;
     public int eggTime = this.random.nextInt(6000) + 6000;
 
-
-    // Initialization
     public Quail(EntityType<? extends Quail> type, Level world) {
         super(type, world);
         this.setPathfindingMalus(PathType.WATER, 0.0F);
     }
 
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new FloatGoal(this));
         this.goalSelector.addGoal(1, new PanicGoal(this, 1.4D));
@@ -81,9 +83,7 @@ public class Quail extends SittingAetherAnimal {
         return super.finalizeSpawn(levelAccessor, difficultyInstance, spawnType, spawnGroupData);
     }
 
-
-    // Overall Mob definition
-
+    @Override
     public void aiStep() {
         super.aiStep();
         this.oFlap = this.flap;
@@ -122,36 +122,38 @@ public class Quail extends SittingAetherAnimal {
         return FOOD_ITEMS.test(pStack);
     }
 
-    private static final EntityDimensions BABY_DIMENSIONS = EntityType.CHICKEN.getDimensions().scale(0.5F).withEyeHeight(0.5F);
-    private static final EntityDimensions DIMENSIONS = EntityType.CHICKEN.getDimensions().withEyeHeight(0.8F);
-
-
     @Override
     public EntityDimensions getDefaultDimensions(Pose pose) {
         return this.isBaby() ? BABY_DIMENSIONS : DIMENSIONS;
     }
 
+    @Override
     protected boolean isFlapping() {
         return this.flyDist > this.nextFlap;
     }
 
+    @Override
     protected void onFlap() {
         this.nextFlap = this.flyDist + this.flapSpeed / 2.0F;
     }
 
+    @Override
     protected SoundEvent getAmbientSound() {
         return DASounds.QUAIL_AMBIENT.get();
     }
 
+    @Override
     protected SoundEvent getHurtSound(DamageSource p_28262_) {
         return DASounds.QUAIL_HURT.get();
     }
 
+    @Override
     protected SoundEvent getDeathSound() {
         return DASounds.QUAIL_DEATH.get();
     }
 
-    protected void playStepSound(BlockPos p_28254_, BlockState p_28255_) {
+    @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {
         this.playSound(SoundEvents.CHICKEN_STEP, 0.15F, 1.0F);
     }
 
@@ -176,6 +178,15 @@ public class Quail extends SittingAetherAnimal {
         tag.putInt("Variant", this.getTypeVariant());
     }
 
+    @Override
+    public void readAdditionalSaveData(CompoundTag tag) {
+        super.readAdditionalSaveData(tag);
+        if (tag.contains("EggLayTime")) {
+            this.eggTime = tag.getInt("EggLayTime");
+        }
+        this.entityData.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
+    }
+
     public QuailVariants getVariant() {
         return QuailVariants.byId(this.getTypeVariant() & 255);
     }
@@ -186,14 +197,5 @@ public class Quail extends SittingAetherAnimal {
 
     public void setVariant(QuailVariants variant) {
         this.entityData.set(DATA_ID_TYPE_VARIANT, variant.getId() & 255);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag tag) {
-        super.readAdditionalSaveData(tag);
-        if (tag.contains("EggLayTime")) {
-            this.eggTime = tag.getInt("EggLayTime");
-        }
-        this.entityData.set(DATA_ID_TYPE_VARIANT, tag.getInt("Variant"));
     }
 }

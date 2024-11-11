@@ -64,6 +64,7 @@ public abstract class SittingAetherAnimal extends AetherAnimal {
         }
     }
 
+    @Override
     public void tick() {
         super.tick();
         if (this.isEffectiveAi() && this.sitCounter > 0 && ++this.sitCounter > 20) {
@@ -81,33 +82,36 @@ public abstract class SittingAetherAnimal extends AetherAnimal {
             this.setFlags(EnumSet.of(Goal.Flag.JUMP, Goal.Flag.MOVE));
         }
 
+        @Override
         public boolean canUse() {
             return this.cooldown <= this.mob.tickCount && !this.mob.isInWater();
         }
 
+        @Override
         public boolean canContinueToUse() {
             if (!this.mob.isInWater() && this.mob.random.nextInt(reducedTickDelay(1000)) != 1)
                 return this.mob.random.nextInt(reducedTickDelay(2500)) != 1;
-             else
+            else
                 return false;
-
         }
 
+        @Override
         public void tick() {
             if (!this.mob.isSitting())
                 this.mob.tryToSit();
         }
 
+        @Override
         public void start() {
             this.mob.tryToSit();
             this.cooldown = 0;
         }
 
+        @Override
         public void stop() {
             int i = this.mob.random.nextInt(150) + 10;
             this.cooldown = this.mob.tickCount + i * 20;
             this.mob.setSitting(false);
         }
     }
-
 }

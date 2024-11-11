@@ -1,6 +1,6 @@
 package io.github.razordevs.deep_aether.entity;
 
-import io.github.razordevs.deep_aether.entity.living.projectile.WindCrystal;
+import io.github.razordevs.deep_aether.entity.projectile.WindCrystal;
 import io.github.razordevs.deep_aether.init.DAEntities;
 import io.github.razordevs.deep_aether.init.DASounds;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;

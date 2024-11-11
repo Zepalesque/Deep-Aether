@@ -2,7 +2,7 @@ package io.github.razordevs.deep_aether.entity.living.boss.eots;
 
 import io.github.razordevs.deep_aether.client.model.EOTSSegmentModel;
 import io.github.razordevs.deep_aether.datagen.tags.DATags;
-import io.github.razordevs.deep_aether.entity.living.projectile.WindCrystal;
+import io.github.razordevs.deep_aether.entity.projectile.WindCrystal;
 import io.github.razordevs.deep_aether.init.DAEntities;
 import io.github.razordevs.deep_aether.init.DAParticles;
 import io.github.razordevs.deep_aether.init.DASounds;

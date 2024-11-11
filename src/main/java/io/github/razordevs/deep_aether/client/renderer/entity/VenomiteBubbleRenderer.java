@@ -6,7 +6,7 @@ import com.mojang.math.Axis;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.client.model.VenomiteBubbleModel;
 import io.github.razordevs.deep_aether.client.renderer.DAModelLayers;
-import io.github.razordevs.deep_aether.entity.living.projectile.VenomiteBubble;
+import io.github.razordevs.deep_aether.entity.projectile.VenomiteBubble;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;

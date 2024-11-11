@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.entity.living.projectile;
+package io.github.razordevs.deep_aether.entity.projectile;
 
 import io.github.razordevs.deep_aether.entity.living.quail.Quail;
 import io.github.razordevs.deep_aether.entity.living.quail.QuailVariants;
@@ -21,26 +21,26 @@ public class ThrownQuailEgg extends ThrowableItemProjectile {
         super(entityType, level);
     }
 
-    public ThrownQuailEgg(Level p_37481_, LivingEntity p_37482_) {
-        super(DAEntities.QUAIL_EGG.get(), p_37482_, p_37481_);
+    public ThrownQuailEgg(Level level, LivingEntity livingEntity) {
+        super(DAEntities.QUAIL_EGG.get(), livingEntity, level);
     }
 
+    @Override
     public void handleEntityEvent(byte b) {
         if (b == 3) {
-            double d0 = 0.08D;
-
             for(int i = 0; i < 8; ++i) {
                 this.level().addParticle(new ItemParticleOption(ParticleTypes.ITEM, this.getItem()), this.getX(), this.getY(), this.getZ(), ((double)this.random.nextFloat() - 0.5D) * 0.08D, ((double)this.random.nextFloat() - 0.5D) * 0.08D, ((double)this.random.nextFloat() - 0.5D) * 0.08D);
             }
         }
-
     }
 
+    @Override
     protected void onHitEntity(EntityHitResult hitResult) {
         super.onHitEntity(hitResult);
         hitResult.getEntity().hurt(this.damageSources().thrown(this, this.getOwner()), 0.0F);
     }
 
+    @Override
     protected void onHit(HitResult hitResult) {
         super.onHit(hitResult);
         if (!this.level().isClientSide) {
@@ -52,9 +52,10 @@ public class ThrownQuailEgg extends ThrowableItemProjectile {
 
                 for(int j = 0; j < i; ++j) {
                     Quail quail = DAEntities.QUAIL.get().create(this.level());
-                    QuailVariants variant = Util.getRandom(QuailVariants.values(), this.random);
-                    quail.setVariant(variant);
+
                     if (quail != null) {
+                        QuailVariants variant = Util.getRandom(QuailVariants.values(), this.random);
+                        quail.setVariant(variant);
                         quail.setAge(-24000);
                         quail.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
                         this.level().addFreshEntity(quail);

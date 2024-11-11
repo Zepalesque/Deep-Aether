@@ -1,6 +1,6 @@
 package io.github.razordevs.deep_aether.item.misc;
 
-import io.github.razordevs.deep_aether.entity.living.projectile.ThrownQuailEgg;
+import io.github.razordevs.deep_aether.entity.projectile.ThrownQuailEgg;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;

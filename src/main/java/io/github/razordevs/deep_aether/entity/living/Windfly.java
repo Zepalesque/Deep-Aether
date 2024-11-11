@@ -44,6 +44,7 @@ public class Windfly extends AetherAnimal implements FlyingAnimal {
         this.setPathfindingMalus(PathType.WATER, 0.0F);
     }
 
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(0, new Aerwhale.SetTravelCourseGoal(this));
     }
@@ -64,6 +65,7 @@ public class Windfly extends AetherAnimal implements FlyingAnimal {
         builder.define(DATA_Y_ROT_ID, this.getYRot());
     }
 
+    @Override
     public void aiStep() {
         super.aiStep();
         this.setXRot(this.getXRotData());
@@ -77,6 +79,7 @@ public class Windfly extends AetherAnimal implements FlyingAnimal {
         return false;
     }
 
+    @Override
     public void tick() {
         this.setXRotOData(this.getXRotData());
 
@@ -94,9 +97,6 @@ public class Windfly extends AetherAnimal implements FlyingAnimal {
         super.tick();
     }
 
-    public float getXRotOData() {
-        return this.getEntityData().get(DATA_X_ROT_O_ID);
-    }
 
     public void setXRotOData(float rot) {
         this.getEntityData().set(DATA_X_ROT_O_ID, Mth.wrapDegrees(rot));
@@ -118,6 +118,7 @@ public class Windfly extends AetherAnimal implements FlyingAnimal {
         this.getEntityData().set(DATA_Y_ROT_ID, Mth.wrapDegrees(rot));
     }
 
+    @Override
     protected PathNavigation createNavigation(Level level) {
         FlyingPathNavigation flyingpathnavigation = new FlyingPathNavigation(this, level);
         flyingpathnavigation.setCanOpenDoors(false);
@@ -137,6 +138,7 @@ public class Windfly extends AetherAnimal implements FlyingAnimal {
         return false;
     }
 
+    @Override
     public boolean isFlying() {
         return !this.onGround();
     }
@@ -159,6 +161,7 @@ public class Windfly extends AetherAnimal implements FlyingAnimal {
             this.mob = pMob;
         }
 
+        @Override
         public void tick() {
             if (!this.mob.isVehicle()) {
                 double x = this.getWantedX() - this.mob.getX();

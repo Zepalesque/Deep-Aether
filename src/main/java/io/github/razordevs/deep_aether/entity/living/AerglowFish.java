@@ -11,30 +11,35 @@ import net.minecraft.world.level.Level;
 
 public class AerglowFish extends AbstractSchoolingFish {
 
-	public AerglowFish(EntityType<? extends AerglowFish> p_29790_, Level p_29791_) {
-		super(p_29790_, p_29791_);
+	public AerglowFish(EntityType<? extends AerglowFish> type, Level level) {
+		super(type, level);
 	}
 
 	public int getMaxSchoolSize() {
 		return 5;
 	}
 
+	@Override
 	public ItemStack getBucketItemStack() {
 		return new ItemStack(DAItems.AERGLOW_FISH_BUCKET.get());
 	}
 
+	@Override
 	protected SoundEvent getAmbientSound() {
 		return SoundEvents.SALMON_AMBIENT;
 	}
 
+	@Override
 	protected SoundEvent getDeathSound() {
 		return SoundEvents.SALMON_DEATH;
 	}
 
+	@Override
 	protected SoundEvent getHurtSound(DamageSource p_29795_) {
 		return SoundEvents.SALMON_HURT;
 	}
 
+	@Override
 	protected SoundEvent getFlopSound() {
 		return SoundEvents.SALMON_FLOP;
 	}

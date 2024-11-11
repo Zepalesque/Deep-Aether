@@ -37,7 +37,7 @@ import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import io.github.razordevs.deep_aether.entity.goals.FollowPlayerGoal;
-import io.github.razordevs.deep_aether.entity.living.projectile.VenomiteBubble;
+import io.github.razordevs.deep_aether.entity.projectile.VenomiteBubble;
 
 import java.util.UUID;
 

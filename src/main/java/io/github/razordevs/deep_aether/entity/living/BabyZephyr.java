@@ -87,6 +87,7 @@ public class BabyZephyr extends Zephyr {
             else return this.zephyr.isWithinRestriction(livingentity.blockPosition());
         }
 
+        @Override
         public void start() {
             time = 0;
             hasAttacked = false;

@@ -1,17 +1,13 @@
 package io.github.razordevs.deep_aether.item.gear.other;
 
-import io.github.razordevs.deep_aether.entity.living.projectile.FireProjectile;
+import io.github.razordevs.deep_aether.entity.projectile.FireProjectile;
 import io.github.razordevs.deep_aether.init.DASounds;
 import io.github.razordevs.deep_aether.init.DATiers;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
