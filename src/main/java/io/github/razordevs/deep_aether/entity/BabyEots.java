@@ -122,6 +122,11 @@ public class BabyEots extends FlyingMob {
         this.goalSelector.addGoal(4, new FollowPlayerGoal(this));
     }
 
+    @Override
+    public boolean canBeSeenAsEnemy() {
+        return false;
+    }
+
     protected void pushEntities() {
     }
 
@@ -150,7 +155,7 @@ public class BabyEots extends FlyingMob {
     private void followOwner() {
         Player player = this.getOwner();
         if(player != null) {
-            if(this.distanceTo(player) > 4200)
+            if(this.distanceTo(player) > 40)
                 this.setPos(player.position().add(0, 2,0));
 
             this.moveControl.setWantedPosition(player.getX(), player.getY() + 2, player.getZ(), 1.0F);
