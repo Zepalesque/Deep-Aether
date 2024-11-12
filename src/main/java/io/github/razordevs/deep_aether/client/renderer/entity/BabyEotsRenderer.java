@@ -27,6 +27,22 @@ public class BabyEotsRenderer extends MobRenderer<BabyEots, BabyEotsModel> {
 
     @Override
     public void render(BabyEots eots, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
+        if(eots.isWrappedAroundNeck()){
+            eots.setInvisible(true);
+            matrixStack.pushPose();
+            this.model.root.visible = false;
+            this.model.head.visible = false;
+            for(ModelPart part : this.model.body) part.visible = false;
+            matrixStack.popPose();
+            return;
+        } else {
+            eots.setInvisible(false);
+            matrixStack.pushPose();
+            this.model.root.visible = true;
+            this.model.head.visible = true;
+            for(ModelPart part : this.model.body) part.visible = true;
+            matrixStack.popPose();
+        }
         matrixStack.pushPose();
 
         this.model.attackTime = this.getAttackAnim(eots, partialTicks);
@@ -65,16 +81,6 @@ public class BabyEotsRenderer extends MobRenderer<BabyEots, BabyEotsModel> {
         RenderType rendertype = this.model.renderType(this.getTextureLocation(eots));
         VertexConsumer vertexconsumer = buffer.getBuffer(rendertype);
         int i = getOverlayCoords(eots, this.getWhiteOverlayProgress(eots, partialTicks));
-
-        if(eots.isWrappedAroundNeck()){
-            this.model.head.visible = false;
-            for (ModelPart part : this.model.body)
-                part.visible = false;
-        }else {
-            this.model.head.visible = true;
-            for (ModelPart part : this.model.body)
-                part.visible = true;
-        }
 
         this.model.head.render(matrixStack, vertexconsumer, packedLight, i, eots.getFromColor(0));
         this.model.body[0].render(matrixStack, vertexconsumer, packedLight, i, eots.getFromColor(1));

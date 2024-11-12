@@ -50,8 +50,9 @@ public class BabyEots extends FlyingMob {
     private final AABB hitBox = this.getHitbox();
 
     private static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Boolean> IS_ON_NECK = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.BOOLEAN);
 
-    private boolean isWrappedAroundNeck;
+    private boolean isWrappedAroundNeck = false;
 
     public BabyEots(EntityType<? extends FlyingMob> type, Level level) {
         super(type, level);
@@ -90,6 +91,7 @@ public class BabyEots extends FlyingMob {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(DATA_OWNER_ID, 0);
+        builder.define(IS_ON_NECK, false);
         builder.define(COLOR_0, -1);
         builder.define(COLOR_1, -1);
         builder.define(COLOR_2, -1);
@@ -198,12 +200,12 @@ public class BabyEots extends FlyingMob {
     }
 
     public boolean isWrappedAroundNeck(){
-        return isWrappedAroundNeck;
+        return this.entityData.get(IS_ON_NECK);
     }
 
     public boolean setEntityAroundNeck(){
         if(isWrappedAroundNeck()) return false;
-        this.isWrappedAroundNeck = true;
+        this.entityData.set(IS_ON_NECK, true);
         return true;
     }
 
@@ -211,7 +213,7 @@ public class BabyEots extends FlyingMob {
         if(!isWrappedAroundNeck()) return false;
 
         this.rideCooldownCounter = 0;
-        this.isWrappedAroundNeck = false;
+        this.entityData.set(IS_ON_NECK, false);
         return true;
     }
 
