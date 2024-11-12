@@ -1,7 +1,7 @@
 package io.github.razordevs.deep_aether.item.gear.other;
 
 import com.aetherteam.aether.item.accessories.pendant.PendantItem;
-import io.github.razordevs.deep_aether.entity.BabyEots;
+import io.github.razordevs.deep_aether.entity.living.BabyEots;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
 import io.github.razordevs.deep_aether.item.component.FloatyScarf;
 import io.wispforest.accessories.api.slot.SlotReference;

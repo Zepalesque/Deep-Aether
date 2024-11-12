@@ -18,14 +18,15 @@ public class ScarfModel extends HumanoidModel<LivingEntity> {
         MeshDefinition meshDefinition = HumanoidModel.createMesh(cube, 0.0F);
         PartDefinition partDefinition = meshDefinition.getRoot();
 
-        PartDefinition head = partDefinition.addOrReplaceChild("head", CubeListBuilder.create().texOffs(0, 12).addBox(-6.0F, -2.0F, -6.0F, 10.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
-                .texOffs(0, 8).addBox(-4.0F, -2.0F, 4.0F, 10.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)),
+        PartDefinition head = partDefinition.addOrReplaceChild("head", CubeListBuilder.create()
+                .texOffs(2, 13).addBox(-5.0F, -2.0F, -5.0F, 9.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+                .texOffs(1, 9).addBox(-4.0F, -2.0F, 4.0F, 9.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)),
                 PartPose.offset(0.0F, 24.0F, 0.0F));
 
-        head.addOrReplaceChild("cube_1", CubeListBuilder.create().texOffs(0, 0).addBox(-5.0F, -2.0F, -1.0F, 10.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)),
+        head.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(1, 1).addBox(-5.0F, -2.0F, -1.0F, 9.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)),
                 PartPose.offsetAndRotation(5.0F, 0.0F, -1.0F, 0.0F, 1.5708F, 0.0F));
 
-        head.addOrReplaceChild("cube_2", CubeListBuilder.create().texOffs(0, 4).addBox(-5.0F, -2.0F, -1.0F, 10.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)),
+        head.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(2, 5).addBox(-4.0F, -2.0F, 0.0F, 9.0F, 2.0F, 1.0F, new CubeDeformation(0.0F)),
                 PartPose.offsetAndRotation(-5.0F, 0.0F, 1.0F, 0.0F, 1.5708F, 0.0F));
 
         return LayerDefinition.create(meshDefinition, 32, 32);

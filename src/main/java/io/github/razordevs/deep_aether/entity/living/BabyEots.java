@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.entity;
+package io.github.razordevs.deep_aether.entity.living;
 
 import io.github.razordevs.deep_aether.entity.projectile.WindCrystal;
 import io.github.razordevs.deep_aether.init.DAEntities;
@@ -418,7 +418,7 @@ public class BabyEots extends FlyingMob {
             if(this.eots.getTarget() != null) {
                 this.lookAt(this.eots.getTarget());
                 if(attackDelay <= 0) {
-                    new WindCrystal(this.eots.level(), this.eots, this.eots.getLookAngle().multiply(0.7F,0.7F,0.7F).offsetRandom(this.eots.random, 0.3F), true);
+                    new WindCrystal(this.eots.level(), this.eots, this.eots.getLookAngle().multiply(0.7F,0.7F,0.7F).offsetRandom(this.eots.random, 0.15F), true);
                     this.eots.level().playSound(null, this.eots.getX(), this.eots.getY(), this.eots.getZ(), DASounds.EOTS_SHOOT, SoundSource.HOSTILE, 1.0F, 2.0F);
                     if(numberOfAttacks > 0) {
                         numberOfAttacks--;
