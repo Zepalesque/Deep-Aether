@@ -30,6 +30,7 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -46,6 +47,7 @@ public class BabyEots extends FlyingMob {
 
     private static final int RIDE_COOLDOWN = 100;
     private int rideCooldownCounter;
+    private final AABB hitBox = this.getHitbox();
 
     private static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
 
@@ -61,7 +63,7 @@ public class BabyEots extends FlyingMob {
         this(DAEntities.BABY_EOTS.get(), level);
         this.setOwner(owner);
         this.setPos(owner.position());
-        this.setEntityAroundNeck(owner);
+        this.setEntityAroundNeck();
 
         level.addFreshEntity(this);
     }
@@ -188,7 +190,8 @@ public class BabyEots extends FlyingMob {
     @Override
     public void tick() {
         if(this.isWrappedAroundNeck() && this.getOwner() != null) {
-            this.setPos(getOwner().getX(), getOwner().getY() + 1.2, getOwner().getZ());
+            this.setPos(getOwner().getX(), getOwner().getY() + 2.2, getOwner().getZ());
+            this.getNavigation().stop();
         }
         ++rideCooldownCounter;
         super.tick();
@@ -198,11 +201,8 @@ public class BabyEots extends FlyingMob {
         return isWrappedAroundNeck;
     }
 
-    public boolean setEntityAroundNeck(Player owner){
+    public boolean setEntityAroundNeck(){
         if(isWrappedAroundNeck()) return false;
-
-        this.setPos(owner.getX(), owner.getY() + 1.2, owner.getZ());
-        this.getNavigation().stop();
         this.isWrappedAroundNeck = true;
         return true;
     }
@@ -221,6 +221,12 @@ public class BabyEots extends FlyingMob {
 
         public WrapAroundPlayerGoal(BabyEots eots) {
             this.eots = eots;
+            this.setFlags(EnumSet.of(Flag.JUMP, Flag.MOVE));
+        }
+
+        @Override
+        public boolean canContinueToUse() {
+            return this.eots.isWrappedAroundNeck() && this.eots.getTarget() == null;
         }
 
         public boolean canUse() {
@@ -228,11 +234,7 @@ public class BabyEots extends FlyingMob {
             if(serverplayer == null) return false;
 
             boolean flag = !serverplayer.isSpectator() && !serverplayer.isInWater() && !serverplayer.isInPowderSnow;
-            return flag && !this.eots.isWrappedAroundNeck() && this.eots.rideCooldownCounter > 50;
-        }
-
-        public boolean isInterruptable() {
-            return !this.eots.isWrappedAroundNeck();
+            return flag && !this.eots.isWrappedAroundNeck() && this.eots.rideCooldownCounter > 100 && this.eots.getTarget() == null;
         }
 
         public void start() {
@@ -246,7 +248,7 @@ public class BabyEots extends FlyingMob {
 
         public void tick() {
             if (!this.eots.isWrappedAroundNeck() && this.eots.getBoundingBox().intersects(this.owner.getBoundingBox().inflate(0, 2, 0))) {
-                this.eots.setEntityAroundNeck(owner);
+                this.eots.setEntityAroundNeck();
             }
         }
     }
