@@ -7,6 +7,7 @@ import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.client.model.BabyEotsModel;
 import io.github.razordevs.deep_aether.client.renderer.DAModelLayers;
 import io.github.razordevs.deep_aether.entity.BabyEots;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -27,12 +28,6 @@ public class BabyEotsRenderer extends MobRenderer<BabyEots, BabyEotsModel> {
     @Override
     public void render(BabyEots eots, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
         matrixStack.pushPose();
-
-        if(eots.isWrappedAroundNeck()){
-            matrixStack.clear();
-            matrixStack.popPose();
-            return;
-        }
 
         this.model.attackTime = this.getAttackAnim(eots, partialTicks);
         float f = Mth.rotLerp(partialTicks, eots.yBodyRotO, eots.yBodyRot);
@@ -71,6 +66,16 @@ public class BabyEotsRenderer extends MobRenderer<BabyEots, BabyEotsModel> {
         VertexConsumer vertexconsumer = buffer.getBuffer(rendertype);
         int i = getOverlayCoords(eots, this.getWhiteOverlayProgress(eots, partialTicks));
 
+        if(eots.isWrappedAroundNeck()){
+            this.model.head.visible = false;
+            for (ModelPart part : this.model.body)
+                part.visible = false;
+        }else {
+            this.model.head.visible = true;
+            for (ModelPart part : this.model.body)
+                part.visible = true;
+        }
+
         this.model.head.render(matrixStack, vertexconsumer, packedLight, i, eots.getFromColor(0));
         this.model.body[0].render(matrixStack, vertexconsumer, packedLight, i, eots.getFromColor(1));
         this.model.body[1].render(matrixStack, vertexconsumer, packedLight, i, eots.getFromColor(2));
@@ -79,7 +84,7 @@ public class BabyEotsRenderer extends MobRenderer<BabyEots, BabyEotsModel> {
 
         matrixStack.popPose();
 
-        if (this.shouldShowName(eots) && eots.getDisplayName() != null) {
+        if (this.shouldShowName(eots) && eots.getDisplayName() != null && !eots.isWrappedAroundNeck()) {
             this.renderNameTag(eots, eots.getDisplayName(), matrixStack, buffer, packedLight, partialTicks);
         }
     }
