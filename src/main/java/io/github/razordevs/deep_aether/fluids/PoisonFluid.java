@@ -134,16 +134,6 @@ public abstract class PoisonFluid extends FlowingFluid {
             super.createFluidStateDefinition(fluidStateBuilder);
             fluidStateBuilder.add(LEVEL);
         }
-
-        @Override
-        public int getAmount(FluidState pState) {
-            return pState.getValue(LEVEL);
-        }
-
-        @Override
-        public boolean isSource(FluidState pState) {
-            return false;
-        }
     }
 
     public static class Source extends PoisonFluid {

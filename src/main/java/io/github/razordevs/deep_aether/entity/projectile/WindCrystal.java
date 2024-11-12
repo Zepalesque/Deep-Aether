@@ -4,6 +4,7 @@ import com.aetherteam.aether.AetherTags;
 import com.aetherteam.aether.client.AetherSoundEvents;
 import com.aetherteam.aether.data.resources.registries.AetherDamageTypes;
 import com.aetherteam.aether.entity.projectile.crystal.AbstractCrystal;
+import io.github.razordevs.deep_aether.datagen.tags.DATags;
 import io.github.razordevs.deep_aether.init.DAEntities;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -26,7 +27,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
-import io.github.razordevs.deep_aether.datagen.tags.DATags;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

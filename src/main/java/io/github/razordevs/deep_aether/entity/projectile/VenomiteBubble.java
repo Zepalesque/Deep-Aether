@@ -1,5 +1,6 @@
 package io.github.razordevs.deep_aether.entity.projectile;
 
+import io.github.razordevs.deep_aether.init.DAItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.EntityType;
@@ -10,7 +11,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import io.github.razordevs.deep_aether.init.DAItems;
 
 public class VenomiteBubble extends ThrowableProjectile {
     private int ticksInAir = 0;

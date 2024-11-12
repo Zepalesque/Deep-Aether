@@ -3,8 +3,6 @@ package io.github.razordevs.deep_aether.recipe.poison;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeInput;
 
-import java.util.List;
-
 public record PoisonRecipeInput(ItemStack item) implements RecipeInput {
 
     @Override

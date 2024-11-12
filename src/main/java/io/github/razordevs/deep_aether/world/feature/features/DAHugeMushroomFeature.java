@@ -22,10 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAHugeMushroomFeature extends Feature<DAHugeMushroomFeatureConfiguration> {
-    public DAHugeMushroomFeature(Codec<DAHugeMushroomFeatureConfiguration> p_65975_) {
-        super(p_65975_);
+    public DAHugeMushroomFeature(Codec<DAHugeMushroomFeatureConfiguration> configuration) {
+        super(configuration);
     }
-
 
     @Override
     public boolean place(FeaturePlaceContext<DAHugeMushroomFeatureConfiguration> pContext) {
@@ -51,7 +50,7 @@ public class DAHugeMushroomFeature extends Feature<DAHugeMushroomFeatureConfigur
         list.addAll(logs);
 
         if (!list.isEmpty()) {
-            int i = list.get(0).getY();
+            int i = list.getFirst().getY();
             list.stream().filter(pos -> pos.getY() == i).forEach(pos -> {
                 this.placeCircle(level, pos.west().north());
                 this.placeCircle(level, pos.east(2).north());

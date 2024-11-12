@@ -20,7 +20,6 @@ import io.github.razordevs.deep_aether.item.gear.other.*;
 import io.github.razordevs.deep_aether.item.gear.skyjade.*;
 import io.github.razordevs.deep_aether.item.gear.stratus.*;
 import io.github.razordevs.deep_aether.item.misc.*;
-import io.github.razordevs.deep_aether.item.moa_food.FodderItem;
 import io.wispforest.accessories.api.AccessoriesAPI;
 import io.wispforest.accessories.api.Accessory;
 import net.minecraft.ChatFormatting;
@@ -40,6 +39,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings("unused")
 public class DAItems {
 	public static final DeferredRegister.Items ITEMS =
 			DeferredRegister.createItems(DeepAether.MODID);
@@ -68,7 +68,7 @@ public class DAItems {
 	public static final DeferredItem<Item> SKYJADE_TOOLS_SHOVEL = ITEMS.register("skyjade_shovel", () -> new SkyjadeToolsShovelItem(DATiers.SKYJADE, new Item.Properties().attributes(ShovelItem.createAttributes(DATiers.SKYJADE, 1, -3f))));
 	public static final DeferredItem<Item> SKYJADE_TOOLS_HOE = ITEMS.register("skyjade_hoe", () -> new SkyjadeToolsHoeItem(DATiers.SKYJADE, new Item.Properties().attributes(HoeItem.createAttributes(DATiers.SKYJADE, 0, -3f))));
 
-	public static final DeferredItem<Item> SKYJADE_HELMET = ITEMS.register("skyjade_helmet", () -> new SkyjadeArmorItem(DAArmorMaterials.SKYJADE, ArmorItem.Type.HELMET, new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(3))));
+	public static final DeferredItem<Item> SKYJADE_HELMET = ITEMS.register("skyjade_helmet", () -> new SkyjadeHelmetItem(DAArmorMaterials.SKYJADE, ArmorItem.Type.HELMET, new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(3))));
 	public static final DeferredItem<Item> SKYJADE_CHESTPLATE = ITEMS.register("skyjade_chestplate", () -> new SkyjadeArmorItem(DAArmorMaterials.SKYJADE, ArmorItem.Type.CHESTPLATE, new Item.Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(3))));
 	public static final DeferredItem<Item> SKYJADE_LEGGINGS = ITEMS.register("skyjade_leggings", () -> new SkyjadeArmorItem(DAArmorMaterials.SKYJADE, ArmorItem.Type.LEGGINGS, new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(3))));
 	public static final DeferredItem<Item> SKYJADE_BOOTS = ITEMS.register("skyjade_boots", () -> new SkyjadeArmorItem(DAArmorMaterials.SKYJADE, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(3))));
@@ -106,7 +106,7 @@ public class DAItems {
 	public static final DeferredItem<Item> CLOUD_CAPE = ITEMS.register("cloud_cape", () -> new CloudCapeItem(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "cloud_cape"), new Item.Properties().rarity(AetherItems.AETHER_LOOT)));
 
 	// ORES
-	public static final DeferredItem<Item> SKYJADE = ITEMS.register("skyjade", SkyjadeItem::new);
+	public static final DeferredItem<Item> SKYJADE = ITEMS.register("skyjade", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> STRATUS_INGOT = ITEMS.register("stratus_ingot", () -> new Item(new Item.Properties()));
 
 	// FOOD

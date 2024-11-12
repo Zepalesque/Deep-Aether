@@ -23,6 +23,7 @@ public class PoisonLakeFeature extends Feature<AetherLakeConfiguration> {
     }
 
     @SuppressWarnings("deprecation")
+    @Override
     public boolean place(FeaturePlaceContext<AetherLakeConfiguration> context) {
         BlockPos blockPos = context.origin();
         WorldGenLevel level = context.level();

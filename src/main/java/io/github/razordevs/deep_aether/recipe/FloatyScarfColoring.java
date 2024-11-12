@@ -4,8 +4,6 @@ import io.github.razordevs.deep_aether.init.DAItems;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
 import io.github.razordevs.deep_aether.item.component.FloatyScarf;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
@@ -122,6 +120,9 @@ public class FloatyScarfColoring extends CustomRecipe {
         return DARecipeSerializers.FLOATY_SCARF_COLORING.get();
     }
 
+    /**
+     * [CODE COPY] - {@link DyedItemColor#applyDyes(ItemStack, List)}
+     */
     public static int applyDyes(int color, List<Integer> dyes) {
         int i = 0;
         int j = 0;

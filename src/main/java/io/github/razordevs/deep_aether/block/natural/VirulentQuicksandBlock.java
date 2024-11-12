@@ -1,5 +1,6 @@
 package io.github.razordevs.deep_aether.block.natural;
 
+import io.github.razordevs.deep_aether.init.DAItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -23,7 +24,6 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import io.github.razordevs.deep_aether.init.DAItems;
 
 import java.util.Optional;
 

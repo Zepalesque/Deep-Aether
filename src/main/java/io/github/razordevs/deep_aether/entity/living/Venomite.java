@@ -2,6 +2,8 @@ package io.github.razordevs.deep_aether.entity.living;
 
 import com.aetherteam.aether.effect.AetherEffects;
 import com.aetherteam.aether.entity.passive.AetherAnimal;
+import io.github.razordevs.deep_aether.entity.goals.FollowPlayerGoal;
+import io.github.razordevs.deep_aether.entity.projectile.VenomiteBubble;
 import io.github.razordevs.deep_aether.init.DAEntities;
 import io.github.razordevs.deep_aether.init.DASounds;
 import net.minecraft.core.BlockPos;
@@ -36,8 +38,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
-import io.github.razordevs.deep_aether.entity.goals.FollowPlayerGoal;
-import io.github.razordevs.deep_aether.entity.projectile.VenomiteBubble;
 
 import java.util.UUID;
 
@@ -48,7 +48,6 @@ public class Venomite extends AetherAnimal implements NeutralMob, FlyingAnimal {
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(Venomite.class, EntityDataSerializers.INT);
     private int underWaterTicks;
     private float rollAmount;
-    private float rollAmountO;
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
 
     @Nullable
@@ -205,7 +204,6 @@ public class Venomite extends AetherAnimal implements NeutralMob, FlyingAnimal {
     }
 
     private void updateRollAmount() {
-        this.rollAmountO = this.rollAmount;
         if (this.isRolling()) {
             this.rollAmount = Math.min(1.0F, this.rollAmount + 0.2F);
         } else {

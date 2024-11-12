@@ -120,9 +120,7 @@ public class FallenTreeFeature extends Feature<FallenTreeConfiguration> {
 
     public boolean canPlace(LevelReader reader, BlockPos pos) {
         BlockState state = reader.getBlockState(pos);
-        if(reader.isEmptyBlock(pos) || state.is(BlockTags.LEAVES) || state.canBeReplaced() || !state.isCollisionShapeFullBlock(reader, pos))
-            return true;
-        return false;
+        return reader.isEmptyBlock(pos) || state.is(BlockTags.LEAVES) || state.canBeReplaced() || !state.isCollisionShapeFullBlock(reader, pos);
     }
 
     public void addDecorators(WorldGenLevel reader, BlockPos pos, BlockState block, RandomSource random, Direction direction) {

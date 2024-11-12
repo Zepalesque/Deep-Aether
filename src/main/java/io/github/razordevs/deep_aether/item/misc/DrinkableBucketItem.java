@@ -24,13 +24,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
 public class DrinkableBucketItem extends BucketItem implements ConsumableItem {
-    boolean CAN_CONSUME = false;
+    boolean canConsume = false;
     public DrinkableBucketItem(Fluid fluid, Properties properties) {
         super(fluid, properties);
     }
 
+    @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity user) {
-        if(CAN_CONSUME) {
+        if(canConsume) {
             if (!level.isClientSide()) {
                 user.addEffect(new MobEffectInstance(AetherEffects.INEBRIATION, 500, 0));
             }
@@ -46,21 +47,23 @@ public class DrinkableBucketItem extends BucketItem implements ConsumableItem {
         return 32;
     }
 
+    @Override
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.DRINK;
     }
 
+    @Override
     public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         BlockHitResult blockhitresult = getPlayerPOVHitResult(world, player, this.content == Fluids.EMPTY ? ClipContext.Fluid.SOURCE_ONLY : ClipContext.Fluid.NONE);
         if (blockhitresult.getType() == HitResult.Type.MISS) {
-            CAN_CONSUME = true;
+            canConsume = true;
             return ItemUtils.startUsingInstantly(world, player, hand);
         } else if (blockhitresult.getType() != HitResult.Type.BLOCK) {
-            CAN_CONSUME = true;
+            canConsume = true;
             return ItemUtils.startUsingInstantly(world, player, hand);
         } else {
-            CAN_CONSUME = false;
+            canConsume = false;
             BlockPos blockpos = blockhitresult.getBlockPos();
             Direction direction = blockhitresult.getDirection();
             BlockPos blockpos1 = blockpos.relative(direction);

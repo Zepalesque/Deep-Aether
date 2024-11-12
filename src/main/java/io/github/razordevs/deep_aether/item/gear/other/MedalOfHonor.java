@@ -5,7 +5,6 @@ import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.init.DAMobEffects;
 import io.github.razordevs.deep_aether.init.DASounds;
 import io.wispforest.accessories.api.slot.SlotReference;
-import io.wispforest.accessories.api.slot.SlotType;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffectInstance;

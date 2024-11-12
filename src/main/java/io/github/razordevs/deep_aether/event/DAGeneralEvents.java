@@ -8,6 +8,7 @@ import com.aetherteam.nitrogen.attachment.INBTSynchable;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.DeepAetherConfig;
 import io.github.razordevs.deep_aether.advancement.DAAdvancementTriggers;
+import io.github.razordevs.deep_aether.datagen.tags.DATags;
 import io.github.razordevs.deep_aether.init.DAItems;
 import io.github.razordevs.deep_aether.init.DAMobEffects;
 import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
@@ -16,6 +17,7 @@ import io.github.razordevs.deep_aether.item.gear.skyjade.SkyjadeWeapon;
 import io.github.razordevs.deep_aether.networking.attachment.DAAttachments;
 import io.github.razordevs.deep_aether.networking.attachment.DAPlayerAttachment;
 import io.wispforest.accessories.api.slot.SlotEntryReference;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -30,13 +32,16 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Level;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.*;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import java.util.*;
@@ -244,6 +249,28 @@ public class DAGeneralEvents {
         SlotEntryReference reference = DAEquipmentUtil.getFloatyScarf(player);
         if(reference != null) {
             FloatyScarfItem.tryDiscardBabyEots(reference.stack(), player.level());
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onTooltipAdd(ItemTooltipEvent event) {
+        ItemStack stack = event.getItemStack();
+        TooltipFlag flag = event.getFlags();
+        List<Component> itemTooltips = event.getToolTip();
+
+        if (flag.isCreative()) {
+            int position = itemTooltips.size();
+            Component itemName = stack.getItem().getName(stack);
+            for (int i = 0; i < position; i++) {
+                Component component = itemTooltips.get(i);
+                if (component.getString().equals(itemName.getString())) {
+                    position = i + 1;
+                    break;
+                }
+            }
+            if (stack.is(DATags.Items.BRASS_DUNGEON_LOOT)) {
+                itemTooltips.add(position, DAItems.BRASS_DUNGEON_TOOLTIP);
+            }
         }
     }
 }

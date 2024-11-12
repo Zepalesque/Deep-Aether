@@ -8,9 +8,10 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 public class StratusPickaxeItem extends PickaxeItem implements GravititeTool {
-    public StratusPickaxeItem(Tier p_42961_, Properties p_42964_) {
-        super(p_42961_, p_42964_);
+    public StratusPickaxeItem(Tier tier, Properties properties) {
+        super(tier, properties);
     }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();

@@ -1,7 +1,6 @@
 package io.github.razordevs.deep_aether.world.structure.brass.processor;
 
 import com.aetherteam.nitrogen.entity.BossRoomTracker;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import io.github.razordevs.deep_aether.world.structure.processor.DAStructureProcessor;
 import net.minecraft.core.BlockPos;

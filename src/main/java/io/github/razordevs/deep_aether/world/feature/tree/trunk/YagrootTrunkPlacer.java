@@ -1,7 +1,6 @@
 package io.github.razordevs.deep_aether.world.feature.tree.trunk;
 
 import com.google.common.collect.Lists;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
@@ -53,7 +52,7 @@ public class YagrootTrunkPlacer extends TrunkPlacer {
             else if(z == 1) direction = Direction.SOUTH;
             else if(z == 2) direction = Direction.EAST;
             else direction = Direction.WEST;
-            int y = 0;
+            int y;
             int a = random.nextInt(3, 5);
             for (int x = 0; (x/2)+1 <= a; x++) {
                 y = Math.round(Math.round(Math.sqrt(Math.pow(a,2)-Math.pow(x-a,2))));

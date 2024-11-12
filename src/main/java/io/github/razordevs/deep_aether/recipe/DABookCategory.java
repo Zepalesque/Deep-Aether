@@ -23,13 +23,5 @@ public enum DABookCategory implements StringRepresentable {
     public String getSerializedName() {
         return this.name;
     }
-
-    public static DABookCategory valueOf(int value) {
-        return switch (value) {
-            case 0 -> COMBINEABLE_FODDER;
-            case 1 -> COMBINEABLE_MISC;
-            default -> UNKNOWN;
-        };
-    }
 }
 

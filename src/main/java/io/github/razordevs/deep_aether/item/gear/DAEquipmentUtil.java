@@ -25,6 +25,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class DAEquipmentUtil {
+    protected static final AttributeModifier STEP_HEIGHT_BONUS = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "step_height_bonus"), 1.0, AttributeModifier.Operation.ADD_VALUE);
+    protected static final AttributeModifier SPEED_BONUS = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "speed_bonus"), 0.2, AttributeModifier.Operation.ADD_VALUE);
+
     public static boolean hasFullStratusSet(LivingEntity entity) {
         return hasArmorSet(entity, DAItems.STRATUS_HELMET.get(), DAItems.STRATUS_CHESTPLATE.get(), DAItems.STRATUS_LEGGINGS.get(), DAItems.STRATUS_BOOTS.get(), DAItems.STRATUS_GLOVES.get());
     }
@@ -36,9 +39,6 @@ public class DAEquipmentUtil {
     public static boolean hasFullSkyjadeSet(LivingEntity entity) {
         return hasArmorSet(entity, DAItems.SKYJADE_HELMET.get(), DAItems.SKYJADE_CHESTPLATE.get(), DAItems.SKYJADE_LEGGINGS.get(), DAItems.SKYJADE_BOOTS.get(), DAItems.SKYJADE_GLOVES.asItem());
     }
-
-    protected static final AttributeModifier STEP_HEIGHT_BONUS = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "step_height_bonus"), 1.0, AttributeModifier.Operation.ADD_VALUE);
-    protected static final AttributeModifier SPEED_BONUS = new AttributeModifier(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "speed_bonus"), 0.2, AttributeModifier.Operation.ADD_VALUE);
 
     public static void updateSkyjadeBehavior(Player player, boolean enabled) {
         AttributeInstance step = player.getAttribute(Attributes.STEP_HEIGHT);
@@ -81,7 +81,6 @@ public class DAEquipmentUtil {
         return EquipmentUtil.getAccessory(entity, DAItems.FLOATY_SCARF.get());
     }
 
-
     public static int getSkyjadeRingCount(LivingEntity entity) {
         return EquipmentUtil.getAccessories(entity, DAItems.SKYJADE_RING.get()).size();
     }
@@ -104,8 +103,6 @@ public class DAEquipmentUtil {
             }
         }
     }
-
-
 
     public static double handleStratusRingBoost(LivingEntity entity) {
         DAEquipmentUtil.damageRing(entity, (RingItem) DAItems.GRAVITITE_RING.get());
@@ -133,7 +130,6 @@ public class DAEquipmentUtil {
         }
         return newSpeed;
     }
-
 
     public static void damageSkyjadeRing(LivingEntity entity, LevelAccessor level, BlockState state, BlockPos pos) {
         List<SlotEntryReference> slotResults = EquipmentUtil.getAccessories(entity, DAItems.SKYJADE_RING.get());

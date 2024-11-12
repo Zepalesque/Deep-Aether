@@ -1,10 +1,10 @@
 package io.github.razordevs.deep_aether.item.dungeon.brass;
 
+import io.github.razordevs.deep_aether.entity.StormArrow;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.ItemStack;
-import io.github.razordevs.deep_aether.entity.StormArrow;
 
 public class StormBowItem extends BowItem {
     public StormBowItem(Properties properties) {

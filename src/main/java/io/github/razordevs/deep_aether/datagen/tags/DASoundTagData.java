@@ -4,7 +4,6 @@ package io.github.razordevs.deep_aether.datagen.tags;
 import com.aetherteam.aether.AetherTags;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.init.DASounds;
-import io.github.razordevs.deep_aether.world.biomes.DABiomes;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;

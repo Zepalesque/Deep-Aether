@@ -2,7 +2,6 @@
 package io.github.razordevs.deep_aether.item.gear.skyjade;
 
 import io.github.razordevs.deep_aether.DeepAetherConfig;
-import io.github.razordevs.deep_aether.block.misc.DisableSound;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;

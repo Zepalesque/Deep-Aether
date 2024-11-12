@@ -21,7 +21,6 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 public class DABucketItem extends MobBucketItem {
@@ -33,8 +32,7 @@ public class DABucketItem extends MobBucketItem {
     }
 
     @Override
-    @Nonnull
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack heldStack = player.getItemInHand(hand);
         if (world.isClientSide) {
             return new InteractionResultHolder<>(InteractionResult.PASS, heldStack);

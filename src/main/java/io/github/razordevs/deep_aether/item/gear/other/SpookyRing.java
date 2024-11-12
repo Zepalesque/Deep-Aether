@@ -24,7 +24,6 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public class SpookyRing extends RingItem {
 

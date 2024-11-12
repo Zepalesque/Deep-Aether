@@ -11,6 +11,7 @@ public class StratusAxeItem extends AxeItem implements GravititeTool {
     public StratusAxeItem(Tier tier, Properties properties) {
         super(tier, properties);
     }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();

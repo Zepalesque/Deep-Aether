@@ -1,7 +1,6 @@
 package io.github.razordevs.deep_aether.item.gear;
 
 import com.aetherteam.aether.attachment.AetherDataAttachments;
-import com.aetherteam.aether.event.hooks.AbilityHooks;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.DeepAetherConfig;
 import net.minecraft.core.BlockPos;
@@ -24,7 +23,7 @@ public class DaAbilityListener {
     public static void onEntityFall(LivingFallEvent event) {
         LivingEntity livingEntity = event.getEntity();
         if (!event.isCanceled()) {
-            event.setCanceled(fallCancellation(livingEntity));
+            event.setCanceled(DAEquipmentUtil.hasFullStratusSet(livingEntity));
         }
     }
 
@@ -68,9 +67,5 @@ public class DaAbilityListener {
         if (!event.isCanceled()) {
             DAEquipmentUtil.damageSkyjadeRing(player, level, state, pos);
         }
-    }
-
-    public static boolean fallCancellation(LivingEntity entity) {
-        return DAEquipmentUtil.hasFullStratusSet(entity);
     }
 }

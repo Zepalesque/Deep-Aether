@@ -1,10 +1,10 @@
 package io.github.razordevs.deep_aether.item.misc;
 
+import io.github.razordevs.deep_aether.item.gear.other.FlawlessDrop;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import io.github.razordevs.deep_aether.item.gear.other.FlawlessDrop;
 
 import java.util.List;
 

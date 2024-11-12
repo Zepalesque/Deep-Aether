@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class SnapshotScreen extends Screen {
     private static final ResourceLocation LOGO_LOCATION = ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "textures/gui/deep_aether.png");
-    private Screen parentScreen;
+    private final Screen parentScreen;
 
     public SnapshotScreen(Screen parentScreen) {
         super(Component.literal("Deep Aether"));

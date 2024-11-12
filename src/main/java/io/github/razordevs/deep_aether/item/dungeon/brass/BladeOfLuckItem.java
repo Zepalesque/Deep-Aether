@@ -16,8 +16,6 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 
 public class BladeOfLuckItem extends SwordItem {
-
-
     public BladeOfLuckItem(Tier tier, Properties properties) {
         super(tier, properties);
     }

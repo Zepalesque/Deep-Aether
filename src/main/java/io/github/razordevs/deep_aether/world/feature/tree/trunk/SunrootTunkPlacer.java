@@ -1,7 +1,6 @@
 package io.github.razordevs.deep_aether.world.feature.tree.trunk;
 
 import com.google.common.collect.Lists;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;

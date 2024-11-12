@@ -22,11 +22,9 @@ import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 
-import javax.annotation.Nonnull;
 import java.util.function.Supplier;
 
 public class DASkyrootBucketItem extends SkyrootMobBucketItem {
-
     private final Supplier<? extends EntityType<?>> fishType;
 
     public DASkyrootBucketItem(EntityType<?> entityType, Properties properties) {
@@ -35,8 +33,7 @@ public class DASkyrootBucketItem extends SkyrootMobBucketItem {
     }
 
     @Override
-    @Nonnull
-    public InteractionResultHolder<ItemStack> use(Level world, Player player, @Nonnull InteractionHand hand) {
+    public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
         ItemStack heldStack = player.getItemInHand(hand);
         if (world.isClientSide) {
             return new InteractionResultHolder<>(InteractionResult.PASS, heldStack);

@@ -6,7 +6,6 @@ import io.github.razordevs.deep_aether.init.DABlocks;
 import io.github.razordevs.deep_aether.world.feature.features.configuration.AercloudCloudConfiguration;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.SectionPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.state.BlockState;
@@ -35,14 +34,6 @@ public class AercloudCloudFeature extends Feature<AercloudCloudConfiguration> {
         place(reader, pos, block, config.hasGrass());
 
         return true;
-    }
-
-    private boolean getBiome(WorldGenLevel level, BlockPos pos) {
-        //if (level.getChunkSource().hasChunk(SectionPos.blockToSectionCoord(pos.getZ()), SectionPos.blockToSectionCoord(pos.getZ()))) {
-        //
-        //}
-        //return level.getBiomeManager().getNoiseBiomeAtPosition(pos);
-        return false;
     }
 
     public void place(WorldGenLevel reader, BlockPos pos, BlockState block, boolean hasGrass) {
@@ -77,9 +68,6 @@ public class AercloudCloudFeature extends Feature<AercloudCloudConfiguration> {
                 if (top < 3) {
                     top -= ((3-top) * 2);
                 }
-                //else if (top > 7)
-                //    top  = 7;
-
 
                 final double decreaseMultiplier = 1.5D;
                 final double decreaseMultiplierCorner = 4D;

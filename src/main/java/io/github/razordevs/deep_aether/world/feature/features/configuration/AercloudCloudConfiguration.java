@@ -12,11 +12,6 @@ public record AercloudCloudConfiguration(BlockStateProvider block, Boolean hasGr
 
             .apply(instance, AercloudCloudConfiguration::new));
 
-    public AercloudCloudConfiguration(BlockStateProvider block, Boolean hasGrass) {
-        this.block = block;
-        this.hasGrass = hasGrass;
-    }
-
     public BlockStateProvider block() {
         return this.block;
     }

@@ -8,9 +8,10 @@ import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 public class StratusHoeItem extends HoeItem implements GravititeTool {
-    public StratusHoeItem(Tier p_42961_, Properties p_42964_) {
-        super(p_42961_, p_42964_);
+    public StratusHoeItem(Tier tier, Properties properties) {
+        super(tier, properties);
     }
+
     @Override
     public InteractionResult useOn(UseOnContext context) {
         Level level = context.getLevel();

@@ -1,4 +1,4 @@
-package io.github.razordevs.deep_aether.item.moa_food;
+package io.github.razordevs.deep_aether.item.misc;
 
 import com.aetherteam.aether.entity.passive.Moa;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;

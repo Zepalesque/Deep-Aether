@@ -1,7 +1,6 @@
 package io.github.razordevs.deep_aether.mixin.block;
 
 import io.github.razordevs.deep_aether.block.misc.DisableSound;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;

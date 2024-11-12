@@ -14,11 +14,11 @@ import io.github.razordevs.deep_aether.entity.living.Venomite;
 import io.github.razordevs.deep_aether.entity.living.Windfly;
 import io.github.razordevs.deep_aether.entity.living.boss.eots.EOTSController;
 import io.github.razordevs.deep_aether.entity.living.boss.eots.EOTSSegment;
+import io.github.razordevs.deep_aether.entity.living.quail.Quail;
 import io.github.razordevs.deep_aether.entity.projectile.FireProjectile;
 import io.github.razordevs.deep_aether.entity.projectile.ThrownQuailEgg;
 import io.github.razordevs.deep_aether.entity.projectile.VenomiteBubble;
 import io.github.razordevs.deep_aether.entity.projectile.WindCrystal;
-import io.github.razordevs.deep_aether.entity.living.quail.Quail;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.util.RandomSource;
@@ -89,7 +89,7 @@ public class DAEntities {
 			EntityType.Builder.<StormArrow>of(StormArrow::new, MobCategory.MISC).sized(0.5F, 0.5F).clientTrackingRange(4).updateInterval(20).build("storm_arrow"));
 
 	public static final DeferredHolder<EntityType<?>,EntityType<VenomiteBubble>> VENOMITE_BUBBLE = ENTITY_TYPES.register("venomite_bubble",
-			() -> EntityType.Builder.<VenomiteBubble>of(VenomiteBubble::new, MobCategory.MISC).sized(0.35F, 0.2F).clientTrackingRange(4).updateInterval(10).build("venomite_bubble"));
+			() -> EntityType.Builder.of(VenomiteBubble::new, MobCategory.MISC).sized(0.35F, 0.2F).clientTrackingRange(4).updateInterval(10).build("venomite_bubble"));
 
 	public static final DeferredHolder<EntityType<?>, EntityType<BabyZephyr>> BABY_ZEPHYR = ENTITY_TYPES.register("baby_zephyr",
 			() -> EntityType.Builder.of(BabyZephyr::new,

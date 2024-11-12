@@ -1,7 +1,9 @@
 package io.github.razordevs.deep_aether.event;
 
+import com.aetherteam.cumulus.client.CumulusClient;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.init.DABlocks;
+import io.github.razordevs.deep_aether.init.DAMenus;
 import io.github.razordevs.deep_aether.screen.SnapshotScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -18,7 +20,7 @@ import net.neoforged.neoforge.client.event.ScreenEvent;
 import net.neoforged.neoforge.client.event.ViewportEvent;
 
 @EventBusSubscriber(modid = DeepAether.MODID,  value = Dist.CLIENT, bus = EventBusSubscriber.Bus.GAME)
-public class DAClientForgeBusEvents {
+public class DAClientGameBusEvents {
     private static boolean hasShownScreen = false;
 
     // Fog effect to mimic PowderSnow behaviour
@@ -52,5 +54,11 @@ public class DAClientForgeBusEvents {
                 hasShownScreen = true;
             }
         }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    public static void onGuiOpenHighest(ScreenEvent.Opening event) {
+        CumulusClient.MENU_HELPER.prepareMenu(DAMenus.DEEP_AETHER.get());
+        CumulusClient.MENU_HELPER.prepareMenu(DAMenus.DEEP_AETHER_LEFT.get());
     }
 }

@@ -7,31 +7,9 @@ import io.github.razordevs.deep_aether.recipe.DABookCategory;
 import io.github.razordevs.deep_aether.recipe.DARecipeTypes;
 import io.github.razordevs.deep_aether.recipe.combiner.CombinerRecipe;
 import net.minecraft.client.RecipeBookCategories;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.neoforged.fml.common.asm.enumextension.EnumProxy;
 import net.neoforged.neoforge.client.event.RegisterRecipeBookCategoriesEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class DARecipeCategories {
-
-//    public static final EnumProxy<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_SEARCH = new EnumProxy<>(
-//            RecipeBookCategories.class, (Supplier<List<ItemStack>>) ()->new ArrayList<>() {{
-//        new ItemStack(Items.COMPASS);
-//    }});
-
-    //    public static final EnumProxy<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_FODDER = new EnumProxy<>(
-//            RecipeBookCategories.class, (Supplier<List<ItemStack>>) ()->new ArrayList<>() {{
-//        new ItemStack(DAItems.MOA_FODDER.get());
-//    }});
-
-//    public static final EnumProxy<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_MISC = new EnumProxy<>(
-//            RecipeBookCategories.class, (Supplier<List<ItemStack>>) ()->new ArrayList<>() {{
-//        new ItemStack(DAItems.ANTIDOTE.get());
-//    }});
-
     public static final Supplier<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_SEARCH = Suppliers.memoize(() -> RecipeBookCategories.valueOf("DEEP_AETHER_COMBINEABLE_SEARCH"));
 
     public static final Supplier<RecipeBookCategories> DEEP_AETHER_COMBINEABLE_FODDER = Suppliers.memoize(() -> RecipeBookCategories.valueOf("DEEP_AETHER_COMBINEABLE_FODDER"));

@@ -14,13 +14,6 @@ public record FallenTreeConfiguration(int min, int max, BlockStateProvider block
                     BlockStateProvider.CODEC.fieldOf("decorators").forGetter(FallenTreeConfiguration::decorators))
             .apply(instance, FallenTreeConfiguration::new));
 
-    public FallenTreeConfiguration(int min, int max, BlockStateProvider block, BlockStateProvider decorators) {
-        this.min = min;
-        this.max = max;
-        this.block = block;
-        this.decorators = decorators;
-    }
-
     public int min() {
         return this.min;
     }

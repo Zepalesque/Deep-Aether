@@ -21,10 +21,10 @@ import java.util.Iterator;
 
 public class CloriteColumnsFeature extends Feature<ColumnFeatureConfiguration> {
     private static final ImmutableList<Block> CANNOT_PLACE_ON;
-    private static final int CLUSTERED_REACH = 5;
-    private static final int CLUSTERED_SIZE = 50;
-    private static final int UNCLUSTERED_REACH = 8;
-    private static final int UNCLUSTERED_SIZE = 15;
+    //private static final int CLUSTERED_REACH = 5;
+    //private static final int CLUSTERED_SIZE = 50;
+    //private static final int UNCLUSTERED_REACH = 8;
+    //private static final int UNCLUSTERED_SIZE = 15;
 
     public CloriteColumnsFeature(Codec<ColumnFeatureConfiguration> pCodec) {
         super(pCodec);
@@ -35,7 +35,7 @@ public class CloriteColumnsFeature extends Feature<ColumnFeatureConfiguration> {
         BlockPos blockpos = pContext.origin();
         WorldGenLevel worldgenlevel = pContext.level();
         RandomSource randomsource = pContext.random();
-        ColumnFeatureConfiguration columnfeatureconfiguration = (ColumnFeatureConfiguration)pContext.config();
+        ColumnFeatureConfiguration columnfeatureconfiguration = pContext.config();
         if (!canPlaceAt(worldgenlevel, blockpos.mutable())) {
             return false;
         } else {
@@ -44,10 +44,8 @@ public class CloriteColumnsFeature extends Feature<ColumnFeatureConfiguration> {
             int k = Math.min(j, flag ? 5 : 8);
             int l = flag ? 50 : 15;
             boolean flag1 = false;
-            Iterator var12 = BlockPos.randomBetweenClosed(randomsource, l, blockpos.getX() - k, blockpos.getY(), blockpos.getZ() - k, blockpos.getX() + k, blockpos.getY(), blockpos.getZ() + k).iterator();
 
-            while(var12.hasNext()) {
-                BlockPos blockpos1 = (BlockPos)var12.next();
+            for (BlockPos blockpos1 : BlockPos.randomBetweenClosed(randomsource, l, blockpos.getX() - k, blockpos.getY(), blockpos.getZ() - k, blockpos.getX() + k, blockpos.getY(), blockpos.getZ() + k)) {
                 int i1 = j - blockpos1.distManhattan(blockpos);
                 if (i1 >= 0) {
                     flag1 |= this.placeColumn(worldgenlevel, i, blockpos1, i1, columnfeatureconfiguration.reach().sample(randomsource));
@@ -60,7 +58,7 @@ public class CloriteColumnsFeature extends Feature<ColumnFeatureConfiguration> {
 
     private boolean placeColumn(LevelAccessor pLevel, int pSeaLevel, BlockPos pPos, int pDistance, int pReach) {
         boolean flag = false;
-        Iterator var7 = BlockPos.betweenClosed(pPos.getX() - pReach, pPos.getY(), pPos.getZ() - pReach, pPos.getX() + pReach, pPos.getY(), pPos.getZ() + pReach).iterator();
+        Iterator<BlockPos> var7 = BlockPos.betweenClosed(pPos.getX() - pReach, pPos.getY(), pPos.getZ() - pReach, pPos.getX() + pReach, pPos.getY(), pPos.getZ() + pReach).iterator();
 
         while(true) {
             int i;
@@ -70,7 +68,7 @@ public class CloriteColumnsFeature extends Feature<ColumnFeatureConfiguration> {
                     return flag;
                 }
 
-                BlockPos blockpos = (BlockPos)var7.next();
+                BlockPos blockpos = var7.next();
                 i = blockpos.distManhattan(pPos);
                 blockpos1 = isAirOrCloud(pLevel, blockpos) ? findSurface(pLevel, pSeaLevel, blockpos.mutable(), i) : findAir(pLevel, blockpos.mutable(), i);
             } while(blockpos1 == null);

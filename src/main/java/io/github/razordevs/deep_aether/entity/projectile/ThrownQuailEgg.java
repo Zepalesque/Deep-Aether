@@ -3,6 +3,7 @@ package io.github.razordevs.deep_aether.entity.projectile;
 import io.github.razordevs.deep_aether.entity.living.quail.Quail;
 import io.github.razordevs.deep_aether.entity.living.quail.QuailVariants;
 import io.github.razordevs.deep_aether.init.DAEntities;
+import io.github.razordevs.deep_aether.init.DAItems;
 import net.minecraft.Util;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
@@ -13,7 +14,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import io.github.razordevs.deep_aether.init.DAItems;
 
 public class ThrownQuailEgg extends ThrowableItemProjectile {
 

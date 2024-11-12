@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
-import org.joml.Vector3f;
 
 public class DAFluidTypes {
     public static final ResourceLocation POISON_STILL_RL = ResourceLocation.withDefaultNamespace("block/water_still");
@@ -21,7 +20,6 @@ public class DAFluidTypes {
             .canSwim(false));
     
     private static Holder<FluidType> register(String name, FluidType.Properties properties) {
-        return FLUID_TYPES.register(name, () -> new BaseFluidType(POISON_STILL_RL, POISON_FLOWING_RL, POISON_OVERLAY_RL,
-                0xffAB5AFD, new Vector3f(224f / 255f, 56f / 255f, 208f / 255f), properties));
+        return FLUID_TYPES.register(name, () -> new FluidType(properties));
     }
 }

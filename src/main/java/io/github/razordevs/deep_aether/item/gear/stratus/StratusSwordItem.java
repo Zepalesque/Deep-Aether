@@ -7,11 +7,11 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
 
 public class StratusSwordItem extends SwordItem implements GravititeWeapon {
-
-    public StratusSwordItem(Tier p_43269_, Properties p_43272_) {
-        super(p_43269_, p_43272_);
+    public StratusSwordItem(Tier tier, Properties properties) {
+        super(tier, properties);
     }
 
+    @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         this.launchEntity(target, attacker);
         return super.hurtEnemy(stack, target, attacker);

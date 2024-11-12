@@ -1,8 +1,9 @@
 package io.github.razordevs.deep_aether.item.gear.stratus;
 
-
 import com.aetherteam.aether.attachment.AetherDataAttachments;
 import io.github.razordevs.deep_aether.DeepAetherConfig;
+import io.github.razordevs.deep_aether.client.DeepAetherKeys;
+import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.server.level.ServerPlayer;
@@ -13,8 +14,6 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import io.github.razordevs.deep_aether.client.DeepAetherKeys;
-import io.github.razordevs.deep_aether.item.gear.DAEquipmentUtil;
 
 public class StratusAbility extends ArmorItem {
 

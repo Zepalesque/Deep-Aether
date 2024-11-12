@@ -2,8 +2,6 @@ package io.github.razordevs.deep_aether.item.gear.skyjade;
 
 import com.aetherteam.aether.inventory.AetherAccessorySlots;
 import com.aetherteam.aether.item.accessories.gloves.GlovesItem;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.DeepAetherConfig;
 import io.github.razordevs.deep_aether.init.DASounds;
@@ -11,13 +9,10 @@ import io.github.razordevs.deep_aether.item.gear.DAArmorMaterials;
 import io.wispforest.accessories.api.attributes.AccessoryAttributeBuilder;
 import io.wispforest.accessories.api.slot.SlotReference;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-
-import java.util.UUID;
 
 public class SkyjadeGlovesItem extends GlovesItem {
     public SkyjadeGlovesItem(double punchDamage, Item.Properties properties) {

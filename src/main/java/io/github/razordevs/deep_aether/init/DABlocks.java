@@ -38,7 +38,6 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
@@ -46,6 +45,7 @@ import java.util.function.Supplier;
 import static net.minecraft.world.level.block.Blocks.CAULDRON;
 import static net.minecraft.world.level.block.Blocks.MOSSY_STONE_BRICKS;
 
+@SuppressWarnings({"unused", "SameParameterValue"})
 public class DABlocks {
 
 	public static final DeferredRegister.Blocks BLOCKS =
@@ -498,12 +498,12 @@ public class DABlocks {
 		return toReturn;
 	}
 
-	private static <T extends Block> DeferredItem<Item> registerBlockItem(String name, DeferredBlock<T> block) {
-		return DAItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
+	private static <T extends Block> void registerBlockItem(String name, DeferredBlock<T> block) {
+		DAItems.ITEMS.register(name, () -> new BlockItem(block.get(), new Item.Properties()));
 	}
 
-	private static <T extends Block> DeferredItem<Item> registerBlockItemDisabled(String name, DeferredBlock<T> block) {
-		return DAItems.ITEMS.register(name, () -> new DisabledBlockItem(block.get(), new Item.Properties()));
+	private static <T extends Block> void registerBlockItemDisabled(String name, DeferredBlock<T> block) {
+		DAItems.ITEMS.register(name, () -> new DisabledBlockItem(block.get(), new Item.Properties()));
 	}
 	private static <T extends Block> DeferredBlock<T> registerAetherReduxBlock(String name, Supplier<T> block) {
 		return registerCompatBlock(DeepAether.AETHER_REDUX, name, block);
@@ -538,8 +538,8 @@ public class DABlocks {
 		registerBurnableBlockItem(burnTime, name, toReturn);
 		return toReturn;
 	}
-	private static <T extends Block> DeferredItem<Item> registerBurnableBlockItem(int burnTime, String name, DeferredBlock<T> block) {
-		return DAItems.ITEMS.register(name, () -> new BurnableBlockItem(burnTime, block.get(), new Item.Properties()));
+	private static <T extends Block> void registerBurnableBlockItem(int burnTime, String name, DeferredBlock<T> block) {
+		DAItems.ITEMS.register(name, () -> new BurnableBlockItem(burnTime, block.get(), new Item.Properties()));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -681,9 +681,6 @@ public class DABlocks {
 			return ResourceKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, pId));
 		}
 	}
-
-
-
 }
 
 
