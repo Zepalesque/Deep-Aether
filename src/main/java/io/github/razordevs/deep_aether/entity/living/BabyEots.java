@@ -30,7 +30,6 @@ import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
@@ -45,14 +44,11 @@ public class BabyEots extends FlyingMob {
     private static final EntityDataAccessor<Integer> COLOR_3 = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Integer> COLOR_4 = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
 
-    private static final int RIDE_COOLDOWN = 100;
+    private static final int RIDE_COOLDOWN = 300;
     private int rideCooldownCounter;
-    private final AABB hitBox = this.getHitbox();
 
     private static final EntityDataAccessor<Integer> DATA_OWNER_ID = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> IS_ON_NECK = SynchedEntityData.defineId(BabyEots.class, EntityDataSerializers.BOOLEAN);
-
-    private boolean isWrappedAroundNeck = false;
 
     public BabyEots(EntityType<? extends FlyingMob> type, Level level) {
         super(type, level);
@@ -192,11 +188,16 @@ public class BabyEots extends FlyingMob {
     @Override
     public void tick() {
         if(this.isWrappedAroundNeck() && this.getOwner() != null) {
-            this.setPos(getOwner().getX(), getOwner().getY() + 2.2, getOwner().getZ());
+            this.setPos(getOwner().getX(), getOwner().getY() + 50, getOwner().getZ());
             this.getNavigation().stop();
         }
         ++rideCooldownCounter;
         super.tick();
+    }
+
+    @Override
+    public boolean displayFireAnimation() {
+        return false;
     }
 
     public boolean isWrappedAroundNeck(){
@@ -211,9 +212,9 @@ public class BabyEots extends FlyingMob {
 
     public boolean removeEntityAroundNeck(){
         if(!isWrappedAroundNeck()) return false;
-
         this.rideCooldownCounter = 0;
         this.entityData.set(IS_ON_NECK, false);
+        this.setPos(getOwner().getX(), getOwner().getY() + 1.2, getOwner().getZ());
         return true;
     }
 
@@ -236,7 +237,7 @@ public class BabyEots extends FlyingMob {
             if(serverplayer == null) return false;
 
             boolean flag = !serverplayer.isSpectator() && !serverplayer.isInWater() && !serverplayer.isInPowderSnow;
-            return flag && !this.eots.isWrappedAroundNeck() && this.eots.rideCooldownCounter > 100 && this.eots.getTarget() == null;
+            return flag && !this.eots.isWrappedAroundNeck() && this.eots.rideCooldownCounter > RIDE_COOLDOWN && this.eots.getTarget() == null;
         }
 
         public void start() {
