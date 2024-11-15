@@ -6,7 +6,7 @@ import com.mojang.math.Axis;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.client.model.BabyEotsModel;
 import io.github.razordevs.deep_aether.client.renderer.DAModelLayers;
-import io.github.razordevs.deep_aether.entity.BabyEots;
+import io.github.razordevs.deep_aether.entity.living.BabyEots;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -28,6 +28,12 @@ public class BabyEotsRenderer extends MobRenderer<BabyEots, BabyEotsModel> {
     @Override
     public void render(BabyEots eots, float entityYaw, float partialTicks, PoseStack matrixStack, MultiBufferSource buffer, int packedLight) {
         matrixStack.pushPose();
+
+        boolean flag = eots.isWrappedAroundNeck();
+        eots.setInvisible(flag);
+        this.model.root.visible = !flag;
+        this.model.head.visible = !flag;
+        for(ModelPart part : this.model.body) part.visible = !flag;
 
         this.model.attackTime = this.getAttackAnim(eots, partialTicks);
         float f = Mth.rotLerp(partialTicks, eots.yBodyRotO, eots.yBodyRot);
@@ -65,16 +71,6 @@ public class BabyEotsRenderer extends MobRenderer<BabyEots, BabyEotsModel> {
         RenderType rendertype = this.model.renderType(this.getTextureLocation(eots));
         VertexConsumer vertexconsumer = buffer.getBuffer(rendertype);
         int i = getOverlayCoords(eots, this.getWhiteOverlayProgress(eots, partialTicks));
-
-        if(eots.isWrappedAroundNeck()){
-            this.model.head.visible = false;
-            for (ModelPart part : this.model.body)
-                part.visible = false;
-        }else {
-            this.model.head.visible = true;
-            for (ModelPart part : this.model.body)
-                part.visible = true;
-        }
 
         this.model.head.render(matrixStack, vertexconsumer, packedLight, i, eots.getFromColor(0));
         this.model.body[0].render(matrixStack, vertexconsumer, packedLight, i, eots.getFromColor(1));

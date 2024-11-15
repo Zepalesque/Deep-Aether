@@ -1,9 +1,7 @@
 package io.github.razordevs.deep_aether.event;
 
-import com.aetherteam.cumulus.client.CumulusClient;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.init.DABlocks;
-import io.github.razordevs.deep_aether.init.DAMenus;
 import io.github.razordevs.deep_aether.screen.SnapshotScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -56,9 +54,9 @@ public class DAClientGameBusEvents {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    public static void onGuiOpenHighest(ScreenEvent.Opening event) {
-        CumulusClient.MENU_HELPER.prepareMenu(DAMenus.DEEP_AETHER.get());
-        CumulusClient.MENU_HELPER.prepareMenu(DAMenus.DEEP_AETHER_LEFT.get());
-    }
+//    @SubscribeEvent(priority = EventPriority.HIGH)
+//    public static void onGuiOpenHighest(ScreenEvent.Opening event) {
+//        CumulusClient.MENU_HELPER.prepareMenu(DAMenus.DEEP_AETHER.get());
+//        CumulusClient.MENU_HELPER.prepareMenu(DAMenus.DEEP_AETHER_LEFT.get());
+//    }
 }

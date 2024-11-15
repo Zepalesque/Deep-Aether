@@ -21,6 +21,7 @@ import net.neoforged.neoforge.internal.BrandingControl;
 
 public class DATitleScreen extends AetherTitleScreen implements TitleScreenBehavior {
 
+    //TODO: for Winds and Storms part 2
     //TODO: Panorama pain
 
     private static final ResourceLocation PANORAMA_OVERLAY = ResourceLocation.withDefaultNamespace("textures/gui/title/background/panorama_overlay.png");

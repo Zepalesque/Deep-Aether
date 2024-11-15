@@ -145,7 +145,7 @@ public class DeepAether {
 		mod.registerConfig(ModConfig.Type.CLIENT, DeepAetherConfig.CLIENT_SPEC);
 
 		if (dist == Dist.CLIENT) {
-			DAMenus.MENUS.register(bus);
+			//DAMenus.MENUS.register(bus);
 			bus.addListener(DARecipeCategories::registerRecipeCategories);
 		}
 	}
