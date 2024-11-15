@@ -39,7 +39,7 @@ public class EOTSSegmentModel extends HierarchicalModel<EOTSSegment> {
                 .texOffs(0, 28).addBox(7.0F, -13.0F, -6.0F, 2.0F, 10.0F, 12.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 24.0F, 0.0F));
 
 
-        PartDefinition bb_main = partdefinition.addOrReplaceChild("bb_main", CubeListBuilder.create(), PartPose.offset(0.0F, 22.0F, 0.0F));
+        PartDefinition bb_main = partdefinition.addOrReplaceChild("bb_main", CubeListBuilder.create(), PartPose.offset(0.0F, 22.0F, -3.0F));
 
         bb_main.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(44, 13).addBox(-4.0F, -5.0F, 0.0F, 8.0F, 5.0F, 0.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(0.0F, -7.0F, -2.0F, 0.4363F, 0.0F, 0.0F));
 
