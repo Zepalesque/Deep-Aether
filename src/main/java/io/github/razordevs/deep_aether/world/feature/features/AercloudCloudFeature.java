@@ -7,8 +7,8 @@ import io.github.razordevs.deep_aether.world.feature.features.configuration.Aerc
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.XoroshiroRandomSource;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
@@ -30,13 +30,12 @@ public class AercloudCloudFeature extends Feature<AercloudCloudConfiguration> {
         WorldGenLevel reader = context.level();
         BlockPos pos = context.origin();
         AercloudCloudConfiguration config = context.config();
-        BlockState block = config.block().getState(context.random(), pos);
-        place(reader, pos, block, config.hasGrass());
+        place(reader, pos, config, context.random(), config.hasGrass());
 
         return true;
     }
 
-    public void place(WorldGenLevel reader, BlockPos pos, BlockState block, boolean hasGrass) {
+    public void place(WorldGenLevel reader, BlockPos pos, AercloudCloudConfiguration config, RandomSource random, boolean hasGrass) {
 
 
         boolean goAgainstX = !reader.getBiomeManager().getNoiseBiomeAtPosition(pos.relative(Direction.Axis.X, 16)).is(DATags.Biomes.IS_CLOUD);
@@ -136,7 +135,7 @@ public class AercloudCloudFeature extends Feature<AercloudCloudConfiguration> {
 
                 int y;
                 for (y = Math.round(Math.round(lowestY + bottom - (top / 2))); y < lowestY + top + originalBottom; y++) {
-                    this.setBlock(reader, pos.relative(Direction.Axis.X, x).relative(Direction.Axis.Z, z).atY(y), block);
+                    this.setBlock(reader, pos.relative(Direction.Axis.X, x).relative(Direction.Axis.Z, z).atY(y), config.block().getState(random, pos));
                 }
                 if(hasGrass && top >= 4) {
                     this.setBlock(reader, pos.relative(Direction.Axis.X, x).relative(Direction.Axis.Z, z).atY(y), DABlocks.AERCLOUD_GRASS_BLOCK.get().defaultBlockState());
@@ -150,7 +149,7 @@ public class AercloudCloudFeature extends Feature<AercloudCloudConfiguration> {
                 }
 
                 for (y = 12 + a; y > originalBottom; y--) {
-                    this.setBlock(reader, pos.relative(Direction.Axis.X, x).relative(Direction.Axis.Z, z).atY(y + lowestY + 20), block);
+                    this.setBlock(reader, pos.relative(Direction.Axis.X, x).relative(Direction.Axis.Z, z).atY(y + lowestY + 20), config.block().getState(random, pos));
                 }
             }
         }

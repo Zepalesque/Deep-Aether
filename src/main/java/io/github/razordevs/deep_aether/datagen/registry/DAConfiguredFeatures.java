@@ -451,8 +451,8 @@ public class DAConfiguredFeatures {
         register(context, STERLING_AERCLOUD_CONFIGURATION, AetherFeatures.AERCLOUD.get(), new AercloudConfiguration(2,
                 SimpleStateProvider.simple(DABlocks.STERLING_AERCLOUD.get())));
 
-        register(context, AERCLOUD_CLOUD, DAFeatures.AERCLOUD_CLOUD.get(), new AercloudCloudConfiguration(SimpleStateProvider.simple(AetherBlocks.COLD_AERCLOUD.get()), Boolean.FALSE));
-        register(context, AERCLOUD_CLOUD_OVERGROWN, DAFeatures.AERCLOUD_CLOUD.get(), new AercloudCloudConfiguration(SimpleStateProvider.simple(AetherBlocks.COLD_AERCLOUD.get()), Boolean.TRUE));
+        register(context, AERCLOUD_CLOUD, DAFeatures.AERCLOUD_CLOUD.get(), new AercloudCloudConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(AetherFeatureStates.COLD_AERCLOUD, 10000).add(DABlocks.STERLING_AERCLOUD.get().defaultBlockState(), 1)), Boolean.FALSE));
+        register(context, AERCLOUD_CLOUD_OVERGROWN, DAFeatures.AERCLOUD_CLOUD.get(), new AercloudCloudConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(AetherFeatureStates.COLD_AERCLOUD, 1).add(DABlocks.STERLING_AERCLOUD.get().defaultBlockState(), 1)), Boolean.TRUE));
         register(context, AERCLOUD_RAIN_CLOUD, DAFeatures.RAIN_AERCLOUD_CLOUD.get(), new AercloudCloudConfiguration(SimpleStateProvider.simple(DABlocks.RAIN_AERCLOUD.get()), Boolean.FALSE));
         register(context, AERCLOUD_ROOTS, DAFeatures.AERCLOUD_ROOTS.get(),
                 new AercloudConfiguration(20, SimpleStateProvider.simple(AetherBlocks.COLD_AERCLOUD.get())));

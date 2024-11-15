@@ -2,13 +2,24 @@
   "type": "deep_aether:aercloud_cloud",
   "config": {
     "block": {
-      "type": "minecraft:simple_state_provider",
-      "state": {
-        "Name": "aether:cold_aercloud",
-        "Properties": {
-          "double_drops": "false"
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "data": {
+            "Name": "aether:cold_aercloud",
+            "Properties": {
+              "double_drops": "true"
+            }
+          },
+          "weight": 1
+        },
+        {
+          "data": {
+            "Name": "deep_aether:sterling_aercloud"
+          },
+          "weight": 1
         }
-      }
+      ]
     },
     "hasGrass": true
   }

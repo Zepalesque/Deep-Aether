@@ -65,7 +65,7 @@ public class DARegion extends Region {
 
         // Sacred Lands
         addBiome(mapper, new Climate.ParameterPoint(tempDefault3, Climate.Parameter.span(-0.33F, 0.33F), fullRange, fullRange, fullRange, fullRange, 0),
-                DABiomes.SACRED_LANDS);
+                SacredLands);
 
         // Row 3
         addBiome(mapper, new Climate.ParameterPoint(tempDefault3, Climate.Parameter.span(-1.5F, -0.4F), fullRange, fullRange, fullRange, fullRange, 0),
