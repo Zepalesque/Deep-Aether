@@ -148,12 +148,6 @@
     "axolotls": [],
     "creature": [
       {
-        "type": "deep_aether:windfly",
-        "maxCount": 1,
-        "minCount": 3,
-        "weight": 10
-      },
-      {
         "type": "aether:phyg",
         "maxCount": 4,
         "minCount": 3,
