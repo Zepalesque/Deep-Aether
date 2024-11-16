@@ -55,6 +55,8 @@
   "entity.deep_aether.boat": "Boat",
   "entity.deep_aether.eots_controller": "Eye of the Storm",
   "entity.deep_aether.eots_segment": "Eye of the Storm",
+  "entity.deep_aether.baby_zephyr": "Baby Zephyr",
+  "entity.deep_aether.baby_eots": "Baby Eye of The Storm",
   "block.deep_aether.aerglow_grass_path": "Aerglow Grass Path",
   "lore.block.deep_aether.aerglow_grass_path": "This block is the result of using a shovel on an Aerglow Grass Block.",
   "block.deep_aether.aersmog": "Aersmog",
