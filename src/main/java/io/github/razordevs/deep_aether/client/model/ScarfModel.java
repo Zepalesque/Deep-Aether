@@ -1,9 +1,7 @@
 package io.github.razordevs.deep_aether.client.model;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
@@ -30,7 +28,7 @@ public class ScarfModel extends HumanoidModel<LivingEntity> {
         MeshDefinition meshdefinition = HumanoidModel.createMesh(cube, 0.0F);
         PartDefinition partdefinition = meshdefinition.getRoot();
 
-        PartDefinition head2 = partdefinition.addOrReplaceChild("head2", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, -1.5F, -1.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
+        partdefinition.addOrReplaceChild("head2", CubeListBuilder.create().texOffs(0, 16).addBox(-2.0F, -1.5F, -1.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
                 .texOffs(12, 0).addBox(-2.0F, 0.5F, -3.0F, 4.0F, 2.0F, 2.0F, new CubeDeformation(0.0F))
                 .texOffs(16, 17).addBox(0.0F, -2.5F, 0.0F, 0.0F, 1.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(6.0F, -2.0F, -2.0F));
 
@@ -38,25 +36,25 @@ public class ScarfModel extends HumanoidModel<LivingEntity> {
 
         PartDefinition body_rot_1 = body_1.addOrReplaceChild("body_rot_1", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 11.0F));
 
-        PartDefinition cube_r1 = body_rot_1.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(12, 4).addBox(-3.0F, -2.0F, -1.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.0F, 2.5F, 0.0F, 0.0F, -1.5708F, 0.0F));
+        body_rot_1.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(12, 4).addBox(-3.0F, -2.0F, -1.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.0F, 2.5F, 0.0F, 0.0F, -1.5708F, 0.0F));
 
         PartDefinition body_2 = partdefinition.addOrReplaceChild("body_2", CubeListBuilder.create(), PartPose.offset(-5.0F, -4.0F, -9.0F));
 
         PartDefinition body_rot_2 = body_2.addOrReplaceChild("body_rot_2", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 16.0F));
 
-        PartDefinition cube_r2 = body_rot_2.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(0, 8).addBox(-3.0F, -2.0F, 4.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(5.0F, 2.5F, 2.0F, 0.0F, -2.2253F, 0.0F));
+        body_rot_2.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(0, 8).addBox(-3.0F, -2.0F, 4.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(5.0F, 2.5F, 2.0F, 0.0F, -2.2253F, 0.0F));
 
         PartDefinition body_rot_3 = partdefinition.addOrReplaceChild("body_rot_3", CubeListBuilder.create(), PartPose.offset(0.0F, 21.0F, 8.0F));
 
         PartDefinition body_3 = body_rot_3.addOrReplaceChild("body_3", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, -21.0F));
 
-        PartDefinition cube_r3 = body_3.addOrReplaceChild("cube_r3", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -2.0F, 9.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-7.0F, -22.5F, 24.0F, 0.0F, 3.1416F, 0.0F));
+        body_3.addOrReplaceChild("cube_r3", CubeListBuilder.create().texOffs(0, 0).addBox(-3.0F, -2.0F, 9.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-7.0F, -22.5F, 24.0F, 0.0F, 3.1416F, 0.0F));
 
         PartDefinition body_0 = partdefinition.addOrReplaceChild("body_0", CubeListBuilder.create(), PartPose.offset(7.0F, -3.0F, 0.0F));
 
         PartDefinition body_rot_0 = body_0.addOrReplaceChild("body_rot_0", CubeListBuilder.create(), PartPose.offset(0.0F, 0.0F, 6.0F));
 
-        PartDefinition cube_r4 = body_rot_0.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(12, 12).addBox(-3.0F, -2.0F, -6.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, 1.5F, -6.0F, 0.0F, 2.5307F, 0.0F));
+        body_rot_0.addOrReplaceChild("cube_r4", CubeListBuilder.create().texOffs(12, 12).addBox(-3.0F, -2.0F, -6.0F, 4.0F, 4.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, 1.5F, -6.0F, 0.0F, 2.5307F, 0.0F));
 
         return LayerDefinition.create(meshdefinition, 32, 32);
     }
@@ -67,6 +65,6 @@ public class ScarfModel extends HumanoidModel<LivingEntity> {
     }
 
     @Override
-    public void setupAnim(LivingEntity p_102618_, float p_102619_, float p_102620_, float p_102621_, float p_102622_, float p_102623_) {
+    public void setupAnim(LivingEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float netHeadYaw, float headPitch) {
     }
 }

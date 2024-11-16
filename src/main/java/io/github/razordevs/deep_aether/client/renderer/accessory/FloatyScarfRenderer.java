@@ -6,7 +6,6 @@ import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.client.model.ScarfModel;
 import io.github.razordevs.deep_aether.client.renderer.DAModelLayers;
 import io.github.razordevs.deep_aether.entity.living.BabyEots;
-import io.github.razordevs.deep_aether.item.component.FloatyScarf;
 import io.github.razordevs.deep_aether.item.gear.other.FloatyScarfItem;
 import io.wispforest.accessories.api.client.AccessoryRenderer;
 import io.wispforest.accessories.api.slot.SlotReference;
@@ -17,6 +16,7 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public class FloatyScarfRenderer implements AccessoryRenderer {
@@ -34,6 +34,11 @@ public class FloatyScarfRenderer implements AccessoryRenderer {
 
         AccessoryRenderer.followBodyRotations(reference.entity(), this.scarfModel);
         VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.entityTranslucent(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "textures/models/accessory/pendant/scarf.png")));
+
+        Player owner = eots.getOwner();
+        if(owner != null && owner.isCrouching()) {
+            poseStack.translate(0, 0.23, 0);
+        }
 
         this.scarfModel.head.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, eots.getFromColor(0));
         this.scarfModel.body[0].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, eots.getFromColor(1));

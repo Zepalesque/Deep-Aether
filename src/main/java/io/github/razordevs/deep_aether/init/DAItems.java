@@ -96,7 +96,7 @@ public class DAItems {
 	//BRASS LOOT
 	public static final DeferredItem<Item> BRASS_DUNGEON_KEY = ITEMS.register("brass_dungeon_key", () -> new Item(new Item.Properties().stacksTo(1).rarity(AetherItems.AETHER_LOOT).fireResistant().component(AetherDataComponents.DUNGEON_KIND, new DungeonKind(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "brass")))));
 	public static final DeferredItem<Item> STORM_BOW = ITEMS.register("storm_bow", () -> new StormBowItem(new Item.Properties().durability(384).rarity(AetherItems.AETHER_LOOT)));
-	public static final DeferredItem<Item> STORM_SWORD = ITEMS.register("storm_sword", () -> new StormSwordItem(DATiers.STORM, new Item.Properties().durability(384).rarity(AetherItems.AETHER_LOOT)));
+	public static final DeferredItem<Item> STORM_SWORD = ITEMS.register("storm_sword", () -> new StormSwordItem(DATiers.STORM, new Item.Properties().durability(384).rarity(AetherItems.AETHER_LOOT).attributes(SwordItem.createAttributes(DATiers.STRATUS, 2, -2.4F))));
 	public static final DeferredItem<Item> BLADE_OF_LUCK = ITEMS.register("blade_of_luck", () -> new BladeOfLuckItem(DATiers.LUCK, (new Item.Properties()).attributes(SwordItem.createAttributes(DATiers.LUCK, 0, -3.5F)).rarity(AetherItems.AETHER_LOOT)));
 
 	public static final DeferredItem<Item> STORMFORGED_HELMET = ITEMS.register("stormforged_helmet", () -> new ArmorItem(DAArmorMaterials.STORMFORGED, ArmorItem.Type.HELMET, new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(33)).rarity(AetherItems.AETHER_LOOT)));
