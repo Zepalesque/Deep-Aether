@@ -53,6 +53,7 @@ public class DAEntityRenderers {
 		event.registerLayerDefinition(DAModelLayers.AERGLOW_FISH, AerglowFishModel::createBodyLayer);
 		event.registerLayerDefinition(DAModelLayers.EOTS_CONTROLLER, EOTSModel::createBodyLayer);
 		event.registerLayerDefinition(DAModelLayers.EOTS_SEGMENT, EOTSSegmentModel::createBodyLayer);
+		event.registerLayerDefinition(DAModelLayers.EOTS_SEGMENT_CLASSIC, ClassicEOTSSegmentModel::createBodyLayer);
 		event.registerLayerDefinition(DAModelLayers.BABY_EOTS, BabyEotsModel::createBodyLayer);
 		event.registerLayerDefinition(DAModelLayers.QUAIL, QuailModel::createBodyLayer);
 		event.registerLayerDefinition(DAModelLayers.VENOMITE_BUBBLE, VenomiteBubbleModel::createBodyLayer);

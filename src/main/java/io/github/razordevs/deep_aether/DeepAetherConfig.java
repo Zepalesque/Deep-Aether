@@ -148,6 +148,8 @@ public class DeepAetherConfig {
         }
     }
     public static class Client {
+        public final ConfigValue<Boolean> legacy_models;
+
         public final ConfigValue<Boolean> always_enable_halloween_slider;
         public final ConfigValue<Boolean> never_enable_halloween_slider;
 
@@ -155,6 +157,13 @@ public class DeepAetherConfig {
         public final ConfigValue<Integer> stratus_colldown_indicator_y_position;
 
         public Client(ModConfigSpec.Builder builder) {
+            builder.push("Rendering");
+            legacy_models = builder
+                    .comment("Changes to some Deep Aether's old mob model such as the Eye of The Storm")
+                    .translation("config.deep_aether.client.rendering.legacy_models")
+                    .define("Switches to legacy mob models", false);
+            builder.pop();
+
             builder.push("Rendering");
             always_enable_halloween_slider = builder
                     .comment("Always Enables the halloween Slider")
