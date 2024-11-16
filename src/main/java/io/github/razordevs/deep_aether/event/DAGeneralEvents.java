@@ -53,12 +53,6 @@ public class DAGeneralEvents {
     public static void onEntityJoin(EntityJoinLevelEvent event) {
         if(event.getEntity() instanceof Player player) {
             player.getData(DAAttachments.PLAYER).onJoinLevel(player);
-
-            SlotEntryReference reference = DAEquipmentUtil.getFloatyScarf(player);
-
-            if (reference != null) {
-                FloatyScarfItem.tryAddBabyEots(reference.stack(), player);
-            }
         }
     }
 
@@ -240,15 +234,6 @@ public class DAGeneralEvents {
         if (var4 instanceof SkyjadeWeapon zaniteWeapon) {
             ItemAttributeModifiers.Entry attributeEntry = zaniteWeapon.increaseDamage(modifiers, itemStack);
             event.replaceModifier(attributeEntry.attribute(), attributeEntry.modifier(), attributeEntry.slot());
-        }
-    }
-
-    @SubscribeEvent
-    public static void onPlayerChangedDimensionEvent(PlayerEvent.PlayerChangedDimensionEvent event) {
-        Player player = event.getEntity();
-        SlotEntryReference reference = DAEquipmentUtil.getFloatyScarf(player);
-        if(reference != null) {
-            FloatyScarfItem.tryDiscardBabyEots(reference.stack(), player.level());
         }
     }
 

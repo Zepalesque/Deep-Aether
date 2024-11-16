@@ -111,6 +111,12 @@
     ],
     "subtitle": "subtitles.deep_aether.entity.eots.shoot"
   },
+  "entity.eots.hurt": {
+    "sounds": [
+      "aether:entity/zephyr/shoot"
+    ],
+    "subtitle": "subtitles.deep_aether.entity.eots.hurt"
+  },
   "music.boss.eots": {
     "sounds": [
       {

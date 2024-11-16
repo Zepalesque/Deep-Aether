@@ -22,7 +22,7 @@
     },
     "frame": "goal",
     "icon": {
-      "item": "deep_aether:brass_dungeon_key"
+      "id": "deep_aether:brass_dungeon_key"
     },
     "title": {
       "translate": "advancement.deep_aether.brass_dungeon"

@@ -21,8 +21,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class FloatyScarfItem extends PendantItem implements FlawlessDrop {
-    private BabyEots eots = null;
-
     public FloatyScarfItem(ResourceLocation pendantLocation, Holder<SoundEvent> pendantSound, Properties properties) {
         super(pendantLocation, pendantSound, properties);
     }
@@ -30,14 +28,28 @@ public class FloatyScarfItem extends PendantItem implements FlawlessDrop {
     @Override
     public void onEquip(ItemStack stack, SlotReference reference) {
         if(reference.entity() instanceof Player player) {
-            this.eots = tryAddBabyEots(stack, player);
+            tryAddBabyEots(stack, player);
+        }
+    }
+
+    @Override
+    public void tick(ItemStack stack, SlotReference reference) {
+        if(!(reference.entity() instanceof Player player))
+            return;
+
+        FloatyScarf scarf = stack.get(DADataComponentTypes.FLOATY_SCARF);
+        if(scarf == null)
+            return;
+
+        Entity entity = getEOTS(stack, reference.entity().level());
+        if(entity == null || !entity.isAlive()) {
+            FloatyScarfItem.tryAddBabyEots(stack, player);
         }
     }
 
     @Override
     public void onUnequip(ItemStack stack, SlotReference reference) {
         tryDiscardBabyEots(stack, reference.entity().level());
-        this.eots = null;
     }
 
     public static void tryDiscardBabyEots(@Nullable ItemStack stack, Level level) {
@@ -48,9 +60,9 @@ public class FloatyScarfItem extends PendantItem implements FlawlessDrop {
             entity.discard();
     }
 
-    public static BabyEots tryAddBabyEots(@Nullable ItemStack stack, Player player) {
+    public static void tryAddBabyEots(@Nullable ItemStack stack, Player player) {
         if(stack == null)
-            return null;
+            return;
 
         FloatyScarf scarf = stack.get(DADataComponentTypes.FLOATY_SCARF);
         if(scarf == null) {
@@ -62,7 +74,6 @@ public class FloatyScarfItem extends PendantItem implements FlawlessDrop {
             eots.setCustomName(component);
         }
         stack.set(DADataComponentTypes.FLOATY_SCARF, new FloatyScarf(eots.getId(), scarf.colors(), scarf.currentModification()));
-        return eots;
     }
 
     public static Entity getEOTS(ItemStack stack, Level level){
@@ -70,9 +81,17 @@ public class FloatyScarfItem extends PendantItem implements FlawlessDrop {
         return scarf != null ? level.getEntity(scarf.uuid()) : null;
     }
 
-    public boolean hasStoredEOTS(){
-        if(this.eots == null) return false;
-        return this.eots.isWrappedAroundNeck();
+    @Nullable
+    public BabyEots hasStoredEOTS(Level level, ItemStack stack) {
+        FloatyScarf scarf = stack.get(DADataComponentTypes.FLOATY_SCARF);
+        if(scarf == null)
+            return null;
+
+        BabyEots entity = (BabyEots) level.getEntity(scarf.uuid());
+        if(entity == null || !entity.isAlive()) {
+            return null;
+        }
+        return entity;
     }
 
     int i = 0;

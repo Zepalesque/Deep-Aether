@@ -30,17 +30,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.deep_aether.stratus_armor.description"
     },
     "frame": "challenge",
-    "hidden": false,
     "icon": {
-      "item": "deep_aether:stratus_chestplate",
-      "nbt": "{Damage:0}"
+      "id": "deep_aether:stratus_chestplate"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.deep_aether.stratus_armor.title"
     }

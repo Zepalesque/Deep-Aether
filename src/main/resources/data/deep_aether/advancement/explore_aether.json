@@ -163,16 +163,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.deep_aether.explore_aether.description"
     },
     "frame": "challenge",
-    "hidden": false,
     "icon": {
-      "item": "deep_aether:roseroot_sapling"
+      "id": "deep_aether:roseroot_sapling"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.deep_aether.explore_aether.title"
     }

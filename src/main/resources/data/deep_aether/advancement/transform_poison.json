@@ -6,16 +6,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancement.deep_aether.transform_poison.desc"
     },
     "frame": "task",
-    "hidden": false,
     "icon": {
-      "item": "deep_aether:poison_bucket"
+      "id": "deep_aether:poison_bucket"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancement.deep_aether.transform_poison"
     }

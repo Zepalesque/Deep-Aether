@@ -200,11 +200,11 @@ public class BabyEots extends FlyingMob {
         return false;
     }
 
-    public boolean isWrappedAroundNeck(){
+    public boolean isWrappedAroundNeck() {
         return this.entityData.get(IS_ON_NECK);
     }
 
-    public boolean setEntityAroundNeck(){
+    public boolean setEntityAroundNeck() {
         if(isWrappedAroundNeck()) return false;
         this.entityData.set(IS_ON_NECK, true);
         return true;
@@ -271,6 +271,7 @@ public class BabyEots extends FlyingMob {
                 this.eots.discard();
                 return false;
             }
+
             SlotEntryReference reference = DAEquipmentUtil.getFloatyScarf(livingentity);
             if(reference == null) {
                 this.eots.discard();

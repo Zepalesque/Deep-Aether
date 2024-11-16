@@ -59,16 +59,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.deep_aether.aether_champion.description"
     },
     "frame": "challenge",
-    "hidden": false,
     "icon": {
-      "item": "aether:aether_portal_frame"
+      "id": "aether:aether_portal_frame"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.deep_aether.aether_champion.title"
     }
@@ -89,5 +86,6 @@
   ],
   "rewards": {
     "experience": 500
-  }
+  },
+  "sends_telemetry_event": true
 }
