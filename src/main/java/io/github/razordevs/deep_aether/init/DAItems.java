@@ -86,7 +86,6 @@ public class DAItems {
 	public static final DeferredItem<Item> SPOOKY_RING = ITEMS.register("spooky_ring", () -> new SpookyRing(DASounds.ITEM_ACCESSORY_EQUIP_SPOOKY_RING, new Item.Properties().stacksTo(1).durability(500)));
 	public static final DeferredItem<Item> SLIDER_EYE = ITEMS.register("slider_eye", () -> new SliderEye(DASounds.ITEM_ACCESSORY_EQUIP_SLIDER_EYE, new Item.Properties().stacksTo(1).durability(500).rarity(AetherItems.AETHER_LOOT).fireResistant()));
 	public static final DeferredItem<Item> MEDAL_OF_HONOR = ITEMS.register("medal_of_honor", () -> new MedalOfHonor(new Item.Properties().stacksTo(1).rarity(AetherItems.AETHER_LOOT).fireResistant()));
-	public static final DeferredItem<Item> WIND_SHIELD = ITEMS.register("wind_shield", () -> new WindShieldItem(new Item.Properties().stacksTo(1).durability(512).rarity(AetherItems.AETHER_LOOT)));
 	public static final DeferredItem<Item> STRATUS_SWORD = ITEMS.register("stratus_sword", () -> new StratusSwordItem(DATiers.STRATUS, (new Item.Properties().attributes(SwordItem.createAttributes(DATiers.STRATUS, 3, -2.4F)))));
 	public static final DeferredItem<Item> STRATUS_SHOVEL = ITEMS.register("stratus_shovel", () -> new StratusShovelItem(DATiers.STRATUS, (new Item.Properties().attributes(ShovelItem.createAttributes(DATiers.STRATUS, 1.5F, -3.0F)))));
 	public static final DeferredItem<Item> STRATUS_PICKAXE = ITEMS.register("stratus_pickaxe", () -> new StratusPickaxeItem(DATiers.STRATUS, (new Item.Properties().attributes(PickaxeItem.createAttributes(DATiers.STRATUS, 1, -2.8F)))));
@@ -94,16 +93,23 @@ public class DAItems {
 	public static final DeferredItem<Item> STRATUS_HOE = ITEMS.register("stratus_hoe", () -> new StratusHoeItem(DATiers.STRATUS, (new Item.Properties().attributes(HoeItem.createAttributes(DATiers.STRATUS, -4, 0.0F)))));
 	public static final DeferredItem<Item> STRATUS_SMITHING_TEMPLATE = ITEMS.register("stratus_smithing_template", () -> new SmithingTemplateItem(DAItems.STRATUS_UPGRADE_APPLIES_TO, DAItems.STRATUS_UPGRADE_INGREDIENTS, DAItems.STRATUS_UPGRADE, DAItems.STRATUS_UPGRADE_BASE_SLOT_DESCRIPTION, DAItems.STRATUS_UPGRADE_ADDITIONS_SLOT_DESCRIPTION, SmithingTemplateItem.createNetheriteUpgradeIconList(),  SmithingTemplateItem.createNetheriteUpgradeMaterialList()));
 
+	//BRASS LOOT
+	public static final DeferredItem<Item> BRASS_DUNGEON_KEY = ITEMS.register("brass_dungeon_key", () -> new Item(new Item.Properties().stacksTo(1).rarity(AetherItems.AETHER_LOOT).fireResistant().component(AetherDataComponents.DUNGEON_KIND, new DungeonKind(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "brass")))));
+	public static final DeferredItem<Item> STORM_BOW = ITEMS.register("storm_bow", () -> new StormBowItem(new Item.Properties().durability(384).rarity(AetherItems.AETHER_LOOT)));
+	public static final DeferredItem<Item> STORM_SWORD = ITEMS.register("storm_sword", () -> new StormSwordItem(DATiers.STORM, new Item.Properties().durability(384).rarity(AetherItems.AETHER_LOOT)));
+	public static final DeferredItem<Item> BLADE_OF_LUCK = ITEMS.register("blade_of_luck", () -> new BladeOfLuckItem(DATiers.LUCK, (new Item.Properties()).attributes(SwordItem.createAttributes(DATiers.LUCK, 0, -3.5F)).rarity(AetherItems.AETHER_LOOT)));
+
 	public static final DeferredItem<Item> STORMFORGED_HELMET = ITEMS.register("stormforged_helmet", () -> new ArmorItem(DAArmorMaterials.STORMFORGED, ArmorItem.Type.HELMET, new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(33)).rarity(AetherItems.AETHER_LOOT)));
 	public static final DeferredItem<Item> STORMFORGED_CHESTPLATE = ITEMS.register("stormforged_chestplate", () -> new ArmorItem(DAArmorMaterials.STORMFORGED, ArmorItem.Type.CHESTPLATE, new Item.Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(33)).rarity(AetherItems.AETHER_LOOT)));
 	public static final DeferredItem<Item> STORMFORGED_LEGGINGS = ITEMS.register("stormforged_leggings", () -> new ArmorItem(DAArmorMaterials.STORMFORGED, ArmorItem.Type.LEGGINGS, new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(33)).rarity(AetherItems.AETHER_LOOT)));
 	public static final DeferredItem<Item> STORMFORGED_BOOTS = ITEMS.register("stormforged_boots", () -> new ArmorItem(DAArmorMaterials.STORMFORGED, ArmorItem.Type.BOOTS, new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(33)).rarity(AetherItems.AETHER_LOOT)));
 	public static final DeferredItem<Item> STORMFORGED_GLOVES = ITEMS.register("stormforged_gloves", () -> new GlovesItem(DAArmorMaterials.STORMFORGED, 0.75, ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "stormforged_gloves"), DASounds.ITEM_ARMOR_EQUIP_STORMFORGED, new Item.Properties().rarity(AetherItems.AETHER_LOOT)));
 
-	public static final DeferredItem<Item> BLADE_OF_LUCK = ITEMS.register("blade_of_luck", () -> new BladeOfLuckItem(DATiers.LUCK, (new Item.Properties()).attributes(SwordItem.createAttributes(DATiers.LUCK, 0, -3.5F)).rarity(AetherItems.AETHER_LOOT)));
-
 	public static final DeferredItem<Item> AERCLOUD_NECKLACE = ITEMS.register("aercloud_necklace", () -> new PendantItem(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "aercloud_necklace"), DASounds.ITEM_ACCESSORY_EQUIP_MEDAL_OF_HONOR, new Item.Properties().rarity(AetherItems.AETHER_LOOT)));
 	public static final DeferredItem<Item> CLOUD_CAPE = ITEMS.register("cloud_cape", () -> new CloudCapeItem(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "cloud_cape"), new Item.Properties().rarity(AetherItems.AETHER_LOOT)));
+	public static final DeferredItem<Item> WIND_SHIELD = ITEMS.register("wind_shield", () -> new WindShieldItem(new Item.Properties().stacksTo(1).durability(512).rarity(AetherItems.AETHER_LOOT)));
+
+	public static final DeferredItem<Item> FLOATY_SCARF = ITEMS.register("floaty_scarf", () -> new FloatyScarfItem(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "floaty_scarf"), SoundEvents.ARMOR_EQUIP_CHAIN, new Item.Properties().rarity(AetherItems.AETHER_LOOT).component(DADataComponentTypes.FLOATY_SCARF, FloatyScarf.withDefaultColor(0))));
 
 	// ORES
 	public static final DeferredItem<Item> SKYJADE = ITEMS.register("skyjade", () -> new Item(new Item.Properties()));
@@ -145,8 +151,6 @@ public class DAItems {
 	// MISC
 	public static final DeferredItem<Item> SUN_CORE = ITEMS.register("sun_core", () -> new SunCore((new Item.Properties()).rarity(AetherItems.AETHER_LOOT).fireResistant()));
 	public static final DeferredItem<Item> AERWHALE_SADDLE = ITEMS.register("aerwhale_saddle", () -> new AerwhaleSaddle((new Item.Properties().stacksTo(1)).rarity(AetherItems.AETHER_LOOT).fireResistant()));
-
-	public static final DeferredItem<Item> FLOATY_SCARF = ITEMS.register("floaty_scarf", () -> new FloatyScarfItem(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "floaty_scarf"), SoundEvents.ARMOR_EQUIP_CHAIN, new Item.Properties().rarity(AetherItems.AETHER_LOOT).component(DADataComponentTypes.FLOATY_SCARF, FloatyScarf.withDefaultColor(0))));
 
 	public static final DeferredItem<Item> AETHER_FISH_SPAWN_EGG = ITEMS.register("aether_fish_spawn_egg",
 			() -> new DeferredSpawnEggItem(DAEntities.AETHER_FISH, 698060, 16776960, new Item.Properties()));
@@ -203,18 +207,8 @@ public class DAItems {
 
 	public static final DeferredItem<Item> SQUASH_SEEDS = ITEMS.register("squash_seeds", ()-> new ItemNameBlockItem(DABlocks.SQUASH_STEM.get(), new Item.Properties()));
 
-	public static final DeferredItem<Item> SUN_CLOCK = ITEMS.register("sun_clock", ()-> new SunClock(new Item.Properties()));
-	public static final DeferredItem<Item> BRONZE_COMPASS = ITEMS.register("bronze_compass", ()-> new DungeonCompass(new Item.Properties(), AetherStructures.BRONZE_DUNGEON, "Bronze Dungeon"));
-	public static final DeferredItem<Item> SILVER_COMPASS = ITEMS.register("silver_compass", ()-> new DungeonCompass(new Item.Properties(), AetherStructures.SILVER_DUNGEON, "Silver Dungeon"));
-	public static final DeferredItem<Item> GOLD_COMPASS = ITEMS.register("gold_compass", ()-> new DungeonCompass(new Item.Properties(), AetherStructures.GOLD_DUNGEON, "Gold Dungeon"));
 
 	public static final DeferredItem<Item> CHAOS_EMERALD = ITEMS.register("chaos_emerald", () -> new ChaosEmerald(new Item.Properties()));
-
-	//BRASS LOOT
-	public static final DeferredItem<Item> BRASS_DUNGEON_KEY = ITEMS.register("brass_dungeon_key", () -> new Item(new Item.Properties().stacksTo(1).rarity(AetherItems.AETHER_LOOT).fireResistant().component(AetherDataComponents.DUNGEON_KIND, new DungeonKind(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "brass")))));
-	public static final DeferredItem<Item> STORM_BOW = ITEMS.register("storm_bow", () -> new StormBowItem(new Item.Properties().durability(384).rarity(AetherItems.AETHER_LOOT)));
-	public static final DeferredItem<Item> STORM_SWORD = ITEMS.register("storm_sword", () -> new StormSwordItem(DATiers.STORM, new Item.Properties().durability(384).rarity(AetherItems.AETHER_LOOT)));
-
 
 	//ADDONS
 
@@ -226,6 +220,13 @@ public class DAItems {
 	public static final DeferredItem<Item> SKYJADE_SHIELD = registerLCItem("skyjade_shield", () -> new SkyjadeShieldItem(new Item.Properties().durability(672)));
 	public static final DeferredItem<Item> STRATUS_SHIELD = registerLCItem("stratus_shield", () -> new LCDAShieldItem(new Item.Properties().durability(1344)));
 	*/
+
+	//Deep Aether 1.2/Experimental
+	public static final DeferredItem<Item> SUN_CLOCK = ITEMS.register("sun_clock", ()-> new SunClock(new Item.Properties()));
+	public static final DeferredItem<Item> BRONZE_COMPASS = ITEMS.register("bronze_compass", ()-> new DungeonCompass(new Item.Properties(), AetherStructures.BRONZE_DUNGEON, "Bronze Dungeon"));
+	public static final DeferredItem<Item> SILVER_COMPASS = ITEMS.register("silver_compass", ()-> new DungeonCompass(new Item.Properties(), AetherStructures.SILVER_DUNGEON, "Silver Dungeon"));
+	public static final DeferredItem<Item> GOLD_COMPASS = ITEMS.register("gold_compass", ()-> new DungeonCompass(new Item.Properties(), AetherStructures.GOLD_DUNGEON, "Gold Dungeon"));
+
 
 	public static void registerAccessories() {
 		AccessoriesAPI.registerAccessory(DAItems.SKYJADE_RING.get(), (Accessory) DAItems.SKYJADE_RING.get());

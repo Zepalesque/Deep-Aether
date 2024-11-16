@@ -8,6 +8,8 @@ import com.aetherteam.aether.data.resources.registries.AetherDimensions;
 import com.aetherteam.aether.network.packet.clientbound.OpenSunAltarPacket;
 import io.github.razordevs.deep_aether.DeepAether;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -51,5 +53,11 @@ public class SunClock extends Item {
         if (!level.isClientSide() && player instanceof ServerPlayer serverPlayer) {
             PacketDistributor.sendToPlayer(serverPlayer, new OpenSunAltarPacket(Component.translatable("menu." + DeepAether.MODID + ".sun_clock"), timeScale));
         }
+    }
+
+    @Override
+    public Component getDescription() {
+        return Component.translatable("deep_aether.item.disabled_item").withStyle(Style.EMPTY.withItalic(true)
+                .withColor(TextColor.parseColor("#d1362b").result().get()));
     }
 }

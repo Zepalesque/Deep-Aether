@@ -8,6 +8,8 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.*;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -92,5 +94,11 @@ public class DungeonCompass extends Item {
         } else {
             tooltip.add(Component.translatable("deep_aether.structure.unset.tooltip").withStyle(ChatFormatting.GOLD));
         }
+    }
+
+    @Override
+    public Component getDescription() {
+        return Component.translatable("deep_aether.item.disabled_item").withStyle(Style.EMPTY.withItalic(true)
+                .withColor(TextColor.parseColor("#d1362b").result().get()));
     }
 }
