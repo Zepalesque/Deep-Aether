@@ -475,6 +475,9 @@ public class DATabs {
             addToTab(AetherItems.MOA_SPAWN_EGG.get(), new Item[]{
                     DAItems.QUAIL_SPAWN_EGG.get()
             }, event);
+            addToTab(AetherItems.SLIDER_SPAWN_EGG.get(), new Item[]{
+                    DAItems.BABY_ZEPHYR_SPAWN_EGG.get()
+            }, event);
             addToTab(AetherItems.VALKYRIE_SPAWN_EGG.get(), new Item[]{
                     DAItems.VENOMITE_SPAWN_EGG.get(),
                     DAItems.WINDFLY_SPAWN_EGG.get()
