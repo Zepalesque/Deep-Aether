@@ -244,7 +244,10 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
         this.setBossFight(false);
         this.setInvisible(false);
         this.setTarget(null);
-        this.setHealth(this.getMaxHealth());
+        AttributeInstance instance = this.getAttribute(Attributes.MAX_HEALTH);
+        if(instance != null)
+            instance.removeModifier(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "eots_health_multiplayer"));
+
         if (this.getDungeon() != null) {
             this.setPos(this.getDungeon().originCoordinates());
             this.openRoom();
@@ -290,16 +293,16 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
     }
 
     protected void spawnSegments() {
-        EOTSSegment oldSegment = new EOTSSegment(this.level(), this);
-        this.segmentUUIDs.add(oldSegment.getUUID());
         int extra = (this.bossFight.getPlayers().size() - 1) * EXTRA_SEGMENT;
         AttributeInstance instance = this.getAttribute(Attributes.MAX_HEALTH);
         if(instance != null) {
             instance.removeModifier(getBonusHealth(extra));
             instance.addTransientModifier(getBonusHealth(extra));
-            oldSegment.setHealth(this.getMaxHealth());
+            this.setHealth(this.getMaxHealth());
         }
 
+        EOTSSegment oldSegment = new EOTSSegment(this.level(), this);
+        this.segmentUUIDs.add(oldSegment.getUUID());
         for (int i = 0; i < SEGMENT_COUNT-1 + extra; i++) {
             oldSegment = new EOTSSegment(this.level(), oldSegment, this);
         }

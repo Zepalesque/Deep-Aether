@@ -9,7 +9,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "aether:skyroot_forest"
+                "biomes": "aether:skyroot_forest"
               }
             }
           }
@@ -25,7 +25,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "aether:skyroot_grove"
+                "biomes": "aether:skyroot_grove"
               }
             }
           }
@@ -41,7 +41,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "aether:skyroot_meadow"
+                "biomes": "aether:skyroot_meadow"
               }
             }
           }
@@ -57,7 +57,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "aether:skyroot_woodland"
+                "biomes": "aether:skyroot_woodland"
               }
             }
           }
@@ -73,7 +73,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "deep_aether:aerglow_forest"
+                "biomes": "deep_aether:aerglow_forest"
               }
             }
           }
@@ -89,7 +89,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "deep_aether:aerlavender_fields"
+                "biomes": "deep_aether:aerlavender_fields"
               }
             }
           }
@@ -105,7 +105,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "deep_aether:blue_aerglow_forest"
+                "biomes": "deep_aether:blue_aerglow_forest"
               }
             }
           }
@@ -121,7 +121,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "deep_aether:mystic_aerglow_forest"
+                "biomes": "deep_aether:mystic_aerglow_forest"
               }
             }
           }
@@ -137,7 +137,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "deep_aether:yagroot_swamp"
+                "biomes": "deep_aether:yagroot_swamp"
               }
             }
           }
@@ -153,7 +153,7 @@
             "entity": "this",
             "predicate": {
               "location": {
-                "biome": "deep_aether:golden_heights"
+                "biomes": "deep_aether:golden_heights"
               }
             }
           }
