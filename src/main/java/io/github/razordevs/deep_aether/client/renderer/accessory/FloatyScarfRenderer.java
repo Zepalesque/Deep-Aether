@@ -45,6 +45,5 @@ public class FloatyScarfRenderer implements AccessoryRenderer {
         this.scarfModel.body[1].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, eots.getFromColor(2));
         this.scarfModel.body[2].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, eots.getFromColor(3));
         this.scarfModel.body[3].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, eots.getFromColor(4));
-
     }
 }
