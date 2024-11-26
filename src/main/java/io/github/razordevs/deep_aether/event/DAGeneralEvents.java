@@ -62,7 +62,7 @@ public class DAGeneralEvents {
         SlotEntryReference reference = DAEquipmentUtil.getFloatyScarf(player);
 
         if (reference != null) {
-            FloatyScarfItem.tryDiscardBabyEots(reference.stack(), player.level());
+            FloatyScarfItem.tryDiscardGentleWind(reference.stack(), player.level());
         }
     }
 

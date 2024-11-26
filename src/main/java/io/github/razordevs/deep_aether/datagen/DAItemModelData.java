@@ -423,6 +423,7 @@ public class DAItemModelData extends AetherItemModelProvider {
         this.eggItem(DAItems.VENOMITE_SPAWN_EGG.get());
         this.eggItem(DAItems.WINDFLY_SPAWN_EGG.get());
         this.eggItem(DAItems.BABY_ZEPHYR_SPAWN_EGG.get());
+        this.eggItem(DAItems.GENTLE_WIND_SPAWN_EGG.get());
 
         //Misc
         this.item(DAItems.CHAOS_EMERALD.get());

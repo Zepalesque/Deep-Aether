@@ -2,20 +2,20 @@ package io.github.razordevs.deep_aether.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import io.github.razordevs.deep_aether.entity.living.BabyEots;
+import io.github.razordevs.deep_aether.entity.living.GentleWind;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.util.Mth;
 
-public class BabyEotsModel extends EntityModel<BabyEots> {
+public class GentleWindModel extends EntityModel<GentleWind> {
 	public final ModelPart[] body = new ModelPart[4];
 	public final ModelPart head;
 	public final ModelPart root;
 	private final ModelPart[] bodyRot = new ModelPart[4];
 
-	public BabyEotsModel(ModelPart root) {
+	public GentleWindModel(ModelPart root) {
 		this.body[0] = root.getChild("body_0");
 		this.body[1] = root.getChild("body_1");
 		this.body[2] = root.getChild("body_2");
@@ -55,7 +55,7 @@ public class BabyEotsModel extends EntityModel<BabyEots> {
 	}
 
 	@Override
-	public void setupAnim(BabyEots entity, float limbSwing, float limbSwingAmount, float partialTicks, float netHeadYaw, float headPitch) {
+	public void setupAnim(GentleWind entity, float limbSwing, float limbSwingAmount, float partialTicks, float netHeadYaw, float headPitch) {
 		for (int i = 0; i < body.length; i++) {
 
 			//Roll

@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import io.github.razordevs.deep_aether.DeepAether;
 import io.github.razordevs.deep_aether.client.model.ScarfModel;
 import io.github.razordevs.deep_aether.client.renderer.DAModelLayers;
-import io.github.razordevs.deep_aether.entity.living.BabyEots;
+import io.github.razordevs.deep_aether.entity.living.GentleWind;
 import io.github.razordevs.deep_aether.item.gear.other.FloatyScarfItem;
 import io.wispforest.accessories.api.client.AccessoryRenderer;
 import io.wispforest.accessories.api.slot.SlotReference;
@@ -28,22 +28,22 @@ public class FloatyScarfRenderer implements AccessoryRenderer {
 
     @Override
     public <M extends LivingEntity> void render(ItemStack stack, SlotReference reference, PoseStack poseStack, EntityModel<M> entityModel, MultiBufferSource buffer, int packedLight, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
-        BabyEots eots = (BabyEots) FloatyScarfItem.getEOTS(stack, reference.entity().level());
+        GentleWind gentleWind = (GentleWind) FloatyScarfItem.getGentleWind(stack, reference.entity().level());
 
-        if(eots == null || !eots.isWrappedAroundNeck()) return;
+        if(gentleWind == null || !gentleWind.isWrappedAroundNeck()) return;
 
         AccessoryRenderer.followBodyRotations(reference.entity(), this.scarfModel);
         VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.entityTranslucent(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "textures/models/accessory/pendant/scarf.png")));
 
-        Player owner = eots.getOwner();
+        Player owner = gentleWind.getOwner();
         if(owner != null && owner.isCrouching()) {
             poseStack.translate(0, 0.23, 0);
         }
 
-        this.scarfModel.head.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, eots.getFromColor(0));
-        this.scarfModel.body[0].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, eots.getFromColor(1));
-        this.scarfModel.body[1].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, eots.getFromColor(2));
-        this.scarfModel.body[2].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, eots.getFromColor(3));
-        this.scarfModel.body[3].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, eots.getFromColor(4));
+        this.scarfModel.head.render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, gentleWind.getFromColor(0));
+        this.scarfModel.body[0].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, gentleWind.getFromColor(1));
+        this.scarfModel.body[1].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, gentleWind.getFromColor(2));
+        this.scarfModel.body[2].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, gentleWind.getFromColor(3));
+        this.scarfModel.body[3].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, gentleWind.getFromColor(4));
     }
 }

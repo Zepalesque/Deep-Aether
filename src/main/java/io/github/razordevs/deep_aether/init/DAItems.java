@@ -167,6 +167,9 @@ public class DAItems {
 	public static final DeferredItem<Item> BABY_ZEPHYR_SPAWN_EGG = ITEMS.register("baby_zephyr_spawn_egg",
 			() -> new DeferredSpawnEggItem(DAEntities.BABY_ZEPHYR,698060, 16776960, new Item.Properties()));
 
+	public static final DeferredItem<Item> GENTLE_WIND_SPAWN_EGG = ITEMS.register("gentle_wind_spawn_egg",
+			() -> new DeferredSpawnEggItem(DAEntities.GENTLE_WIND,698060, 16776960, new Item.Properties()));
+
 
 
 	public static final DeferredItem<Item> QUAIL_EGG = ITEMS.register("quail_egg",

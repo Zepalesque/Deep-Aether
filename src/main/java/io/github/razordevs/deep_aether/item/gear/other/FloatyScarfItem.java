@@ -1,7 +1,7 @@
 package io.github.razordevs.deep_aether.item.gear.other;
 
 import com.aetherteam.aether.item.accessories.pendant.PendantItem;
-import io.github.razordevs.deep_aether.entity.living.BabyEots;
+import io.github.razordevs.deep_aether.entity.living.GentleWind;
 import io.github.razordevs.deep_aether.item.component.DADataComponentTypes;
 import io.github.razordevs.deep_aether.item.component.FloatyScarf;
 import io.wispforest.accessories.api.slot.SlotReference;
@@ -28,7 +28,7 @@ public class FloatyScarfItem extends PendantItem implements FlawlessDrop {
     @Override
     public void onEquip(ItemStack stack, SlotReference reference) {
         if(reference.entity() instanceof Player player) {
-            tryAddBabyEots(stack, player);
+            tryAddGentleWind(stack, player);
         }
     }
 
@@ -41,26 +41,26 @@ public class FloatyScarfItem extends PendantItem implements FlawlessDrop {
         if(scarf == null)
             return;
 
-        Entity entity = getEOTS(stack, reference.entity().level());
+        Entity entity = getGentleWind(stack, reference.entity().level());
         if(entity == null || !entity.isAlive()) {
-            FloatyScarfItem.tryAddBabyEots(stack, player);
+            FloatyScarfItem.tryAddGentleWind(stack, player);
         }
     }
 
     @Override
     public void onUnequip(ItemStack stack, SlotReference reference) {
-        tryDiscardBabyEots(stack, reference.entity().level());
+        tryDiscardGentleWind(stack, reference.entity().level());
     }
 
-    public static void tryDiscardBabyEots(@Nullable ItemStack stack, Level level) {
+    public static void tryDiscardGentleWind(@Nullable ItemStack stack, Level level) {
         if(stack == null)
             return;
-        Entity entity = getEOTS(stack, level);
+        Entity entity = getGentleWind(stack, level);
         if(entity != null)
             entity.discard();
     }
 
-    public static void tryAddBabyEots(@Nullable ItemStack stack, Player player) {
+    public static void tryAddGentleWind(@Nullable ItemStack stack, Player player) {
         if(stack == null)
             return;
 
@@ -68,7 +68,7 @@ public class FloatyScarfItem extends PendantItem implements FlawlessDrop {
         if(scarf == null) {
             scarf = FloatyScarf.withDefaultColor(0);
         }
-        BabyEots eots = new BabyEots(player.level(), player, scarf.colors());
+        GentleWind eots = new GentleWind(player.level(), player, scarf.colors());
         Component component = stack.get(DataComponents.CUSTOM_NAME);
         if (component != null) {
             eots.setCustomName(component);
@@ -76,18 +76,18 @@ public class FloatyScarfItem extends PendantItem implements FlawlessDrop {
         stack.set(DADataComponentTypes.FLOATY_SCARF, new FloatyScarf(eots.getId(), scarf.colors(), scarf.currentModification()));
     }
 
-    public static Entity getEOTS(ItemStack stack, Level level){
+    public static Entity getGentleWind(ItemStack stack, Level level){
         FloatyScarf scarf = stack.get(DADataComponentTypes.FLOATY_SCARF);
         return scarf != null ? level.getEntity(scarf.uuid()) : null;
     }
 
     @Nullable
-    public BabyEots hasStoredEOTS(Level level, ItemStack stack) {
+    public GentleWind hasStoredGentleWind(Level level, ItemStack stack) {
         FloatyScarf scarf = stack.get(DADataComponentTypes.FLOATY_SCARF);
         if(scarf == null)
             return null;
 
-        BabyEots entity = (BabyEots) level.getEntity(scarf.uuid());
+        GentleWind entity = (GentleWind) level.getEntity(scarf.uuid());
         if(entity == null || !entity.isAlive()) {
             return null;
         }

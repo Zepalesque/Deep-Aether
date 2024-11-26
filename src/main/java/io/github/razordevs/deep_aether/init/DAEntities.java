@@ -93,8 +93,8 @@ public class DAEntities {
 					.sized(1.5F, 1.0F)
 					.clientTrackingRange(10).build("baby_zephyr"));
 
-	public static final DeferredHolder<EntityType<?>,EntityType<BabyEots>> BABY_EOTS = register("baby_eots",
-			BabyEots::new, 1F, 0.3F);
+	public static final DeferredHolder<EntityType<?>,EntityType<GentleWind>> GENTLE_WIND = register("gentle_wind",
+			GentleWind::new, 1F, 0.3F);
 
 
 	private static <T extends Entity> DeferredHolder<EntityType<?>,EntityType<T>> register(String registryname, EntityType.Builder<T> entityTypeBuilder) {
@@ -127,6 +127,6 @@ public class DAEntities {
 		event.put(EOTS_CONTROLLER.get(), EOTSController.createMobAttributes().build());
 		event.put(WINDFLY.get(), Windfly.createAttributes().build());
 		event.put(BABY_ZEPHYR.get(), BabyZephyr.createMobAttributes().build());
-		event.put(BABY_EOTS.get(), BabyEots.createMobAttributes().build());
+		event.put(GENTLE_WIND.get(), GentleWind.createMobAttributes().build());
 	}
 }

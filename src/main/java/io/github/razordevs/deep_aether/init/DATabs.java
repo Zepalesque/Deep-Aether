@@ -477,8 +477,8 @@ public class DATabs {
             }, event);
             addToTab(AetherItems.VALKYRIE_SPAWN_EGG.get(), new Item[]{
                     DAItems.VENOMITE_SPAWN_EGG.get(),
-                    DAItems.BABY_ZEPHYR_SPAWN_EGG.get()
-                    //DAItems.WINDFLY_SPAWN_EGG.get()
+                    DAItems.BABY_ZEPHYR_SPAWN_EGG.get(),
+                    DAItems.GENTLE_WIND_SPAWN_EGG.get()
             }, event);
         }
 

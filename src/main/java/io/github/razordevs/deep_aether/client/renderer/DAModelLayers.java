@@ -9,7 +9,7 @@ public class DAModelLayers {
     public static final ModelLayerLocation EOTS_CONTROLLER = register("eots_controller");
     public static final ModelLayerLocation EOTS_SEGMENT = register("eots_segment_head");
     public static final ModelLayerLocation EOTS_SEGMENT_CLASSIC = register("eots_segment_head_classic");
-    public static final ModelLayerLocation BABY_EOTS = register("baby_eots");
+    public static final ModelLayerLocation GENTLE_WIND = register("gentle_wind");
     public static final ModelLayerLocation VENOMITE_BUBBLE = register("venomite_bubble");
     public static final ModelLayerLocation VENOMITE = register("venomite");
     public static final ModelLayerLocation QUAIL = register("quail");
