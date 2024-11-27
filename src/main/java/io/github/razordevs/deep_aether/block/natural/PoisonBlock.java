@@ -26,15 +26,17 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.FluidState;
 
 public class PoisonBlock extends LiquidBlock {
+    //Used as a timer, to indicate when the position recipe is finished.
+    boolean doCount = false;
+    int conversionTime = 0;
+
     public PoisonBlock(FlowingFluid deferredHolder, Properties properties) {
         super(deferredHolder, properties);
     }
 
     @Override
     public void stepOn(Level level, BlockPos blockPos, BlockState blockState, Entity entity) {
-        if (entity instanceof LivingEntity) {
-            ((LivingEntity) entity).addEffect(new MobEffectInstance(AetherEffects.INEBRIATION, 100, 0, false, false));
-        }
+        ((LivingEntity) entity).addEffect(new MobEffectInstance(AetherEffects.INEBRIATION, 100, 0, false, false));
     }
 
     @Override
@@ -54,17 +56,13 @@ public class PoisonBlock extends LiquidBlock {
         super.animateTick(blockState, level, blockPos, randomSource);
     }
 
-    //Used as a timer, to indicate when the position recipe is finished.
-    boolean count = false;
-    int time = 0;
-
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (count && time < 200) {
-            time += 1;
-        } else {
-            time = 0;
-            count = false;
+        if (doCount && conversionTime < 200) {
+            conversionTime++;
+        }else {
+            conversionTime = 0;
+            doCount = false;
         }
     }
 
@@ -79,61 +77,54 @@ public class PoisonBlock extends LiquidBlock {
      */
     @Override
     public void entityInside(BlockState blockState, Level level, BlockPos pos, Entity entity) {
+        if (level.isClientSide()) return;
 
-        //Applies inebriation effect to living entities
-        if (entity instanceof LivingEntity) {
+        //If we're not dealing with an ItemEntity, apply Inebriation and return.
+        if (!(entity instanceof ItemEntity itemEntity)) {
             ((LivingEntity) entity).addEffect(new MobEffectInstance(AetherEffects.INEBRIATION, 100, 0, false, false));
+            return;
         }
 
         //Poison recipe code
-        else if (entity instanceof ItemEntity itemEntity) {
+        //Temporary initialization for the result item of the poison recipe
+        ItemStack TRANSFORM_ITEM = ItemStack.EMPTY;
 
-            //Temporary initialization for the result item of the poison recipe
-            Item TRANSFORM_ITEM = null;
+        //Checks if any poison recipe matches the ingredient
+        for (RecipeHolder<PoisonRecipe> recipe : level.getRecipeManager().getAllRecipesFor(DARecipeTypes.POISON_RECIPE.get())) {
+            if (recipe.value().getIngredients().getFirst().getItems()[0].is(itemEntity.getItem().getItem())) {
+                TRANSFORM_ITEM = recipe.value().getResult();
 
-            int count = itemEntity.getItem().getCount();
+                //Starts the timer in the randomTick function.
+                this.doCount = true;
+            }
+        }
 
-            //Checks if any poison recipe matches the ingredient
-            if (!level.isClientSide()) {
-                for (RecipeHolder<PoisonRecipe> recipe : level.getRecipeManager().getAllRecipesFor(DARecipeTypes.POISON_RECIPE.get())) {
-                    if (recipe.value().getIngredients().getFirst().getItems()[0].getItem() == itemEntity.getItem().getItem()) {
-                        TRANSFORM_ITEM = recipe.value().getResult().getItem();
+        if(TRANSFORM_ITEM.isEmpty() || !itemEntity.isAlive()) return;
 
-                        //Starts the timer in the randomTick function.
-                        this.count = true;
-                    }
-                }
+        TRANSFORM_ITEM.setCount(itemEntity.getItem().getCount());
+
+        //We spawn particles around the ingredient to indicate that the ingredient is getting converted.
+        BlockPos itemPos = itemEntity.getOnPos();
+        ServerLevel serverlevel = (ServerLevel) level;
+
+        serverlevel.sendParticles(DAParticles.POISON_BUBBLES.get(), (double) itemPos.getX() + level.random.nextDouble(), pos.getY() + 1, (double) itemPos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.0D, 0.2D, 0.3D);
+        if (level.random.nextInt(25) == 0)
+            serverlevel.playSound(itemEntity, itemPos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.2F + level.random.nextFloat() * 0.2F, 0.9F + level.random.nextFloat() * 0.15F);
+
+        //Converts the ingredient when enough time has passed and the entity still is alive.
+        if (conversionTime > 2) {
+
+            //Stops the timer
+            this.doCount = false;
+            //Grants the "Purple Magic" advancement.
+            if (itemEntity.getOwner() instanceof ServerPlayer player) {
+                PoisonTrigger.INSTANCE.trigger(player, itemEntity.getItem());
             }
 
-            //No poison recipe was found, so we cancel the code.
-            if (TRANSFORM_ITEM == null)
-                return;
-
-            //We spawn particles around the ingredient to indicate that the ingredient is getting converted.
-            if (!level.isClientSide && itemEntity.isAlive()) {
-                BlockPos itemPos = itemEntity.getOnPos();
-                ServerLevel serverlevel = (ServerLevel) level;
-                serverlevel.sendParticles(DAParticles.POISON_BUBBLES.get(), (double) itemPos.getX() + level.random.nextDouble(), pos.getY() + 1, (double) itemPos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.0D, 0.2D, 0.3D);
-                if (level.random.nextInt(25) == 0) {
-                    serverlevel.playSound(itemEntity, itemPos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.2F + level.random.nextFloat() * 0.2F, 0.9F + level.random.nextFloat() * 0.15F);
-                }
-            }
-
-            //Converts the ingredient when enough time has passed and the entity still is alive.
-            if ((time > 2) && itemEntity.isAlive()) {
-
-                //Stops the timer
-                this.count = false;
-                //Grants the "Purple Magic" advancement.
-                if (itemEntity.getOwner() instanceof ServerPlayer player) {
-                    PoisonTrigger.INSTANCE.trigger(player, itemEntity.getItem());
-                }
-
-                //Removes the ingredient item and spawns the result item
-                itemEntity.discard();
-                entity.spawnAtLocation(new ItemStack(TRANSFORM_ITEM, count), 0);
-                entity.setNoGravity(true);
-            }
+            //Removes the ingredient item and spawns the result item
+            itemEntity.discard();
+            entity.spawnAtLocation(TRANSFORM_ITEM, 0);
+            entity.setNoGravity(true);
         }
     }
 }
