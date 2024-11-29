@@ -34,11 +34,6 @@ public class DAClientGameBusEvents {
                     event.setFarPlaneDistance(1.8f);
                     event.setCanceled(true);
                 }
-//                if (state.is(DABlocks.POISON_BLOCK.get())) {
-//                    event.setNearPlaneDistance(0.5f);
-//                    event.setFarPlaneDistance(1.8f);
-//                    event.setCanceled(true);
-//                }
             }
         }
     }

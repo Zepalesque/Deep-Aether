@@ -140,14 +140,14 @@ public class DAClientModBusEvents {
             @Override
             public @NotNull Vector3f modifyFogColor(Camera camera, float partialTick, ClientLevel level,
                                                     int renderDistance, float darkenWorldAmount, Vector3f fluidFogColor) {
-                return new Vector3f(224f / 255f, 56f / 255f, 208f / 255f);
+                return new Vector3f(180f / 255f, 60f / 255f, 230f / 255f);
             }
 
             @Override
             public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick,
                                         float nearDistance, float farDistance, FogShape shape) {
-                RenderSystem.setShaderFogStart(5f);
-                RenderSystem.setShaderFogEnd(7f); // distance when the fog starts
+                RenderSystem.setShaderFogStart(0f);
+                RenderSystem.setShaderFogEnd(7.5f); // distance when the fog starts
             }
         }, DAFluidTypes.POISON_FLUID_TYPE);
     }
