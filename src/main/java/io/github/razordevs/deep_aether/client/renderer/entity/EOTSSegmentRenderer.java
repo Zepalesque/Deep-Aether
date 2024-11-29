@@ -41,6 +41,11 @@ public class EOTSSegmentRenderer extends MultiModelRenderer<EOTSSegment, EntityM
 	}
 
 	@Override
+	public EntityModel<EOTSSegment> getModel() {
+		return DeepAetherConfig.CLIENT.legacy_models.get() ? this.getOldModel() : this.getDefaultModel();
+	}
+
+	@Override
 	public ResourceLocation getDefaultTexture() {
 		return EOTS_SEGMENT_CONTROLLING_LOCATION;
 	}
