@@ -360,6 +360,8 @@ public class DABlocks {
 	public static final DeferredBlock<Block> AETHER_MOSS_BLOCK = registerBlock("aether_moss_block", () -> new DAMossBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MOSS_BLOCK)));
 
 	public static final DeferredBlock<Block> VIRULENT_QUICKSAND = BLOCKS.register("virulent_quicksand", () -> new VirulentQuicksandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));
+	public static final DeferredBlock<Block> SKYJADE_CHAIN = BLOCKS.register("skyjade_chain", () -> new ChainBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.CHAIN)));
+	public static final DeferredBlock<Block> SKYJADE_LANTERN = BLOCKS.register("skyjade_lantern", () -> new LanternBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.LANTERN)));
 
 	//MUD
 	public static final DeferredBlock<Block> AETHER_MUD = registerBlock("aether_mud", () -> new DoubleDropMudBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MUD).noOcclusion()));

@@ -350,6 +350,8 @@ public class DABlockLoot extends AetherBlockLootSubProvider {
 
         //Misc
         this.dropNone(DABlocks.VIRULENT_QUICKSAND.get());
+        this.dropSelf(DABlocks.SKYJADE_CHAIN.get());
+        this.dropSelf(DABlocks.SKYJADE_LANTERN.get());
 
         this.dropOther(DABlocks.GOLDEN_DIRT_PATH.get(), AetherBlocks.AETHER_DIRT.get());
 

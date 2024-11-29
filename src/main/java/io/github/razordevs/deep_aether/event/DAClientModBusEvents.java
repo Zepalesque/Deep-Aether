@@ -82,6 +82,9 @@ public class DAClientModBusEvents {
         ItemBlockRenderTypes.setRenderLayer(DAFluids.POISON_FLUID.get(), RenderType.translucent());
         ItemBlockRenderTypes.setRenderLayer(DAFluids.POISON_FLOWING.get(), RenderType.translucent());
 
+        ItemBlockRenderTypes.setRenderLayer(DABlocks.SKYJADE_CHAIN.get(), RenderType.translucent());
+        ItemBlockRenderTypes.setRenderLayer(DABlocks.SKYJADE_LANTERN.get(), RenderType.translucent());
+
         LoreBookMenu.addLoreEntryOverride(registryAccess -> stack -> stack
                 .is(DAItems.STORM_SWORD.get()) && stack.getHoverName().getString().equalsIgnoreCase("storm ruler"), "lore.item.deep_aether.storm_ruler");
 
@@ -144,7 +147,7 @@ public class DAClientModBusEvents {
             public void modifyFogRender(Camera camera, FogRenderer.FogMode mode, float renderDistance, float partialTick,
                                         float nearDistance, float farDistance, FogShape shape) {
                 RenderSystem.setShaderFogStart(1f);
-                RenderSystem.setShaderFogEnd(6f); // distance when the fog starts
+                RenderSystem.setShaderFogEnd(7f); // distance when the fog starts
             }
         }, DAFluidTypes.POISON_FLUID_TYPE);
     }
