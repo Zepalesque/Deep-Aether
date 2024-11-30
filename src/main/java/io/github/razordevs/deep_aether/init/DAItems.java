@@ -42,8 +42,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings("unused")
 public class DAItems {
-	public static final DeferredRegister.Items ITEMS =
-			DeferredRegister.createItems(DeepAether.MODID);
+	public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(DeepAether.MODID);
 
 	public static final Component BRASS_DUNGEON_TOOLTIP = Component.translatable(DeepAether.MODID + ".dungeon.brass_dungeon").withStyle(Style.EMPTY.withItalic(true).withColor(TextColor.parseColor("#D9AB7E").result().get()));
 
@@ -114,6 +113,7 @@ public class DAItems {
 
 	// ORES
 	public static final DeferredItem<Item> SKYJADE = ITEMS.register("skyjade", () -> new Item(new Item.Properties()));
+	public static final DeferredItem<Item> SKYJADE_NUGGET = ITEMS.register("skyjade_nugget", () -> new Item(new Item.Properties()));
 	public static final DeferredItem<Item> STRATUS_INGOT = ITEMS.register("stratus_ingot", () -> new Item(new Item.Properties()));
 
 	// FOOD
@@ -152,6 +152,8 @@ public class DAItems {
 	// MISC
 	public static final DeferredItem<Item> SUN_CORE = ITEMS.register("sun_core", () -> new SunCore((new Item.Properties()).rarity(AetherItems.AETHER_LOOT).fireResistant()));
 	public static final DeferredItem<Item> AERWHALE_SADDLE = ITEMS.register("aerwhale_saddle", () -> new AerwhaleSaddle((new Item.Properties().stacksTo(1)).rarity(AetherItems.AETHER_LOOT).fireResistant()));
+
+	public static final DeferredItem<Item> CLOUDBLOOM_BOUQUET = ITEMS.register("cloudbloom_bouquet", () -> new Item((new Item.Properties())));
 
 	public static final DeferredItem<Item> AETHER_FISH_SPAWN_EGG = ITEMS.register("aether_fish_spawn_egg",
 			() -> new DeferredSpawnEggItem(DAEntities.AETHER_FISH, 698060, 16776960, new Item.Properties()));

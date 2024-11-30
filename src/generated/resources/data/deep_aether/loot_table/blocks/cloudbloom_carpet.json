@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "minecraft:air"
+          "name": "deep_aether:cloudbloom_carpet"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "deep_aether:blocks/skyjade_chain"
+  "random_sequence": "deep_aether:blocks/cloudbloom_carpet"
 }

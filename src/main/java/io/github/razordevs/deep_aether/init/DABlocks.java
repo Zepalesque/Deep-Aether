@@ -357,6 +357,7 @@ public class DABlocks {
 	//MISC
 	public static final DeferredBlock<Block> AERGLOW_BLOSSOM_BLOCK = registerBlock("aerglow_blossom_block", () -> new Block(BlockBehaviour.Properties.of().sound(SoundType.MOSS).strength(1f, 10f).lightLevel(s -> 9)));
 	public static final DeferredBlock<Block> AETHER_MOSS_CARPET = registerBlock("aether_moss_carpet", () -> new CarpetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MOSS_CARPET)));
+	public static final DeferredBlock<Block> CLOUDBLOOM_CARPET = registerBlock("cloudbloom_carpet", () -> new CarpetBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MOSS_CARPET)));
 	public static final DeferredBlock<Block> AETHER_MOSS_BLOCK = registerBlock("aether_moss_block", () -> new DAMossBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.MOSS_BLOCK)));
 
 	public static final DeferredBlock<Block> VIRULENT_QUICKSAND = BLOCKS.register("virulent_quicksand", () -> new VirulentQuicksandBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SAND)));

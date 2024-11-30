@@ -286,6 +286,7 @@ public class DAItemModelData extends AetherItemModelProvider {
         this.itemBlock(DABlocks.PURPLE_SQUASH.get());
 
         this.itemBlock(DABlocks.AETHER_MOSS_CARPET.get());
+        this.itemBlock(DABlocks.CLOUDBLOOM_CARPET.get());
         this.itemBlock(DABlocks.AETHER_MOSS_BLOCK.get());
 
         this.item(DAItems.VIRULENT_QUICKSAND_BUCKET.get());
@@ -327,6 +328,7 @@ public class DAItemModelData extends AetherItemModelProvider {
 
         //Skyjade set
         this.item(DAItems.SKYJADE.get());
+        this.item(DAItems.SKYJADE_NUGGET.get());
         this.handHeld(DAItems.SKYJADE_TOOLS_SWORD.get());
         this.handHeld(DAItems.SKYJADE_TOOLS_AXE.get());
         this.handHeld(DAItems.SKYJADE_TOOLS_PICKAXE.get());
@@ -406,6 +408,7 @@ public class DAItemModelData extends AetherItemModelProvider {
         this.itemBlockFlat(DABlocks.IASPOVE.get());
         this.itemBlockFlat(DABlocks.GOLDEN_ASPESS.get());
         this.itemBlockFlat(DABlocks.ECHAISY.get());
+        this.item(DAItems.CLOUDBLOOM_BOUQUET.get());
 
         this.item(DAItems.GOLDEN_GRASS_SEEDS.get());
         this.item(DAItems.SQUASH_SEEDS.get());

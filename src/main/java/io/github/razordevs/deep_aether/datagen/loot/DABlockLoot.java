@@ -272,6 +272,7 @@ public class DABlockLoot extends AetherBlockLootSubProvider {
         //Plants
         this.dropSelf(DABlocks.AETHER_MOSS_BLOCK.get());
         this.dropSelf(DABlocks.AETHER_MOSS_CARPET.get());
+        this.dropSelf(DABlocks.CLOUDBLOOM_CARPET.get());
 
         this.dropSelf(DABlocks.BLUE_SQUASH.get());
         this.dropSelf(DABlocks.GREEN_SQUASH.get());
@@ -286,8 +287,8 @@ public class DABlockLoot extends AetherBlockLootSubProvider {
         this.add(DABlocks.TALL_GLOWING_GRASS.get(), (flower) -> createSinglePropConditionTable(Blocks.TALL_GRASS, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
         this.dropSelf(DABlocks.TALL_ALIEN_PLANT.get());
 
-        this.dropNone(DABlocks.FEATHER_GRASS.get());
-        this.dropNone(DABlocks.TALL_FEATHER_GRASS.get());
+        this.add(DABlocks.FEATHER_GRASS.get(), this::createFeatherGrassDrops);
+        this.add(DABlocks.TALL_FEATHER_GRASS.get(), this::createFeatherGrassDrops);
 
         this.add(DABlocks.GOLDEN_FLOWER.get(), (flower) -> createSinglePropConditionTable(DABlocks.GOLDEN_FLOWER.get(), DoublePlantBlock.HALF, DoubleBlockHalf.LOWER));
         this.add(DABlocks.GLOWING_SPORES.get(), this.createPetalsDrops(DABlocks.GLOWING_SPORES.get()));
@@ -437,6 +438,13 @@ public class DABlockLoot extends AetherBlockLootSubProvider {
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).when(LootItemRandomChanceCondition.randomChance(0.01F))
                         .apply(ApplyBonusCount.addUniformBonusCount(this.registries.holderOrThrow(Enchantments.FORTUNE), 2)).add(LootItem.lootTableItem(AetherItems.AMBROSIUM_SHARD.get())));
 
+    }
+
+    protected LootTable.Builder createFeatherGrassDrops(Block block) {
+        return createShearsDispatchTable(block, this.applyExplosionDecay(block,
+                LootItem.lootTableItem(DAItems.CLOUDBLOOM_BOUQUET).when(LootItemRandomChanceCondition.randomChance(0.5F))
+                        .apply(ApplyBonusCount.addUniformBonusCount(this.registries.holderOrThrow(Enchantments.FORTUNE), 2))))
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1)).when(LootItemRandomChanceCondition.randomChance(0.1F)));
     }
 
 

@@ -28,6 +28,7 @@ public class DADataMapData extends DataMapProvider {
         this.addCompost(compostables, DABlocks.CRUDEROOT_LEAVES.get().asItem(), 0.3F);
         this.addCompost(compostables, DABlocks.AETHER_MOSS_BLOCK.get().asItem(), 0.65F);
         this.addCompost(compostables, DABlocks.AETHER_MOSS_CARPET.get().asItem(), 0.3F);
+        this.addCompost(compostables, DABlocks.CLOUDBLOOM_CARPET.get().asItem(), 0.3F);
         this.addCompost(compostables, DABlocks.ROSEROOT_SAPLING.get().asItem(), 0.3F);
         this.addCompost(compostables, DABlocks.BLUE_ROSEROOT_SAPLING.get().asItem(), 0.3F);
         this.addCompost(compostables, DABlocks.YAGROOT_SAPLING.get().asItem(), 0.3F);
@@ -63,6 +64,7 @@ public class DADataMapData extends DataMapProvider {
         this.addCompost(compostables, DAItems.GOLDEN_BERRIES.get(), 0.2F);
         this.addCompost(compostables, DAItems.GOLDEN_GRASS_SEEDS.get(), 0.1F);
         this.addCompost(compostables, DAItems.SQUASH_SEEDS.get(), 0.1F);
+        this.addCompost(compostables, DAItems.CLOUDBLOOM_BOUQUET.get(), 0.1F);
     }
 
     private void addCompost(DataMapProvider.Builder<Compostable, Item> map, ItemLike item, float chance) {

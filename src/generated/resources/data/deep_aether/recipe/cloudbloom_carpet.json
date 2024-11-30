@@ -3,16 +3,14 @@
   "category": "misc",
   "key": {
     "A": {
-      "item": "deep_aether:skyjade_nugget"
+      "item": "deep_aether:cloudbloom_bouquet"
     }
   },
   "pattern": [
-    "AAA",
-    "AAA",
-    "AAA"
+    "AA"
   ],
   "result": {
     "count": 1,
-    "id": "deep_aether:skyjade"
+    "id": "deep_aether:cloudbloom_carpet"
   }
 }

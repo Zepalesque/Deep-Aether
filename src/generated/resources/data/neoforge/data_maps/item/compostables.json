@@ -24,6 +24,12 @@
     "deep_aether:blue_roseroot_sapling": {
       "chance": 0.3
     },
+    "deep_aether:cloudbloom_bouquet": {
+      "chance": 0.1
+    },
+    "deep_aether:cloudbloom_carpet": {
+      "chance": 0.3
+    },
     "deep_aether:conberry_leaves": {
       "chance": 0.3
     },
