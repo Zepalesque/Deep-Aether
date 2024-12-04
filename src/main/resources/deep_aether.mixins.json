@@ -5,19 +5,20 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "deep_aether.refmap.json",
   "mixins": [
-    "block.AercloudMixin",
-    "entity.AerwhaleMixin",
-    "block.BlockBehaviourMixin",
     "BrewingFuelMenuMixin",
     "BrewingFuelMixin",
-    "block.PowderedSnowMixin",
     "TriviaGeneratorMixin",
-    "block.LavaFluidMixin"
+    "block.AercloudMixin",
+    "block.BlockBehaviourMixin",
+    "block.LavaFluidMixin",
+    "block.PowderedSnowMixin",
+    "entity.AerwhaleMixin",
+    "entity.ItemEntityMixin"
   ],
   "client": [
+    "AetherSkyRenderEffectsAccessor",
     "entity.AerwhaleModelMixin",
     "entity.AerwhaleRendererMixin",
-    "AetherSkyRenderEffectsAccessor",
     "entity.ClassicAerwhaleModelMixin",
     "entity.HumanoidArmorLayerMixin",
     "entity.LivingEntityRendererMixin",
