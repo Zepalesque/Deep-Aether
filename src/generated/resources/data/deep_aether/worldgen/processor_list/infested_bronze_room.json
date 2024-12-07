@@ -26,7 +26,7 @@
       "rules": [
         {
           "input_predicate": {
-            "block": "aether:skyroot_planks",
+            "block": "deep_aether:locked_skyroot_planks",
             "predicate_type": "minecraft:random_block_match",
             "probability": 0.05
           },

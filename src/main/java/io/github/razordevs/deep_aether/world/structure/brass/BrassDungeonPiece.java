@@ -1,6 +1,5 @@
 package io.github.razordevs.deep_aether.world.structure.brass;
 
-import com.aetherteam.aether.block.AetherBlocks;
 import com.aetherteam.aether.world.structurepiece.AetherTemplateStructurePiece;
 import com.google.common.collect.ImmutableList;
 import io.github.razordevs.deep_aether.DeepAether;
@@ -27,15 +26,15 @@ public class BrassDungeonPiece extends AetherTemplateStructurePiece {
     ));
 
     public static final RuleProcessor TRAPPED_SKYROOT_PLANKS_NORMAL = new RuleProcessor(ImmutableList.of(
-            new ProcessorRule(new RandomBlockMatchTest(AetherBlocks.SKYROOT_PLANKS.get(), 0.05F), AlwaysTrueTest.INSTANCE, DABlocks.TRAPPED_SKYROOT_PLANKS.get().defaultBlockState())
+            new ProcessorRule(new RandomBlockMatchTest(DABlocks.LOCKED_SKYROOT_PLANKS.get(), 0.05F), AlwaysTrueTest.INSTANCE, DABlocks.TRAPPED_SKYROOT_PLANKS.get().defaultBlockState())
     ));
 
     public static final RuleProcessor TRAPPED_SKYROOT_PLANKS_PLANT = new RuleProcessor(ImmutableList.of(
-            new ProcessorRule(new RandomBlockMatchTest(AetherBlocks.SKYROOT_PLANKS.get(), 0.05F), AlwaysTrueTest.INSTANCE, DABlocks.TRAPPED_SKYROOT_PLANKS.get().defaultBlockState().setValue(TrappedSkyrootBlock.TRAPPED_MOB_TYPE, 1))
+            new ProcessorRule(new RandomBlockMatchTest(DABlocks.LOCKED_SKYROOT_PLANKS.get(), 0.05F), AlwaysTrueTest.INSTANCE, DABlocks.TRAPPED_SKYROOT_PLANKS.get().defaultBlockState().setValue(TrappedSkyrootBlock.TRAPPED_MOB_TYPE, 1))
     ));
 
     public static final RuleProcessor TRAPPED_SKYROOT_PLANKS_COCKATRICE = new RuleProcessor(ImmutableList.of(
-            new ProcessorRule(new RandomBlockMatchTest(AetherBlocks.SKYROOT_PLANKS.get(), 0.05F), AlwaysTrueTest.INSTANCE, DABlocks.TRAPPED_SKYROOT_PLANKS.get().defaultBlockState().setValue(TrappedSkyrootBlock.TRAPPED_MOB_TYPE, 2))
+            new ProcessorRule(new RandomBlockMatchTest(DABlocks.LOCKED_SKYROOT_PLANKS.get(), 0.05F), AlwaysTrueTest.INSTANCE, DABlocks.TRAPPED_SKYROOT_PLANKS.get().defaultBlockState().setValue(TrappedSkyrootBlock.TRAPPED_MOB_TYPE, 2))
     ));
     public BrassDungeonPiece(StructurePieceType type, StructureTemplateManager manager, String name, StructurePlaceSettings settings, BlockPos pos, Holder<StructureProcessorList> processors) {
         super(type, manager, makeLocation(name), settings, pos, processors);

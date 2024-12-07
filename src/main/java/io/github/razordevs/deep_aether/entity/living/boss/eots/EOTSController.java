@@ -50,6 +50,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -61,9 +62,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
+import java.util.function.Function;
 
 public class EOTSController extends Mob implements AetherBossMob<EOTSController>, Enemy, IEntityWithComplexSpawn {
     protected List<EOTSSegment> controllingSegments = new ArrayList<>();
@@ -78,6 +78,22 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
     protected @Nullable BossRoomTracker<EOTSController> brassDungeon;
     private int chatCooldown;
     private int soundCooldown;
+
+    public static final Map<Block, Function<BlockState, BlockState>> DUNGEON_BLOCK_CONVERSIONS = new HashMap<>(Map.ofEntries(
+            Map.entry(DABlocks.LOCKED_NIMBUS_STONE.get(), (blockState) -> DABlocks.NIMBUS_STONE.get().defaultBlockState()),
+            Map.entry(DABlocks.TRAPPED_NIMBUS_STONE.get(), (blockState) -> DABlocks.NIMBUS_STONE.get().defaultBlockState()),
+            Map.entry(DABlocks.LOCKED_LIGHT_NIMBUS_STONE.get(), (blockState) -> DABlocks.LIGHT_NIMBUS_STONE.get().defaultBlockState()),
+            Map.entry(DABlocks.TRAPPED_LIGHT_NIMBUS_STONE.get(), (blockState) -> DABlocks.LIGHT_NIMBUS_STONE.get().defaultBlockState()),
+            Map.entry(DABlocks.LOCKED_NIMBUS_PILLAR.get(), (blockState) -> DABlocks.NIMBUS_PILLAR.get().defaultBlockState()),
+            Map.entry(DABlocks.TRAPPED_NIMBUS_PILLAR.get(), (blockState) -> DABlocks.NIMBUS_PILLAR.get().defaultBlockState()),
+            Map.entry(DABlocks.LOCKED_LIGHT_NIMBUS_PILLAR.get(), (blockState) -> DABlocks.LIGHT_NIMBUS_PILLAR.get().defaultBlockState()),
+            Map.entry(DABlocks.TRAPPED_LIGHT_NIMBUS_PILLAR.get(), (blockState) -> DABlocks.LIGHT_NIMBUS_PILLAR.get().defaultBlockState()),
+            Map.entry(DABlocks.BOSS_DOORWAY_NIMBUS_STONE.get(), (blockState) -> Blocks.AIR.defaultBlockState()),
+            Map.entry(DABlocks.BOSS_DOORWAY_NIMBUS_PILLAR.get(), (blockState) -> Blocks.AIR.defaultBlockState()),
+            Map.entry(DABlocks.LOCKED_SKYROOT_PLANKS.get(), (blockState) -> AetherBlocks.SKYROOT_PLANKS.get().defaultBlockState()),
+            Map.entry(DABlocks.TRAPPED_SKYROOT_PLANKS.get(), (blockState) -> AetherBlocks.SKYROOT_PLANKS.get().defaultBlockState()),
+            Map.entry(DABlocks.TREASURE_DOORWAY_NIMBUS_STONE.get(), (blockState) -> AetherBlocks.SKYROOT_TRAPDOOR.get().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, blockState.getValue(HorizontalDirectionalBlock.FACING)))
+    ));
 
     public EOTSController(EntityType<? extends EOTSController> type, Level level) {
         super(type, level);
@@ -359,20 +375,7 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
     @Nullable
     @Override
     public BlockState convertBlock(BlockState state) {
-        if (state.is(DABlocks.LOCKED_NIMBUS_STONE.get())) {
-            return DABlocks.NIMBUS_STONE.get().defaultBlockState();
-        } else if (state.is(DABlocks.LOCKED_LIGHT_NIMBUS_STONE.get())) {
-            return DABlocks.LIGHT_NIMBUS_STONE.get().defaultBlockState();
-        }
-        else if (state.is(DABlocks.LOCKED_NIMBUS_PILLAR.get())) {
-            return DABlocks.NIMBUS_PILLAR.get().defaultBlockState();
-        } else if (state.is(DABlocks.LOCKED_LIGHT_NIMBUS_PILLAR.get())) {
-            return DABlocks.LIGHT_NIMBUS_PILLAR.get().defaultBlockState();
-        } else if (state.is(DABlocks.BOSS_DOORWAY_NIMBUS_STONE.get()) || state.is(DABlocks.BOSS_DOORWAY_NIMBUS_PILLAR)) {
-            return Blocks.AIR.defaultBlockState();
-        } else {
-            return state.is(DABlocks.TREASURE_DOORWAY_NIMBUS_STONE.get()) ? AetherBlocks.SKYROOT_TRAPDOOR.get().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, state.getValue(HorizontalDirectionalBlock.FACING)) : null;
-        }
+        return DUNGEON_BLOCK_CONVERSIONS.getOrDefault(state.getBlock(), (blockState) -> null).apply(state);
     }
 
     @Override

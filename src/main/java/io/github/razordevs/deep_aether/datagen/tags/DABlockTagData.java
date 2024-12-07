@@ -387,7 +387,6 @@ public class DABlockTagData extends BlockTagsProvider {
                 DABlocks.BLUE_SQUASH.get(),
                 DABlocks.GREEN_SQUASH.get(),
                 DABlocks.PURPLE_SQUASH.get(),
-                DABlocks.TRAPPED_SKYROOT_PLANKS.get(),
 
                 DABlocks.STRIPPED_YAGROOT_WOOD.get(),
                 DABlocks.STRIPPED_YAGROOT_LOG.get(),
@@ -652,7 +651,8 @@ public class DABlockTagData extends BlockTagsProvider {
                 DABlocks.LOCKED_NIMBUS_STONE.get(),
                 DABlocks.LOCKED_LIGHT_NIMBUS_STONE.get(),
                 DABlocks.LOCKED_NIMBUS_PILLAR.get(),
-                DABlocks.LOCKED_LIGHT_NIMBUS_PILLAR.get()
+                DABlocks.LOCKED_LIGHT_NIMBUS_PILLAR.get(),
+                DABlocks.LOCKED_SKYROOT_PLANKS.get()
         );
     }
 }

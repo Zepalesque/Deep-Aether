@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "deep_aether:skyjade_chain"
+          "name": "aether:skyroot_planks"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "deep_aether:blocks/skyjade_chain"
+  "random_sequence": "deep_aether:blocks/locked_skyroot_planks"
 }

@@ -1,9 +1,9 @@
 package io.github.razordevs.deep_aether.block.misc;
 
-import com.aetherteam.aether.block.AetherBlocks;
 import com.aetherteam.aether.client.AetherSoundEvents;
 import com.aetherteam.aether.entity.AetherEntityTypes;
 import com.aetherteam.aether.event.AetherEventDispatch;
+import io.github.razordevs.deep_aether.init.DABlocks;
 import io.github.razordevs.deep_aether.init.DAEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -40,7 +40,7 @@ public class TrappedSkyrootBlock extends Block {
     @Override
     public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
         if (entity instanceof Player player && AetherEventDispatch.onTriggerTrap(player, level, pos, state)) {
-            level.setBlockAndUpdate(pos, AetherBlocks.SKYROOT_PLANKS.get().defaultBlockState());
+            level.setBlockAndUpdate(pos, DABlocks.LOCKED_SKYROOT_PLANKS.get().defaultBlockState());
             if (level instanceof ServerLevel serverLevel) {
                 float yRot = player.getYRot() * Mth.DEG_TO_RAD;
                 Vec3 targetVec = new Vec3(pos.getX() + 0.5 - Mth.sin(yRot) * 3, pos.getY() + 1, pos.getZ() + 0.5 + Mth.cos(yRot) * 3);

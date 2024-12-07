@@ -27,9 +27,7 @@ public class DAItemModelData extends AetherItemModelProvider {
     
     @Override
     protected void registerModels() {
-
         this.itemBlock(DABlocks.HIGHSTONE.get());
-        this.itemBlock(DABlocks.TRAPPED_SKYROOT_PLANKS.get());
 
         //Roseroot woodset
         this.itemBlock(DABlocks.ROSEROOT_WOOD.get());
@@ -272,7 +270,6 @@ public class DAItemModelData extends AetherItemModelProvider {
         this.itemTreasureDoorwayDungeonBlock(DABlocks.TREASURE_DOORWAY_NIMBUS_PILLAR.get(), DABlocks.NIMBUS_PILLAR.get());
         this.itemTreasureDoorwayDungeonBlock(DABlocks.TREASURE_DOORWAY_LIGHT_NIMBUS_PILLAR.get(), DABlocks.LIGHT_NIMBUS_PILLAR.get());
 
-
         //Plants
         this.itemBlockFlat(DABlocks.AERLAVENDER.get());
         this.itemBlockFlat(DABlocks.TALL_AERLAVENDER.get());
@@ -493,9 +490,7 @@ public class DAItemModelData extends AetherItemModelProvider {
         this.withExistingParent(this.blockName(block), this.mcLoc("block/button_inventory"))
                 .texture("texture", this.texture(this.blockName(baseBlock)));
     }
-    public void eggItem(Item item) {
-        this.withExistingParent(this.itemName(item), this.mcLoc("item/template_spawn_egg"));
-    }
+
     public void itemWallBlock(Block block, Block baseBlock) {
         this.wallInventory(this.blockName(block), this.texture(this.blockName(baseBlock)));
     }
@@ -503,31 +498,6 @@ public class DAItemModelData extends AetherItemModelProvider {
     public void itemBlockFlat(Block block) {
         this.withExistingParent(this.blockName(block), this.mcLoc("item/generated"))
                 .texture("layer0", this.texture(this.blockName(block)));
-    }
-
-
-    public void itemLogWallBlock(Block block, Block baseBlock, String location, String modid) {
-        ResourceLocation baseTexture = ResourceLocation.fromNamespaceAndPath(modid, "block/" + location + this.blockName(baseBlock));
-        this.withExistingParent(this.blockName(block), this.mcLoc("block/block"))
-                .transforms()
-                .transform(ItemDisplayContext.GUI).rotation(30.0F, 135.0F, 0.0F).translation(0.0F, 0.0F, 0.0F).scale(0.625F, 0.625F, 0.625F).end()
-                .transform(ItemDisplayContext.FIXED).rotation(0.0F, 90.0F, 0.0F).translation(0.0F, 0.0F, 0.0F).scale(0.5F, 0.5F, 0.5F).end()
-                .end()
-                .texture("top", baseTexture + "_top").texture("side", baseTexture)
-                .element().from(4.0F, 0.0F, 4.0F).to(12.0F, 16.0F, 12.0F)
-                .face(Direction.DOWN).uvs(4.0F, 4.0F, 12.0F, 12.0F).texture("#top").cullface(Direction.DOWN).end()
-                .face(Direction.UP).uvs(4.0F, 4.0F, 12.0F, 12.0F).texture("#top").end()
-                .face(Direction.NORTH).uvs(4.0F, 0.0F, 12.0F, 16.0F).texture("#side").end()
-                .face(Direction.SOUTH).uvs(4.0F, 0.0F, 12.0F, 16.0F).texture("#side").end()
-                .face(Direction.WEST).uvs(4.0F, 0.0F, 12.0F, 16.0F).texture("#side").end()
-                .face(Direction.EAST).uvs(4.0F, 0.0F, 12.0F, 16.0F).texture("#side").end().end()
-                .element().from(5.0F, 0.0F, 0.0F).to(11.0F, 13.0F, 16.0F)
-                .face(Direction.DOWN).uvs(5.0F, 0.0F, 11.0F, 16.0F).texture("#top").cullface(Direction.DOWN).end()
-                .face(Direction.UP).uvs(5.0F, 0.0F, 11.0F, 16.0F).texture("#top").end()
-                .face(Direction.NORTH).uvs(5.0F, 3.0F, 11.0F, 16.0F).texture("#side").cullface(Direction.NORTH).end()
-                .face(Direction.SOUTH).uvs(5.0F, 3.0F, 11.0F, 16.0F).texture("#side").cullface(Direction.SOUTH).end()
-                .face(Direction.WEST).uvs(0.0F, 3.0F, 16.0F, 16.0F).texture("#side").end()
-                .face(Direction.EAST).uvs(0.0F, 3.0F, 16.0F, 16.0F).texture("#side").end().end();
     }
 
     public void helmetItem(Item item) {

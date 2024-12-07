@@ -333,8 +333,9 @@ public class DABlocks {
 	public static final DeferredBlock<Block> BOSS_DOORWAY_LIGHT_NIMBUS_STONE = registerBlock("boss_doorway_light_nimbus_stone", () -> new DoorwayBlock(DAEntities.EOTS_CONTROLLER::get, BlockBehaviour.Properties.ofFullCopy(BOSS_DOORWAY_NIMBUS_STONE.get()).lightLevel((light) -> 11)));
 	public static final DeferredBlock<Block> TREASURE_DOORWAY_NIMBUS_STONE = registerBlock("treasure_doorway_nimbus_stone", () -> new TreasureDoorwayBlock(BlockBehaviour.Properties.ofFullCopy(LOCKED_NIMBUS_STONE.get())));
 	public static final DeferredBlock<Block> TREASURE_DOORWAY_LIGHT_NIMBUS_STONE = registerBlock("treasure_doorway_light_nimbus_stone", () -> new TreasureDoorwayBlock(BlockBehaviour.Properties.ofFullCopy(LOCKED_LIGHT_NIMBUS_STONE.get()).lightLevel((light) -> 11)));
-	public static final DeferredBlock<Block> TRAPPED_SKYROOT_PLANKS = registerTrapped("trapped_skyroot_planks", () -> new TrappedSkyrootBlock(Block.Properties.ofFullCopy(AetherBlocks.SKYROOT_PLANKS.get())));
 
+	public static final DeferredBlock<Block> LOCKED_SKYROOT_PLANKS = registerTrapped("locked_skyroot_planks", () -> new Block(Block.Properties.ofFullCopy(AetherBlocks.SKYROOT_PLANKS.get()).strength(-1.0F, 3600000.0F)));
+	public static final DeferredBlock<Block> TRAPPED_SKYROOT_PLANKS = registerTrapped("trapped_skyroot_planks", () -> new TrappedSkyrootBlock(Block.Properties.ofFullCopy(DABlocks.LOCKED_SKYROOT_PLANKS.get())));
 
 	public static final DeferredBlock<StairBlock> NIMBUS_STAIRS = registerBlock("nimbus_stairs",
 			() -> new StairBlock(NIMBUS_STONE.get().defaultBlockState(), Block.Properties.ofFullCopy(DABlocks.NIMBUS_STONE.get())));

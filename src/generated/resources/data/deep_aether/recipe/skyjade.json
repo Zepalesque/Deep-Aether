@@ -1,16 +1,11 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:smelting",
   "category": "misc",
-  "key": {
-    "A": {
-      "item": "deep_aether:skyjade_nugget"
-    }
+  "cookingtime": 200,
+  "experience": 1.0,
+  "ingredient": {
+    "item": "deep_aether:skyjade_ore"
   },
-  "pattern": [
-    "AAA",
-    "AAA",
-    "AAA"
-  ],
   "result": {
     "count": 1,
     "id": "deep_aether:skyjade"

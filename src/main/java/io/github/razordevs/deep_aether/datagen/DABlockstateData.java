@@ -302,7 +302,6 @@ public class DABlockstateData extends AetherBlockStateProvider {
         this.getVariantBuilder(block).partialState().setModels(dungeonBlock);
     }
 
-
     public ResourceLocation texture(String name, String suffix) {
         return this.modLoc("block/"  + name + suffix);
     }
@@ -323,10 +322,6 @@ public class DABlockstateData extends AetherBlockStateProvider {
         this.fourWayBlock(block,
                 this.models().fencePost(baseName + "_post", this.texture(side)),
                 this.models().fenceSide(baseName + "_side", this.texture(side)));
-    }
-
-    public ModelFile cubeBottomTop(String block, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
-        return this.models().cubeBottomTop(block, side, bottom, top);
     }
 
     public void fenceGateBlock(FenceGateBlock block, Block baseBlock) {
@@ -413,28 +408,6 @@ public class DABlockstateData extends AetherBlockStateProvider {
         this.logWallBlock(DABlocks.STRIPPED_CONBERRY_LOG_WALL.get(), DABlocks.STRIPPED_CONBERRY_LOG.get(), "", DeepAether.MODID, true, postBig, postShort, postTall, side, sideAlt, sideTall, sideTallAlt, sideShort, sideAltShort, sideTallShort, sideTallAltShort);
         this.logWallBlock(DABlocks.SUNROOT_LOG_WALL.get(), DABlocks.SUNROOT_LOG.get(), "", DeepAether.MODID, true, postBig, postShort, postTall, side, sideAlt, sideTall, sideTallAlt, sideShort, sideAltShort, sideTallShort, sideTallAltShort);
         this.logWallBlock(DABlocks.STRIPPED_SUNROOT_LOG_WALL.get(), DABlocks.STRIPPED_SUNROOT_LOG.get(), "", DeepAether.MODID, true, postBig, postShort, postTall, side, sideAlt, sideTall, sideTallAlt, sideShort, sideAltShort, sideTallShort, sideTallAltShort);
-    }
-
-    protected BlockModelBuilder makeWallPostModel(int width, int height, String name) {
-        return models().withExistingParent(name, this.mcLoc("block/block"))
-                .element().from(8 - width, 0.0F, 8 - width).to(8 + width, height, 8 + width)
-                .face(Direction.DOWN).texture("#top").cullface(Direction.DOWN).end()
-                .face(Direction.UP).texture("#top").cullface(Direction.UP).end()
-                .face(Direction.NORTH).texture("#side").end()
-                .face(Direction.SOUTH).texture("#side").end()
-                .face(Direction.WEST).texture("#side").end()
-                .face(Direction.EAST).texture("#side").end().end();
-    }
-
-    protected BlockModelBuilder makeWallSideModel(int length, int height, String name, ModelBuilder.FaceRotation faceRotation, int u1, int u2) {
-        return models().withExistingParent(name, this.mcLoc("block/block"))
-                .element().from(5.0F, 0.0F, 0.0F).to(11.0F, height, length)
-                .face(Direction.DOWN).texture("#top").rotation(faceRotation).uvs(u1, 5, u2, 11).cullface(Direction.DOWN).end()
-                .face(Direction.UP).texture("#top").rotation(faceRotation).uvs(u1, 5, u2, 11).end()
-                .face(Direction.NORTH).texture("#side").cullface(Direction.NORTH).end()
-                .face(Direction.SOUTH).texture("#side").end()
-                .face(Direction.WEST).texture("#side").end()
-                .face(Direction.EAST).texture("#side").end().end();
     }
 
     public void logWallBlock(WallBlock block, Block baseBlock, String location, String modid, boolean postUsesTop, ModelFile postBig, ModelFile postShort, ModelFile postTall, ModelFile side, ModelFile sideAlt, ModelFile sideTall, ModelFile sideTallAlt, ModelFile sideShort, ModelFile sideAltShort, ModelFile sideTallShort, ModelFile sideTallAltShort) {
