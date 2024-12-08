@@ -12,6 +12,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.Level;
@@ -27,9 +28,8 @@ public class PoisonBlock extends LiquidBlock {
 
     @Override
     public void stepOn(Level level, BlockPos blockPos, BlockState blockState, Entity entity) {
-        if (entity instanceof LivingEntity) {
-            ((LivingEntity) entity).addEffect(new MobEffectInstance(AetherEffects.INEBRIATION, 100, 0, false, false));
-        }
+        if (entity instanceof LivingEntity && !(entity instanceof ArmorStand))
+            ((LivingEntity) entity).addEffect(new MobEffectInstance(AetherEffects.INEBRIATION, 80, 0, false, false));
     }
 
     @Override
@@ -55,26 +55,53 @@ public class PoisonBlock extends LiquidBlock {
      */
     @Override
     public void entityInside(BlockState blockState, Level level, BlockPos pos, Entity entity) {
+        /* Not ideal as Armor Stands are currently affected by Inebriation */
+//        switch(entity){
+//            case LivingEntity livingEntity:
+//                livingEntity.addEffect(new MobEffectInstance(AetherEffects.INEBRIATION, 100, 0, false, false));
+//                this.playHissingSound(level, livingEntity, pos);
+//                break;
+//            //Poison conversion process
+//            case PoisonItem poisonItem:
+//                poisonItem.deep_Aether$increaseTime();
+//                if(poisonItem.deep_Aether$canConvert()) {
+//                    ItemEntity itemEntity = (ItemEntity) poisonItem;
+//                    this.playHissingSound(level, itemEntity, pos);
+//                    this.spawnBubbleParticles(level, itemEntity, pos);
+//                }
+//                break;
+//            default:
+//                //Ignored
+//                break;
+//        }
+
         //Applies inebriation effect to living entities
-        if (entity instanceof LivingEntity) {
-            ((LivingEntity) entity).addEffect(new MobEffectInstance(AetherEffects.INEBRIATION, 100, 0, false, false));
-        }
-
-        //Poison recipe code
-        else if (entity instanceof PoisonItem poisonItem) {
-            poisonItem.deep_Aether$increaseTime();
-
-            if(poisonItem.deep_Aether$canConvert()) {
-                ItemEntity itemEntity = (ItemEntity) poisonItem;
-                if (!level.isClientSide && itemEntity.isAlive()) {
-                    BlockPos itemPos = itemEntity.getOnPos();
-                    ServerLevel serverlevel = (ServerLevel) level;
-                    serverlevel.sendParticles(DAParticles.POISON_BUBBLES.get(), (double) itemPos.getX() + level.random.nextDouble(), pos.getY() + 1, (double) itemPos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.0D, 0.2D, 0.3D);
-                    if (level.random.nextInt(25) == 0) {
-                        serverlevel.playSound(itemEntity, itemPos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.2F + level.random.nextFloat() * 0.2F, 0.9F + level.random.nextFloat() * 0.15F);
-                    }
+        if(entity instanceof LivingEntity livingEntity && !(livingEntity instanceof ArmorStand)) {
+            livingEntity.addEffect(new MobEffectInstance(AetherEffects.INEBRIATION, 100, 0, false, false));
+            this.playHissingSound(level, livingEntity, pos);
+        } else  //Poison conversion process
+            if (entity instanceof PoisonItem poisonItem) {
+                poisonItem.deep_Aether$increaseTime();
+                if(poisonItem.deep_Aether$canConvert()) {
+                    ItemEntity itemEntity = (ItemEntity) poisonItem;
+                    this.playHissingSound(level, itemEntity, pos);
+                    this.spawnBubbleParticles(level, itemEntity, pos);
                 }
             }
+    }
+
+    // Having these as separate methods is better
+    private void spawnBubbleParticles(Level level, Entity entity, BlockPos pos) {
+        if (!level.isClientSide && entity.isAlive()) {
+            BlockPos itemPos = entity.getOnPos();
+            ServerLevel serverlevel = (ServerLevel) level;
+            serverlevel.sendParticles(DAParticles.POISON_BUBBLES.get(), (double) itemPos.getX() + level.random.nextDouble(), pos.getY() + 1, (double) itemPos.getZ() + level.random.nextDouble(), 1, 0.0D, 0.0D, 0.2D, 0.3D);
+        }
+    }
+
+    private void playHissingSound(Level level, Entity entity, BlockPos pos){
+        if (level.random.nextInt(25) == 0) {
+            level.playSound(entity, pos, SoundEvents.LAVA_EXTINGUISH, SoundSource.BLOCKS, 0.2F + level.random.nextFloat() * 0.2F, 0.9F + level.random.nextFloat() * 0.15F);
         }
     }
 }
