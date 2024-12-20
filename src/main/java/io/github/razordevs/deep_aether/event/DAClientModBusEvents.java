@@ -293,6 +293,7 @@ public class DAClientModBusEvents {
             AccessoriesRendererRegistry.registerRenderer(DAItems.SKYJADE_GLOVES.get(), SkyjadeGlovesRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.FLOATY_SCARF.get(), FloatyScarfRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.WIND_SHIELD.get(), WindShieldRenderer::new);
+        AccessoriesRendererRegistry.registerRenderer(DAItems.STORMFORGED_GLOVES.get(), GlovesRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.STRATUS_GLOVES.get(), GlovesRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.MEDAL_OF_HONOR.get(), PendantRenderer::new);
         AccessoriesRendererRegistry.registerRenderer(DAItems.AERCLOUD_NECKLACE.get(), PendantRenderer::new);
