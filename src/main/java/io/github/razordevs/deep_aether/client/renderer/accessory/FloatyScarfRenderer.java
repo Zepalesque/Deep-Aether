@@ -28,6 +28,7 @@ public class FloatyScarfRenderer implements AccessoryRenderer {
 
     @Override
     public <M extends LivingEntity> void render(ItemStack stack, SlotReference reference, PoseStack poseStack, EntityModel<M> entityModel, MultiBufferSource buffer, int packedLight, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+        try {
         GentleWind gentleWind = (GentleWind) FloatyScarfItem.getGentleWind(stack, reference.entity().level());
 
         if(gentleWind == null || !gentleWind.isWrappedAroundNeck()) return;
@@ -45,5 +46,8 @@ public class FloatyScarfRenderer implements AccessoryRenderer {
         this.scarfModel.body[1].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, gentleWind.getFromColor(2));
         this.scarfModel.body[2].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, gentleWind.getFromColor(3));
         this.scarfModel.body[3].render(poseStack, vertexConsumer, packedLight, OverlayTexture.NO_OVERLAY, gentleWind.getFromColor(4));
+        }
+        catch (ClassCastException ignored) {
+        }
     }
 }
