@@ -482,6 +482,24 @@ public class DARecipeData extends AetherRecipeProvider {
                 .unlockedBy(getHasName(DAItems.SKYJADE_NUGGET.get()), has(DAItems.SKYJADE_NUGGET.get()))
                 .save(consumer, name("skyjade_from_skyjade_nuggets"));
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, DABlocks.SKYJADE_LANTERN.get())
+                .define('A', DAItems.SKYJADE_NUGGET.get())
+                .define('B', AetherBlocks.AMBROSIUM_TORCH.get().asItem())
+                .pattern("AAA")
+                .pattern("ABA")
+                .pattern("AAA")
+                .unlockedBy(getHasName(DAItems.SKYJADE_NUGGET.get()), has(DAItems.SKYJADE_NUGGET.get()))
+                .save(consumer, name("skyjade_lantern_from_skyjade_nuggets"));
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, DABlocks.SKYJADE_CHAIN.get())
+                .define('A', DAItems.SKYJADE_NUGGET.get())
+                .define('B', DAItems.SKYJADE.get())
+                .pattern("A")
+                .pattern("B")
+                .pattern("A")
+                .unlockedBy(getHasName(DAItems.SKYJADE_NUGGET.get()), has(DAItems.SKYJADE_NUGGET.get()))
+                .save(consumer, name("skyjade_chain_from_skyjade_nuggets"));
+
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, DABlocks.STRATUS_BLOCK.get())
                 .define('A', DAItems.STRATUS_INGOT.get())
                 .pattern("AAA")
