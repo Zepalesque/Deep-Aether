@@ -702,6 +702,9 @@ public class EOTSSegment extends FlyingMob implements Enemy {
 
         @Override
         public boolean canContinueToUse() {
+            if(this.segment.segmentDeathAnimation) {
+                return false;
+            }
             if(this.segment.hurtTime > 0) {
                 segment.goToIdlePosRelativeToDirection(); //Forces the segment to go to its idle pos if it takes damage
                 return false;
@@ -763,6 +766,9 @@ public class EOTSSegment extends FlyingMob implements Enemy {
 
         @Override
         public boolean canContinueToUse() {
+            if(this.segment.segmentDeathAnimation) {
+                return false;
+            }
             if(attackDelay < -2) {
                 return false;
             }

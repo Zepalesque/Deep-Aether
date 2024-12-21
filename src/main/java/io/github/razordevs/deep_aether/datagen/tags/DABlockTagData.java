@@ -564,6 +564,8 @@ public class DABlockTagData extends BlockTagsProvider {
                 DABlocks.BLIGHTMOSS_HOLYSTONE_TILE_STAIRS.get(),
                 DABlocks.BLIGHTMOSS_HOLYSTONE_TILE_WALL.get(),
 
+                DABlocks.NIMBUS_PILLAR.get(),
+                DABlocks.LIGHT_NIMBUS_PILLAR.get(),
                 DABlocks.NIMBUS_STONE.get(),
                 DABlocks.LIGHT_NIMBUS_STONE.get(),
                 DABlocks.NIMBUS_STAIRS.get(),
