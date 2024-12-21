@@ -365,6 +365,7 @@ public class DAItemTagData extends ItemTagsProvider {
 
         tag(AetherTags.Items.ACCESSORIES_GLOVES).add(
                 DAItems.SKYJADE_GLOVES.get(),
+                DAItems.STORMFORGED_GLOVES.get(),
                 DAItems.STRATUS_GLOVES.get()
         );
 

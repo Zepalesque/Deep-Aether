@@ -357,6 +357,7 @@ public class DAItemModelData extends AetherItemModelProvider {
         this.leggingsItem(DAItems.STORMFORGED_LEGGINGS.get());
         this.chestplateItem(DAItems.STORMFORGED_CHESTPLATE.get());
         this.helmetItem(DAItems.STORMFORGED_HELMET.get());
+        this.glovesItem(DAItems.STORMFORGED_GLOVES.get());
 
         this.item(DAItems.STRATUS_RING.get());
         this.item(DAItems.STRATUS_SMITHING_TEMPLATE.get());
