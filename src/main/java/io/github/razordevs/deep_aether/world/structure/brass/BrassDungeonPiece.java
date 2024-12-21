@@ -22,7 +22,7 @@ public class BrassDungeonPiece extends AetherTemplateStructurePiece {
 
     public static final RuleProcessor TRAPPED_NIMBUS_STONE = new RuleProcessor(ImmutableList.of(
             new ProcessorRule(new RandomBlockMatchTest(DABlocks.LOCKED_NIMBUS_STONE.get(), 0.05F), AlwaysTrueTest.INSTANCE, DABlocks.TRAPPED_NIMBUS_STONE.get().defaultBlockState()),
-            new ProcessorRule(new RandomBlockMatchTest(DABlocks.LOCKED_LIGHT_NIMBUS_PILLAR.get(), 0.05F), AlwaysTrueTest.INSTANCE, DABlocks.TRAPPED_LIGHT_NIMBUS_STONE.get().defaultBlockState())
+            new ProcessorRule(new RandomBlockMatchTest(DABlocks.LOCKED_LIGHT_NIMBUS_STONE.get(), 0.05F), AlwaysTrueTest.INSTANCE, DABlocks.TRAPPED_LIGHT_NIMBUS_STONE.get().defaultBlockState())
     ));
 
     public static final RuleProcessor TRAPPED_SKYROOT_PLANKS_NORMAL = new RuleProcessor(ImmutableList.of(

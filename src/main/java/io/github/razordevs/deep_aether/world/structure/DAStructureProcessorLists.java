@@ -49,6 +49,7 @@ public class DAStructureProcessorLists {
     private static List<StructureProcessor> createBrassDungeonList(StructureProcessor... ruleProcessor) {
         List<StructureProcessor> list = new ArrayList<>() {{
             add(BrassDungeonPiece.LOCKED_NIMBUS_STONE);
+            add(BrassDungeonPiece.TRAPPED_NIMBUS_STONE);
             add(DoubleDropsProcessor.INSTANCE);
         }};
         list.addAll(List.of(ruleProcessor));

@@ -60,17 +60,15 @@ public class BrassDungeonStructure extends Structure {
     private String getRandomRoomType(RandomSource random) {
         int num = random.nextInt(77);
 
-        if(num <= 20)
-            return "empty_0";
-        else if(num <=40)
-            return "empty_1";
-        else if(num <=60)
-            return "empty_2";
-        else if(num <=65)
-            return "garden";
-        else if(num <= 75)
-            return "library";
-        else return "infested";
+        if(num <= 25)
+            return "brass_dungeon_room_4"; //Empty
+        else if(num <=45)
+            return "brass_dungeon_room_0"; //Interior
+        else if(num <=55)
+            return "brass_dungeon_room_2"; //Garden
+        else if(num <= 70)
+            return "brass_dungeon_room_1"; //Library
+        else return "brass_dungeon_room_3"; //Infested
     }
 
 
@@ -125,14 +123,14 @@ public class BrassDungeonStructure extends Structure {
     private void createBossRoom(RandomSource random, StructurePiecesBuilder builder, BlockPos pos, Rotation rotation, StructureTemplateManager templateManager, boolean parent) {
         String room = this.getRandomRoomType(random);
 
-        if(room.equals("garden")) {
-            if(parent) builder.addPiece(new BrassRoom.BossRoom(templateManager, "garden_boss", pos, rotation, this.processors.gardenBossSettings()));
-            else builder.addPiece(new BrassRoom(templateManager, "garden", pos, rotation, this.processors.gardenRoomSettings()));
+        if(room.equals("brass_dungeon_room_2")) {
+            if(parent) builder.addPiece(new BrassRoom.BossRoom(templateManager, room +"_boss", pos, rotation, this.processors.gardenBossSettings()));
+            else builder.addPiece(new BrassRoom(templateManager, room, pos, rotation, this.processors.gardenRoomSettings()));
 
         }
-        else if(room.equals("infested")) {
-            if(parent) builder.addPiece(new BrassRoom.BossRoom(templateManager, "infested_boss", pos, rotation, this.processors.infestedBossSettings()));
-            else builder.addPiece(new BrassRoom(templateManager, "infested", pos, rotation, this.processors.infestedRoomSettings()));
+        else if(room.equals("brass_dungeon_room_3")) {
+            if(parent) builder.addPiece(new BrassRoom.BossRoom(templateManager, room +"_boss", pos, rotation, this.processors.infestedBossSettings()));
+            else builder.addPiece(new BrassRoom(templateManager, room, pos, rotation, this.processors.infestedRoomSettings()));
         }
         else {
             if(parent) builder.addPiece(new BrassRoom.BossRoom(templateManager, room +"_boss", pos, rotation, this.processors.bossSettings()));
