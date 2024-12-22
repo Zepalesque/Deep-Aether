@@ -68,8 +68,8 @@ import java.util.function.Function;
 public class EOTSController extends Mob implements AetherBossMob<EOTSController>, Enemy, IEntityWithComplexSpawn {
     protected List<EOTSSegment> controllingSegments = new ArrayList<>();
     protected List<UUID> segmentUUIDs = new ArrayList<>();
-    public static final int SEGMENT_COUNT = 15;
-    public static final int EXTRA_SEGMENT = 5;
+    public static final int SEGMENT_COUNT = 22;
+    public static final int EXTRA_SEGMENT = 4;
     private static final Music EOTS_MUSIC = new Music(DASounds.MUSIC_BOSS_EOTS, 0, 0, true);
     private static final EntityDataAccessor<Boolean> DATA_AWAKE_ID = SynchedEntityData.defineId(EOTSController.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Component> DATA_BOSS_NAME_ID = SynchedEntityData.defineId(EOTSController.class, EntityDataSerializers.COMPONENT);
@@ -125,7 +125,7 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
 
     @NotNull
     public static AttributeSupplier.Builder createMobAttributes() {
-        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 225.1).add(Attributes.FOLLOW_RANGE, 96.0);
+        return Mob.createMobAttributes().add(Attributes.MAX_HEALTH, 220.1).add(Attributes.FOLLOW_RANGE, 96.0);
     }
 
     @Override
@@ -305,7 +305,7 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
     }
 
     private static AttributeModifier getBonusHealth(int extra) {
-        return new AttributeModifier(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "eots_health_multiplayer"), extra*15.0F, AttributeModifier.Operation.ADD_VALUE);
+        return new AttributeModifier(ResourceLocation.fromNamespaceAndPath(DeepAether.MODID, "eots_health_multiplayer"), extra*10.0F, AttributeModifier.Operation.ADD_VALUE);
     }
 
     protected void spawnSegments() {
