@@ -493,7 +493,7 @@ public class DARecipeData extends AetherRecipeProvider {
 
         ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, DABlocks.SKYJADE_CHAIN.get())
                 .define('A', DAItems.SKYJADE_NUGGET.get())
-                .define('B', DAItems.SKYJADE.get())
+                .define('B', AetherItems.SKYROOT_STICK.get())
                 .pattern("A")
                 .pattern("B")
                 .pattern("A")

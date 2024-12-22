@@ -28,7 +28,6 @@ public class DABiomeTagData extends BiomeTagsProvider {
                 DABiomes.GOLDEN_GROVE,
                 DABiomes.SACRED_LANDS,
                 DABiomes.CLOUD,
-                DABiomes.STORM_CLOUD,
                 DABiomes.OVERGROWN_CLOUD,
                 DABiomes.LUMINESCENT_FOREST
         );
@@ -57,9 +56,6 @@ public class DABiomeTagData extends BiomeTagsProvider {
         this.tag(DATags.Biomes.IS_CLOUD).add(
                 DABiomes.OVERGROWN_CLOUD,
                 DABiomes.CLOUD
-        );
-        this.tag(DATags.Biomes.IS_RAIN_CLOUD).add(
-                DABiomes.STORM_CLOUD
         );
     }
 }

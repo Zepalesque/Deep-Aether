@@ -18,7 +18,6 @@ public class DABiomes {
     public static final ResourceKey<Biome> GOLDEN_GROVE = createKey("golden_grove");
     public static final ResourceKey<Biome> SACRED_LANDS = createKey("sacred_lands");
     public static final ResourceKey<Biome> CLOUD = createKey("cloud");
-    public static final ResourceKey<Biome> STORM_CLOUD = createKey("storm_cloud");
     public static final ResourceKey<Biome> OVERGROWN_CLOUD = createKey("overgrown_cloud");
     public static final ResourceKey<Biome> LUMINESCENT_FOREST = createKey("luminescent_forest");
 
