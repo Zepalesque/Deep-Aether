@@ -266,7 +266,7 @@ public class EOTSController extends Mob implements AetherBossMob<EOTSController>
 
         if (this.getDungeon() != null) {
             this.setPos(this.getDungeon().originCoordinates());
-            this.openRoom();
+            this.getDungeon().modifyRoom((state) -> state.getBlock() instanceof DoorwayBlock || state.getBlock() instanceof DoorwayPillarBlock ? state.setValue(DoorwayBlock.INVISIBLE, true) : null);
         }
 
         this.setInvisible(false);
