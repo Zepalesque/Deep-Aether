@@ -688,7 +688,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
                 return false;
             } else {
                 this.hasAttacked = false;
-                this.nextScanTick = (int) (((float) (this.segment.random.nextInt(25,80)))/this.segment.getGlobalAttackModifier());
+                this.nextScanTick = (int) (((float) (this.segment.random.nextInt(20,70)))/this.segment.getGlobalAttackModifier());
                 return true;
             }
         }
@@ -769,7 +769,7 @@ public class EOTSSegment extends FlyingMob implements Enemy {
                 --this.attackTimer;
                 return false;
             } else {
-                this.attackTimer = (int) (((float) (this.segment.random.nextInt(25,60)))/this.segment.getGlobalAttackModifier());
+                this.attackTimer = (int) (((float) (this.segment.random.nextInt(25,75)))/this.segment.getGlobalAttackModifier());
                 return true;
             }
         }
