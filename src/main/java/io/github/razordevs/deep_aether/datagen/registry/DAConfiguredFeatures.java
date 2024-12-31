@@ -65,6 +65,7 @@ import net.minecraft.world.level.levelgen.placement.CaveSurface;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.zepalesque.unity.block.UnityBlocks;
 
 import java.util.List;
 import java.util.Optional;
@@ -149,9 +150,9 @@ public class DAConfiguredFeatures {
         HolderGetter<ConfiguredFeature<?, ?>> configuredFeatures = context.lookup(Registries.CONFIGURED_FEATURE);
 
         register(context, POISON_LAKE_CONFIGURATION, DAFeatures.POISON_LAKE.get(), AetherConfiguredFeatureBuilders.lake(BlockStateProvider.simple(DABlocks.POISON_BLOCK.get()),
-                BlockStateProvider.simple(DABlocks.AETHER_MUD.get())));
+                BlockStateProvider.simple(UnityBlocks.AETHER_MUD.get())));
         register(context, POISON_SPRING_CONFIGURATION, Feature.SPRING,
-                AetherConfiguredFeatureBuilders.spring(DABlocks.POISON_BLOCK.get().fluid.defaultFluidState(), true, 4, 1, HolderSet.direct(Block::builtInRegistryHolder, AetherBlocks.HOLYSTONE.get(), DABlocks.AETHER_MUD.get())));
+                AetherConfiguredFeatureBuilders.spring(DABlocks.POISON_BLOCK.get().fluid.defaultFluidState(), true, 4, 1, HolderSet.direct(Block::builtInRegistryHolder, AetherBlocks.HOLYSTONE.get(), UnityBlocks.AETHER_MUD.get())));
 
         register(context, AERCLOUD_LAKE_CONFIGURATION, AetherFeatures.LAKE.get(), AetherConfiguredFeatureBuilders.lake(BlockStateProvider.simple(Blocks.WATER),
                 BlockStateProvider.simple(DABlocks.RAIN_AERCLOUD.get())));
@@ -257,7 +258,7 @@ public class DAConfiguredFeatures {
                         BlockStateProvider.simple(DAFeatureStates.VIRULENT_QUICKSAND),
                         ConstantFloat.of(Mth.sqrt(12)),
                         UniformInt.of(0, 48),
-                        HolderSet.direct(Block::builtInRegistryHolder, DABlocks.AETHER_MUD.get())));
+                        HolderSet.direct(Block::builtInRegistryHolder, UnityBlocks.AETHER_MUD.get())));
 
 
         register(context, BLUE_ROSEROOT_TREE_LARGE, Feature.TREE,
@@ -284,7 +285,7 @@ public class DAConfiguredFeatures {
                         new YagrootFoliagePlacer(ConstantInt.of(1), ConstantInt.of(1), ConstantInt.of(1)), Optional.of(
                         new YagrootRootPlacer(UniformInt.of(0, 1), BlockStateProvider.simple(DAFeatureStates.YAGROOT_ROOTS), Optional.of(
                                 new AboveRootPlacement(BlockStateProvider.simple(DAFeatureStates.AETHER_MOSS_CARPET), 0.5F)),
-                                new MangroveRootPlacement(holdergetter.getOrThrow(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH), HolderSet.direct(Block::builtInRegistryHolder, DABlocks.AETHER_MUD.get(), DABlocks.MUDDY_YAGROOT_ROOTS.get()), BlockStateProvider.simple(DAFeatureStates.YAGROOT_ROOTS), 8, 15, 0.0F))),
+                                new MangroveRootPlacement(holdergetter.getOrThrow(BlockTags.MANGROVE_ROOTS_CAN_GROW_THROUGH), HolderSet.direct(Block::builtInRegistryHolder, UnityBlocks.AETHER_MUD.get(), DABlocks.MUDDY_YAGROOT_ROOTS.get()), BlockStateProvider.simple(DAFeatureStates.YAGROOT_ROOTS), 8, 15, 0.0F))),
                         new TwoLayersFeatureSize(2, 0, 2))).decorators(List.of(new YagrootVineDecorator(0.2f))).ignoreVines().build());
 
 
@@ -427,12 +428,12 @@ public class DAConfiguredFeatures {
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(SUNROOT_TREE), PlacementUtils.filteredByBlockSurvival(DABlocks.SUNROOT_SAPLING.get())), 0.5F)),
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CONBERRY_TREE), PlacementUtils.filteredByBlockSurvival(DABlocks.CONBERRY_SAPLING.get()))));
 
-        register(context, AETHER_MOSS_VEGETATION, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(DABlocks.AETHER_MOSS_CARPET.get().defaultBlockState(), 25).add(Blocks.SHORT_GRASS.defaultBlockState(), 50).add(Blocks.SHORT_GRASS.defaultBlockState(), 10))));
-        register(context, AETHER_MOSS_PATCH_BONEMEAL, Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, BlockStateProvider.simple(DABlocks.AETHER_MOSS_BLOCK.get()),
+        register(context, AETHER_MOSS_VEGETATION, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(UnityBlocks.FLUTEMOSS_CARPET.get().defaultBlockState(), 25).add(Blocks.SHORT_GRASS.defaultBlockState(), 50).add(Blocks.SHORT_GRASS.defaultBlockState(), 10))));
+        register(context, AETHER_MOSS_PATCH_BONEMEAL, Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, BlockStateProvider.simple(UnityBlocks.FLUTEMOSS_BLOCK.get()),
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(AETHER_MOSS_VEGETATION)), CaveSurface.FLOOR, ConstantInt.of(1), 0.0F, 5, 0.6F, UniformInt.of(1, 2), 0.75F));
 
         register(context, AETHER_COARSE_DIRT, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(DABlocks.LIGHTCAP_MUSHROOMS.get().defaultBlockState(), 1).add(Blocks.AIR.defaultBlockState(), 10))));
-        register(context, AETHER_COARSE_DIRT_PATCH, Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, BlockStateProvider.simple(DABlocks.AETHER_COARSE_DIRT.get()),
+        register(context, AETHER_COARSE_DIRT_PATCH, Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, BlockStateProvider.simple(UnityBlocks.COARSE_AETHER_DIRT.get()),
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(AETHER_COARSE_DIRT)), CaveSurface.FLOOR, ConstantInt.of(1), 0.0F, 5, 0.6F, UniformInt.of(1, 2), 0.75F));
 
         register(context, ORE_SKYJADE_CONFIGURATION, Feature.ORE, new OreConfiguration(AetherFeatureRules.HOLYSTONE, DAFeatureStates.SKYJADE_ORE, 6, 0.65F));
