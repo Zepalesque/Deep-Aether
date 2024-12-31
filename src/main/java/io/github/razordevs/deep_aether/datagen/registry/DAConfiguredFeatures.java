@@ -66,6 +66,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.zepalesque.unity.block.UnityBlocks;
+import net.zepalesque.unity.data.resource.registries.UnityFeatureConfig;
 
 import java.util.List;
 import java.util.Optional;
@@ -83,7 +84,7 @@ public class DAConfiguredFeatures {
     public static final ResourceKey<ConfiguredFeature<?,?>> CRUDEROOT_TREE_CONFIGURATION = createKey("cruderoot_tree");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ROSEROOT_AND_BLUE_ROSEROOT_TREES_PLACEMENT = createKey("roseroot_and_blue_roseroot_trees_placement");
     public static final ResourceKey<ConfiguredFeature<?, ?>> YAGROOT_AND_CRUDEROOT_TREES_PLACEMENT = createKey("yagroot_and_cruderoot_trees_placement");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> AETHER_MOSS_VEGETATION = createKey("aether_moss_vegetation");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> AETHER_MOSS_VEGETATION = UnityFeatureConfig.FLUTEMOSS_VEGETATION;
     public static final ResourceKey<ConfiguredFeature<?, ?>> AETHER_MOSS_PATCH_BONEMEAL = createKey("aether_moss_patch_bonemeal");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SKYJADE_CONFIGURATION = createKey("skyjade_ore");
     public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_MORE_SKYJADE_CONFIGURATION = createKey("more_skyjade_ore");
@@ -193,7 +194,7 @@ public class DAConfiguredFeatures {
 
         register(context, LUMINESCENT_SKYROOT_FOREST_GRASS, Feature.RANDOM_PATCH,
                 NitrogenConfiguredFeatureBuilders.grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
-                        .add(Blocks.SHORT_GRASS.defaultBlockState(),40)
+                        .add(UnityBlocks.SHORT_AETHER_GRASS.get().defaultBlockState(),40)
                         .add(DABlocks.TALL_GLOWING_GRASS.get().defaultBlockState(),20)
                         .add(DAFeatureStates.RADIANT_ORCHID, 4)), 140));
 
@@ -357,15 +358,14 @@ public class DAConfiguredFeatures {
                 NitrogenConfiguredFeatureBuilders.grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(DAFeatureStates.AERLAVENDER, 64)
                         .add(DAFeatureStates.TALL_AERLAVENDER, 32)
-                        .add(Blocks.TALL_GRASS.defaultBlockState(), 16)
                         .add(AetherFeatureStates.BERRY_BUSH, 1)
-                        .add(Blocks.SHORT_GRASS.defaultBlockState(), 32)), 418));
+                        .add(UnityBlocks.SHORT_AETHER_GRASS.get().defaultBlockState(), 48)), 418));
 
 
         register(context, AETHER_CATTAILS_PATCH, Feature.FLOWER,
                 NitrogenConfiguredFeatureBuilders.grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(DAFeatureStates.AETHER_CATTAILS, 5)
-                        .add(Blocks.SHORT_GRASS.defaultBlockState(), 5)
+                        .add(UnityBlocks.SHORT_AETHER_GRASS.get().defaultBlockState(), 5)
                         .add(DAFeatureStates.TALL_AETHER_CATTAILS, 3)), 15));
 
         register(context, ROSEROOT_FOREST_FLOWERS, Feature.FLOWER,
@@ -402,8 +402,7 @@ public class DAConfiguredFeatures {
                 NitrogenConfiguredFeatureBuilders.grassPatch(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder()
                         .add(DAFeatureStates.FEATHER_GRASS,12)
                         .add(DAFeatureStates.TALL_FEATHER_GRASS,3)
-                        .add(Blocks.SHORT_GRASS.defaultBlockState(),6)
-                        .add(Blocks.TALL_GRASS.defaultBlockState(),2)
+                        .add(UnityBlocks.SHORT_AETHER_GRASS.get().defaultBlockState(), 8)
                         .add(AetherFeatureStates.BERRY_BUSH, 1)), 90));
 
         register(context, ROSEROOT_TREES_PLACEMENT, Feature.RANDOM_SELECTOR, new RandomFeatureConfiguration(List.of(
@@ -428,7 +427,7 @@ public class DAConfiguredFeatures {
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(SUNROOT_TREE), PlacementUtils.filteredByBlockSurvival(DABlocks.SUNROOT_SAPLING.get())), 0.5F)),
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(CONBERRY_TREE), PlacementUtils.filteredByBlockSurvival(DABlocks.CONBERRY_SAPLING.get()))));
 
-        register(context, AETHER_MOSS_VEGETATION, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(UnityBlocks.FLUTEMOSS_CARPET.get().defaultBlockState(), 25).add(Blocks.SHORT_GRASS.defaultBlockState(), 50).add(Blocks.SHORT_GRASS.defaultBlockState(), 10))));
+        register(context, AETHER_MOSS_VEGETATION, Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(new WeightedStateProvider(SimpleWeightedRandomList.<BlockState>builder().add(UnityBlocks.FLUTEMOSS_CARPET.get().defaultBlockState(), 25).add(UnityBlocks.SHORT_AETHER_GRASS.get().defaultBlockState(), 50).add(UnityBlocks.SHORT_AETHER_GRASS.get().defaultBlockState(), 10))));
         register(context, AETHER_MOSS_PATCH_BONEMEAL, Feature.VEGETATION_PATCH, new VegetationPatchConfiguration(BlockTags.MOSS_REPLACEABLE, BlockStateProvider.simple(UnityBlocks.FLUTEMOSS_BLOCK.get()),
                 PlacementUtils.inlinePlaced(configuredFeatures.getOrThrow(AETHER_MOSS_VEGETATION)), CaveSurface.FLOOR, ConstantInt.of(1), 0.0F, 5, 0.6F, UniformInt.of(1, 2), 0.75F));
 
